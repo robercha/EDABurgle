@@ -41,7 +41,9 @@ private:
     apr_status_t status; //esta variable la usamos para leer los errores y verificar cuando las cosas andan o no.
     apr_pool_t *mp; //esta variable la conocemos del tp anterior
     apr_socket_t *clientSock;
-    //clock_t client_timer; //variable de tipo clock_t definida en time.h  donde guardaremos la cuenta de ticks.
+    apr_sockaddr_t *sa; //temp
+    apr_socket_t *mysocket; //temp
+
 };
 
 

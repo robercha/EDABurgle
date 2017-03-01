@@ -6,38 +6,38 @@ Networking::Networking(char* ip)
     this->ip = ip;
     clientSock = NULL;
     mp = NULL;
+    sa = NULL;
+    mysocket = NULL;
     apr_initialize();
-    apr_sockaddr_t *sa;
-    apr_socket_t *mysocket;
-    unsigned randNum = rand() % (MAXTIME - MINTIME + 1);
-    randNum += MINTIME;
-
     apr_pool_create(&mp, NULL);
 
-    //Llamamos a la función que inicia la conexión al puerto DEF_REMOTE_PORT de la dirección IP DEF_REMOTE_HOST
-    do
-    {
-        status = doConnect(ip, sa, mysocket);
-    }
-    while ((status != APR_SUCCESS) && (getTimerCount() <= randNum));
-
-    if (status == APR_SUCCESS)
-    {
-        printf("\n able to connect..");
-    }
-    else
-    {
-
-    }
-
-    //printf("\ncannot connect. quitting..");
-
-}
+}//kk
+//void Networking::connect(void)
+//{
+//    unsigned randNum = rand() % (MAXTIME - MINTIME + 1); //
+//    randNum += MINTIME;                         //
+//
+//
+//        status = doConnect(ip, sa, mysocket);
+//    //while ((status != APR_SUCCESS) && (getTimerCount() <= randNum) && (!=escape)));
+//
+//    if (status == APR_SUCCESS)
+//    {
+//        printf("\n able to connect..");
+//    }
+//    else
+//    {
+//
+//    }
+//
+//    //printf("\ncannot connect. quitting..");
+//
+//}
 
 apr_status_t
 Networking::doConnect(const char* ip, apr_sockaddr_t *sa, apr_socket_t *mysocket)
 {
-    status = apr_sockaddr_info_get(&sa, ip/*DEF_REMOTE_HOST*/, AF_INET, DEF_REMOTE_PORT, 0, mp);
+    status = apr_sockaddr_info_get(&sa, ip, AF_INET, DEF_REMOTE_PORT, 0, mp);
 
     if (status == APR_SUCCESS)
     {
