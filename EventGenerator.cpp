@@ -1,7 +1,8 @@
 
 #include "EventGenerator.h"
 
-Networking::Networking(char* ip) {
+Networking::Networking(char* ip)
+{
     this->ip = ip;
     clientSock = NULL;
     mp = NULL;
@@ -14,21 +15,32 @@ Networking::Networking(char* ip) {
     apr_pool_create(&mp, NULL);
 
     //Llamamos a la función que inicia la conexión al puerto DEF_REMOTE_PORT de la dirección IP DEF_REMOTE_HOST
-    do {
+    do
+    {
         status = doConnect(ip, sa, mysocket);
-    } while ((status != APR_SUCCESS) && (getTimerCount() <= randNum));
+    }
+    while ((status != APR_SUCCESS) && (getTimerCount() <= randNum));
 
-    if (status == APR_SUCCESS) {
+    if (status == APR_SUCCESS)
+    {
         printf("\n able to connect..");
-    } else
-        printf("\ncannot connect. quitting..");
+    }
+    else
+    {
+
+    }
+
+    //printf("\ncannot connect. quitting..");
 
 }
 
-apr_status_t Networking::doConnect(const char* ip, apr_sockaddr_t *sa, apr_socket_t *mysocket) {
+apr_status_t
+Networking::doConnect(const char* ip, apr_sockaddr_t *sa, apr_socket_t *mysocket)
+{
     status = apr_sockaddr_info_get(&sa, ip/*DEF_REMOTE_HOST*/, AF_INET, DEF_REMOTE_PORT, 0, mp);
 
-    if (status == APR_SUCCESS) {
+    if (status == APR_SUCCESS)
+    {
 
         // Con el Socket Address creado, tenemos que crear ahora el "Network Socket" (básicamente el protocolo con el que le vamos a hablar al Socket Address...
         // El pirmer parámetro es el ID del Network Address.
@@ -40,7 +52,8 @@ apr_status_t Networking::doConnect(const char* ip, apr_sockaddr_t *sa, apr_socke
         // El quinto parámetro es el pool de memoria que usa APR. previamente inicializado.
         status = apr_socket_create(&mysocket, APR_IPV6_ADDR_OK/*APR_UNSPEC*/, SOCK_STREAM, APR_PROTO_TCP, mp);
 
-        if (status == APR_SUCCESS) {
+        if (status == APR_SUCCESS)
+        {
 
             //Si pudimos crear el Address Socket y Network Socket, antes de crear la conexión le tenemos que decir al programa como utilizar el Network Socket.
             //Nosotros vamos a configurar los timeouts del Network Socket para que sea no bloqueante ya que nos interesa trabajar con Event Driven Programming
@@ -64,7 +77,8 @@ apr_status_t Networking::doConnect(const char* ip, apr_sockaddr_t *sa, apr_socke
             status = apr_socket_connect(mysocket, sa);
 
 
-            if (status == APR_SUCCESS) {
+            if (status == APR_SUCCESS)
+            {
                 //Una vez que nos conectamos mantenemos el Network Socket en no bloqueante
                 //Y lo pasamos a 0 segundos para cumplir con nuestra hipótesis de Event Driven Programming.
                 apr_socket_opt_set(mysocket, APR_SO_NONBLOCK, 1);
@@ -75,7 +89,8 @@ apr_status_t Networking::doConnect(const char* ip, apr_sockaddr_t *sa, apr_socke
                 //Se identifica con el Network Socket.
                 clientSock = mysocket;
             }
-            else {
+            else
+            {
                 //Si no nos pudimos conectar, Buscamos qué error se produjo.
                 char errorstring[1024]; //creamos un espacio donde apr nos de el error.
                 apr_strerror(status, errorstring, 1023); //le pedimos a apr que nos lo traduzca
@@ -92,15 +107,19 @@ apr_status_t Networking::doConnect(const char* ip, apr_sockaddr_t *sa, apr_socke
     return status;
 }
 
-Networking::~Networking() {
+Networking::~Networking()
+{
 
 }
 
-void Networking::startTimerCount() {
+void
+Networking::startTimerCount()
+{
     this->timerCount = apr_time_now();
 }
 
-Networking::getTimerCount() {
+Networking::getTimerCount()
+{
     return apr_time_now() - timerCount;
 }
 
