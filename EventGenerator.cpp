@@ -6,23 +6,26 @@ Networking::Networking(char* ip) {
     clientSock = NULL;
     mp = NULL;
     apr_initialize();
-    apr_sockaddr_t *sa; //Esta variable es un "Socket Address" es la combinación de una IP y un puerto. Para mas detalles ver la definición de Socket Address en https://en.wikipedia.org/wiki/Network_socket.
-    apr_socket_t *mysocket; //Este es el "Network Socket" Según el mismo link. Allí se explica claramente la diferencia entre ellos.
+    apr_sockaddr_t *sa;
+    apr_socket_t *mysocket;
+    unsigned randNum = rand() % (MAXTIME - MINTIME + 1);
+    randNum += MINTIME;
 
     apr_pool_create(&mp, NULL);
 
     //Llamamos a la función que inicia la conexión al puerto DEF_REMOTE_PORT de la dirección IP DEF_REMOTE_HOST
-    status = doConnect(ip);
+    do {
+        status = doConnect(ip, sa, mysocket);
+    } while ((status != APR_SUCCESS) && (getTimerCount() <= randNum));
+
     if (status == APR_SUCCESS) {
-        //Si no pudimos enviar nada se lo comunicamos al usuario
-        if (status != APR_SUCCESS)
-            printf("\nfailed to send data. quitting..");
+        printf("\n able to connect..");
     } else
         printf("\ncannot connect. quitting..");
 
 }
 
-apr_status_t Networking::doConnect(const char* ip) {
+apr_status_t Networking::doConnect(const char* ip, apr_sockaddr_t *sa, apr_socket_t *mysocket) {
     status = apr_sockaddr_info_get(&sa, ip/*DEF_REMOTE_HOST*/, AF_INET, DEF_REMOTE_PORT, 0, mp);
 
     if (status == APR_SUCCESS) {
@@ -71,22 +74,33 @@ apr_status_t Networking::doConnect(const char* ip) {
                 //Noten que una vez que nos conectamos el Address Socket ya no sirve. La conexión
                 //Se identifica con el Network Socket.
                 clientSock = mysocket;
-            } else {
+            }
+            else {
                 //Si no nos pudimos conectar, Buscamos qué error se produjo.
                 char errorstring[1024]; //creamos un espacio donde apr nos de el error.
                 apr_strerror(status, errorstring, 1023); //le pedimos a apr que nos lo traduzca
 
                 printf("%s", errorstring); //lo imprimimos.
             }
-        } else
+        }
+        else
             printf("\nCANNOT CREATE SOCKET TO CONNECT");
-    } else
+    }
+    else
         printf("\nCANNOT GET SERVER INFO\n");
 
-    return APR_SUCCESS;
+    return status;
 }
 
 Networking::~Networking() {
 
+}
+
+void Networking::startTimerCount() {
+    this->timerCount = apr_time_now();
+}
+
+Networking::getTimerCount() {
+    return apr_time_now() - timerCount;
 }
 
