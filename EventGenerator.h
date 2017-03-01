@@ -12,8 +12,8 @@
 #define DEF_LISTEN_PORT 15251       //Port que queremos escuchar
 #define DEF_REMOTE_PORT 15251         //Port al que nos queremos conectar
 #define DEF_REMOTE_HOST "127.0.0.1"
-#define MINTIME 200
-#define MAXTIME 10000
+#define MINTIME 200000
+#define MAXTIME 10000000
 
 class EventGenerator {
 public:
