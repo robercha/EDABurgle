@@ -1,27 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * File:   Controller.h
- * Author: calpurnia
- *
- * Created on March 2, 2017, 4:38 PM
- */
-
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
 class Controller {
 public:
     Controller();
-    Controller(const Controller& orig);
-    virtual ~Controller();
+    void manageEvent(void);
+    bool connect(void);
+    void updateGraphics(void);
+    bool initGame(void);
+    bool buildPacket(packet_t packet); //enum
+    translateUserData(void);
+    translatePackage(void);
+    ~Controller();
 private:
+    userData_t* userData;
+    gameData_t* gameData;
+    graphics_t* graphics;
+    FSM* FSM;
+    eventGenerator* user;
+    eventGenerator* networking;
+}
 
-};
 
 #endif /* CONTROLLER_H */
 

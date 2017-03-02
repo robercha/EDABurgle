@@ -24,6 +24,32 @@
 #define BUFSIZE 516
 #define MAXIP 15
 
+typedef enum {
+    ACTION, SWITCH, PREEVENTCOUNT
+} preEvent_t;
+
+typedef enum {
+    MOVE, TILE, PEEK, TRUEEVENTCOUNT
+} trueEvent_t;
+
+typedef enum {
+    PLAYER1, PLAYER2
+} player_t; //no se si va en este header o en otro, capaz de la fsm
+
+typedef struct event {
+    preEvent_t preEvent;
+    trueEvent_t trueEvent;
+    player_t player;
+} event_t;
+
+typedef struct userData {
+    event_t event;
+    char* packet;
+    double mouseX;
+    double mouseY;
+    buttonIndex_t buttonClicked; //ENUM de botones
+} userData_t;
+
 class EventGenerator {
 public:
     virtual void getEvent(userData_t*) = 0;
@@ -34,6 +60,8 @@ public:
     Networking(char* ip);
     ~Networking();
     void getEvent(userData_t*);
+    bool tryConnecting();
+    bool listen();
     bool connect();
     unsigned sendPacket(char*);
     writeLog(char*);
@@ -44,17 +72,25 @@ private:
     char* ip;
     packet_t lastPacketSent;
     unsigned getPacket(char*);
-    apr_status_t doConnect(const char*, apr_sockaddr_t *, apr_socket_t *);
     bool createLog(void);
     std::ofstream file;
     apr_time_t timerCount;
     apr_status_t status; //esta variable la usamos para leer los errores y verificar cuando las cosas andan o no.
     apr_pool_t *mp; //esta variable la conocemos del tp anterior
-    apr_socket_t *clientSock;
+    apr_socket_t *sock;
     apr_sockaddr_t *sa; //temp
     apr_socket_t *mysocket; //temp
 
 };
+
+class userInterface : public EventGenerator {
+public:
+    bool getEvent(userData_t*);
+    unsigned checkClick(double x, double y); //Devuelve el indice en el arreglo de botones que es un enum.
+private:
+    ALLEGRO_EVENT event;
+    button_t buttons[BUTTON_COUNT];
+}
 
 
 
