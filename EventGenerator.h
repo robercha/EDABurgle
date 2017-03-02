@@ -2,6 +2,7 @@
 #ifndef EVENTGENERATOR_H
 #define EVENTGENERATOR_H
 
+#include <fstream>
 #include <apr-1.0/apr_time.h>
 #include <apr-1.0/apr_general.h>
 #include <apr-1.0/apr.h>
@@ -36,7 +37,7 @@ private:
     packet_t lastPacketSent;
     unsigned getPacket(char*);
     apr_status_t doConnect(const char*, apr_sockaddr_t *, apr_socket_t *);
-    FILE* file;
+    std::ofstream file;
     apr_time_t timerCount;
     apr_status_t status; //esta variable la usamos para leer los errores y verificar cuando las cosas andan o no.
     apr_pool_t *mp; //esta variable la conocemos del tp anterior

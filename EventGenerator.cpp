@@ -11,28 +11,13 @@ Networking::Networking(char* ip)
     apr_initialize();
     apr_pool_create(&mp, NULL);
 
-}//kk
-//void Networking::connect(void)
-//{
-//    unsigned randNum = rand() % (MAXTIME - MINTIME + 1); //
-//    randNum += MINTIME;                         //
-//
-//
-//        status = doConnect(ip, sa, mysocket);
-//    //while ((status != APR_SUCCESS) && (getTimerCount() <= randNum) && (!=escape)));
-//
-//    if (status == APR_SUCCESS)
-//    {
-//        printf("\n able to connect..");
-//    }
-//    else
-//    {
-//
-//    }
-//
-//    //printf("\ncannot connect. quitting..");
-//
-//}
+    struct tm *dateInfo; //estructura con informacion de la fecha y hora de la partida
+    time_t rawTime;
+    time(&rawTime);
+    dateInfo = localtime(&rawTime);
+    file.open()
+
+}
 
 apr_status_t
 Networking::doConnect(const char* ip, apr_sockaddr_t *sa, apr_socket_t *mysocket)
