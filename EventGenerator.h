@@ -13,8 +13,16 @@
 #define DEF_LISTEN_PORT 15251       //Port que queremos escuchar
 #define DEF_REMOTE_PORT 15251         //Port al que nos queremos conectar
 #define DEF_REMOTE_HOST "127.0.0.1"
+#define HOME_ADRESS "127.0.0.1"
+#define DEF_SOCKET_BACKLOG SOMAXCONN
+#define SOCK_TIMEOUT (APR_USEC_PER_SEC * 5)
+#define DEF_SOCK_TIMEOUT (APR_USEC_PER_SEC * 5) //TIMEOUT (ver más adelante).
+#define SECONDS_TO_WAIT 10
+#define TIMEOUT_SECONDS 60
 #define MINTIME 200000
 #define MAXTIME 10000000
+#define BUFSIZE 516
+#define MAXIP 15
 
 class EventGenerator {
 public:
@@ -37,6 +45,7 @@ private:
     packet_t lastPacketSent;
     unsigned getPacket(char*);
     apr_status_t doConnect(const char*, apr_sockaddr_t *, apr_socket_t *);
+    bool createLog(void);
     std::ofstream file;
     apr_time_t timerCount;
     apr_status_t status; //esta variable la usamos para leer los errores y verificar cuando las cosas andan o no.

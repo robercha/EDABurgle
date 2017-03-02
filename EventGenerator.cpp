@@ -11,11 +11,7 @@ Networking::Networking(char* ip)
     apr_initialize();
     apr_pool_create(&mp, NULL);
 
-    struct tm *dateInfo; //estructura con informacion de la fecha y hora de la partida
-    time_t rawTime;
-    time(&rawTime);
-    dateInfo = localtime(&rawTime);
-    file.open()
+    createLog();
 
 }
 
@@ -95,6 +91,27 @@ Networking::doConnect(const char* ip, apr_sockaddr_t *sa, apr_socket_t *mysocket
 Networking::~Networking()
 {
 
+}
+
+bool
+Networking::createLog(void)
+{
+    bool status;
+    struct tm *dateInfo; //estructura con informacion de la fecha y hora de la partida
+    time_t rawTime;
+    time(&rawTime);
+    dateInfo = localtime(&rawTime);
+
+    char auxArray[250];
+    auxArray[0] = '\0';
+    strcat(auxArray, asctime(dateInfo));
+    char* pointer = strchr(auxArray, '\n'); //porque la funcion asctime termina con \n
+    *pointer = '\0'; //reemplazamos el '\n' con un terminador '\0'
+    strcat(auxArray, ".txt"); //agregamos el .txt
+
+    this->file.open(auxArray, std::ofstream::out | std::ofstream::app);
+    file << "Log created.";
+    return status = file.is_open();
 }
 
 void
