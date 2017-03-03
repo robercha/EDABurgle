@@ -36,6 +36,14 @@ typedef enum {
     PLAYER1, PLAYER2
 } player_t; //no se si va en este header o en otro, capaz de la fsm
 
+typedef struct buttons {
+    //screen_t screen;
+    double initialX;
+    double initialY;
+    double width;
+    double height;
+} button_t;
+
 typedef struct event {
     preEvent_t preEvent;
     trueEvent_t trueEvent;
@@ -60,13 +68,13 @@ public:
     Networking(char* ip);
     ~Networking();
     void getEvent(userData_t*);
-    bool tryConnecting();
-    bool listen();
-    bool connect();
+    bool tryConnecting(void);
+    bool listen(void);
+    bool connect(void);
     unsigned sendPacket(char*);
     writeLog(char*);
-    apr_time_t getTimerCount();
-    void startTimerCount();
+    apr_time_t getTimerCount(void);
+    void startTimerCount(void);
     //setTimerCount();
 private:
     char* ip;

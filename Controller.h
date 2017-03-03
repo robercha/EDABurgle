@@ -1,3 +1,5 @@
+#include "EventGenerator.h"
+
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
@@ -17,8 +19,8 @@ private:
     gameData_t* gameData;
     graphics_t* graphics;
     FSM* FSM;
-    eventGenerator* user;
-    eventGenerator* networking;
+    EventGenerator* user;
+    EventGenerator* networking;
 }
 
 
