@@ -1,8 +1,12 @@
 #include "Controller.h"
 #include "EventGenerator.h"
-
+#include <new>
 Controller::Controller()
 {
+    this->userData = new userData;
+    this->networking = new Networking;
+    this->user = new userInterface;
+    
 }
 
 
