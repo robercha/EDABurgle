@@ -12,6 +12,9 @@ Controller::Controller(char* ip)
 
 Controller::~Controller()
 {
+    delete networking;
+    delete user;
+    delete userData;
 }
 
 bool
@@ -21,7 +24,6 @@ Controller::connect()
     networking->startTimerCount();
     randomNumber += MINTIME;
     bool success;
-
     do
     {
         user->getEvent(userData);

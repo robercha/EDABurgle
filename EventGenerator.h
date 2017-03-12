@@ -27,11 +27,11 @@
 #define MAXIP 15
 
 typedef enum {
- packet//   ACK = 0x01, AGREE, DISAGREE, NAME = 0x10, NAME_IS, I_AM, INITIAL_G_POS, START_INFO, YOU_START = 0x20, I_START, PEEK = 0x30, MOVE, SPENT_OK, ADD_TOKEN, USE_TOKEN, THROW_DICE, SAFE_OPENED, CREATE_ALARM, SPY_PATROL, PLACE_CROW, OFFER_LOOT, REQUEST_LOOT, PICK_UP__LOOT, PASS, ROLL_DICE_FOR_LOOT, GUARD_MOVEMENT, WE_WON, WE_LOST, GAME_OVER, QUIT = 0xFE, ERROR
+    packet//   ACK = 0x01, AGREE, DISAGREE, NAME = 0x10, NAME_IS, I_AM, INITIAL_G_POS, START_INFO, YOU_START = 0x20, I_START, PEEK = 0x30, MOVE, SPENT_OK, ADD_TOKEN, USE_TOKEN, THROW_DICE, SAFE_OPENED, CREATE_ALARM, SPY_PATROL, PLACE_CROW, OFFER_LOOT, REQUEST_LOOT, PICK_UP__LOOT, PASS, ROLL_DICE_FOR_LOOT, GUARD_MOVEMENT, WE_WON, WE_LOST, GAME_OVER, QUIT = 0xFE, ERROR
 } packet_t;
 
 typedef enum {
- CHAU//   ACTION, SWITCH, PREEVENTCOUNT 
+    CHAU//   ACTION, SWITCH, PREEVENTCOUNT
 } preEvent_t;
 
 typedef enum {
@@ -39,12 +39,12 @@ typedef enum {
 } trueEvent_t;
 
 typedef enum {
-   HOLA , BUTTONCOUNT           // MOVE,TILE, BUTTONCOUNT
+    HOLA, BUTTONCOUNT // MOVE,TILE, BUTTONCOUNT
 } buttons_t;
 
 typedef enum {
     PLAYER1, PLAYER2
-} player_t;     //no se si va en este header o en otro, capaz de la fsm
+} player_t; //no se si va en este header o en otro, capaz de la fsm
 
 typedef struct buttons {
     //screen_t screen;

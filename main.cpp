@@ -19,8 +19,8 @@ main(int argc, char** argv)
     if (ip != NULL)
     {
         bool success;
-        Controller controller(ip);
         srand(time(NULL));
+        Controller controller(ip);
         success = controller.connect();
 
         if (success)

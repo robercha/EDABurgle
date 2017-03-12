@@ -3,10 +3,10 @@
 Networking::Networking(char* ip)
 {
     this->ip = ip;
-    sock = NULL;
-    mp = NULL;
-    sa = NULL;
-    mysocket = NULL;
+    this->sock = NULL;
+    this->mp = NULL;
+    this->sa = NULL;
+    this->mysocket = NULL;
     apr_initialize();
     apr_pool_create(&mp, NULL);
 
@@ -17,6 +17,7 @@ Networking::Networking(char* ip)
 bool
 Networking::tryConnecting()
 {
+
     status = apr_sockaddr_info_get(&sa, ip, AF_INET, DEF_REMOTE_PORT, 0, mp);
 
     if (status == APR_SUCCESS)
@@ -30,10 +31,11 @@ Networking::tryConnecting()
         //    Nosotros vamos a usar siempre SOCK_STREAM. Más detalles en: http://stackoverflow.com/questions/5815675/strange-thing-sock-dgram-and-sock-stream
         // El cuarto parámetro refier al protocolo a utilizar. Nosotros vamos a usar siempre TCP en la cátedra. Por lo tanto APR_PROTO_TCP.
         // El quinto parámetro es el pool de memoria que usa APR. previamente inicializado.
-        status = apr_socket_create(&mysocket, APR_IPV6_ADDR_OK/*APR_UNSPEC*/, SOCK_STREAM, APR_PROTO_TCP, mp);
+        status = apr_socket_create(&mysocket, APR_INET /*APR_UNSPEC*/, SOCK_STREAM, APR_PROTO_TCP, mp);
 
         if (status == APR_SUCCESS)
         {
+            //sleep(10);
 
             //Si pudimos crear el Address Socket y Network Socket, antes de crear la conexión le tenemos que decir al programa como utilizar el Network Socket.
             //Nosotros vamos a configurar los timeouts del Network Socket para que sea no bloqueante ya que nos interesa trabajar con Event Driven Programming
@@ -90,7 +92,7 @@ Networking::tryConnecting()
 bool
 Networking::listen(void)
 {
-    bool status = apr_sockaddr_info_get(&sa, HOME_ADRESS, AF_INET, DEF_LISTEN_PORT, 0, mp);
+    status = apr_sockaddr_info_get(&sa, HOME_ADRESS, AF_INET, DEF_LISTEN_PORT, 0, mp);
 
     if (status == APR_SUCCESS)
     {
