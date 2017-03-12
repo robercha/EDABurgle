@@ -3,6 +3,8 @@
 #define EVENTGENERATOR_H
 
 #include <fstream>
+#include <allegro5/allegro5.h>
+#include <allegro5/events.h>
 #include <apr-1.0/apr_time.h>
 #include <apr-1.0/apr_general.h>
 #include <apr-1.0/apr.h>
@@ -37,6 +39,10 @@ typedef enum {
 } trueEvent_t;
 
 typedef enum {
+    MOVE,TILE, BUTTONCOUNT
+}; button_t
+
+typedef enum {
     PLAYER1, PLAYER2
 } player_t; //no se si va en este header o en otro, capaz de la fsm
 
@@ -59,7 +65,7 @@ typedef struct userData {
     char* packet;
     double mouseX;
     double mouseY;
-    buttonIndex_t buttonClicked; //ENUM de botones
+    button_t buttonClicked; //ENUM de botones
 } userData_t;
 
 class EventGenerator {
@@ -100,12 +106,11 @@ public:
     bool getEvent(userData_t*);
     unsigned checkClick(double x, double y); //Devuelve el indice en el arreglo de botones que es un enum.
 private:
-    ALLEGRO_EVENT event;
-    button_t buttons[BUTTON_COUNT];
+    ALLEGRO_EVENT* event;
+    button_t buttons[BUTTONCOUNT];
 }
 
 
 
 
 #endif /* EVENTGENERATOR_H */
-
