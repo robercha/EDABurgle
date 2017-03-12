@@ -1,21 +1,21 @@
 #include "Controller.h"
 #include "EventGenerator.h"
 #include <new>
-Controller::Controller()
+
+Controller::Controller(char* ip)
 {
-    this->userData = new userData;
-    this->networking = new Networking;
+    this->userData = new userData_t;
+    this->networking = new Networking(ip);
     this->user = new userInterface;
-    
+
 }
-
-
 
 Controller::~Controller()
 {
 }
 
-bool Controller::connect()
+bool
+Controller::connect()
 {
     unsigned randomNumber = rand() % (MAXTIME - MINTIME + 1);
     networking->startTimerCount();
@@ -48,16 +48,16 @@ bool Controller::connect()
             printf("success connecting");
             //networking.writeLog("connection succeed");
         }
-        else if(userData->event.trueEvent == ESC)
+        else if (userData->event.trueEvent == ESC)
         {
             //networking->writeLog("Game Exited");
         }
-        else if(userData->event.trueEvent == TIMEOUT)
+        else if (userData->event.trueEvent == TIMEOUT)
         {
             //networking->writeLog("Timeout");
         }
     }
-    
+
     return success;
 }
 

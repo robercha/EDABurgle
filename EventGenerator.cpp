@@ -1,4 +1,3 @@
-
 #include "EventGenerator.h"
 
 Networking::Networking(char* ip)
@@ -188,7 +187,8 @@ Networking::startTimerCount()
     this->timerCount = apr_time_now();
 }
 
-unsigned Networking::getTimerCount()
+unsigned
+Networking::getTimerCount()
 {
     return apr_time_now() - timerCount;
 }
@@ -204,7 +204,14 @@ Networking::~Networking()
     apr_terminate();
 }
 
-bool userInterface::getEvent(userData_t*)
+bool
+Networking::getEvent(userData_t*)
+{
+
+}
+
+bool
+userInterface::getEvent(userData_t*)
 {
 }
 

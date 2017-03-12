@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <iostream>
 #include "Controller.h"
 
 using namespace std;
@@ -10,21 +11,22 @@ using namespace std;
 
 char* parseIP(int argc, char* argv);
 
-int main(int argc, char** argv)
+int
+main(int argc, char** argv)
 {
     char* ip = NULL;
     ip = parseIP(argc, argv[1]); //devuelve NULL si hubo error
     if (ip != NULL)
     {
         bool success;
-        
+        Controller controller(ip);
         srand(time(NULL));
-        success = Controller.connect();
-        
-        if(success)
-            cout <<"connection succeed"<<endl;
+        success = controller.connect();
+
+        if (success)
+            cout << "connection succeed" << endl;
         else
-            cout <<"connection failed"<<endl;
+            cout << "connection failed" << endl;
     }
     else
         cout << "no se pasó ip" << endl;
