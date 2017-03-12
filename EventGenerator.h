@@ -31,11 +31,11 @@ typedef enum {
 } packet_t;
 
 typedef enum {
-    ACTION, SWITCH, PREEVENTCOUNT
+    ACTION, SWITCH, PREEVENTCOUNT 
 } preEvent_t;
 
 typedef enum {
-    MOVE, TILE, PEEK, TRUEEVENTCOUNT
+    MOVE, TILE, PEEK, TRUEEVENTCOUNT, TIMEOUT, ESC
 } trueEvent_t;
 
 typedef enum {
@@ -107,6 +107,7 @@ public:
     unsigned checkClick(double x, double y); //Devuelve el indice en el arreglo de botones que es un enum.
 private:
     ALLEGRO_EVENT* event;
+    ALLEGRO_EVENT_QUEUE* queue;
     button_t buttons[BUTTONCOUNT];
 }
 
