@@ -1,4 +1,6 @@
 #include <cstdlib>
+#include "Controller.h"
+
 using namespace std;
 
 #define MAXIP 15
@@ -6,14 +8,22 @@ using namespace std;
 #define TOTALIPPERIODS 3
 #define IPDIGITS 3
 
-int
-main(int argc, char** argv)
+char* parseIP(int argc, char* argv);
+
+int main(int argc, char** argv)
 {
     char* ip = NULL;
     ip = parseIP(argc, argv[1]); //devuelve NULL si hubo error
     if (ip != NULL)
     {
+        bool success;
         srand(time(NULL));
+        success = Controller.connect();
+        
+        if(success)
+            cout <<"connection succeed"<<endl;
+        else
+            cout <<"connection failed"<<endl;
     }
     else
         cout << "no se pasó ip" << endl;

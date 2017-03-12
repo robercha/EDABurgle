@@ -27,11 +27,11 @@
 #define MAXIP 15
 
 typedef enum {
-    ACK = 0x01, AGREE, DISAGREE, NAME = 0x10, NAME_IS, I_AM, INITIAL_G_POS, START_INFO, YOU_START = 0x20, I_START, PEEK = 0x30, MOVE, SPENT_OK, ADD_TOKEN, USE_TOKEN, THROW_DICE, SAFE_OPENED, CREATE_ALARM, SPY_PATROL, PLACE_CROW, OFFER_LOOT, REQUEST_LOOT, PICK_UP__LOOT, PASS, ROLL_DICE_FOR_LOOT, GUARD_MOVEMENT, WE_WON, WE_LOST, GAME_OVER, QUIT = 0xFE, ERROR
+ packet//   ACK = 0x01, AGREE, DISAGREE, NAME = 0x10, NAME_IS, I_AM, INITIAL_G_POS, START_INFO, YOU_START = 0x20, I_START, PEEK = 0x30, MOVE, SPENT_OK, ADD_TOKEN, USE_TOKEN, THROW_DICE, SAFE_OPENED, CREATE_ALARM, SPY_PATROL, PLACE_CROW, OFFER_LOOT, REQUEST_LOOT, PICK_UP__LOOT, PASS, ROLL_DICE_FOR_LOOT, GUARD_MOVEMENT, WE_WON, WE_LOST, GAME_OVER, QUIT = 0xFE, ERROR
 } packet_t;
 
 typedef enum {
-    ACTION, SWITCH, PREEVENTCOUNT 
+ CHAU//   ACTION, SWITCH, PREEVENTCOUNT 
 } preEvent_t;
 
 typedef enum {
@@ -39,12 +39,12 @@ typedef enum {
 } trueEvent_t;
 
 typedef enum {
-    MOVE,TILE, BUTTONCOUNT
-}; button_t
+   HOLA , BUTTONCOUNT           // MOVE,TILE, BUTTONCOUNT
+} buttons_t;
 
 typedef enum {
     PLAYER1, PLAYER2
-} player_t; //no se si va en este header o en otro, capaz de la fsm
+} player_t;     //no se si va en este header o en otro, capaz de la fsm
 
 typedef struct buttons {
     //screen_t screen;
@@ -65,25 +65,25 @@ typedef struct userData {
     char* packet;
     double mouseX;
     double mouseY;
-    button_t buttonClicked; //ENUM de botones
+    buttons_t buttonClicked; //ENUM de botones
 } userData_t;
 
 class EventGenerator {
 public:
-    virtual void getEvent(userData_t*) = 0;
+    bool virtual getEvent(userData_t*) = 0;
 };
 
 class Networking : public EventGenerator {
 public:
     Networking(char* ip);
     ~Networking();
-    void getEvent(userData_t*);
+    bool getEvent(userData_t*);
     bool tryConnecting(void);
     bool listen(void);
     bool connect(void);
     unsigned sendPacket(char*);
-    writeLog(char*);
-    apr_time_t getTimerCount(void);
+    bool writeLog(char*);
+    unsigned getTimerCount(void);
     void startTimerCount(void);
     //setTimerCount();
 private:
@@ -109,7 +109,7 @@ private:
     ALLEGRO_EVENT* event;
     ALLEGRO_EVENT_QUEUE* queue;
     button_t buttons[BUTTONCOUNT];
-}
+};
 
 
 

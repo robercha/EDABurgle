@@ -161,11 +161,6 @@ Networking::listen(void)
     return status == APR_SUCCESS ? true : false;
 }
 
-Networking::~Networking()
-{
-
-}
-
 bool
 Networking::createLog(void)
 {
@@ -193,7 +188,7 @@ Networking::startTimerCount()
     this->timerCount = apr_time_now();
 }
 
-Networking::getTimerCount()
+unsigned Networking::getTimerCount()
 {
     return apr_time_now() - timerCount;
 }
@@ -201,10 +196,15 @@ Networking::getTimerCount()
 Networking::~Networking()
 {
     apr_pool_destroy(mp);
-    if (clientSock != NULL)
+    if (sock != NULL)
     {
-        apr_socket_shutdown(clientSock, APR_SHUTDOWN_READWRITE);
-        apr_socket_close(clientSock);
+        apr_socket_shutdown(sock, APR_SHUTDOWN_READWRITE);
+        apr_socket_close(sock);
     }
     apr_terminate();
 }
+
+bool userInterface::getEvent(userData_t*)
+{
+}
+
