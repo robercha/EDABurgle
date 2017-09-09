@@ -33,10 +33,11 @@ Controller::connect()
 
     if (success)
     {
-        printf("success connecting");
+        printf("success connecting as client");
     }
     else //!success
     {
+        printf("connection failed as client");
         //networking->writeLog("connection failed as client");
         do
         {
@@ -47,7 +48,7 @@ Controller::connect()
 
         if (success)
         {
-            printf("success connecting");
+            printf("success connecting as server");
             //networking.writeLog("connection succeed");
         }
         else if (userData->event.trueEvent == ESC)

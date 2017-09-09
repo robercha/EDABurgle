@@ -16,7 +16,10 @@
                    projectFiles="true">
       <itemPath>Controller.cpp</itemPath>
       <itemPath>EventGenerator.cpp</itemPath>
+      <itemPath>controllerbeta.cpp</itemPath>
+      <itemPath>eventgen.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>model.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -67,7 +70,13 @@
       </item>
       <item path="EventGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="controllerbeta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="eventgen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="model.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -98,7 +107,13 @@
       </item>
       <item path="EventGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="controllerbeta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="eventgen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="model.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

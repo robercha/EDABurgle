@@ -35,7 +35,7 @@ Networking::tryConnecting()
 
         if (status == APR_SUCCESS)
         {
-            //sleep(10);
+            sleep(1);
 
             //Si pudimos crear el Address Socket y Network Socket, antes de crear la conexión le tenemos que decir al programa como utilizar el Network Socket.
             //Nosotros vamos a configurar los timeouts del Network Socket para que sea no bloqueante ya que nos interesa trabajar con Event Driven Programming
@@ -76,7 +76,6 @@ Networking::tryConnecting()
                 //Si no nos pudimos conectar, Buscamos qué error se produjo.
                 char errorstring[1024]; //creamos un espacio donde apr nos de el error.
                 apr_strerror(status, errorstring, 1023); //le pedimos a apr que nos lo traduzca
-
                 printf("%s", errorstring); //lo imprimimos.
             }
         }
