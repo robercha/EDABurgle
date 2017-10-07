@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   Player.h
  * Author: rober
  *
@@ -14,6 +14,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Model.h"
+#include "FSM.h"
 
 
 //class Player { //Capaz no es necesario heredar porque las funciones son las mismas
@@ -28,17 +29,16 @@
 //    player_t cPlayer; //No sabemos si es player1 player2 o el character
 //}; //Estados de la FSM, de acá heredan P1 y P2
 
-class Player
-{
+class Player {
 public:
     Player();
     void eventHandler(event_t, gameData_t);
-    player_t getCurrentPlayer();
+    state_t getCurrentPlayer();
     ~Player();
 private:
     void sendAction(event_t, gameData_t);
     void switchPlayer();
-    player_t currentPlayer;
+    state_t currentPlayer;
 };
 
 //class Player2: public Player
