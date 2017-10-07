@@ -7,20 +7,21 @@ class Controller {
 public:
     Controller(char* ip);
     void manageEvent(void);
-    bool connect(void);
+    //  bool connect(void);
     void updateGraphics(void);
     bool initGame(void);
-    bool buildPacket(packet_t packet); //enum
+    //  bool buildPacket(packet_t packet); //enum
     void translateUserData(void);
-    void translatePackage(void);
+    //  void translatePackage(void);
     ~Controller();
 private:
     userData_t* userData;
-    //    gameData_t* gameData;
-    //    graphics_t* graphics;
-    //    FSM* FSM;
+    gameData_t* gameData;
+    graphics_t* graphics;
+    FSM* FSM;
     userInterface* user;
-    Networking* networking;
+    //Networking* networking;
+    View *view;
 };
 
 
