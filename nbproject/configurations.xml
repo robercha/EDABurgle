@@ -6,6 +6,9 @@
                    projectFiles="true">
       <itemPath>Controller.h</itemPath>
       <itemPath>EventGenerator.h</itemPath>
+      <itemPath>FSM.h</itemPath>
+      <itemPath>Model.h</itemPath>
+      <itemPath>Player.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,6 +19,9 @@
                    projectFiles="true">
       <itemPath>Controller.cpp</itemPath>
       <itemPath>EventGenerator.cpp</itemPath>
+      <itemPath>FSM.cpp</itemPath>
+      <itemPath>Model.cpp</itemPath>
+      <itemPath>Player.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>model.cpp</itemPath>
     </logicalFolder>
@@ -68,6 +74,18 @@
       </item>
       <item path="EventGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="FSM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="FSM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Model.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Model.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Player.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="model.cpp" ex="false" tool="1" flavor2="0">
@@ -100,6 +118,18 @@
       <item path="EventGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="EventGenerator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FSM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="FSM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Model.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Model.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Player.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
