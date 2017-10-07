@@ -1,18 +1,19 @@
 #include "Controller.h"
 #include "EventGenerator.h"
+#include "FSM.h"
 #include <new>
 
 Controller::Controller(char* ip)
 {
     this->userData = new userData_t;
-    this->networking = new Networking(ip);
+    //this->networking = new Networking(ip);
     this->user = new userInterface;
 
 }
 
 Controller::~Controller()
 {
-    delete networking;
+    //delete networking;
     delete user;
     delete userData;
 }
@@ -67,7 +68,7 @@ Controller::manageEvent(void)
 {
     user->getEvent(userData);
     translateUserData();
-    FSMCycle(userData->event, gameData); //Funcion de clase FSM
+    FSM->FSMCycle(userData->event, gameData); //Funcion de FSM
 
     //    networking->getEvent(userData);
     //    translatePackage();
@@ -82,7 +83,7 @@ Controller::initGame()
     switch (userData.event.trueEvent)
     {
         case TIMEOUT:
-            buildPacket(networking.getLastPacketSent);
+            //buildPacket(networking.getLastPacketSent);
             break;
         case ERROR:
             break;
