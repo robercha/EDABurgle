@@ -73,33 +73,33 @@ public:
     bool virtual getEvent(userData_t*) = 0;
 };
 
-class Networking : public EventGenerator {
-public:
-    Networking(char* ip);
-    ~Networking();
-    bool getEvent(userData_t*);
-    bool tryConnecting(void);
-    bool listen(void);
-    bool connect(void);
-    unsigned sendPacket(char*);
-    bool writeLog(char*);
-    unsigned getTimerCount(void);
-    void startTimerCount(void);
-    //setTimerCount();
-private:
-    char* ip;
-    packet_t lastPacketSent;
-    unsigned getPacket(char*);
-    bool createLog(void);
-    std::ofstream file;
-    apr_time_t timerCount;
-    apr_status_t status; //esta variable la usamos para leer los errores y verificar cuando las cosas andan o no.
-    apr_pool_t *mp; //esta variable la conocemos del tp anterior
-    apr_socket_t *sock;
-    apr_sockaddr_t *sa; //temp
-    apr_socket_t *mysocket; //temp
-
-};
+//class Networking : public EventGenerator {
+//public:
+//    Networking(char* ip);
+//    ~Networking();
+//    bool getEvent(userData_t*);
+//    bool tryConnecting(void);
+//    bool listen(void);
+//    bool connect(void);
+//    unsigned sendPacket(char*);
+//    bool writeLog(char*);
+//    unsigned getTimerCount(void);
+//    void startTimerCount(void);
+//    //setTimerCount();
+//private:
+//    char* ip;
+//    packet_t lastPacketSent;
+//    unsigned getPacket(char*);
+//    bool createLog(void);
+//    std::ofstream file;
+//    apr_time_t timerCount;
+//    apr_status_t status; //esta variable la usamos para leer los errores y verificar cuando las cosas andan o no.
+//    apr_pool_t *mp; //esta variable la conocemos del tp anterior
+//    apr_socket_t *sock;
+//    apr_sockaddr_t *sa; //temp
+//    apr_socket_t *mysocket; //temp
+//
+//};
 
 class userInterface : public EventGenerator {
 public:

@@ -37,8 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Controller.o \
 	${OBJECTDIR}/EventGenerator.o \
-	${OBJECTDIR}/controllerbeta.o \
-	${OBJECTDIR}/eventgen.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/model.o
 
@@ -76,16 +74,6 @@ ${OBJECTDIR}/EventGenerator.o: EventGenerator.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EventGenerator.o EventGenerator.cpp
-
-${OBJECTDIR}/controllerbeta.o: controllerbeta.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/controllerbeta.o controllerbeta.cpp
-
-${OBJECTDIR}/eventgen.o: eventgen.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/eventgen.o eventgen.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
