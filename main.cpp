@@ -21,12 +21,12 @@ main(int argc, char** argv)
         bool success;
         srand(time(NULL));
         Controller controller(ip);
-        success = controller.connect();
-
-        if (success)
-            cout << "connection succeed" << endl;
-        else
-            cout << "connection failed" << endl;
+        //        success = controller.connect();
+        //
+        //        if (success)
+        //            cout << "connection succeed" << endl;
+        //        else
+        //            cout << "connection failed" << endl;
     }
     else
         cout << "no se pasó ip" << endl;
