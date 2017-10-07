@@ -64,32 +64,32 @@ Controller::connect()
     return success;
 }
 
-//Controller::manageEvent(void)
-//{
-//    user->getEvent(userData);
-//    translateUserData();
-//    FSMCycle(userData->event, gameData); //Funcion de clase FSM
-//
-//    networking->getEvent(userData);
-//    translatePackage();
-//    FSMCycle(userData->event, gameData);
-//
-//}
-//
-//Controller::initGame()
-//{
+Controller::manageEvent(void)
+{
+    user->getEvent(userData);
+    translateUserData();
+    FSMCycle(userData->event, gameData); //Funcion de clase FSM
+
+    networking->getEvent(userData);
+    translatePackage();
+    FSMCycle(userData->event, gameData);
+
+}
+
+Controller::initGame()
+{
 //    if (networking.getLastPacketSent == NULL) //null o noEvent, lo q sea
 //        buildPacket(NAME);
-//    switch (userData.event.trueEvent)
-//    {
-//        case TIMEOUT:
-//            buildPacket(networking.getLastPacketSent);
-//            break;
-//        case ERROR: ? ? ?
-//            break;
-//        case QUIT: ? ? ?
-//            break;
-//        case NAME:
-//    }
-//}
+    switch (userData.event.trueEvent)
+    {
+        case TIMEOUT:
+            buildPacket(networking.getLastPacketSent);
+            break;
+        case ERROR: 
+            break;
+        case QUIT: 
+            break;
+        case NAME:
+    }
+}
 
