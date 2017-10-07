@@ -1,4 +1,3 @@
-
 #ifndef EVENTGENERATOR_H
 #define EVENTGENERATOR_H
 
@@ -41,10 +40,6 @@ typedef enum {
 typedef enum {
     HOLA, BUTTONCOUNT // MOVE,TILE, BUTTONCOUNT
 } buttons_t;
-
-typedef enum {
-    PLAYER1, PLAYER2
-} player_t; //no se si va en este header o en otro, capaz de la fsm
 
 typedef struct buttons {
     //screen_t screen;
