@@ -9,6 +9,7 @@ public:
     move( ?);
     peek( ?);
     pass( ?);
+    addToken(token_t ?, ?)
     useToken(token_t ?, ?);
     shareLoot( ?);
     bool virtual specialMove( ?) = 0;
