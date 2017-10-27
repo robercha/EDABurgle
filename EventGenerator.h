@@ -99,8 +99,9 @@ public:
 class userInterface : public EventGenerator {
 public:
     bool getEvent(userData_t*);
-    unsigned checkClick(double x, double y); //Devuelve el indice en el arreglo de botones que es un enum.
+    unsigned checkClick(userData_t*); //Devuelve el indice en el arreglo de botones que es un enum.
 private:
+    
     ALLEGRO_EVENT* event;
     ALLEGRO_EVENT_QUEUE* queue;
     button_t buttons[BUTTONCOUNT];

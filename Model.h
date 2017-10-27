@@ -21,6 +21,7 @@ typedef struct gameData
 
 class Model {
 public:
+    analyzeAction(gameData_t*);
     Model();
     Model(const Model& orig);
     virtual ~Model();
