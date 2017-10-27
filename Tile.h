@@ -2,6 +2,14 @@
 #ifndef TILE_H
 #define TILE_H
 
+typedef enum {
+    STEALTH, HACK, CRACKED, ALARM, DOWNSTAIRS, OPEN, CROW, KITTY, TOKEN_COUNT
+} token_t;
+
+typedef enum {
+    TIARA, PERSIAN_KITTY, PAINTING, MIRROR, KEYCARD, ISOTOPE, GEMSTONE, CURSED_GOBLET, CHIHUAHUA, GOLD_BAR, LOOT_COUNT
+} loot_t;
+
 class Tile {
 public:
     Tile();
