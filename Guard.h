@@ -1,15 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * File:   Guard.h
- * Author: calpurnia
- *
- * Created on October 27, 2017, 6:15 PM
- */
 
 #ifndef GUARD_H
 #define GUARD_H
@@ -19,8 +7,12 @@ public:
     Guard();
     Guard(const Guard& orig);
     virtual ~Guard();
+    walk( ?); //usa calculateRoute() tantas veces como steps tenga que dar y camina
 private:
-
+    //tile y floor
+    unsigned steps;
+    Tile* calculateRoute(/*destino y la lista de tiles del floor*/);
+    unsigned checkAlarms(); //Devuelve numero de alarmas activadas, (chequea el camino a cada una y devuelve el minimo)???
 };
 
 #endif /* GUARD_H */
