@@ -21,11 +21,11 @@ Player::~Player()
 {
 }
 
-Player::eventHandler(event_t event, gameData_t gameData)
+Player::eventHandler(event_t event, gameData_t gameData)    
 {
-    switch (event)
+    switch (event)      //Los eventos que me pasan son solo ACTION y TURN
     {
-        case ACTION: sendAction(event, gameData);
+        case ACTION: sendAction(event, gameData); //No me ayuda en nada que me pasen ACTION para la evaluacion de la accion, DEBE ESTAR EN GAMEDATA LA ACCION??
             break; //Pasamos por parámetro el indice al arreglo de characters
         case TURN: switchPlayer();
             break;
