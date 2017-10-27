@@ -25,7 +25,7 @@ Player::eventHandler(event_t event, gameData_t gameData)
 {
     switch (event)      //Los eventos que me pasan son solo ACTION y TURN
     {
-        case ACTION: sendAction(event, gameData); //No me ayuda en nada que me pasen ACTION para la evaluacion de la accion, DEBE ESTAR EN GAMEDATA LA ACCION??
+        case ACTION: analyzeFunction(gameData); //Aca empieza la lógica del juego
             break; //Pasamos por parámetro el indice al arreglo de characters
         case TURN: switchPlayer();
             break;
@@ -42,7 +42,4 @@ Player::switchPlayer()
 {
 }//dummy function
 
-Player::sendAction(event_t, gameData_t) //Llama a analizaFunction de model, aca empieza la lógica del juego.
-{
-}
 
