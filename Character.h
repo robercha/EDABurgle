@@ -9,15 +9,57 @@ public:
     move( ?);
     peek( ?);
     pass( ?);
+    useToken(token_t ?, ?);
+    shareLoot( ?);
     bool virtual specialMove( ?) = 0;
+protected:
+    Tile* Tile;
+    //stealth tokens
+    //loot
+};
+
+class Juicer : public Character {
+public:
 private:
 
 };
 
-class EventGenerator {
+class Hacker : public Character {
 public:
-    bool virtual getEvent(userData_t*) = 0;
+private:
+
 };
+
+class Acrobat : public Character {
+public:
+private:
+
+};
+
+class Spotter : public Character {
+public:
+private:
+
+};
+
+class Hawk : public Character {
+public:
+private:
+
+};
+
+class Raven : public Character {
+public:
+private:
+
+};
+
+class Peterman : public Character {
+public:
+private:
+
+};
+
 
 #endif /* CHARACTER_H */
 
