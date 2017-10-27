@@ -8,7 +8,6 @@ Controller::Controller(char* ip)
     this->userData = new userData_t;
     //this->networking = new Networking(ip);
     this->user = new userInterface;
-
 }
 
 Controller::~Controller()

@@ -211,35 +211,47 @@
 //
 //}
 
+userInterface::userInterface()
+{
+    createButtons(this->buttons,userData);
+}
+
 bool
 userInterface::getEvent(userData_t*)
 {
-    
+    unsigned state = 0
+    state = al_get_next_event(queue, &event);			
+    checkClick(userData, state);			//analizamos que boton se toco
 }
 
-unsigned checkClick(display_t* display, userData_t* userData, ALLEGRO_EVENT ev, unsigned state) //chequea si se toco algun boton y devuelve la posicion en el arreglo del boton q se toco
+unsigned userInterface::checkClick(userData_t*, unsigned state) //chequea si se toco algun boton y devuelve la posicion en el arreglo del boton q se toco
 {
 	unsigned i;
 
-	if ((ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) && state) //Se analizan solo eventos de mouse y solo en el caso de que un evento haya ocurrido			
+	if ((event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) && state) //Se analizan solo eventos de mouse y solo en el caso de que un evento haya ocurrido			
 	{
 		for (i = 0; i < BUTTON_COUNT; i++)			//recorre el arreglo de los botones y se fija si se toco dentro del espacio del boton 
 		{
-			if (display->buttons[i].screen != userData->currentScreen) //Si la pantalla del boton en cuestion no coincide con la pantalla actual de juego no genera evento
-				continue;
-			else if (((ev.mouse.x >= display->buttons[i].x) && (ev.mouse.x <= (display->buttons[i].x + display->buttons[i].width))) &&
-					((ev.mouse.y >= display->buttons[i].y) && (ev.mouse.y <= (display->buttons[i].y + display->buttons[i].height))))
+			//if (display->buttons[i].screen != userData->currentScreen) //Si la pantalla del boton en cuestion no coincide con la pantalla actual de juego no genera evento
+				//continue;
+                    if (((event.mouse.x >= buttons[i].initialX) && (event.mouse.x <= (buttons[i].initialX + buttons[i].width))) &&
+					((event.mouse.y >= buttons[i].initialY) && (event.mouse.y <= (buttons[i].initialY + buttons[i].height))))
 			{
 				userData->buttonClicked = i;    //Indice en el arreglo de botones
-				userData->mouseX = ev.mouse.x;
-				userData->mouseY = ev.mouse.y;
+				userData->mouseX = event.mouse.x;
+				userData->mouseY = event.mouse.y;
 				break;
 			}
 		}
 	} 
 	else
-		userData->buttonClicked = NOBUTTON; //No se clickeo ningun boton
+		userData->buttonClicked = NO_BUTTON; //No se clickeo ningun boton
 
 	if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)			//si el usuario quiere salir del juego
 		userData->buttonClicked = HOME_EXIT;
+}
+
+createButtons(buttons_t* buttons, userData_t* userData)
+{
+    //buttons[A1_F1].initialX = 
 }

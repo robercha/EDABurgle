@@ -38,8 +38,11 @@ typedef enum {
 } trueEvent_t;
 
 typedef enum {
-    HOLA, BUTTONCOUNT // MOVE,TILE, BUTTONCOUNT
-} buttons_t;
+    A1_F1,A2_F1,A3_F1,A4_F1,B1_F1,B2_F1,B3_F1,B4_F1,C1_F1,C2_F1,C3_F1,C4_F1,D1_F1,D2_F1,D3_F1,D4_F1,
+            A1_F2,A2_F2,A3_F2,A4_F2,B1_F2,B2_F2,B3_F2,B4_F2,C1_F2,C2_F2,C3_F2,C4_F2,D1_F2,D2_F2,D3_F2,D4_F2,
+            A1_F3,A2_F3,A3_F3,A4_F3,B1_F3,B2_F3,B3_F3,B4_F3,C1_F3,C2_F3,C3_F3,C4_F3,D1_F3,D2_F3,D3_F3,D4_F3,
+            MOVE,PICK,PASS,USE_TOKEN,BUTTON_COUNT,NO_BUTTON,HOME_EXIT 
+} button_t; //indices del arreglo
 
 typedef struct buttons {
     //screen_t screen;
@@ -47,7 +50,7 @@ typedef struct buttons {
     double initialY;
     double width;
     double height;
-} button_t;
+} buttons_t;
 
 typedef struct event {
     preEvent_t preEvent;
@@ -98,13 +101,15 @@ public:
 
 class userInterface : public EventGenerator {
 public:
+    userInterface();
     bool getEvent(userData_t*);
     unsigned checkClick(userData_t*); //Devuelve el indice en el arreglo de botones que es un enum.
+    ~userInterface();
 private:
     
     ALLEGRO_EVENT* event;
     ALLEGRO_EVENT_QUEUE* queue;
-    button_t buttons[BUTTONCOUNT];
+    buttons_t buttons[BUTTONCOUNT];
 };
 
 
