@@ -4,21 +4,25 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   Model.cpp
  * Author: rober
- * 
+ *
  * Created on October 7, 2017, 5:13 PM
  */
 
 #include "Model.h"
 
-Model::Model() {
+Model::Model()
+{
+    //toda la preparacion del juego, onda los random, las tiles etc
 }
 
-Model::Model(const Model& orig) {
+Model::Model(const Model& orig)
+{
 }
 
-Model::~Model() {
+Model::~Model()
+{
 }
 
