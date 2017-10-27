@@ -13,7 +13,7 @@ public:
 private:
     Player* currentPlayer;
     Player** FSMMatrix;
-    Player* FSMMatrix[][EVENTCOUNT];
+    //Player* FSMMatrix[STATECOUNT][EVENTCOUNT];
 };
 
 #endif /* FSM_H */
