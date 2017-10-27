@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   Model.h
  * Author: rober
  *
@@ -14,10 +14,8 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-typedef struct gameData
-{
-    
-}gameData_t;
+typedef struct gameData {
+} gameData_t;
 
 class Model {
 public:
@@ -26,6 +24,8 @@ public:
     Model(const Model& orig);
     virtual ~Model();
 private:
+    //lista de guardias;
+    //vector 3d
 
 };
 

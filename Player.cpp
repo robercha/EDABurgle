@@ -21,11 +21,11 @@ Player::~Player()
 {
 }
 
-Player::eventHandler(event_t event, gameData_t gameData)
+Player::eventHandler(event_t event, gameData_t gameData)    
 {
-    switch (event)
+    switch (event)      //Los eventos que me pasan son solo ACTION y TURN
     {
-        case ACTION: sendAction(event, gameData);
+        case ACTION: analyzeFunction(gameData); //Aca empieza la lógica del juego
             break; //Pasamos por parámetro el indice al arreglo de characters
         case TURN: switchPlayer();
             break;
@@ -42,7 +42,4 @@ Player::switchPlayer()
 {
 }//dummy function
 
-Player::sendAction(event_t, gameData_t) //Llama a analizaFunction de model, aca empieza la lógica del juego.
-{
-}
 
