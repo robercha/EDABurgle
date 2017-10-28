@@ -108,7 +108,7 @@ public:
 private:
 };
 
-class Walkaway : public Tile {
+class Walkway : public Tile {
 public:
 private:
 };
