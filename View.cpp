@@ -5,7 +5,7 @@ typedef enum
     HOMESCREEN, SETTINGSSCREEN, HELPSCREEN, PLAYINGSCREEN, CREDITSSCREEN, SCREENCOUNT
 } screen_t;
 
-//carga botones 
+//carga botones
 static void initUtilities(bitmap_t*);
 
 View::View()
@@ -54,7 +54,7 @@ View::View()
                                             {
                                                 al_register_event_source(this->eventQueue, al_get_mouse_event_source());
                                                 al_register_event_source(this->eventQueue, al_get_keyboard_event_source());
-                                                al_register_event_source(this->eventQueue, al_get_display_event_source(this->display));
+                                                al_register_event_source(this->eventQueue, al_get_display_event_source(display->display));
                                                 this->titleFont = al_load_ttf_font("Bellota-Bold.otf", 80, 0);
                                                 if (this->titleFont != NULL)
                                                 {
@@ -172,7 +172,7 @@ View::View()
             al_shutdown_primitives_addon();
         }
     }
-    
+
 
 
     this->buttons = (bitmap_t*) malloc(sizeof (bitmap_t) * BUTTON_COUNT);
@@ -183,7 +183,7 @@ View::View()
 
 View::~View()
 {
- 
+
     al_destroy_bitmap(this->background);
     al_destroy_event_queue(this->eventQueue);
     al_destroy_font(this->textFont);
@@ -195,18 +195,19 @@ View::~View()
     al_shutdown_image_addon();
     al_shutdown_font_addon();
     al_uninstall_mouse();
-    al_uninstall_keyboard();  
-    
+    al_uninstall_keyboard();
+
     unsigned i;
     for (i = 0; i < BUTTON_COUNT; i++)
     {
         al_destroy_bitmap(this->buttons[i].image);
     }
-    
+
     free(this->buttons);
 }
 
-void View::menuDisplay(void)
+void
+View::menuDisplay(void)
 {
     //al_set_target_backbuffer(->display); //Vuelve al display
 
@@ -217,6 +218,29 @@ void View::menuDisplay(void)
     al_flip_display();
 }
 
+unsigned
+View::getButtonX(unsigned i)
+{
+    return buttons[i]->x;
+}
+
+unsigned
+View::getButtonY(unsigned i)
+{
+    return buttons[i]->y;
+}
+
+unsigned
+View::getButtonW(unsigned i)
+{
+    return buttons[i]->width;
+}
+
+unsigned
+View::getButtonH(unsigned i)
+{
+    return buttons[i]->height;
+}
 
 void
 initUtilities(bitmap_t * bitmapArray)
@@ -225,8 +249,8 @@ initUtilities(bitmap_t * bitmapArray)
     bitmapArray[TEST].screen = PLAYINGSCREEN;
     bitmapArray[TEST].width = al_get_bitmap_width(bitmapArray[TEST].image);
     bitmapArray[TEST].height = al_get_bitmap_height(bitmapArray[TEST].image);
-    bitmapArray[TEST].x = DISPLAYW/2;
-    bitmapArray[TEST].y = DISPLAYH/2;
+    bitmapArray[TEST].x = DISPLAYW / 2;
+    bitmapArray[TEST].y = DISPLAYH / 2;
 
 }
 

@@ -13,9 +13,11 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
+#include "EventGenerator.h"
+
+
 #define DISPLAYW 1090
 #define DISPLAYH 720
-
 
 enum buttons {
     TEST, BUTTON_COUNT, NOBUTTON
@@ -36,6 +38,10 @@ public:
     View();
     void menuDisplay(void);
     virtual ~View();
+    unsigned getButtonX(unsigned i); //se le pasa el indice del arreglo de botones
+    unsigned getButtonY(unsigned i);
+    unsigned getButtonW(unsigned i);
+    unsigned getButtonH(unsigned i);
 private:
     ALLEGRO_DISPLAY *display;
     ALLEGRO_BITMAP *background;
