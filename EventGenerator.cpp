@@ -251,10 +251,11 @@ unsigned userInterface::checkClick(userData_t*, unsigned state) //chequea si se 
 		userData->buttonClicked = HOME_EXIT;
 }
 
-createButtons(buttons_t* buttons, userData_t* userData)
+
+void userInterface::setButton(unsigned buttonIndex, unsigned buttonW, unsigned buttonH, unsigned buttonX, unsigned buttonY)
 {
-    buttons[TEST].initialX = DISPLAYW/2;
-    buttons[TEST].initialY = DISPLAYH/2;
-    
-    
+    buttons[buttonIndex]->initialX = buttonX;
+    buttons[buttonIndex]->initialY = buttonY;
+    buttons[buttonIndex]->height = buttonH;
+    buttons[buttonIndex]->width = buttonW;
 }

@@ -92,3 +92,7 @@ Controller::initGame()
     }
 }
 
+void Controller::copyButtons()
+{
+    userInterface->setButton(TEST,View->getButtonW(TEST),View->getButtonH(TEST),View->getButtonX(TEST),View->getButtonY(TEST));    
+}
