@@ -14,22 +14,24 @@ char* parseIP(int argc, char* argv);
 int
 main(int argc, char** argv)
 {
-    char* ip = NULL;
-    ip = parseIP(argc, argv[1]); //devuelve NULL si hubo error
-    if (ip != NULL)
-    {
-        bool success;
-        srand(time(NULL));
-        Controller controller(ip);
-        //        success = controller.connect();
-        //
-        //        if (success)
-        //            cout << "connection succeed" << endl;
-        //        else
-        //            cout << "connection failed" << endl;
-    }
-    else
-        cout << "no se pasó ip" << endl;
+//    char* ip = NULL;
+//    ip = parseIP(argc, argv[1]); //devuelve NULL si hubo error
+//    if (ip != NULL)
+//    {
+//        bool success;
+//        srand(time(NULL));
+//        Controller controller(ip);
+//        //        success = controller.connect();
+//        //
+//        //        if (success)
+//        //            cout << "connection succeed" << endl;
+//        //        else
+//        //            cout << "connection failed" << endl;
+//    }
+//    else
+//        cout << "no se pasó ip" << endl;
+    
+    
     return 0;
 }
 

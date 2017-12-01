@@ -8,6 +8,8 @@ Controller::Controller(char* ip)
     this->userData = new userData_t;
     //this->networking = new Networking(ip);
     this->user = new userInterface;
+    this->view = new View;
+    this->copyButtons();
 }
 
 Controller::~Controller()
@@ -75,24 +77,27 @@ Controller::manageEvent(void)
 
 }
 
-Controller::initGame()
-{
-    //    if (networking.getLastPacketSent == NULL) //null o noEvent, lo q sea
-    //        buildPacket(NAME);
-    switch (userData.event.trueEvent)
-    {
-        case TIMEOUT:
-            //buildPacket(networking.getLastPacketSent);
-            break;
-        case ERROR:
-            break;
-        case QUIT:
-            break;
-        case NAME:
-    }
-}
+//Controller::initGame()
+//{
+//    //    if (networking.getLastPacketSent == NULL) //null o noEvent, lo q sea
+//    //        buildPacket(NAME);
+//    switch (userData.event.trueEvent)
+//    {
+//        case TIMEOUT:
+//            //buildPacket(networking.getLastPacketSent);
+//            break;
+//        case ERROR:
+//            break;
+//        case QUIT:
+//            break;
+//        case NAME:
+//    }
+//}
 
 void Controller::copyButtons()
 {
-    userInterface->setButton(TEST,View->getButtonW(TEST),View->getButtonH(TEST),View->getButtonX(TEST),View->getButtonY(TEST));    
+    for(unsigned i=0; i<BUTTONCOUNT; i++)
+    {
+        user->setButton(i,View->getButtonW(i),View->getButtonH(i),View->getButtonX(i),View->getButtonY(i));    
+    }
 }

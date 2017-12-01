@@ -54,7 +54,7 @@ View::View()
                                             {
                                                 al_register_event_source(this->eventQueue, al_get_mouse_event_source());
                                                 al_register_event_source(this->eventQueue, al_get_keyboard_event_source());
-                                                al_register_event_source(this->eventQueue, al_get_display_event_source(display->display));
+                                                al_register_event_source(this->eventQueue, al_get_display_event_source(this->display));
                                                 this->titleFont = al_load_ttf_font("Bellota-Bold.otf", 80, 0);
                                                 if (this->titleFont != NULL)
                                                 {

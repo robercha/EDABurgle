@@ -211,13 +211,8 @@
 //
 //}
 
-userInterface::userInterface()
-{
-    createButtons(this->buttons,userData);
-}
-
 bool
-userInterface::getEvent(userData_t*)
+userInterface::getEvent(userData_t* userData)
 {
     unsigned state = 0
     state = al_get_next_event(queue, &event);			
@@ -247,7 +242,7 @@ unsigned userInterface::checkClick(userData_t*, unsigned state) //chequea si se 
 	else
 		userData->buttonClicked = NO_BUTTON; //No se clickeo ningun boton
 
-	if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)			//si el usuario quiere salir del juego
+	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)			//si el usuario quiere salir del juego
 		userData->buttonClicked = HOME_EXIT;
 }
 
@@ -258,4 +253,10 @@ void userInterface::setButton(unsigned buttonIndex, unsigned buttonW, unsigned b
     buttons[buttonIndex]->initialY = buttonY;
     buttons[buttonIndex]->height = buttonH;
     buttons[buttonIndex]->width = buttonW;
+}
+
+void userInterface::userInterface()
+{
+    this->event=NULL;
+    this->queue=NULL;
 }
