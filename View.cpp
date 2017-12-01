@@ -2,6 +2,204 @@
 
 View::View()
 {
+
+    this->display = NULL; //cargamos datos en la estructura display
+    this->titleFont = NULL;
+    this->textFont = NULL;
+    //display->timer = NULL;
+    this->background = NULL;
+    this->width = DISPLAYW;
+    this->height = DISPLAYH;
+
+    if (al_init())
+    {
+        if (al_init_primitives_addon())
+        {
+            if (al_init_image_addon())
+            {
+                al_init_font_addon();
+                if (al_init_ttf_addon())
+                {
+                    this->display = al_create_display(this->width, this->height);
+                    if (this->display != NULL)
+                    {
+                        al_set_window_title(this->display, "Pepe&Co"); //titulo
+                        this->background = al_load_bitmap("background.jpg");
+                        if (this->background != NULL)
+                        {
+                            this->backgroundWidth = al_get_bitmap_width(this->background);
+                            this->backgroundHeight = al_get_bitmap_height(this->background);
+                            al_draw_scaled_bitmap(this->background, 0, 0, this->backgroundWidth, this->backgroundHeight, 0, 0, this->width, this->height, 0); //dibujo fondo
+
+                            this->textFont = al_load_ttf_font("Bellota-Bold.otf", 20, 0);
+                            if (this->textFont != NULL)
+                            {
+                                this->timer = al_create_timer(1.0 / 60);
+                                if (this->timer != NULL)
+                                {
+                                    if (al_install_mouse())
+                                    {
+                                        if (al_install_keyboard())
+                                        {
+                                            this->eventQueue = al_create_event_queue();
+                                            if (this->eventQueue != NULL)
+                                            {
+                                                al_register_event_source(display->eventQueue, al_get_mouse_event_source());
+                                                al_register_event_source(display->eventQueue, al_get_keyboard_event_source());
+                                                al_register_event_source(display->eventQueue, al_get_display_event_source(display->display));
+                                                display->titleFont = al_load_ttf_font("Bellota-Bold.otf", 80, 0);
+                                                if (display->titleFont != NULL)
+                                                {
+                                                    al_draw_bitmap(display->background, 0, 0, 0);
+                                                    al_start_timer(display->timer);
+                                                }
+                                                else
+                                                {
+                                                    al_destroy_bitmap(display->background);
+                                                    al_destroy_event_queue(display->eventQueue);
+                                                    al_destroy_font(display->font);
+                                                    al_destroy_timer(display->timer);
+                                                    al_destroy_display(display->display);
+                                                    al_shutdown_ttf_addon();
+                                                    al_shutdown_primitives_addon();
+                                                    al_shutdown_image_addon();
+                                                    al_shutdown_font_addon();
+                                                    al_uninstall_mouse();
+                                                    al_uninstall_keyboard();
+                                                    free(display);
+                                                    display = NULL;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                al_destroy_bitmap(display->background);
+                                                al_destroy_font(display->font);
+                                                al_destroy_timer(display->timer);
+                                                al_destroy_display(display->display);
+                                                al_shutdown_ttf_addon();
+                                                al_shutdown_primitives_addon();
+                                                al_shutdown_image_addon();
+                                                al_shutdown_font_addon();
+                                                al_uninstall_mouse();
+                                                al_uninstall_keyboard();
+                                                free(display);
+                                                display = NULL;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            al_destroy_bitmap(display->background);
+                                            al_destroy_font(display->font);
+                                            al_destroy_timer(display->timer);
+                                            al_destroy_display(display->display);
+                                            al_uninstall_mouse();
+                                            al_shutdown_ttf_addon();
+                                            al_shutdown_primitives_addon();
+                                            al_shutdown_image_addon();
+                                            al_shutdown_font_addon();
+                                            free(display);
+                                            display = NULL;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        al_destroy_bitmap(display->background);
+                                        al_destroy_font(display->font);
+                                        al_destroy_timer(display->timer);
+                                        al_destroy_display(display->display);
+                                        al_shutdown_ttf_addon();
+                                        al_shutdown_primitives_addon();
+                                        al_shutdown_image_addon();
+                                        al_shutdown_font_addon();
+                                        free(display);
+                                        display = NULL;
+                                    }
+                                }
+                                else
+                                {
+                                    al_destroy_bitmap(display->background);
+                                    al_destroy_font(display->font);
+                                    al_destroy_display(display->display);
+                                    al_shutdown_ttf_addon();
+                                    al_shutdown_primitives_addon();
+                                    al_shutdown_image_addon();
+                                    al_shutdown_font_addon();
+                                    free(display);
+                                    display = NULL;
+                                }
+                            }
+                            else
+                            {
+                                al_destroy_bitmap(display->background);
+                                al_destroy_display(display->display);
+                                al_shutdown_ttf_addon();
+                                al_shutdown_primitives_addon();
+                                al_shutdown_image_addon();
+                                al_shutdown_font_addon();
+                                free(display);
+                                display = NULL;
+                            }
+                        }
+                        else
+                        {
+                            al_destroy_display(display->display);
+                            al_shutdown_ttf_addon();
+                            al_shutdown_primitives_addon();
+                            al_shutdown_image_addon();
+                            al_shutdown_font_addon();
+                            free(display);
+                            display = NULL;
+                        }
+                    }
+                    else
+                    {
+                        al_shutdown_ttf_addon();
+                        al_shutdown_primitives_addon();
+                        al_shutdown_image_addon();
+                        al_shutdown_font_addon();
+                        free(display);
+                        display = NULL;
+                    }
+                }
+                else
+                {
+                    al_shutdown_primitives_addon();
+                    al_shutdown_image_addon();
+                    al_shutdown_font_addon();
+                    free(display);
+                    display = NULL;
+                }
+            }
+            else
+            {
+                al_shutdown_primitives_addon();
+                al_shutdown_image_addon();
+                free(display);
+                display = NULL;
+            }
+        }
+        else
+        {
+            al_shutdown_primitives_addon();
+            free(display);
+            display = NULL;
+        }
+    }
+    else
+    {
+        free(display);
+        display = NULL;
+    }
+
+
+    display->buttons = (bitmap_t*) malloc(sizeof (bitmap_t) * BUTTON_COUNT);
+    initMenuUtilities(display->buttons);
+    initSinglePlayerUtilities(display->buttons);
+    initCreditsUtilities(display->buttons);
+    initHelpUtilities(display->buttons);
+    initSettingsUtilities(display->buttons);
+
+    return display;
 }
 
 View::View(const View& orig)
@@ -16,7 +214,7 @@ View::~View()
 
 
 
-#include "display.h"
+#include "View.h"
 
 typedef enum
 {

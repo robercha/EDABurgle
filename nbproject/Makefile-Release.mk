@@ -35,9 +35,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Character.o \
 	${OBJECTDIR}/Controller.o \
 	${OBJECTDIR}/EventGenerator.o \
 	${OBJECTDIR}/FSM.o \
+	${OBJECTDIR}/Guard.o \
 	${OBJECTDIR}/Model.o \
 	${OBJECTDIR}/Player.o \
 	${OBJECTDIR}/View.o \
@@ -69,6 +71,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/edaburgle: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/edaburgle ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/Character.o: Character.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Character.o Character.cpp
+
 ${OBJECTDIR}/Controller.o: Controller.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -83,6 +90,11 @@ ${OBJECTDIR}/FSM.o: FSM.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FSM.o FSM.cpp
+
+${OBJECTDIR}/Guard.o: Guard.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Guard.o Guard.cpp
 
 ${OBJECTDIR}/Model.o: Model.cpp
 	${MKDIR} -p ${OBJECTDIR}
