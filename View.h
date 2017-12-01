@@ -16,6 +16,11 @@
 #define DISPLAYW 1090
 #define DISPLAYH 720
 
+
+enum buttons {
+    TEST, BUTTON_COUNT, NOBUTTON
+};
+
 typedef struct bitmap //informacion de cada boton (bitmap)
 {
     ALLEGRO_BITMAP* image; //el archivo
@@ -29,7 +34,7 @@ typedef struct bitmap //informacion de cada boton (bitmap)
 class View {
 public:
     View();
-    View(const View& orig);
+    void menuDisplay(void);
     virtual ~View();
 private:
     ALLEGRO_DISPLAY *display;
@@ -41,21 +46,15 @@ private:
     unsigned int backgroundWidth;
     unsigned int backgroundHeight;
     unsigned int width;
-    unsigned int height;   
+    unsigned int height;
+    bitmap_t* buttons;
 };
 
 #endif /* VIEW_H */
 
 
 
-//enum buttons {
-//    HOME_SP, HOME_CREDITS, HOME_HELP, HOME_EXIT, HOME_SETTINGS,
-//    SP_HOME, SP_MAP, SP_PLAY, SP_PAUSE, SP_FAST, SP_SLOW,
-//    R1_UP, R1_DOWN, R2_UP, R2_DOWN, R3_UP, R3_DOWN, R4C_UP, R4C_DOWN, R4R_UP, R4R_DOWN, R5_UP, R5_DOWN,
-//    SET_HOME, TIME_UP, TIME_DOWN,
-//    CREDITS_HOME, HELP_HOME,
-//    BUTTON_COUNT, NOBUTTON
-//};
+
 //
 //
 //#define ERROR -1
