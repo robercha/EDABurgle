@@ -44,30 +44,28 @@ View::View()
                                             this->eventQueue = al_create_event_queue();
                                             if (this->eventQueue != NULL)
                                             {
-                                                al_register_event_source(display->eventQueue, al_get_mouse_event_source());
-                                                al_register_event_source(display->eventQueue, al_get_keyboard_event_source());
-                                                al_register_event_source(display->eventQueue, al_get_display_event_source(display->display));
-                                                display->titleFont = al_load_ttf_font("Bellota-Bold.otf", 80, 0);
-                                                if (display->titleFont != NULL)
+                                                al_register_event_source(this->eventQueue, al_get_mouse_event_source());
+                                                al_register_event_source(this->eventQueue, al_get_keyboard_event_source());
+                                                al_register_event_source(this->eventQueue, al_get_display_event_source(display->display));
+                                                this->titleFont = al_load_ttf_font("Bellota-Bold.otf", 80, 0);
+                                                if (this->titleFont != NULL)
                                                 {
-                                                    al_draw_bitmap(display->background, 0, 0, 0);
-                                                    al_start_timer(display->timer);
+                                                    al_draw_bitmap(this->background, 0, 0, 0);
+                                                    al_start_timer(this->timer);
                                                 }
                                                 else
                                                 {
-                                                    al_destroy_bitmap(display->background);
-                                                    al_destroy_event_queue(display->eventQueue);
-                                                    al_destroy_font(display->font);
-                                                    al_destroy_timer(display->timer);
-                                                    al_destroy_display(display->display);
+                                                    al_destroy_bitmap(this->background);
+                                                    al_destroy_event_queue(this->eventQueue);
+                                                    al_destroy_font(this->font);
+                                                    al_destroy_timer(this->timer);
+                                                    al_destroy_display(this->display);
                                                     al_shutdown_ttf_addon();
                                                     al_shutdown_primitives_addon();
                                                     al_shutdown_image_addon();
                                                     al_shutdown_font_addon();
                                                     al_uninstall_mouse();
                                                     al_uninstall_keyboard();
-                                                    free(display);
-                                                    display = NULL;
                                                 }
                                             }
                                             else
