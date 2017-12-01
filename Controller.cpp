@@ -69,7 +69,7 @@ Controller::manageEvent(void)
 {
     user->getEvent(userData);
     translateUserData();
-    FSM->FSMCycle(userData->event, gameData); //Funcion de FSM
+    //FSM->FSMCycle(userData->event, gameData); //Funcion de FSM
 
     //    networking->getEvent(userData);
     //    translatePackage();
@@ -100,4 +100,14 @@ void Controller::copyButtons()
     {
         user->setButton(i,View->getButtonW(i),View->getButtonH(i),View->getButtonX(i),View->getButtonY(i));    
     }
+}
+
+unsigned Controller::getLastEvent()
+{
+    return this->userData->event;
+}
+
+void Controller::translateUserData()
+{
+    
 }

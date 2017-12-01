@@ -14,6 +14,7 @@ public:
     void translateUserData(void);
     //  void translatePackage(void);
     void copyButtons();
+    void getLastEvent();
     ~Controller();
 private:
     userData_t* userData;
