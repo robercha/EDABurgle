@@ -13,15 +13,14 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-#include "EventGenerator.h"
 
 
 #define DISPLAYW 1090
 #define DISPLAYH 720
 
-enum buttons {
-    TEST, BUTTON_COUNT, NOBUTTON
-};
+typedef enum {
+    TEST, BUTTON_COUNT, NOBUTTON, HOME_EXIT
+}button_t;
 
 typedef struct bitmap //informacion de cada boton (bitmap)
 {

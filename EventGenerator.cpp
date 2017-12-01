@@ -1,5 +1,12 @@
 #include "EventGenerator.h"
 
+typedef enum {
+    TEST, BUTTONCOUNT, A1_F1, A2_F1, A3_F1, A4_F1, B1_F1, B2_F1, B3_F1, B4_F1, C1_F1, C2_F1, C3_F1, C4_F1, D1_F1, D2_F1, D3_F1, D4_F1,
+    A1_F2, A2_F2, A3_F2, A4_F2, B1_F2, B2_F2, B3_F2, B4_F2, C1_F2, C2_F2, C3_F2, C4_F2, D1_F2, D2_F2, D3_F2, D4_F2,
+    A1_F3, A2_F3, A3_F3, A4_F3, B1_F3, B2_F3, B3_F3, B4_F3, C1_F3, C2_F3, C3_F3, C4_F3, D1_F3, D2_F3, D3_F3, D4_F3,
+    MOVE, PICK, PASS, USE_TOKEN, BUTTON_COUNT, NO_BUTTON, HOME_EXIT
+} button_t; //indices del arreglo
+
 //Networking::Networking(char* ip)
 //{
 //    this->ip = ip;
@@ -211,15 +218,35 @@
 //
 //}
 
+userInterface::userInterface()
+{
+    this->queue = al_create_event_queue();
+    
+    if (this->queue != NULL)
+    {
+        al_register_event_source(this->queue, al_get_mouse_event_source());
+        al_register_event_source(this->queue, al_get_keyboard_event_source());
+       // al_register_event_source(this->queue, al_get_display_event_source(this->display));        HACER ALGO AL RESPECTO
+    }
+    this->buttons = (buttons_t*) malloc(sizeof (buttons_t) * BUTTON_COUNT);    
+    //this->event=NULL;
+}
+
+userInterface::~userInterface()
+{
+    free(this->buttons);
+}
+
 bool
 userInterface::getEvent(userData_t* userData)
 {
-    unsigned state = 0
-    state = al_get_next_event(queue, &event);			
-    checkClick(userData, state);			//analizamos que boton se toco
+    bool state = false;
+    ALLEGRO_EVENT preEvent;
+    state = al_get_next_event(queue, &preEvent);
+    checkClick(userData, state, preEvent);			//analizamos que boton se toco
 }
 
-unsigned userInterface::checkClick(userData_t*, unsigned state) //chequea si se toco algun boton y devuelve la posicion en el arreglo del boton q se toco
+unsigned userInterface::checkClick(userData_t* userData, unsigned state, ALLEGRO_EVENT event) //chequea si se toco algun boton y devuelve la posicion en el arreglo del boton q se toco
 {
 	unsigned i;
 
@@ -244,19 +271,16 @@ unsigned userInterface::checkClick(userData_t*, unsigned state) //chequea si se 
 
 	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)			//si el usuario quiere salir del juego
 		userData->buttonClicked = HOME_EXIT;
+        if (userData->buttonClicked==TEST)
+            printf("tu vieja");
 }
 
 
 void userInterface::setButton(unsigned buttonIndex, unsigned buttonW, unsigned buttonH, unsigned buttonX, unsigned buttonY)
 {
-    buttons[buttonIndex]->initialX = buttonX;
-    buttons[buttonIndex]->initialY = buttonY;
-    buttons[buttonIndex]->height = buttonH;
-    buttons[buttonIndex]->width = buttonW;
+    buttons[buttonIndex].initialX = buttonX;
+    buttons[buttonIndex].initialY = buttonY;
+    buttons[buttonIndex].height = buttonH;
+    buttons[buttonIndex].width = buttonW;
 }
 
-void userInterface::userInterface()
-{
-    this->event=NULL;
-    this->queue=NULL;
-}

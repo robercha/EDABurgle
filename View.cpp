@@ -176,9 +176,8 @@ View::View()
 
 
     this->buttons = (bitmap_t*) malloc(sizeof (bitmap_t) * BUTTON_COUNT);
-    initUtilities(display->buttons);
+    initUtilities(this->buttons);
 
-    return display;
 }
 
 View::~View()
@@ -221,25 +220,25 @@ View::menuDisplay(void)
 unsigned
 View::getButtonX(unsigned i)
 {
-    return buttons[i]->x;
+    return buttons[i].x;
 }
 
 unsigned
 View::getButtonY(unsigned i)
 {
-    return buttons[i]->y;
+    return buttons[i].y;
 }
 
 unsigned
 View::getButtonW(unsigned i)
 {
-    return buttons[i]->width;
+    return buttons[i].width;
 }
 
 unsigned
 View::getButtonH(unsigned i)
 {
-    return buttons[i]->height;
+    return buttons[i].height;
 }
 
 void

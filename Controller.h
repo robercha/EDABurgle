@@ -1,7 +1,8 @@
-#include "EventGenerator.h"
-
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
+
+#include "EventGenerator.h"
+#include "View.h"
 
 class Controller {
 public:
@@ -14,13 +15,13 @@ public:
     void translateUserData(void);
     //  void translatePackage(void);
     void copyButtons();
-    void getLastEvent();
+    unsigned getLastEvent();
     ~Controller();
 private:
     userData_t* userData;
-    gameData_t* gameData;
-    graphics_t* graphics;
-    FSM* FSM;
+    //gameData_t* gameData;
+    //graphics_t* graphics;
+    //FSM* FSM;
     userInterface* user;
     //Networking* networking;
     View *view;

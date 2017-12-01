@@ -32,9 +32,9 @@ main(int argc, char** argv)
 //        cout << "no se pasó ip" << endl;
     
     Controller controller(0);
-    while(controller->getLastEvent()!=HOME_EXIT)
+    while(controller.getLastEvent()!=HOME_EXIT)
     {
-        controller->manageEvent();
+        controller.manageEvent();
     }
     return 0;
 }

@@ -1,15 +1,15 @@
 #include "Controller.h"
-#include "EventGenerator.h"
-#include "FSM.h"
+//#include "FSM.h"
 #include <new>
 
 Controller::Controller(char* ip)
 {
     this->userData = new userData_t;
     //this->networking = new Networking(ip);
+    this->view = new View;    
     this->user = new userInterface;
-    this->view = new View;
     this->copyButtons();
+    this->view->menuDisplay();
 }
 
 Controller::~Controller()
@@ -65,7 +65,7 @@ Controller::~Controller()
 //    return success;
 //}
 
-Controller::manageEvent(void)
+void Controller::manageEvent(void)
 {
     user->getEvent(userData);
     translateUserData();
@@ -96,15 +96,15 @@ Controller::manageEvent(void)
 
 void Controller::copyButtons()
 {
-    for(unsigned i=0; i<BUTTONCOUNT; i++)
+    for(unsigned i=0; i<BUTTON_COUNT; i++)
     {
-        user->setButton(i,View->getButtonW(i),View->getButtonH(i),View->getButtonX(i),View->getButtonY(i));    
+        user->setButton(i,view->getButtonW(i),view->getButtonH(i),view->getButtonX(i),view->getButtonY(i));    
     }
 }
 
 unsigned Controller::getLastEvent()
 {
-    return this->userData->event;
+    return this->userData->buttonClicked;
 }
 
 void Controller::translateUserData()
