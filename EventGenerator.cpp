@@ -253,5 +253,8 @@ unsigned userInterface::checkClick(userData_t*, unsigned state) //chequea si se 
 
 createButtons(buttons_t* buttons, userData_t* userData)
 {
-    //buttons[A1_F1].initialX = 
+    buttons[TEST].initialX = DISPLAYW/2;
+    buttons[TEST].initialY = DISPLAYH/2;
+    
+    
 }

@@ -13,6 +13,7 @@ public:
     //  bool buildPacket(packet_t packet); //enum
     void translateUserData(void);
     //  void translatePackage(void);
+    void copyButtons();
     ~Controller();
 private:
     userData_t* userData;
