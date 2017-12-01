@@ -5,23 +5,23 @@
  */
 
 /* 
- * File:   Graphics.h
+ * File:   View.h
  * Author: rober
  *
  * Created on December 1, 2017, 1:26 PM
  */
 
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
+#ifndef VIEW_H
+#define VIEW_H
 
-class Graphics {
+class View {
 public:
-    Graphics();
-    Graphics(const Graphics& orig);
-    virtual ~Graphics();
+    View();
+    View(const View& orig);
+    virtual ~View();
 private:
 
 };
 
-#endif /* GRAPHICS_H */
+#endif /* VIEW_H */
 

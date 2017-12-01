@@ -5,7 +5,7 @@
  */
 
 /* 
- * File:   Graphics.cpp
+ * File:   View.cpp
  * Author: rober
  * 
  * Created on December 1, 2017, 1:26 PM
@@ -13,12 +13,12 @@
 
 #include "View.h"
 
-Graphics::Graphics() {
+View::View() {
 }
 
-Graphics::Graphics(const Graphics& orig) {
+View::View(const View& orig) {
 }
 
-Graphics::~Graphics() {
+View::~View() {
 }
 

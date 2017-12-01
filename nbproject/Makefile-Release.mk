@@ -38,9 +38,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/Controller.o \
 	${OBJECTDIR}/EventGenerator.o \
 	${OBJECTDIR}/FSM.o \
-	${OBJECTDIR}/Graphics.o \
 	${OBJECTDIR}/Model.o \
 	${OBJECTDIR}/Player.o \
+	${OBJECTDIR}/View.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/model.o
 
@@ -84,11 +84,6 @@ ${OBJECTDIR}/FSM.o: FSM.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FSM.o FSM.cpp
 
-${OBJECTDIR}/Graphics.o: Graphics.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Graphics.o Graphics.cpp
-
 ${OBJECTDIR}/Model.o: Model.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -98,6 +93,11 @@ ${OBJECTDIR}/Player.o: Player.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Player.o Player.cpp
+
+${OBJECTDIR}/View.o: View.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/View.o View.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
