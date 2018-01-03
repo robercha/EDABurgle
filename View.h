@@ -15,12 +15,12 @@
 
 
 
-#define DISPLAYW 1090
-#define DISPLAYH 720
+#define DISPLAYW 1280
+#define DISPLAYH 706
 
 typedef enum {
     TEST, BUTTON_COUNT, NOBUTTON, HOME_EXIT
-}button_t;
+} button_t;
 
 typedef struct bitmap //informacion de cada boton (bitmap)
 {
