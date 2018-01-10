@@ -173,9 +173,16 @@ View::View()
         }
     }
 
+    this->buttons = new std::vector<bitmap_t>;
+    for (unsigned i = 0; i < (int) button::BUTTON_COUNT; ++i)
+        buttons.push_back(bitmap_t());
 
+    this->images = new std::vector<ALLEGRO_BITMAP>;
+    for (unsigned i = 0; i < (int) image::IMAGE_COUNT; ++i)
+        buttons.push_back(ALLEGRO_BITMAP());
 
-    this->buttons = (bitmap_t*) malloc(sizeof (bitmap_t) * BUTTON_COUNT);
+    //this->buttons = (bitmap_t*) malloc(sizeof (bitmap_t) * BUTTON_COUNT);
+
     initUtilities(this->buttons);
 
 }
@@ -196,13 +203,20 @@ View::~View()
     al_uninstall_mouse();
     al_uninstall_keyboard();
 
-    unsigned i;
-    for (i = 0; i < BUTTON_COUNT; i++)
-    {
-        al_destroy_bitmap(this->buttons[i].image);
-    }
 
-    free(this->buttons);
+    buttons->clear();
+    delete buttons;
+
+    images->clear();
+    delete images;
+
+    //    unsigned i;
+    //    for (i = 0; i < BUTTON_COUNT; i++)
+    //    {
+    //        al_destroy_bitmap(this->buttons[i].image);
+    //    }
+    //
+    //    free(this->buttons);
 }
 
 void
