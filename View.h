@@ -1,6 +1,7 @@
 #ifndef VIEW_H
 #define VIEW_H
 
+#include <vector>
 #include <stdio.h>
 #include <stdlib.h>
 #include <allegro5/allegro.h>
@@ -25,7 +26,7 @@ typedef enum {
 typedef struct bitmap //informacion de cada boton (bitmap)
 {
     ALLEGRO_BITMAP* image; //el archivo
-    unsigned screen; //a que pantalla pertenece
+    //unsigned screen; //a que pantalla pertenece
     unsigned int x; //posicion en la pantalla
     unsigned int y;
     unsigned int width; //ancho y largo de la misma
@@ -37,10 +38,10 @@ public:
     View();
     void menuDisplay(void);
     virtual ~View();
-    unsigned getButtonX(unsigned i); //se le pasa el indice del arreglo de botones
-    unsigned getButtonY(unsigned i);
-    unsigned getButtonW(unsigned i);
-    unsigned getButtonH(unsigned i);
+    unsigned getButtonX(unsigned); //se le pasa el indice del arreglo de botones
+    unsigned getButtonY(unsigned);
+    unsigned getButtonW(unsigned);
+    unsigned getButtonH(unsigned);
 private:
     ALLEGRO_DISPLAY *display;
     ALLEGRO_BITMAP *background;
@@ -53,6 +54,7 @@ private:
     unsigned int width;
     unsigned int height;
     bitmap_t* buttons;
+    std::vector<bitmap_t>* buttons;
 };
 
 #endif /* VIEW_H */
