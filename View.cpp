@@ -225,8 +225,8 @@ View::menuDisplay(void)
     //al_set_target_backbuffer(->display); //Vuelve al display
 
     al_draw_bitmap(this->background, 0, 0, 0); //dibujo fondo
-    al_draw_bitmap(this->buttons[TEST].image, this->buttons[TEST].x, this->buttons[TEST].y, 0); //dibujo boton single player
-    al_draw_text(this->titleFont, al_map_rgb(143, 91, 3), 545, 30, ALLEGRO_ALIGN_CENTRE, "Lu esta pelotuda");
+    //al_draw_bitmap(this->buttons[TEST].image, this->buttons[TEST].x, this->buttons[TEST].y, 0); //dibujo boton single player
+    //al_draw_text(this->titleFont, al_map_rgb(143, 91, 3), 545, 30, ALLEGRO_ALIGN_CENTRE, "Lu esta pelotuda");
 
     al_flip_display();
 }
