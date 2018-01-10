@@ -251,6 +251,47 @@ unsigned
 userInterface::checkClick(userData_t* userData, unsigned state, ALLEGRO_EVENT event) //chequea si se toco algun boton y devuelve la posicion en el arreglo del boton q se toco
 {
     unsigned i;
+    std::vector<bitmap_t>::iterator it;
+
+    if ((event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) && state) //Se analizan solo eventos de mouse y solo en el caso de que un evento haya ocurrido
+    {
+        for (it = buttons->begin = 0; i < button::BUTTON_COUNT; i++) //recorre el arreglo de los botones y se fija si se toco dentro del espacio del boton
+        {
+            if (((event.mouse.x >= buttons[i].initialX) && (event.mouse.x <= (buttons[i].initialX + buttons[i].width))) &&
+                    ((event.mouse.y >= buttons[i].initialY) && (event.mouse.y <= (buttons[i].initialY + buttons[i].height))))
+            {
+                userData->buttonClicked = i; //Indice en el arreglo de botones
+                userData->mouseX = event.mouse.x;
+                userData->mouseY = event.mouse.y;
+                break;
+            }
+        }
+    }
+    else
+        userData->buttonClicked = NO_BUTTON; //No se clickeo ningun boton
+
+    if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) //si el usuario quiere salir del juego
+        userData->buttonClicked = HOME_EXIT;
+    if (userData->buttonClicked == TEST)
+        printf("tu vieja");
+}
+
+void
+userInterface::setButton(unsigned buttonIndex, unsigned buttonW, unsigned buttonH, unsigned buttonX, unsigned buttonY)
+{
+    buttons[buttonIndex].initialX = buttonX;
+    buttons[buttonIndex].initialY = buttonY;
+    buttons[buttonIndex].height = buttonH;
+    buttons[buttonIndex].width = buttonW;
+}
+
+
+//BACKUP
+
+unsigned
+userInterface::checkClick(userData_t* userData, unsigned state, ALLEGRO_EVENT event) //chequea si se toco algun boton y devuelve la posicion en el arreglo del boton q se toco
+{
+    unsigned i;
 
     if ((event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) && state) //Se analizan solo eventos de mouse y solo en el caso de que un evento haya ocurrido
     {
