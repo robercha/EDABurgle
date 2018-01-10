@@ -1,9 +1,9 @@
 #include "View.h"
 
-typedef enum
-{
-    HOMESCREEN, SETTINGSSCREEN, HELPSCREEN, PLAYINGSCREEN, CREDITSSCREEN, SCREENCOUNT
-} screen_t;
+//typedef enum
+//{
+//    HOMESCREEN, SETTINGSSCREEN, HELPSCREEN, PLAYINGSCREEN, CREDITSSCREEN, SCREENCOUNT
+//} screen_t;
 
 //carga botones
 static void initUtilities(bitmap_t*);
@@ -234,36 +234,36 @@ View::menuDisplay(void)
 unsigned
 View::getButtonX(unsigned i)
 {
-    return buttons[i].x;
+    return buttons->at(i).x;
 }
 
 unsigned
 View::getButtonY(unsigned i)
 {
-    return buttons[i].y;
+    return buttons->at(i).y;
 }
 
 unsigned
 View::getButtonW(unsigned i)
 {
-    return buttons[i].width;
+    return buttons->at(i).width;
 }
 
 unsigned
 View::getButtonH(unsigned i)
 {
-    return buttons[i].height;
+    return buttons->at(i).height;
 }
 
 void
 initUtilities(bitmap_t * bitmapArray)
 {
-    bitmapArray[TEST].image = al_load_bitmap("test.jpg"); //fondo
-    bitmapArray[TEST].screen = PLAYINGSCREEN;
-    bitmapArray[TEST].width = al_get_bitmap_width(bitmapArray[TEST].image);
-    bitmapArray[TEST].height = al_get_bitmap_height(bitmapArray[TEST].image);
-    bitmapArray[TEST].x = DISPLAYW / 2;
-    bitmapArray[TEST].y = DISPLAYH / 2;
+    //    bitmapArray[TEST].image = al_load_bitmap("test.jpg"); //fondo
+    //    bitmapArray[TEST].screen = PLAYINGSCREEN;
+    //    bitmapArray[TEST].width = al_get_bitmap_width(bitmapArray[TEST].image);
+    //    bitmapArray[TEST].height = al_get_bitmap_height(bitmapArray[TEST].image);
+    //    bitmapArray[TEST].x = DISPLAYW / 2;
+    //    bitmapArray[TEST].y = DISPLAYH / 2;
 
 }
 
