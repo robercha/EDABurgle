@@ -143,17 +143,8 @@ public:
     View();
     virtual ~View();
     bool updateGraphics(); //devuelve false si hubo problema al updatear los graficos, e.g. al cargar algun bitmap
-    //algunas de estas en private pls
-    void drawFloors();
-    void drawWalls();
-    void drawCharacters();
-    void drawStealthTokens();
-    void drawGuards();
-    void showPatrolDeck();
-    void drawBackground();
-    void drawTitle();
-    void drawActions();
-    void drawMessages();
+
+
 
 
 
@@ -187,6 +178,16 @@ private:
     ALLEGRO_BITMAP* loadDie(dice_t);
     ALLEGRO_BITMAP* loadSafeNumber(safe_t);
 
+    void drawFloors();
+    void drawWalls();
+    void drawCharacters();
+    void drawStealthTokens();
+    void drawGuards();
+    void showPatrolDeck();
+    void drawBackground();
+    void drawTitle();
+    void drawActions();
+    void drawMessages();
 
 };
 
