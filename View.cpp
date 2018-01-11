@@ -32,14 +32,14 @@ View::View()
                     if (this->display != NULL)
                     {
                         al_set_window_title(this->display, "Pepe&Co"); //titulo
-                        this->background = al_load_bitmap("background.jpg");
+                        this->background = al_load_bitmap("images/background.jpg");
                         if (this->background != NULL)
                         {
                             this->backgroundWidth = al_get_bitmap_width(this->background);
                             this->backgroundHeight = al_get_bitmap_height(this->background);
                             al_draw_scaled_bitmap(this->background, 0, 0, this->backgroundWidth, this->backgroundHeight, 0, 0, this->width, this->height, 0); //dibujo fondo
 
-                            this->textFont = al_load_ttf_font("Bellota-Bold.otf", 20, 0);
+                            this->textFont = al_load_ttf_font("fonts/Dudu.ttf", 20, 0);
                             if (this->textFont != NULL)
                             {
                                 this->timer = al_create_timer(1.0 / 60);
@@ -55,7 +55,7 @@ View::View()
                                                 al_register_event_source(this->eventQueue, al_get_mouse_event_source());
                                                 al_register_event_source(this->eventQueue, al_get_keyboard_event_source());
                                                 al_register_event_source(this->eventQueue, al_get_display_event_source(this->display));
-                                                this->titleFont = al_load_ttf_font("Bellota-Bold.otf", 80, 0);
+                                                this->titleFont = al_load_ttf_font("fonts/Whatnot.ttf", 80, 0);
                                                 if (this->titleFont != NULL)
                                                 {
                                                     al_draw_bitmap(this->background, 0, 0, 0);
