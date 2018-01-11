@@ -178,16 +178,16 @@ View::View()
         buttons->push_back(bitmap_t());
 
 
+    this->graphicsData = (graphicsData_t*) malloc(sizeof (graphicsData_t));
 
-    //this->buttons = (bitmap_t*) malloc(sizeof (bitmap_t) * BUTTON_COUNT);
+    //    this->buttons = (bitmap_t*) malloc(sizeof (bitmap_t) * BUTTON_COUNT);
 
-    initUtilities(this->buttons);
+    //initUtilities(this->buttons);
 
 }
 
 View::~View()
 {
-
     al_destroy_bitmap(this->background);
     al_destroy_event_queue(this->eventQueue);
     al_destroy_font(this->textFont);
@@ -205,7 +205,7 @@ View::~View()
     buttons->clear();
     delete buttons;
 
-
+    free(this->graphicsData);
 
     //    unsigned i;
     //    for (i = 0; i < BUTTON_COUNT; i++)
