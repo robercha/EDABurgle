@@ -63,7 +63,7 @@ enum class patrol_t {
     A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4, D1, D2, D3, D4, NO_PATROL
 };
 
-enum class number_t { //combination numbers
+enum class safe_t { //combination numbers
     NUMBER1, NUMBER2, NUMBER3, NUMBER4, NUMBER5, NUMBER6
 };
 
@@ -142,6 +142,7 @@ public:
     unsigned getButtonW(unsigned);
     View();
     virtual ~View();
+    bool updateGraphics(); //devuelve false si hubo problema al updatear los graficos, e.g. al cargar algun bitmap
     //algunas de estas en private pls
     void drawFloors();
     void drawWalls();
@@ -153,6 +154,7 @@ public:
     void drawTitle();
     void drawActions();
     void drawMessages();
+
 
 
 
@@ -168,8 +170,19 @@ private:
     unsigned int backgroundHeight;
     unsigned int width;
     unsigned int height;
+    graphicsData_t* graphicsData;
     //bitmap_t* buttons;
-    std::vector<bitmap_t>* buttons;
+    std::vector<bitmap_t>* buttons; //  no se si necesitamos buttons, porque toda la info para dibujar esta en graphicsData
+    //  y las coordenadas salen de la galera, asi como el width&height so
+
+
+    ALLEGRO_BITMAP* loadCharacter(character_t); //funciones que cargan el bitmap
+    ALLEGRO_BITMAP* loadLoot(loot_t);
+    ALLEGRO_BITMAP* loadToken(token_t);
+    ALLEGRO_BITMAP* loadRoom(room_t);
+    ALLEGRO_BITMAP* loadPatrolCard(patrol_t);
+    ALLEGRO_BITMAP* loadDie(dice_t);
+    ALLEGRO_BITMAP* loadSafeNumber(safe_t);
 
 
 };
