@@ -175,7 +175,10 @@ private:
     std::vector<bitmap_t>* buttons; //  no se si necesitamos buttons, porque toda la info para dibujar esta en graphicsData
     //  y las coordenadas salen de la galera, asi como el width&height so
 
-
+    unsigned getBitmapX(ALLEGRO_BITMAP*);
+    unsigned getBitmapY(ALLEGRO_BITMAP*);
+    unsigned getBitmapW(ALLEGRO_BITMAP*);
+    unsigned getBitmapH(ALLEGRO_BITMAP*);
     ALLEGRO_BITMAP* loadCharacter(character_t); //funciones que cargan el bitmap
     ALLEGRO_BITMAP* loadLoot(loot_t);
     ALLEGRO_BITMAP* loadToken(token_t);
