@@ -173,13 +173,11 @@ View::View()
         }
     }
 
-    this->buttons = new std::vector<bitmap_t>;
+    this->buttons = new std::vector<bitmap_t>; //inicializo en 0 vector
     for (unsigned i = 0; i < (int) button::BUTTON_COUNT; ++i)
         buttons->push_back(bitmap_t());
 
-    this->images = new std::vector<ALLEGRO_BITMAP>;
-    for (unsigned i = 0; i < (int) image::IMAGE_COUNT; ++i)
-        buttons->push_back(ALLEGRO_BITMAP());
+
 
     //this->buttons = (bitmap_t*) malloc(sizeof (bitmap_t) * BUTTON_COUNT);
 
@@ -207,8 +205,7 @@ View::~View()
     buttons->clear();
     delete buttons;
 
-    images->clear();
-    delete images;
+
 
     //    unsigned i;
     //    for (i = 0; i < BUTTON_COUNT; i++)
