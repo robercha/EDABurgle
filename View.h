@@ -91,6 +91,7 @@ typedef struct {
 
 typedef struct {
     room_t iAm; //e.g. atrium
+    bool InvisibilityCloak; //esta dada vuelta o se sabe qué es?
     bool alarm; //on-off
     unsigned combinationNumber; //0 si es la safe, ó 1,2,3,4,5,6
     bool crackedToken; //si salió con los cracking dice, para dibujar cracked token sobre el combination number
@@ -111,7 +112,6 @@ typedef struct {
     loot_t loots [V_TOTAL_LOOTS]; //para mostrar los loots de c/piso abajo de los floors
     tile_t currentCardSelected; //muestra en upper-right corner toda la informacion
     unsigned crackingDice[V_TOTAL_CRACKINGDICE];
-
 
     //aca faltan los mensajes
     //aca faltan las actions (botones)
@@ -145,10 +145,6 @@ public:
     bool updateGraphics(); //devuelve false si hubo problema al updatear los graficos, e.g. al cargar algun bitmap
 
 
-
-
-
-
 private:
 
     ALLEGRO_DISPLAY *display;
@@ -161,7 +157,7 @@ private:
     unsigned int backgroundHeight;
     unsigned int width;
     unsigned int height;
-    graphicsData_t* graphicsData;
+    graphicsData_t* graphicsData; //deberia ser public para q model la modifique
     //bitmap_t* buttons;
     std::vector<bitmap_t>* buttons; //  no se si necesitamos buttons, porque toda la info para dibujar esta en graphicsData
     //  y las coordenadas salen de la galera, asi como el width&height so
@@ -178,16 +174,33 @@ private:
     ALLEGRO_BITMAP* loadDie(dice_t);
     ALLEGRO_BITMAP* loadSafeNumber(safe_t);
 
+    void writeTitle();
+
+    void drawChatDividers();
+
+    void drawBoard();
+    void drawCharactersInfo();
     void drawFloors();
+    void drawTiles();
     void drawWalls();
+
+    void writeFloorTexts();
+    void drawPatrolDecks();
+    void drawLoots();
+
     void drawCharacters();
-    void drawStealthTokens();
+    void drawGuardDice();
     void drawGuards();
-    void showPatrolDeck();
-    void drawBackground();
-    void drawTitle();
-    void drawActions();
-    void drawMessages();
+    void drawTokensOnTiles(); //ver bien
+    //void drawBackground();
+
+    void drawCardInfo();
+    void showNoCardSelected();
+    void drawTileSelectedInfo();
+    void drawSelectedTileTokens();
+    void drawLootSelectedInfo();
+    void writeActions();
+    void writeMessages();
 
 };
 
