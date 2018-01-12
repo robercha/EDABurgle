@@ -252,6 +252,58 @@ View::getButtonH(unsigned i)
     return buttons->at(i).height;
 }
 
+bool
+View::updateGraphics()
+{
+    writeTitle();
+    drawChatDividers();
+    drawBoard();
+    drawCardInfo();
+
+    writeActions();
+    writeMessages();
+}
+
+void
+View::drawBoard()
+{
+
+    drawCharactersInfo();
+    drawFloors();
+
+}
+
+void
+View::drawFloors()
+{
+    drawTiles();
+    drawWalls();
+
+    writeFloorTexts();
+    drawPatrolDecks();
+    drawLoots();
+
+    drawCharacters();
+    drawGuardDice();
+    drawGuards();
+    drawTokensOnTiles(); //ver bien
+}
+
+void
+View::drawCardInfo()
+{
+    //una de estas
+    showNoCardSelected();
+    drawTileSelectedInfo();
+    drawLootSelectedInfo();
+}
+
+void
+View::drawTileSelectedInfo()
+{
+    drawSelectedTileTokens();
+}
+
 ALLEGRO_BITMAP*
 View::loadCharacter(character_t c)
 {
