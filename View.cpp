@@ -8,6 +8,60 @@
 //carga botones
 static void initUtilities(bitmap_t*);
 
+#define TILE_SIZE                   71
+#define CARD_SELECTED_SIZE          162
+#define CHARACTERS_BIG_WIDTH        60
+#define CHARACTERS_BIG_HEIGHT       75
+#define CHARACTERS_SMALL_WIDTH      33
+#define CHARACTERS_SMALL_HEIGHT     49
+#define STEALTH_TOKENS_SIZE         27
+#define TOKENS_BIG_SIZE             22
+#define GUARD_WIDTH                 22
+#define GUARD_HEIGHT                24
+#define DICE_SIZE                   24
+#define GOLD2_WIDTH                 28
+#define GOLD2_HEIGHT                23
+#define PATROL_CARD_SIZE            60
+#define LOOT_CARD_SIZE              60
+#define TOKENS_SMALL_SIZE           17   //capaz no hace falta
+
+#define SPACE_LEFT_MARGIN           20
+#define SPACE_UP_MARGIN             10
+#define SPACE_TILE                  10
+#define SPACE_FLOOR                 40
+#define SPACE_TOKEN_LR              20
+#define SPACE_TOKEN_UD              7
+#define SPACE_DIVIDER_L             1050
+#define SPACE_DIVIDER_U             550
+
+#define FONT_HUGE_SIZE              60
+#define FONT_BIG_SIZE               18
+#define FONT_MEDIUM_SIZE            14
+#define FONT_SMALL_SIZE             12
+
+
+//#   start x     start y     an      al
+//1   23          8           50      76    //character you
+//2   79          14          27      27    //stealth you
+//3   78          61          24      15    //x3 you
+//4   252         14          27      27    //stealth partner
+//5   256         61                        //x3 partner
+//6   288         12          55      72    //character partner
+//7   22          134         71      71      //tile
+//8
+//9
+//10
+//
+//pepe&co a x=473; y=60
+//PEPE&CO FONT=60
+//
+//cracking dice font 12
+//tile: 12
+//tile selected 14
+//3rd floor: 18
+//abcd1234 font:18
+//marron de pared= #a9814c (169,127,77)
+
 View::View()
 {
 
@@ -37,7 +91,6 @@ View::View()
                         {
                             this->backgroundWidth = al_get_bitmap_width(this->background);
                             this->backgroundHeight = al_get_bitmap_height(this->background);
-                            al_draw_scaled_bitmap(this->background, 0, 0, this->backgroundWidth, this->backgroundHeight, 0, 0, this->width, this->height, 0); //dibujo fondo
 
                             this->textFont = al_load_ttf_font("fonts/Dudu.ttf", 20, 0);
                             if (this->textFont != NULL)
@@ -220,7 +273,7 @@ void
 View::menuDisplay(void)
 {
     //al_set_target_backbuffer(->display); //Vuelve al display
-
+    al_draw_scaled_bitmap(this->background, 0, 0, this->backgroundWidth, this->backgroundHeight, 0, 0, this->width, this->height, 0); //dibujo fondo
     al_draw_bitmap(this->background, 0, 0, 0); //dibujo fondo
     //al_draw_bitmap(this->buttons[TEST].image, this->buttons[TEST].x, this->buttons[TEST].y, 0); //dibujo boton single player
     //al_draw_text(this->titleFont, al_map_rgb(143, 91, 3), 545, 30, ALLEGRO_ALIGN_CENTRE, "Lu esta pelotuda");
@@ -262,15 +315,15 @@ View::updateGraphics()
 
     writeActions();
     writeMessages();
+
+    al_flip_display();
 }
 
 void
 View::drawBoard()
 {
-
     drawCharactersInfo();
     drawFloors();
-
 }
 
 void
@@ -302,6 +355,122 @@ void
 View::drawTileSelectedInfo()
 {
     drawSelectedTileTokens();
+}
+
+void
+View::drawBackground()
+{
+    al_draw_scaled_bitmap(this->background, 0, 0, this->backgroundWidth, this->backgroundHeight, 0, 0, this->width, this->height, 0); //dibujo fondo
+}
+
+void
+View::writeTitle()
+{
+    //cargar imagen con pepe&Co
+    //al_draw_text(titleFont, al_map_rgb(0,0,0),470, 60,ALLEGRO_ALIGN_LEFT,"PEPE&CO HQ.");
+}
+
+void
+View::drawChatDividers()
+{
+    al_draw_line(1050, 0, 1050, 550, al_map_rgb(0, 0, 0), 1);
+    al_draw_line(0, 550, 1050, 0, al_map_rgb(0, 0, 0), 1);
+}
+
+void
+View::drawCharactersInfo()
+{
+
+}
+
+void
+View::drawTiles()
+{
+
+}
+
+void
+View::drawWalls()
+{
+
+}
+
+void
+View::writeFloorTexts()
+{
+
+}
+
+void
+View::drawPatrolDecks()
+{
+
+}
+
+void
+View::drawLoots()
+{
+
+}
+
+void
+View::drawCharacters()
+{
+
+}
+
+void
+View::drawGuardDice()
+{
+
+}
+
+void
+View::drawGuards()
+{
+
+}
+
+void
+View::drawTokensOnTiles()
+{ //ver bien
+
+}
+
+void
+View::showNoCardSelected()
+{
+
+}
+
+void
+View::drawTileSelectedInfo()
+{
+
+}
+
+void
+View::drawSelectedTileTokens()
+{
+
+}
+
+void
+View::drawLootSelectedInfo()
+{
+
+}
+
+void
+View::writeActions()
+{
+
+}
+
+void
+View::writeMessages()
+{
+
 }
 
 ALLEGRO_BITMAP*
