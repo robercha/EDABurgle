@@ -36,6 +36,26 @@ enum class button {
     BUTTON_COUNT, NOBUTTON// , HOME_EXIT
 };
 
+enum class image { //buttons != images
+    //characters
+    JUICER, HACKER, ACROBAT, SPOTTER, HAWK, RAVEN, PETERMAN, GUARD,
+    //loots
+    TIARA, KITTY, PAINTING, MIRROR, KEYCARD, ISOTOPE, GEMSTONE, GOBLET, CHIHUAHUA, GOLD, GOLD2, NO_LOOT,
+    //rooms
+    ATRIUM, CAMERA, CR_FINGERPRINT, CR_LASER, CR_MOTION, DEADBOLT, DETECTOR, FINGERPRINT, FOYER, KEYPAD,
+    LABORATORY, LASER, LAVATORY, MOTION, SAFE, SECRETDOOR, SERVICEDUCT, STAIRS, THERMO, WALKWAY, ROOMBACK,
+    //tokens
+    ALARMTOKEN, STEALTHTOKEN, HACKTOKEN, CRACKEDTOKEN, DOWNSTAIRSTOKEN, KITTYTOKEN, CROWTOKEN, OPENTOKEN,
+    //patrol
+    A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4, D1, D2, D3, D4, NO_PATROL,
+    //combination numbers
+    NUMBER1, NUMBER2, NUMBER3, NUMBER4, NUMBER5, NUMBER6,
+    //dice (is dis necessary?)
+    GUARD_DIE1, GUARD_DIE2, GUARD_DIE3, GUARD_DIE4, GUARD_DIE5, GUARD_DIE6,
+    SAFE_DIE1, SAFE_DIE2, SAFE_DIE3, SAFE_DIE4, SAFE_DIE5, SAFE_DIE6,
+    IMAGE_COUNT
+};
+
 enum class character_t {
     JUICER, HACKER, ACROBAT, SPOTTER, HAWK, RAVEN, PETERMAN, GUARD
 };
@@ -63,9 +83,9 @@ enum class patrol_t {
     A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4, D1, D2, D3, D4, NO_PATROL
 };
 
-enum class safe_t { //combination numbers
-    NUMBER1, NUMBER2, NUMBER3, NUMBER4, NUMBER5, NUMBER6
-};
+//enum class safe_t { //combination numbers
+//    NUMBER1, NUMBER2, NUMBER3, NUMBER4, NUMBER5, NUMBER6
+//};
 
 enum class dice_t { //tipos de dados
     GUARD_DIE1, GUARD_DIE2, GUARD_DIE3, GUARD_DIE4, GUARD_DIE5, GUARD_DIE6,
@@ -91,7 +111,7 @@ typedef struct {
 
 typedef struct {
     room_t iAm; //e.g. atrium
-    bool InvisibilityCloak; //esta dada vuelta o se sabe qué es?
+    //bool InvisibilityCloak; //esta dada vuelta o se sabe qué es?
     bool alarm; //on-off
     unsigned combinationNumber; //0 si es la safe, ó 1,2,3,4,5,6
     bool crackedToken; //si salió con los cracking dice, para dibujar cracked token sobre el combination number
@@ -135,7 +155,6 @@ typedef struct bitmap //informacion de cada boton (bitmap)
 class View {
 public:
 
-
     graphicsData_t* graphicsData; //deberia ser public para q model la modifique
     void menuDisplay(void); //borrar
     unsigned getButtonX(unsigned); //se le pasa el indice del arreglo de botones
@@ -162,39 +181,35 @@ private:
     //bitmap_t* buttons;
     std::vector<bitmap_t>* buttons; //  no se si necesitamos buttons, porque toda la info para dibujar esta en graphicsData
     //  y las coordenadas salen de la galera, asi como el width&height so
+    ALLEGRO_BITMAP* images[(int) image::IMAGE_COUNT];
 
     unsigned getBitmapX(ALLEGRO_BITMAP*);
     unsigned getBitmapY(ALLEGRO_BITMAP*);
     unsigned getBitmapW(ALLEGRO_BITMAP*);
     unsigned getBitmapH(ALLEGRO_BITMAP*);
-    ALLEGRO_BITMAP* loadCharacter(character_t); //funciones que cargan el bitmap
-    ALLEGRO_BITMAP* loadLoot(loot_t);
-    ALLEGRO_BITMAP* loadToken(token_t);
-    ALLEGRO_BITMAP* loadRoom(room_t);
+    ALLEGRO_BITMAP* loadCharacter(character_t, bool); //funciones que cargan el bitmap
+    ALLEGRO_BITMAP* loadLoot(loot_t, bool);
+    ALLEGRO_BITMAP* loadToken(token_t, bool);
+    ALLEGRO_BITMAP* loadRoom(room_t, bool);
     ALLEGRO_BITMAP* loadPatrolCard(patrol_t);
     ALLEGRO_BITMAP* loadDie(dice_t);
-    ALLEGRO_BITMAP* loadSafeNumber(safe_t);
+    ALLEGRO_BITMAP* loadSafeNumber(unsigned);
 
     void writeTitle();
-
     void drawChatDividers();
-
     void drawBoard();
     void drawCharactersInfo();
     void drawFloors();
     void drawTiles();
     void drawWalls();
-
     void writeFloorTexts();
     void drawPatrolDecks();
     void drawLoots();
-
     void drawCharacters();
     void drawGuardDice();
     void drawGuards();
     void drawTokensOnTiles(); //ver bien
     void drawBackground();
-
     void drawCardInfo();
     void showNoCardSelected();
     void drawTileSelectedInfo();
@@ -202,6 +217,9 @@ private:
     void drawLootSelectedInfo();
     void writeActions();
     void writeMessages();
+    void drawHorizontalWall(unsigned floor, unsigned row, unsigned col); //floor =(1,2,3);row=(1,2,3,4);col=(1,2,3,4)
+    void drawVerticalWall(unsigned floor, unsigned row, unsigned col); //floor =(1,2,3);row=(1,2,3,4);col=(1,2,3,4)
+
 
 };
 
