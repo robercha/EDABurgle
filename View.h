@@ -135,6 +135,8 @@ typedef struct bitmap //informacion de cada boton (bitmap)
 class View {
 public:
 
+
+    graphicsData_t* graphicsData; //deberia ser public para q model la modifique
     void menuDisplay(void); //borrar
     unsigned getButtonX(unsigned); //se le pasa el indice del arreglo de botones
     unsigned getButtonY(unsigned);
@@ -157,7 +159,6 @@ private:
     unsigned int backgroundHeight;
     unsigned int width;
     unsigned int height;
-    graphicsData_t* graphicsData; //deberia ser public para q model la modifique
     //bitmap_t* buttons;
     std::vector<bitmap_t>* buttons; //  no se si necesitamos buttons, porque toda la info para dibujar esta en graphicsData
     //  y las coordenadas salen de la galera, asi como el width&height so
