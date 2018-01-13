@@ -192,7 +192,7 @@ private:
     void drawGuardDice();
     void drawGuards();
     void drawTokensOnTiles(); //ver bien
-    //void drawBackground();
+    void drawBackground();
 
     void drawCardInfo();
     void showNoCardSelected();
