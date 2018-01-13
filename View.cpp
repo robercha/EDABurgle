@@ -7,6 +7,12 @@
 
 //carga botones
 static void initUtilities(bitmap_t*);
+void drawVerticalWall(unsigned floor, unsigned row, unsigned col);
+void drawHorizontalWall(unsigned floor, unsigned row, unsigned col); //floor =(1,2,3);row=(1,2,3,4);col=(1,2,3,4)
+
+/*Créditos a user: Matthew de stackoverflow:
+ https://stackoverflow.com/questions/15048136/loading-a-bitmap-image-to-a-certain-size*/
+ALLEGRO_BITMAP *load_bitmap_at_size(const char *filename, int w, int h);
 
 #define TILE_SIZE                   71
 #define CARD_SELECTED_SIZE          162
@@ -233,6 +239,7 @@ View::View()
 
     this->graphicsData = (graphicsData_t*) malloc(sizeof (graphicsData_t));
 
+
     //    this->buttons = (bitmap_t*) malloc(sizeof (bitmap_t) * BUTTON_COUNT);
 
     //initUtilities(this->buttons);
@@ -273,7 +280,7 @@ void
 View::menuDisplay(void)
 {
     //al_set_target_backbuffer(->display); //Vuelve al display
-    al_draw_scaled_bitmap(this->background, 0, 0, this->backgroundWidth, this->backgroundHeight, 0, 0, this->width, this->height, 0); //dibujo fondo
+    //al_draw_scaled_bitmap(this->background, 0, 0, this->backgroundWidth, this->backgroundHeight, 0, 0, this->width, this->height, 0); //dibujo fondo
     al_draw_bitmap(this->background, 0, 0, 0); //dibujo fondo
     //al_draw_bitmap(this->buttons[TEST].image, this->buttons[TEST].x, this->buttons[TEST].y, 0); //dibujo boton single player
     //al_draw_text(this->titleFont, al_map_rgb(143, 91, 3), 545, 30, ALLEGRO_ALIGN_CENTRE, "Lu esta pelotuda");
@@ -308,6 +315,7 @@ View::getButtonH(unsigned i)
 bool
 View::updateGraphics()
 {
+    drawBackground();
     writeTitle();
     drawChatDividers();
     drawBoard();
@@ -317,6 +325,7 @@ View::updateGraphics()
     writeMessages();
 
     al_flip_display();
+    al_rest(5);
 }
 
 void
@@ -360,57 +369,169 @@ View::drawTileSelectedInfo()
 void
 View::drawBackground()
 {
-    al_draw_scaled_bitmap(this->background, 0, 0, this->backgroundWidth, this->backgroundHeight, 0, 0, this->width, this->height, 0); //dibujo fondo
+    al_draw_bitmap(this->background, 0, 0, 0); //dibujo fondo
 }
 
 void
 View::writeTitle()
 {
-    //cargar imagen con pepe&Co
-    //al_draw_text(titleFont, al_map_rgb(0,0,0),470, 60,ALLEGRO_ALIGN_LEFT,"PEPE&CO HQ.");
+    ALLEGRO_BITMAP* title = al_load_bitmap("images/texts/pepeycq.png");
+    //al_draw_text(titleFont, al_map_rgb(0, 0, 0), 550, 0, ALLEGRO_ALIGN_CENTER, "Pepe&Co. HQ");
+    al_draw_bitmap(title, 400, 0, 0);
+    al_destroy_bitmap(title);
 }
 
 void
 View::drawChatDividers()
 {
     al_draw_line(1050, 0, 1050, 550, al_map_rgb(0, 0, 0), 1);
-    al_draw_line(0, 550, 1050, 0, al_map_rgb(0, 0, 0), 1);
+    al_draw_line(0, 550, 1050, 550, al_map_rgb(0, 0, 0), 1);
 }
 
 void
 View::drawCharactersInfo()
 {
+    ALLEGRO_BITMAP* playerOne = loadCharacter(graphicsData->players[0].character);
+    al_draw_bitmap(playerOne, 20, 100 - (al_get_bitmap_height(playerOne)), 0);
+    al_destroy_bitmap(playerOne);
 
+    ALLEGRO_BITMAP* stealthOne = loadToken(token_t::STEALTHTOKEN);
+    for (unsigned i = 0; i < graphicsData->players[0].stealthTokens; ++i)
+        al_draw_bitmap(stealthOne, 80, i * (5 + STEALTH_TOKENS_SIZE) + 10, 0);
+    al_destroy_bitmap(stealthOne);
+
+    ALLEGRO_BITMAP* playerTwo = loadCharacter(graphicsData->players[1].character);
+    al_draw_bitmap(playerTwo, 270, 100 - (al_get_bitmap_height(playerTwo)), 0);
+    al_destroy_bitmap(playerTwo);
+
+    ALLEGRO_BITMAP* stealthTwo = loadToken(token_t::STEALTHTOKEN);
+    for (unsigned i = 0; i < graphicsData->players[1].stealthTokens; ++i)
+        al_draw_bitmap(stealthTwo, 240, i * (5 + STEALTH_TOKENS_SIZE) + 10, 0);
+    al_destroy_bitmap(stealthTwo);
+
+    al_draw_text(textFont, al_map_rgb(0, 0, 0), 50, 95, ALLEGRO_ALIGN_CENTER, "you");
+    al_draw_text(textFont, al_map_rgb(0, 0, 0), 300, 95, ALLEGRO_ALIGN_CENTER, "partner");
 }
 
 void
 View::drawTiles()
 {
-
+    unsigned i = 0, x1, y1, x2, y2;
+    for (unsigned floor = 0; floor < 3; floor++)
+        for (unsigned rows = 0; rows < 4; rows++, i++)
+        {
+            for (unsigned cols = 0; cols < 4; cols++, i++)
+            {
+                x1 = 20 + cols * (TILE_SIZE + SPACE_TILE) + floor * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3);
+                y1 = 135 + rows * (TILE_SIZE + SPACE_TILE);
+                if (graphicsData->tiles[i].iAm == room_t::ROOMBACK)
+                {
+                    ALLEGRO_BITMAP* tile = loadRoom(room_t::ROOMBACK);
+                    al_draw_bitmap(tile, x1, y1, 0);
+                    al_destroy_bitmap(tile);
+                }
+                else
+                {
+                    ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[i].iAm);
+                    al_draw_bitmap(tile, 20 + cols * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * floor + floor * (TILE_SIZE * 4 + SPACE_TILE * 3), 135 + rows * (TILE_SIZE + SPACE_TILE), 0);
+                    al_draw_scaled_bitmap(tile, x1, y1, al_get_bitmap_width(tile), al_get_bitmap_height(tile), x1, y1, TILE_SIZE, TILE_SIZE, 0);
+                    al_destroy_bitmap(tile);
+                    if (graphicsData->tiles[i].iAm != room_t::SAFE)
+                    {
+                        ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[i].combinationNumber);
+                        al_draw_bitmap(number, 20 + cols * (TILE_SIZE + SPACE_TILE) + floor * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3), 135 + rows * (TILE_SIZE + SPACE_TILE), 0);
+                        al_destroy_bitmap(number);
+                    }
+                }
+            }
+            i--;
+        }
 }
 
 void
 View::drawWalls()
 {
+    drawVerticalWall(1, 1, 1);
+    drawVerticalWall(1, 4, 1);
+    drawVerticalWall(1, 2, 3);
+    drawVerticalWall(1, 4, 2);
+    drawVerticalWall(2, 1, 1);
+    drawVerticalWall(2, 1, 2);
+    drawVerticalWall(2, 1, 3);
+    drawVerticalWall(2, 4, 1);
+    drawVerticalWall(2, 4, 2);
+    drawVerticalWall(2, 4, 3);
+    drawVerticalWall(3, 2, 1);
+    drawVerticalWall(3, 2, 3);
+    drawVerticalWall(3, 3, 1);
+    drawVerticalWall(3, 3, 2);
+    drawVerticalWall(3, 4, 3);
 
+    drawHorizontalWall(1, 2, 1);
+    drawHorizontalWall(1, 2, 2);
+    drawHorizontalWall(1, 1, 3);
+    drawHorizontalWall(1, 3, 4);
+    drawHorizontalWall(2, 2, 2);
+    drawHorizontalWall(2, 2, 3);
+    drawHorizontalWall(3, 1, 3);
+    drawHorizontalWall(3, 2, 3);
+    drawHorizontalWall(3, 2, 1);
+}
+
+void
+View::drawVerticalWall(unsigned floor, unsigned row, unsigned col) //floor =(1,2,3);row=(1,2,3,4);col=(1,2,3,4)
+{
+    unsigned x1, y1, x2, y2;
+    x1 = 20 + TILE_SIZE * col + SPACE_TILE * (col - 1) + (floor - 1) * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3) + 0.5;
+    y1 = 135 + TILE_SIZE * (row - 1) + SPACE_TILE * (row - 1) + 8;
+    x2 = 20 + TILE_SIZE * col + SPACE_TILE * col + (floor - 1) * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3) - 0.5;
+    y2 = 135 + TILE_SIZE * row + SPACE_TILE * (row - 1) - 8;
+    al_draw_filled_rounded_rectangle(x1, y1, x2, y2, 3, 3, al_map_rgb(169, 127, 77));
+}
+
+void
+View::drawHorizontalWall(unsigned floor, unsigned row, unsigned col) //floor =(1,2,3);row=(1,2,3,4);col=(1,2,3,4)
+{
+    unsigned x1, y1, x2, y2;
+    x1 = 20 + TILE_SIZE * (col - 1) + SPACE_TILE * (col - 1) +(floor - 1) * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3) + 8;
+    y1 = 135 + TILE_SIZE * row + SPACE_TILE * (row - 1) + 0.5;
+    x2 = 20 + TILE_SIZE * col + SPACE_TILE * (col - 1) +(floor - 1) * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3) - 8;
+    y2 = 135 + TILE_SIZE * row + SPACE_TILE * row - 0.5;
+    al_draw_filled_rounded_rectangle(x1, y1, x2, y2, 3, 3, al_map_rgb(169, 127, 77));
 }
 
 void
 View::writeFloorTexts()
 {
-
+    al_draw_text(textFont, al_map_rgb(0, 0, 0), 20 + TILE_SIZE * 2 + SPACE_TILE + SPACE_TILE / 2, 135 + TILE_SIZE * 4 + SPACE_TILE * 3 + SPACE_TILE / 4, ALLEGRO_ALIGN_CENTER, "1st Floor");
+    al_draw_text(textFont, al_map_rgb(0, 0, 0), 20 + SPACE_FLOOR + TILE_SIZE * 6 + SPACE_TILE * 4 + SPACE_TILE / 2, 135 + TILE_SIZE * 4 + SPACE_TILE * 3 + SPACE_TILE / 4, ALLEGRO_ALIGN_CENTER, "2nd Floor");
+    al_draw_text(textFont, al_map_rgb(0, 0, 0), 20 + SPACE_FLOOR * 2 + TILE_SIZE * 10 + SPACE_TILE * 7 + SPACE_TILE / 2, 135 + TILE_SIZE * 4 + SPACE_TILE * 3 + SPACE_TILE / 4, ALLEGRO_ALIGN_CENTER, "3rd Floor");
 }
 
 void
 View::drawPatrolDecks()
 {
-
+    for (unsigned i = 0; i < V_TOTAL_GUARDS; i++)
+    {
+        ALLEGRO_BITMAP* bitmap = loadPatrolCard(graphicsData->guards[i].patrolDeck);
+        al_draw_bitmap(bitmap, 20 + 1 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3), 135 + TILE_SIZE * 4 + SPACE_TILE * 6, 0);
+        al_destroy_bitmap(bitmap);
+    }
 }
 
 void
 View::drawLoots()
 {
-
+    unsigned x, y;
+    for (unsigned i = 0; i < V_TOTAL_LOOTS; i++)
+    {
+        x = 20 + 2 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3);
+        y = 135 + TILE_SIZE * 4 + SPACE_TILE * 6;
+        ALLEGRO_BITMAP* bitmap = loadLoot(graphicsData->loots[i]);
+        al_draw_bitmap(bitmap, x, y, 0);
+        //al_draw_scaled_bitmap(bitmap, x, y, (float) al_get_bitmap_width(bitmap), (float) al_get_bitmap_height(bitmap), x, y, 60.0, 60.0, 0);
+        al_destroy_bitmap(bitmap);
+    }
 }
 
 void
@@ -444,12 +565,6 @@ View::showNoCardSelected()
 }
 
 void
-View::drawTileSelectedInfo()
-{
-
-}
-
-void
 View::drawSelectedTileTokens()
 {
 
@@ -474,41 +589,63 @@ View::writeMessages()
 }
 
 ALLEGRO_BITMAP*
-View::loadCharacter(character_t c)
+View::loadCharacter(character_t c, bool shrink)
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (c)
     {
         case character_t::JUICER:
-            bitmap = al_load_bitmap("images/character/juicer.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/character/juicer.png", CHARACTERS_SMALL_WIDTH, CHARACTERS_SMALL_HEIGHT);
+            else
+                bitmap = al_load_bitmap("images/character/juicer.png");
             break;
 
         case character_t::HACKER:
-            bitmap = al_load_bitmap("images/character/hacker.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/character/hacker.png", CHARACTERS_SMALL_WIDTH, CHARACTERS_SMALL_HEIGHT);
+            else
+                bitmap = al_load_bitmap("images/character/hacker.png");
             break;
 
         case character_t::ACROBAT:
-            bitmap = al_load_bitmap("images/character/acrobat.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/character/acrobat.png", CHARACTERS_SMALL_WIDTH, CHARACTERS_SMALL_HEIGHT);
+            else
+                bitmap = al_load_bitmap("images/character/acrobat.png");
             break;
 
         case character_t::SPOTTER:
-            bitmap = al_load_bitmap("images/character/spotter.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/character/spotter.png", CHARACTERS_SMALL_WIDTH, CHARACTERS_SMALL_HEIGHT);
+            else
+                bitmap = al_load_bitmap("images/character/spotter.png");
             break;
 
         case character_t::HAWK:
-            bitmap = al_load_bitmap("images/character/hawk.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/character/hawk.png", CHARACTERS_SMALL_WIDTH, CHARACTERS_SMALL_HEIGHT);
+            else
+                bitmap = al_load_bitmap("images/character/hawk.png");
             break;
 
         case character_t::RAVEN:
-            bitmap = al_load_bitmap("images/character/raven.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/character/raven.png", CHARACTERS_SMALL_WIDTH, CHARACTERS_SMALL_HEIGHT);
+            else
+                bitmap = al_load_bitmap("images/character/raven.png");
             break;
 
         case character_t::PETERMAN:
-            bitmap = al_load_bitmap("images/character/peterman.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/character/peterman.png", CHARACTERS_SMALL_WIDTH, CHARACTERS_SMALL_HEIGHT);
+            else
+                bitmap = al_load_bitmap("images/character/peterman.png");
             break;
 
         case character_t::GUARD:
             bitmap = al_load_bitmap("images/character/guard.png");
+
             break;
     }
 
@@ -517,49 +654,79 @@ View::loadCharacter(character_t c)
 }
 
 ALLEGRO_BITMAP*
-View::loadLoot(loot_t l)
+View::loadLoot(loot_t l, bool shrink)
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (l)
     {
         case loot_t::TIARA:
-            bitmap = al_load_bitmap("images/loots/tiara.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/loots/tiara.png", LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+            else
+                bitmap = al_load_bitmap("images/loots/tiara.png");
             break;
 
         case loot_t::KITTY:
-            bitmap = al_load_bitmap("images/loots/kitty.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/loots/kitty.png", LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+            else
+                bitmap = al_load_bitmap("images/loots/kitty.png");
             break;
 
         case loot_t::PAINTING:
-            bitmap = al_load_bitmap("images/loots/painting.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/loots/painting.png", LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+            else
+                bitmap = al_load_bitmap("images/loots/painting.png");
             break;
 
         case loot_t::MIRROR:
-            bitmap = al_load_bitmap("images/loots/mirror.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/loots/mirror.png", LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+            else
+                bitmap = al_load_bitmap("images/loots/mirror.png");
             break;
 
         case loot_t::KEYCARD:
-            bitmap = al_load_bitmap("images/loots/keycard.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/loots/keycard.png", LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+            else
+                bitmap = al_load_bitmap("images/loots/keycard.png");
             break;
 
         case loot_t::ISOTOPE:
-            bitmap = al_load_bitmap("images/loots/isotope.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/loots/isotope.png", LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+            else
+                bitmap = al_load_bitmap("images/loots/isotope.png");
             break;
 
         case loot_t::GEMSTONE:
-            bitmap = al_load_bitmap("images/loots/gemstone.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/loots/gemstone.png", LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+            else
+                bitmap = al_load_bitmap("images/loots/gemstone.png");
             break;
 
         case loot_t::GOBLET:
-            bitmap = al_load_bitmap("images/loots/goblet.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/loots/goblet.png", LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+            else
+                bitmap = al_load_bitmap("images/loots/goblet.png");
             break;
 
         case loot_t::CHIHUAHUA:
-            bitmap = al_load_bitmap("images/loots/chihuahua.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/loots/chihuahua.png", LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+            else
+                bitmap = al_load_bitmap("images/loots/chihuahua.png");
             break;
 
         case loot_t::GOLD:
-            bitmap = al_load_bitmap("images/loots/gold.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/loots/gold.png", LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+            else
+                bitmap = al_load_bitmap("images/loots/gold.png");
             break;
 
         case loot_t::GOLD2:
@@ -568,6 +735,7 @@ View::loadLoot(loot_t l)
 
         case loot_t::NO_LOOT:
             bitmap = al_load_bitmap("images/loots/lootBack.png");
+
             break;
     }
 
@@ -575,106 +743,174 @@ View::loadLoot(loot_t l)
 }
 
 ALLEGRO_BITMAP*
-View::loadToken(token_t t)
+View::loadToken(token_t t, bool shrink)
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (t)
     {
         case token_t::ALARMTOKEN:
-            bitmap = al_load_bitmap("images/tokens/alarm.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tokens/alarm.png", TOKENS_SMALL_SIZE, TOKENS_SMALL_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tokens/alarm.png");
             break;
 
         case token_t::CROWTOKEN:
-            bitmap = al_load_bitmap("images/tokens/crow.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tokens/crow.png", TOKENS_SMALL_SIZE, TOKENS_SMALL_SIZE);
+            else
+
+                bitmap = al_load_bitmap("images/tokens/crow.png");
             break;
 
         case token_t::HACKTOKEN:
-            bitmap = al_load_bitmap("images/tokens/hack.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tokens/hack.png", TOKENS_SMALL_SIZE, TOKENS_SMALL_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tokens/hack.png");
             break;
 
         case token_t::KITTYTOKEN:
-            bitmap = al_load_bitmap("images/tokens/kitty.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tokens/kitty.png", TOKENS_SMALL_SIZE, TOKENS_SMALL_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tokens/kitty.png");
             break;
 
         case token_t::OPENTOKEN:
-            bitmap = al_load_bitmap("images/tokens/open.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tokens/open.png", TOKENS_SMALL_SIZE, TOKENS_SMALL_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tokens/open.png");
             break;
 
         case token_t::CRACKEDTOKEN:
-            bitmap = al_load_bitmap("images/tokens/safe.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tokens/safe.png", TOKENS_SMALL_SIZE, TOKENS_SMALL_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tokens/safe.png");
             break;
 
         case token_t::DOWNSTAIRSTOKEN:
-            bitmap = al_load_bitmap("images/tokens/stairs.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tokens/stairs.png", TOKENS_SMALL_SIZE, TOKENS_SMALL_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tokens/stairs.png");
             break;
 
         case token_t::STEALTHTOKEN:
-            bitmap = al_load_bitmap("images/tokens/stealth.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tokens/stealth.png", TOKENS_SMALL_SIZE, TOKENS_SMALL_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tokens/stealth.png");
+
             break;
     }
     return bitmap;
 }
 
 ALLEGRO_BITMAP*
-View::loadRoom(room_t r)
+View::loadRoom(room_t r, bool shrink)
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (r)
     {
         case room_t::ATRIUM:
-            bitmap = al_load_bitmap("images/tiles/atrium.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/atrium.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/atrium.png");
             break;
 
         case room_t::CAMERA:
-            bitmap = al_load_bitmap("images/tiles/camera.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/camera.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/camera.png");
             break;
 
         case room_t::CR_FINGERPRINT:
-            bitmap = al_load_bitmap("images/tiles/CRFingerprint.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/CRFingerprint.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/CRFingerprint.png");
             break;
 
         case room_t::CR_LASER:
-            bitmap = al_load_bitmap("images/tiles/CRLaser.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/CRLaser.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/CRLaser.png");
             break;
 
         case room_t::CR_MOTION:
-            bitmap = al_load_bitmap("images/tiles/CRMotion.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/CRMotion.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/CRMotion.png");
             break;
 
         case room_t::DEADBOLT:
-            bitmap = al_load_bitmap("images/tiles/deadbolt.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/deadbolt.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/deadbolt.png");
             break;
 
         case room_t::DETECTOR:
-            bitmap = al_load_bitmap("images/tiles/detector.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/detector.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/detector.png");
             break;
 
         case room_t::FINGERPRINT:
-            bitmap = al_load_bitmap("images/tiles/fingerprint.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/fingerprint.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/fingerprint.png");
             break;
 
         case room_t::FOYER:
-            bitmap = al_load_bitmap("images/tiles/foyer.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/foyer.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/foyer.png");
             break;
 
         case room_t::KEYPAD:
-            bitmap = al_load_bitmap("images/tiles/keypad.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/keypad.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/keypad.png");
             break;
 
         case room_t::LABORATORY:
-            bitmap = al_load_bitmap("images/tiles/laboratory.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/laboratory.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/laboratory.png");
             break;
 
         case room_t::LASER:
-            bitmap = al_load_bitmap("images/tiles/laser.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/laser.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/laser.png");
             break;
 
         case room_t::LAVATORY:
-            bitmap = al_load_bitmap("images/tiles/lavatory.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/lavatory.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/lavatory.png");
             break;
 
         case room_t::MOTION:
-            bitmap = al_load_bitmap("images/tiles/motion.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/motion.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/motion.png");
             break;
 
         case room_t::ROOMBACK:
@@ -682,27 +918,46 @@ View::loadRoom(room_t r)
             break;
 
         case room_t::SAFE:
-            bitmap = al_load_bitmap("images/tiles/safe.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/safe.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/safe.png");
             break;
 
         case room_t::SECRETDOOR:
-            bitmap = al_load_bitmap("images/tiles/secretDoor.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/secretDoor.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/secretDoor.png");
             break;
 
         case room_t::SERVICEDUCT:
-            bitmap = al_load_bitmap("images/tiles/serviceDuct.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/serviceDuct.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/serviceDuct.png");
             break;
 
         case room_t::STAIRS:
-            bitmap = al_load_bitmap("images/tiles/stairs.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/stairs.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/stairs.png");
             break;
 
         case room_t::THERMO:
-            bitmap = al_load_bitmap("images/tiles/thermo.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/thermo.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/thermo.png");
             break;
 
         case room_t::WALKWAY:
-            bitmap = al_load_bitmap("images/tiles/walkway.png");
+            if (shrink == true)
+                bitmap = load_bitmap_at_size("images/tiles/walkway.png", TILE_SIZE, TILE_SIZE);
+            else
+                bitmap = al_load_bitmap("images/tiles/walkway.png");
+
             break;
     }
     return bitmap;
@@ -781,6 +1036,7 @@ View::loadPatrolCard(patrol_t p)
 
         case patrol_t::NO_PATROL:
             bitmap = al_load_bitmap("images/patrol/patrolBack.png");
+
             break;
     }
     return bitmap;
@@ -839,43 +1095,82 @@ View::loadDie(dice_t d)
 
         case dice_t::SAFE_DIE6:
             bitmap = al_load_bitmap("images/dices/red6.png");
+
             break;
     }
     return bitmap;
 }
 
 ALLEGRO_BITMAP*
-View::loadSafeNumber(safe_t s)
+View::loadSafeNumber(unsigned s)
 {
 
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (s)
     {
-        case safe_t::NUMBER1:
+        case 1:
             bitmap = al_load_bitmap("images/tiles/1.png");
             break;
 
-        case safe_t::NUMBER2:
+        case 2:
             bitmap = al_load_bitmap("images/tiles/2.png");
             break;
 
-        case safe_t::NUMBER3:
+        case 3:
             bitmap = al_load_bitmap("images/tiles/3.png");
             break;
 
-        case safe_t::NUMBER4:
+        case 4:
             bitmap = al_load_bitmap("images/tiles/4.png");
             break;
 
-        case safe_t::NUMBER5:
+        case 5:
             bitmap = al_load_bitmap("images/tiles/5.png");
             break;
 
-        case safe_t::NUMBER6:
+        case 6:
             bitmap = al_load_bitmap("images/tiles/6.png");
             break;
     }
     return bitmap;
+}
+
+ALLEGRO_BITMAP *
+load_bitmap_at_size(const char *filename, int w, int h)
+{
+    ALLEGRO_BITMAP *resized_bmp, *loaded_bmp, *prev_target;
+
+    // 1. create a temporary bitmap of size we want
+    resized_bmp = al_create_bitmap(w, h);
+    if (!resized_bmp) return NULL;
+
+    // 2. load the bitmap at the original size
+    loaded_bmp = al_load_bitmap(filename);
+    if (!loaded_bmp)
+    {
+        al_destroy_bitmap(resized_bmp);
+        return NULL;
+    }
+
+    // 3. set the target bitmap to the resized bmp
+    prev_target = al_get_target_bitmap();
+    al_set_target_bitmap(resized_bmp);
+
+    // 4. copy the loaded bitmap to the resized bmp
+    al_draw_scaled_bitmap(loaded_bmp,
+            0, 0, // source origin
+            al_get_bitmap_width(loaded_bmp), // source width
+            al_get_bitmap_height(loaded_bmp), // source height
+            0, 0, // target origin
+            w, h, // target dimensions
+            0 // flags
+            );
+
+    // 5. restore the previous target and clean up
+    al_set_target_bitmap(prev_target);
+    al_destroy_bitmap(loaded_bmp);
+
+    return resized_bmp;
 }
 
 void
