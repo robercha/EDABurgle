@@ -186,6 +186,8 @@ private:
     unsigned getFloor(location_t);
     bool isCardSelectedLoot(button_t);
     bool isCardSelectedTile(button_t);
+    void initButton(unsigned i, unsigned x, unsigned y, unsigned w, unsigned h);
+    void initUtilities();
 };
 
 #endif /* VIEW_H */
