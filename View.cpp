@@ -201,6 +201,7 @@ View::View()
             al_shutdown_primitives_addon();
         }
     }
+    initUtilities();
 
 }
 
@@ -261,6 +262,12 @@ View::updateGraphics()
     writeActions();
     writeMessages();
 
+    //pruebo botones
+    for (unsigned i = 0; i < (int) button_t::BUTTON_COUNT; i++)
+    {
+        al_draw_rectangle(buttons[i].x, buttons[i].y, buttons[i].x + buttons[i].width, buttons[i].y + buttons[i].height, al_map_rgb(0, 0, 0), 1);
+    }
+
     al_flip_display();
     al_rest(5);
     return true;
@@ -305,7 +312,6 @@ View::drawCardInfo()
     }
     else
         showNoCardSelected();
-    al_flip_display();
     return;
 }
 
@@ -401,7 +407,6 @@ View::drawTiles()
                 {
                     ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[i].iAm, true);
                     al_draw_bitmap(tile, x, y, 0);
-                    //al_draw_scaled_bitmap(tile, x, y, al_get_bitmap_width(tile), al_get_bitmap_height(tile), x, y, TILE_SIZE, TILE_SIZE, 0);
                     al_destroy_bitmap(tile);
                     if (graphicsData->tiles[i].iAm != room_t::SAFE)
                     {
@@ -640,17 +645,13 @@ View::drawTokensOnTiles()
 void
 View::drawTileSelectedInfo()
 {
-    al_flip_display();
     unsigned index = (int) graphicsData->currentCardSelected;
-    printf("selected%d\n", index);
-    printf("room selected%d\n", (int) graphicsData->tiles[index].iAm);
 
     if (graphicsData->tiles[index].iAm != room_t::ROOMBACK)
     {
         ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[index].iAm, false);
         al_draw_bitmap(tile, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE) / 2 + SPACE_DIVIDER_L, SPACE_UP_MARGIN, 0);
 
-        al_flip_display();
         al_destroy_bitmap(tile);
         if (graphicsData->tiles[index].iAm != room_t::SAFE)
         {
@@ -722,7 +723,6 @@ View::drawSelectedTileTokens()
     {
         for (unsigned i = 0; i < 4; i++)
         {
-            al_flip_display();
             x = i * (TOKENS_BIG_SIZE + SPACE_TOKEN_LR) + SPACE_DIVIDER_L + SPACE_TOKEN_LR;
             y = j * (TOKENS_BIG_SIZE + SPACE_TOKEN_UD) + SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
             if (graphicsData->tiles[(int) graphicsData->currentCardSelected].tokens[tokenCount])
@@ -792,45 +792,118 @@ View::drawLootSelectedInfo()
 void
 View::writeActions()
 {
-    std::string actions[] = {"*Add dice to safe", "*Spend actions to enter tile", "*Hack computer",
-        "*Use hack token", "*Offer loot", "*Request loot", "*Pick up loot", "*Create Alarm", "*Spy patrol deck",
-        "*Place patrol card on top", "*Place patrol card on bottom", "*Place crow token"};
     float alpha = 0.5f;
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 10 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 3, ALLEGRO_ALIGN_RIGHT, "ACTIONS");
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), SPACE_DIVIDER_L + 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, ALLEGRO_ALIGN_LEFT, "*Move");
+
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), SPACE_DIVIDER_L + (DISPLAYW - SPACE_DIVIDER_L) / 2, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, ALLEGRO_ALIGN_CENTER, "*Peek");
+
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, ALLEGRO_ALIGN_RIGHT, "*Pass");
-    for (unsigned i = 0; i < ((int) action_t::ACTION_COUNT - 8); i++)
+
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *5, ALLEGRO_ALIGN_RIGHT, "*Add dice to safe");
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *6, ALLEGRO_ALIGN_RIGHT, "*Roll dice to safe");
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *7, ALLEGRO_ALIGN_RIGHT, "*Spend actions to enter tile");
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *8, ALLEGRO_ALIGN_RIGHT, "*Hack computer");
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *9, ALLEGRO_ALIGN_RIGHT, "*Use hack token");
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *10, ALLEGRO_ALIGN_RIGHT, "*Offer loot");
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *11, ALLEGRO_ALIGN_RIGHT, "*Request loot");
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *12, ALLEGRO_ALIGN_RIGHT, "*Pick up loot");
+
+    if (graphicsData->players[0].character != character_t::JUICER) //si player one no es juicer, escribo transparente "create alarm"
+        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *13, ALLEGRO_ALIGN_RIGHT, "*Create Alarm");
+    else
+        al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *13, ALLEGRO_ALIGN_RIGHT, "*Create Alarm");
+
+    if (graphicsData->players[0].character != character_t::SPOTTER) //si player one no es spotter, escribo transparente "spy patrol deck" & "place card top/bottom"
     {
-        if (actions[i] == actions[(int) action_t::PLACE_CROW_TOKEN - 4] && graphicsData->players[0].character != character_t::RAVEN) //si player one no es Raven, escribo transparente "place crow token"
-            al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * (i + 5), ALLEGRO_ALIGN_RIGHT, actions[i].c_str());
-
-        else if (actions[i] == actions[(int) action_t::CREATE_ALARM - 4] && graphicsData->players[0].character != character_t::JUICER) //si player one no es juicer, escribo transparente "create alarm"
-            al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * (i + 5), ALLEGRO_ALIGN_RIGHT, actions[i].c_str());
-
-        else if (actions[i] == actions[(int) action_t::SPY_PATROL_DECK - 4] && graphicsData->players[0].character != character_t::SPOTTER) //si player one no es spotter, escribo transparente "spy patrol deck"
-            al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * (i + 5), ALLEGRO_ALIGN_RIGHT, actions[i].c_str());
-
-        else if (actions[i] == actions[(int) action_t::PATROL_IS_TOP - 4] && graphicsData->players[0].character != character_t::SPOTTER) //si player one no es spotter, escribo transparente "send patrol to top"
-            al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * (i + 5), ALLEGRO_ALIGN_RIGHT, actions[i].c_str());
-
-        else if (actions[i] == actions[(int) action_t::PATROL_IS_BOTTOM - 4] && graphicsData->players[0].character != character_t::SPOTTER) //si player one no es spotter, escribo transparente "send patrol to bottom"
-            al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * (i + 5), ALLEGRO_ALIGN_RIGHT, actions[i].c_str());
-
-        else
-            al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * (i + 5), ALLEGRO_ALIGN_RIGHT, actions[i].c_str());
+        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *14, ALLEGRO_ALIGN_RIGHT, "*Spy patrol deck");
+        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *15, ALLEGRO_ALIGN_RIGHT, "*Place patrol card on top");
+        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *16, ALLEGRO_ALIGN_RIGHT, "*Place patrol card on bottom");
+    }
+    else
+    {
+        al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *14, ALLEGRO_ALIGN_RIGHT, "*Spy patrol deck");
+        al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *15, ALLEGRO_ALIGN_RIGHT, "*Place patrol card on top");
+        al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *16, ALLEGRO_ALIGN_RIGHT, "*Place patrol card on bottom");
     }
 
+    if (graphicsData->players[0].character != character_t::RAVEN) //si player one no es Raven, escribo transparente "place crow token"
+        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *17, ALLEGRO_ALIGN_RIGHT, "*Place crow token");
+    else
+        al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *17, ALLEGRO_ALIGN_RIGHT, "*Place crow token");
+
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, ALLEGRO_ALIGN_LEFT, "Accept");
+
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, ALLEGRO_ALIGN_RIGHT, "Decline");
+
     if (graphicsData->gameLost == true || graphicsData->gameWon == true)
     {
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 19, ALLEGRO_ALIGN_LEFT, "Play again?");
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 20, ALLEGRO_ALIGN_LEFT, "*Yes");
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 20, ALLEGRO_ALIGN_RIGHT, "*No");
     }
+
     return;
 
+}
+
+void
+View::initUtilities()
+{
+    //tiles
+    unsigned i = 0, x, y, height = 15;
+    for (unsigned floor = 0; floor < 3; floor++)
+        for (unsigned rows = 0; rows < 4; rows++, i++)
+        {
+            for (unsigned cols = 0; cols < 4; cols++, i++)
+            {
+                x = 20 + cols * (TILE_SIZE + SPACE_TILE) + floor * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3);
+                y = 135 + rows * (TILE_SIZE + SPACE_TILE);
+                initButton(i, x, y, TILE_SIZE, TILE_SIZE);
+            }
+            i--;
+        }
+    //loots
+    for (unsigned i = 0; i < V_TOTAL_LOOTS; i++)
+    {
+        x = 20 + 2 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3);
+        y = 135 + TILE_SIZE * 4 + SPACE_TILE * 6;
+        initButton(V_TOTAL_TILES + i, x, y, LOOT_CARD_SIZE, LOOT_CARD_SIZE);
+    }
+
+    //actions
+    initButton((int) button_t::MOVE, SPACE_DIVIDER_L + 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, 50, height);
+    initButton((int) button_t::PEEK, SPACE_DIVIDER_L + (DISPLAYW - SPACE_DIVIDER_L) / 2 - 20, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, 50, height);
+    initButton((int) button_t::PASS, DISPLAYW - 50, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, 50, height);
+    initButton((int) button_t::ADD_DICE_TO_SAFE, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 5, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::ROLL_DICE_FOR_SAFE, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *6, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::SPEND_ACTIONS_TO_ENTER, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 7, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::HACK_COMPUTER, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 8, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::USE_HACK_TOKEN, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 9, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::OFFER_LOOT, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 10, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::REQUEST_LOOT, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 11, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::PICK_UP_LOOT, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 12, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::CREATE_ALARM, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 13, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::SPY_PATROL_DECK, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *14, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::PATROL_IS_TOP, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 15, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::PATROL_IS_BOTTOM, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *16, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::PLACE_CROW_TOKEN, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *17, DISPLAYW - SPACE_DIVIDER_L, height);
+    initButton((int) button_t::ACCEPT, SPACE_DIVIDER_L, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, (DISPLAYW - SPACE_DIVIDER_L) / 2, height);
+    initButton((int) button_t::DECLINE, SPACE_DIVIDER_L + (DISPLAYW - SPACE_DIVIDER_L) / 2, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, (DISPLAYW - SPACE_DIVIDER_L) / 2, height);
+    initButton((int) button_t::PLAY_AGAIN_YES, SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 20, (DISPLAYW - SPACE_DIVIDER_L) / 2, height);
+    initButton((int) button_t::PLAY_AGAIN_NO, SPACE_DIVIDER_L + (DISPLAYW - SPACE_DIVIDER_L) / 2, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 20, (DISPLAYW - SPACE_DIVIDER_L) / 2, height);
+
+}
+
+void
+View::initButton(unsigned i, unsigned x, unsigned y, unsigned w, unsigned h)
+{
+    buttons[i].x = x;
+    buttons[i].y = y;
+    buttons[i].width = w;
+    buttons[i].height = h;
+
+    return;
 }
 
 void
