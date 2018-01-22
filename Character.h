@@ -6,16 +6,20 @@ public:
     Character();
     Character(const Character& orig);
     virtual ~Character();
-    move( ?);
-    peek( ?);
-    pass( ?);
-    addToken(token_t ?, ?)
-    useToken(token_t ?, ?);
-    shareLoot( ?);
-    bool virtual specialMove( ?) = 0;
+    void move();
+    void peek();
+    void pass();
+    void rollDice();
+
+    void addToken(token_t);
+    void useToken(token_t);
+    void shareLoot();
+    bool virtual specialMove() = 0;
 protected:
-    Tile* Tile;
-    //stealth tokens
+    Tile* location;
+    unsigned actions;
+    unsigned stealthTokens;
+
     //loot
 };
 
