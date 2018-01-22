@@ -1,20 +1,6 @@
 #ifndef EVENTGENERATOR_H
 #define EVENTGENERATOR_H
 
-typedef enum {
-    //tiles
-    A1F1, B1F1, C1F1, D1F1, A2F1, B2F1, C2F1, D2F1, A3F1, B3F1, C3F1, D3F1, A4F1, B4F1, C4F1, D4F1,
-    A1F2, B1F2, C1F2, D1F2, A2F2, B2F2, C2F2, D2F2, A3F2, B3F2, C3F2, D3F2, A4F2, B4F2, C4F2, D4F2,
-    A1F3, B1F3, C1F3, D1F3, A2F3, B2F3, C2F3, D2F3, A3F3, B3F3, C3F3, D3F3, A4F3, B4F3, C4F3, D4F3,
-    //loots
-    LOOTF1, LOOTF2, LOOTF3,
-    //actions
-    MOVE, PEEK, PASS, ADD_DICE_TO_SAFE, ROLL_DICE_FOR_SAFE, SPEND_ACTIONS_TO_ENTER, HACK_COMPUTER, USE_HACK_TOKEN,
-    OFFER_LOOT, REQUEST_LOOT, PICK_UP_LOOT, CREATE_ALARM, SPY_PATROL_DECK, PATROL_IS_TOP, PATROL_IS_BOTTOM,
-    PLACE_CROW_TOKEN, ACCEPT, DECLINE, PLAY_AGAIN_YES, PLAY_AGAIN_NO,
-    BUTTON_COUNT, NOBUTTON// , HOME_EXIT
-} button_t;
-
 #include <fstream>
 #include <allegro5/allegro5.h>
 #include <allegro5/events.h>
@@ -24,6 +10,7 @@ typedef enum {
 #include <apr-1.0/apr_file_io.h>
 #include <apr-1.0/apr_strings.h>
 #include <apr-1.0/apr_network_io.h>
+
 
 #define DEF_LISTEN_PORT 15251       //Port que queremos escuchar
 #define DEF_REMOTE_PORT 15251         //Port al que nos queremos conectar
@@ -38,9 +25,6 @@ typedef enum {
 #define MAXTIME 10000000
 #define BUFSIZE 516
 #define MAXIP 15
-
-#define DISPLAYW 1090
-#define DISPLAYH 720
 
 
 typedef enum {
@@ -115,7 +99,7 @@ public:
 
 class userInterface : public EventGenerator {
 public:
-    userInterface(ALLEGRO_DISPLAY* display);
+    userInterface(void* display);
     bool getEvent(userData_t*);
     unsigned checkClick(userData_t*, unsigned, ALLEGRO_EVENT); //Devuelve el indice en el arreglo de botones que es un enum.
     ~userInterface();

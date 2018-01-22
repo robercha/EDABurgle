@@ -5,6 +5,7 @@
 Controller::Controller(char* ip)
 {
     this->userData = new userData_t;
+    this->userData->buttonClicked = (unsigned)button_t::NO_BUTTON;
     //this->networking = new Networking(ip);
     this->view = new View;    
     this->user = new userInterface(getDisplay());
@@ -96,7 +97,7 @@ void Controller::manageEvent(void)
 
 void Controller::copyButtons()
 {
-    for(unsigned i=0; i<BUTTON_COUNT; i++)
+    for(unsigned i=0; i<(unsigned)button_t::BUTTON_COUNT; i++)
     {
         user->setButton(i,view->getButtonW(i),view->getButtonH(i),view->getButtonX(i),view->getButtonY(i));    
     }
@@ -114,5 +115,5 @@ void Controller::translateUserData()
 
 void* Controller::getDisplay()
 {
-    return view.getDisplay();
+    return view->getDisplay();
 }
