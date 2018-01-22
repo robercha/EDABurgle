@@ -269,7 +269,7 @@ View::updateGraphics()
     }
 
     al_flip_display();
-    al_rest(5);
+    al_rest(5000);
     return true;
 }
 
