@@ -127,6 +127,7 @@ public:
     View();
     virtual ~View();
     bool updateGraphics(); //devuelve false si hubo problema al updatear los graficos, e.g. al cargar algun bitmap
+    void* getDisplay();
 
 private:
     ALLEGRO_DISPLAY *display;
