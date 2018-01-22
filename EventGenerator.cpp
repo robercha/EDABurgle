@@ -268,8 +268,8 @@ userInterface::checkClick(userData_t* userData, unsigned state, ALLEGRO_EVENT ev
                     ((event.mouse.y >= buttons[i].initialY) && (event.mouse.y <= (buttons[i].initialY + buttons[i].height))))
             {
                 userData->buttonClicked = i; //Indice en el arreglo de botones
-                userData->mouseX = event.mouse.x;
-                userData->mouseY = event.mouse.y;
+//                userData->mouseX = event.mouse.x;
+//                userData->mouseY = event.mouse.y;
                 break;
             }
         }
@@ -278,7 +278,10 @@ userInterface::checkClick(userData_t* userData, unsigned state, ALLEGRO_EVENT ev
         userData->buttonClicked = NO_BUTTON; //No se clickeo ningun boton
 
     if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) //si el usuario quiere salir del juego
+    {    
         userData->buttonClicked = HOME_EXIT;
+    }
+    
     
 }
 
