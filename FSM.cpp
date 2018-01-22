@@ -1,12 +1,13 @@
 #include "FSM.h"
 
-FSM::FSM(Player* Player1, Player* Player2)
+void
+FSM::FSM(Player* player1, Player* player2)
 {
     Player * FSMTempMatrix[STATECOUNT][EVENTCOUNT] = //Creamos matriz temporal para luego copiar a la final
     {
         //ACTION   TURN
-        {&Player1, &Player2}, //Player 1
-        {&Player2, &Player1}, //Player 2
+        {&player1, &player2}, //Player 1
+        {&player2, &player1}, //Player 2
     };
 
     this->FSMMatrix = new Player**[STATECOUNT]; //Alocamos las filas de la matriz
@@ -21,7 +22,8 @@ FSM::FSM(Player* Player1, Player* Player2)
     }
 }
 
-FSM::FSMCycle(event_t event, gameData_t gameData)
+void
+FSM::FSMCycle(event_t event, gameData_t *gameData)
 {
     currentPlayer->eventHandler(event, gameData);
     currentPlayer = FSMMatrix[currentPlayer->getCurrentPlayer()][event];
