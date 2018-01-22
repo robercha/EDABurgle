@@ -68,11 +68,11 @@ enum class patrol_t {
     A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4, D1, D2, D3, D4, NO_PATROL
 };
 
-enum class action_t {
-    MOVE, PEEK, PASS, ADD_DICE_TO_SAFE, ROLL_DICE_FOR_SAFE, SPEND_ACTIONS_TO_ENTER, HACK_COMPUTER, USE_HACK_TOKEN,
-    OFFER_LOOT, REQUEST_LOOT, PICK_UP_LOOT, CREATE_ALARM, SPY_PATROL_DECK, PATROL_IS_TOP, PATROL_IS_BOTTOM,
-    PLACE_CROW_TOKEN, ACCEPT, DECLINE, PLAY_AGAIN_YES, PLAY_AGAIN_NO, ACTION_COUNT
-};
+//enum class action_t {
+//    MOVE, PEEK, PASS, ADD_DICE_TO_SAFE, ROLL_DICE_FOR_SAFE, SPEND_ACTIONS_TO_ENTER, HACK_COMPUTER, USE_HACK_TOKEN,
+//    OFFER_LOOT, REQUEST_LOOT, PICK_UP_LOOT, CREATE_ALARM, SPY_PATROL_DECK, PATROL_IS_TOP, PATROL_IS_BOTTOM,
+//    PLACE_CROW_TOKEN, ACCEPT, DECLINE, PLAY_AGAIN_YES, PLAY_AGAIN_NO, ACTION_COUNT
+//};
 
 typedef struct {
     character_t character;
@@ -111,7 +111,6 @@ typedef struct {
     loot_t loots [V_TOTAL_LOOTS]; //para mostrar los loots de c/piso abajo de los floors
     button_t currentCardSelected; //muestra en upper-right corner toda la informacion
     unsigned crackingDice[V_TOTAL_CRACKINGDICE];
-    bool actions[(unsigned) action_t::ACTION_COUNT];
     //aca faltan los mensajes
 
     bool gameWon; //solo fijarse por gameWon=true
