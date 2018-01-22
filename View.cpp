@@ -1472,6 +1472,10 @@ View::loadSafeNumber(unsigned s, bool shrink)
     return bitmap;
 }
 
-
+void*
+View::getDisplay()
+{
+    return (void*) this->display;
+}
 
 
