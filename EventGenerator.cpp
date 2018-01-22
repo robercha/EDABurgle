@@ -1,13 +1,5 @@
 #include "EventGenerator.h"
 
-typedef enum
-{
-    TEST, BUTTONCOUNT, A1_F1, A2_F1, A3_F1, A4_F1, B1_F1, B2_F1, B3_F1, B4_F1, C1_F1, C2_F1, C3_F1, C4_F1, D1_F1, D2_F1, D3_F1, D4_F1,
-    A1_F2, A2_F2, A3_F2, A4_F2, B1_F2, B2_F2, B3_F2, B4_F2, C1_F2, C2_F2, C3_F2, C4_F2, D1_F2, D2_F2, D3_F2, D4_F2,
-    A1_F3, A2_F3, A3_F3, A4_F3, B1_F3, B2_F3, B3_F3, B4_F3, C1_F3, C2_F3, C3_F3, C4_F3, D1_F3, D2_F3, D3_F3, D4_F3,
-    MOVE, PEEK, PASS, USE_TOKEN, BUTTON_COUNT, NO_BUTTON, HOME_EXIT
-} button_t; //indices del arreglo
-
 //Networking::Networking(char* ip)
 //{
 //    this->ip = ip;
@@ -219,7 +211,7 @@ typedef enum
 //
 //}
 
-userInterface::userInterface()
+userInterface::userInterface(ALLEGRO_DISPLAY* display)
 {
     this->queue = al_create_event_queue();
 
@@ -227,7 +219,7 @@ userInterface::userInterface()
     {
         al_register_event_source(this->queue, al_get_mouse_event_source());
         al_register_event_source(this->queue, al_get_keyboard_event_source());
-        //al_register_event_source(this->queue, al_get_display_event_source(this->display));        HACER ALGO AL RESPECTO
+        al_register_event_source(this->queue, al_get_display_event_source(display));  //      HACER ALGO AL RESPECTO
     }
     this->buttons = (buttons_t*) malloc(sizeof (buttons_t) * BUTTON_COUNT);
     //this->event=NULL;
@@ -273,8 +265,7 @@ userInterface::checkClick(userData_t* userData, unsigned state, ALLEGRO_EVENT ev
 
     if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) //si el usuario quiere salir del juego
         userData->buttonClicked = HOME_EXIT;
-    if (userData->buttonClicked == TEST)
-        printf("tu vieja");
+    
 }
 
 void

@@ -7,9 +7,9 @@ Controller::Controller(char* ip)
     this->userData = new userData_t;
     //this->networking = new Networking(ip);
     this->view = new View;    
-    this->user = new userInterface;
+    this->user = new userInterface(getDisplay());
     this->copyButtons();
-    this->view->menuDisplay();
+    //this->view->menuDisplay();
 }
 
 Controller::~Controller()
@@ -110,4 +110,9 @@ unsigned Controller::getLastEvent()
 void Controller::translateUserData()
 {
     
+}
+
+void* Controller::getDisplay()
+{
+    return view.getDisplay();
 }
