@@ -227,7 +227,7 @@ userInterface::userInterface()
     {
         al_register_event_source(this->queue, al_get_mouse_event_source());
         al_register_event_source(this->queue, al_get_keyboard_event_source());
-        // al_register_event_source(this->queue, al_get_display_event_source(this->display));        HACER ALGO AL RESPECTO
+        //al_register_event_source(this->queue, al_get_display_event_source(this->display));        HACER ALGO AL RESPECTO
     }
     this->buttons = (buttons_t*) malloc(sizeof (buttons_t) * BUTTON_COUNT);
     //this->event=NULL;
