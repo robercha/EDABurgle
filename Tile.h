@@ -21,6 +21,9 @@ protected:
     Tile* leftTile;
     Tile* upperTile;
     Tile* lowerTile;
+    Tile* upperFloorTile;
+    Tile* lowerFloorTile;
+    bool crackedToken;
 };
 
 class Atrium : public Tile {
@@ -33,9 +36,22 @@ public:
 private:
 };
 
-class ComputerRoom : public Tile {
+class CRFingerprint : public Tile {
 public:
 private:
+    unsigned hackTokensQty;
+};
+
+class CRMotion : public Tile {
+public:
+private:
+    unsigned hackTokensQty;
+};
+
+class CRLaser : public Tile {
+public:
+private:
+    unsigned hackTokensQty;
 };
 
 class Deadbolt : public Tile {
@@ -71,6 +87,7 @@ private:
 class Lavatory : public Tile {
 public:
 private:
+    unsigned stealthTokensQty;
 };
 
 class Motion : public Tile {
