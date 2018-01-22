@@ -11,6 +11,7 @@
 #include <apr-1.0/apr_strings.h>
 #include <apr-1.0/apr_network_io.h>
 
+
 #define DEF_LISTEN_PORT 15251       //Port que queremos escuchar
 #define DEF_REMOTE_PORT 15251         //Port al que nos queremos conectar
 #define DEF_REMOTE_HOST "127.0.0.1"
@@ -24,9 +25,6 @@
 #define MAXTIME 10000000
 #define BUFSIZE 516
 #define MAXIP 15
-
-#define DISPLAYW 1090
-#define DISPLAYH 720
 
 
 typedef enum {
@@ -101,7 +99,7 @@ public:
 
 class userInterface : public EventGenerator {
 public:
-    userInterface();
+    userInterface(void* display);
     bool getEvent(userData_t*);
     unsigned checkClick(userData_t*, unsigned, ALLEGRO_EVENT); //Devuelve el indice en el arreglo de botones que es un enum.
     ~userInterface();

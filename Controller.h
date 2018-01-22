@@ -18,6 +18,7 @@ public:
     unsigned getLastEvent();
     ~Controller();
 private:
+    void* getDisplay();
     userData_t* userData;
     //gameData_t* gameData;
     //graphics_t* graphics;
