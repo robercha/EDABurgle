@@ -5,12 +5,12 @@
 
 class FSM {
 public:
-    void FSM(Player*, Player*);
+    FSM(Player*, Player*);
     void FSMCycle(event_t, gameData_t*);
-    virtual ~FSM();
+    ~FSM();
 private:
     Player* currentPlayer;
-    Player** FSMMatrix;
+    Player*** FSMMatrix;
     //Player* FSMMatrix[STATECOUNT][EVENTCOUNT];
 };
 
