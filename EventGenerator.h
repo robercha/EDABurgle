@@ -50,14 +50,9 @@ typedef struct buttons {
     double height;
 } buttons_t;
 
-typedef struct event {
-    preEvent_t preEvent;
-    trueEvent_t trueEvent;
-    //player_t player;
-} event_t;
 
 typedef struct userData {
-    event_t event;
+    unsigned event;
     char* packet;
     double mouseX;
     double mouseY;

@@ -9,8 +9,10 @@
       <itemPath>EventGenerator.h</itemPath>
       <itemPath>FSM.h</itemPath>
       <itemPath>Guard.h</itemPath>
+      <itemPath>Loot.h</itemPath>
       <itemPath>Model.h</itemPath>
       <itemPath>Player.h</itemPath>
+      <itemPath>Tile.h</itemPath>
       <itemPath>View.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -25,8 +27,10 @@
       <itemPath>EventGenerator.cpp</itemPath>
       <itemPath>FSM.cpp</itemPath>
       <itemPath>Guard.cpp</itemPath>
+      <itemPath>Loot.cpp</itemPath>
       <itemPath>Model.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
+      <itemPath>Tile.cpp</itemPath>
       <itemPath>View.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>model.cpp</itemPath>
@@ -103,6 +107,10 @@
       </item>
       <item path="Guard.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Loot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Loot.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Model.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Model.h" ex="false" tool="3" flavor2="0">
@@ -110,6 +118,10 @@
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Tile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="View.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -160,6 +172,10 @@
       </item>
       <item path="Guard.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Loot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Loot.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Model.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Model.h" ex="false" tool="3" flavor2="0">
@@ -167,6 +183,10 @@
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Tile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="View.cpp" ex="false" tool="1" flavor2="0">
       </item>

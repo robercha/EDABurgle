@@ -40,8 +40,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/EventGenerator.o \
 	${OBJECTDIR}/FSM.o \
 	${OBJECTDIR}/Guard.o \
+	${OBJECTDIR}/Loot.o \
 	${OBJECTDIR}/Model.o \
 	${OBJECTDIR}/Player.o \
+	${OBJECTDIR}/Tile.o \
 	${OBJECTDIR}/View.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/model.o
@@ -96,6 +98,11 @@ ${OBJECTDIR}/Guard.o: Guard.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Guard.o Guard.cpp
 
+${OBJECTDIR}/Loot.o: Loot.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Loot.o Loot.cpp
+
 ${OBJECTDIR}/Model.o: Model.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -105,6 +112,11 @@ ${OBJECTDIR}/Player.o: Player.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Player.o Player.cpp
+
+${OBJECTDIR}/Tile.o: Tile.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tile.o Tile.cpp
 
 ${OBJECTDIR}/View.o: View.cpp
 	${MKDIR} -p ${OBJECTDIR}
