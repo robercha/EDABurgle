@@ -1,6 +1,10 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include <list>
+#include "Tile.h"
+#include "Loot.h"
+
 class Character {
 public:
     Character();
@@ -10,15 +14,25 @@ public:
     void peek();
     void pass();
     void rollDice();
+    void addDiceToSafe();
+
+    //enum class action_t {
+    //    MOVE, PEEK, PASS, ADD_DICE_TO_SAFE, ROLL_DICE_FOR_SAFE, SPEND_ACTIONS_TO_ENTER, HACK_COMPUTER, USE_HACK_TOKEN,
+    //    OFFER_LOOT, REQUEST_LOOT, PICK_UP_LOOT, CREATE_ALARM, SPY_PATROL_DECK, PATROL_IS_TOP, PATROL_IS_BOTTOM,
+    //    PLACE_CROW_TOKEN, ACCEPT, DECLINE, PLAY_AGAIN_YES, PLAY_AGAIN_NO, ACTION_COUNT
+    //};
 
     void addToken(token_t);
-    void useToken(token_t);
-    void shareLoot();
+    void useToken(Tile*); //no hace falta pasarle el token porq solo se usan los hack tokens, los demas son automaticos
+    void giveLoot(loot_t);
+    void takeLoot(loot_t);
+    void pickUpLoot();
     bool virtual specialMove() = 0;
 protected:
-    Tile* location;
+    Tile* currentTile;
     unsigned actions;
     unsigned stealthTokens;
+    std::list<Loot> loots;
 
     //loot
 };
@@ -56,6 +70,7 @@ private:
 class Raven : public Character {
 public:
 private:
+    void placeCrowToken(Tile*);
 
 };
 
