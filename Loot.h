@@ -17,21 +17,21 @@ public:
     //void giveLoot(Character* destiny);
     //void takeLoot(Character* source);
     void pickUpLoot();
-    void virtual specialMove() = 0;
+    bool virtual specialMove() = 0;
 protected:
     Character* currentCharacter;
 };
 
 class Goblet : public Loot {
 public:
-    void specialMove();
+    bool specialMove();
 private:
     bool virgin;
 };
 
 class Kitty : public Loot { //chequear al principio del turno
 public:
-    void specialMove();
+    bool specialMove();
 private:
     bool rollDice(); //si es 1 o 2
     bool isThereAnAlarmTile();
@@ -41,7 +41,7 @@ private:
 
 class Tiara : public Loot { //chequear al final del turno
 public:
-    void specialMove();
+    bool specialMove();
     void setGuard(Guard*);
 private:
     bool isGuardNearby();
@@ -67,20 +67,20 @@ private:
 
 class KeyCard : public Loot {
 public:
-    void specialMove(); //poner en todos los safe tile el flag de poder crakear en false y si el jugador esta en esa safe tile cambiarlo a true
+    bool specialMove(); //poner en todos los safe tile el flag de poder crakear en false y si el jugador esta en esa safe tile cambiarlo a true
 private:
 };
 
 class Isotope : public Loot {
 public:
-    void specialMove(); //dispara alarma de thermo
+    bool specialMove(); //dispara alarma de thermo
 private:
     bool onThermoTile(); //tal vez no es necesario
 };
 
 class Gemstone : public Loot {
 public:
-    void specialMove(); //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
+    bool specialMove(); //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
     void setPartner(Character*); //solo una vez
     void setPrevTile(Tile*); //solo se setea cuando agarra el loot
 private:
@@ -91,15 +91,17 @@ private:
 
 class Chihuahua : public Loot { //chequear al principio del turno
 public:
-    void specialMove(); //triggerea alarma de cualquier currentTile
+    bool specialMove(); //triggerea alarma de cualquier currentTile
 private:
     bool rollDice(); //si es 6
 };
 
 class GoldBar : public Loot { //quien lleve un goldbar debe ser diferente a quien lleve el otro
 public:
-    Loot specialMove(); //clonarse y crear GoldBar2
+    bool specialMove(); //clonarse y crear GoldBar2
+    //   Loot getGoldBar();
 private:
+    //  Loot goldBar2;
 
 };
 
