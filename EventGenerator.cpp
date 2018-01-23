@@ -276,7 +276,7 @@ userInterface::checkClick(userData_t* userData, unsigned state, ALLEGRO_EVENT ev
     }
     else
         userData->buttonClicked = NO_BUTTON; //No se clickeo ningun boton
-
+    
     if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) //si el usuario quiere salir del juego
     {    
         userData->buttonClicked = HOME_EXIT;

@@ -3,6 +3,7 @@
 
 #include "EventGenerator.h"
 #include "View.h"
+#include "FSM.h"
 
 class Controller {
 public:
@@ -20,9 +21,9 @@ public:
 private:
     void* getDisplay();
     userData_t* userData;
-    //gameData_t* gameData;
+    gameData_t* gameData;
     //graphics_t* graphics;
-    //FSM* FSM;
+    FSM* fsm;
     userInterface* user;
     //Networking* networking;
     View *view;
