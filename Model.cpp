@@ -1,5 +1,6 @@
 #include "Model.h"
 
+
 #define ATRIUM_QTY 2
 #define CAMERA_QTY 4
 #define CROOM_FINGERPRINT_QTY 1

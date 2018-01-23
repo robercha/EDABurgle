@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <list>
+#include "Floor.h"
 #include "Tile.h"
 #include "Guard.h"
 #include "Character.h"
@@ -19,7 +20,6 @@ public:
     virtual ~Model();
 private:
     //std::vector<std::vector< std::vector<Tile> >> bank; //tile asi o punteros a tile?
-    
     std::vector<Floor> floors;    
     std::vector<Guard> guards;
     std::vector<Character> characters;

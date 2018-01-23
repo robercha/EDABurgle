@@ -18,13 +18,13 @@
 
 Floor::Floor() {
     
-    std::list<Tile> deck;
+    std::list<Tile*> deck;
     unsigned i=0;
     //std::list<Tile>::const_iterator i;
     
     while(i<48)
     {
-        deck.push_front();
+        
     }
     
     
