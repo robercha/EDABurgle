@@ -48,10 +48,10 @@ Character::useToken(Tile*)
 
 }
 
-void
-Character::giveLoot(loot_t)
-{
-
-}
-
+//void
+//Character::giveLoot(loot_t)
+//{
+//
+//}
+//
 

@@ -5,6 +5,7 @@
 #include "Tile.h"
 #include "Guard.h"
 #include "Character.h"
+#include "Loot.h"
 
 typedef struct gameData {
 } gameData_t;

@@ -3,7 +3,6 @@
 
 #include <list>
 #include "Tile.h"
-#include "Loot.h"
 
 class Character {
 public:
@@ -24,15 +23,13 @@ public:
 
     void addToken(token_t);
     void useToken(Tile*); //no hace falta pasarle el token porq solo se usan los hack tokens, los demas son automaticos
-    void giveLoot(loot_t);
-    void takeLoot(loot_t);
-    void pickUpLoot();
+
     bool virtual specialMove() = 0;
 protected:
     Tile* currentTile;
     unsigned actions;
     unsigned stealthTokens;
-    std::list<Loot> loots;
+    //std::list<Loot> loots;
 
     //loot
 };
