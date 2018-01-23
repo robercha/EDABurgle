@@ -23,105 +23,125 @@ protected:
 
 class Atrium : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Camera : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class CRFingerprint : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
     unsigned hackTokensQty;
 };
 
 class CRMotion : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
     unsigned hackTokensQty;
 };
 
 class CRLaser : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
     unsigned hackTokensQty;
 };
 
 class Deadbolt : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Fingerprint : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Foyer : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Keypad : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Laboratory : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Laser : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Lavatory : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
     unsigned stealthTokensQty;
 };
 
 class Motion : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Safe : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Detector : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class SecretDoor : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class ServiceDuct : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
-class Stair : public Tile {
+class Stairs : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Thermo : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
 class Walkway : public Tile {
 public:
+    bool hiddenTalent(/*?*/);
 private:
 };
 
