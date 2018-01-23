@@ -41,9 +41,12 @@ private:
 
 class Tiara : public Loot { //chequear al final del turno
 public:
-    void specialMove(Guard*);
+    void specialMove();
+    void setGuard(Guard*);
 private:
     bool isGuardNearby();
+    Guard* guard;
+
 };
 
 class Painting : public Loot {
@@ -77,12 +80,28 @@ private:
 
 class Gemstone : public Loot {
 public:
-    void specialMove(); //dispara alarma de thermo
+    void specialMove(); //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
+    void setPartner(Character*); //solo una vez
+    void setPrevTile(Tile*); //solo se setea cuando agarra el loot
 private:
     bool onSameTileAsPartner();
+    Character* partner;
+    Tile* previousTile;
 };
 
+class Chihuahua : public Loot { //chequear al principio del turno
+public:
+    void specialMove(); //triggerea alarma de cualquier currentTile
+private:
+    bool rollDice(); //si es 6
+};
 
+class GoldBar : public Loot { //quien lleve un goldbar debe ser diferente a quien lleve el otro
+public:
+    Loot specialMove(); //clonarse y crear GoldBar2
+private:
+
+};
 
 #endif /* LOOT_H */
 
