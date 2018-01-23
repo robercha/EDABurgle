@@ -18,12 +18,11 @@
         <group>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Controller.h</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/FSM.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/View.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/main.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Player.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/FSM.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/EventGenerator.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/EventGenerator.cpp</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Controller.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Player.cpp</file>
         </group>

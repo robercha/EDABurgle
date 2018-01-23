@@ -25,6 +25,7 @@ typedef enum {
 class Player {
 public:
     Player();
+    Player(/*Model* model*/);
     void eventHandler(event_t, gameData_t*);
     state_t getCurrentPlayer();
     ~Player();

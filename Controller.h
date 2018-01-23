@@ -8,14 +8,14 @@
 class Controller {
 public:
     Controller(char* ip);
-    void manageEvent(void);
+    void manageEvent(void); //Recibe input de usuario (y networking) y llama a fsm
     //  bool connect(void);
     void updateGraphics(void);
     bool initGame(void);
     //  bool buildPacket(packet_t packet); //enum
-    void translateUserData(void);
+    void translateUserData(void); //traduce input de usuario a eventos de FSM
     //  void translatePackage(void);
-    void copyButtons();
+    void copyButtons(); //Le da a EventGenerator el arreglo de botones generado en graphics.
     unsigned getLastEvent();
     ~Controller();
 private:

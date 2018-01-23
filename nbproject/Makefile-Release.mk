@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Controller.o \
 	${OBJECTDIR}/EventGenerator.o \
 	${OBJECTDIR}/FSM.o \
+	${OBJECTDIR}/Floor.o \
 	${OBJECTDIR}/Guard.o \
 	${OBJECTDIR}/Loot.o \
 	${OBJECTDIR}/Model.o \
@@ -92,6 +93,11 @@ ${OBJECTDIR}/FSM.o: FSM.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FSM.o FSM.cpp
+
+${OBJECTDIR}/Floor.o: Floor.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Floor.o Floor.cpp
 
 ${OBJECTDIR}/Guard.o: Guard.cpp
 	${MKDIR} -p ${OBJECTDIR}
