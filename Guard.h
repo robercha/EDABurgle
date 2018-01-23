@@ -1,6 +1,8 @@
 #ifndef GUARD_H
 #define GUARD_H
 
+#include "Tile.h"
+
 class Guard {
 public:
     Guard();

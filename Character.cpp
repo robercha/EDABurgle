@@ -43,13 +43,15 @@ Character::addToken(token_t)
 }
 
 void
-Character::useToken(token_t)
+Character::useToken(Tile*)
 {
 
 }
 
 void
-Character::shareLoot()
+Character::giveLoot(loot_t)
 {
 
 }
+
+
