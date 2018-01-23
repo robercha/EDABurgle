@@ -10,7 +10,7 @@ public:
     Tile();
     Tile(const Tile& orig);
     virtual ~Tile();
-    bool virtual hiddenTalent(/*?*/) = 0;
+    bool virtual hiddenTalent() = 0;
 protected:
     Tile* rightTile;
     Tile* leftTile;
