@@ -14,7 +14,6 @@ private:
     event_t event;
     Player* currentPlayer;
     Player*** FSMMatrix;
-    //Player* FSMMatrix[STATECOUNT][EVENTCOUNT];
 };
 
 #endif /* FSM_H */

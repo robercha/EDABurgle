@@ -6,10 +6,12 @@ void fillGraphicsData(View&view);
 
 Controller::Controller(char* ip)
 {
+    Model* model = new Model;
     this->userData = new userData_t;
     this->userData->buttonClicked = (unsigned)button_t::NO_BUTTON;
-    Player* player1 = new Player;
-    Player* player2 = new Player;
+    
+    Player* player1 = new Player(model, P1);
+    Player* player2 = new Player(model, P2);
     this->fsm = new FSM(player1, player2);
     //this->networking = new Networking(ip);
     this->view = new View;    

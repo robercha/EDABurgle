@@ -1,9 +1,10 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player()
+Player::Player(Model* model, state_t player)
 {
-    
+    this->model=model;
+    this->currentPlayer = player;
 }
 
 Player::~Player()
