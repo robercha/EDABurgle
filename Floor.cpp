@@ -16,27 +16,24 @@
 
 #include "Floor.h"
 
-Floor::Floor() {
+Floor::Floor(std::list<Tile*> &tileDeck) 
+{
+    std::vector< std::vector<Tile*> >::iterator row;
+    std::vector<Tile*>::iterator col;
     
-    std::list<Tile*> deck;
-    unsigned i=0;
-    //std::list<Tile>::const_iterator i;
-    
-    while(i<48)
+    for(unsigned i=0; i<16; i++)
     {
-        
-    }
-    
-    
-    std::vector<Tile>::const_iterator j;
-    
-    
-    
-    
+        for(row = tiles.begin(); row != tiles.end(); row++)
+        {
+            for(col = row->begin(); col!=row->end(); col++)
+            {
+                *col = tileDeck.back();
+                tileDeck.pop_back();
+            }
+        }
+    }   
 }
 
-Floor::Floor(const Floor& orig) {
-}
 
 Floor::~Floor() {
 }

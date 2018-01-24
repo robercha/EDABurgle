@@ -1,7 +1,7 @@
 #include "FSM.h"
 
 FSM::FSM(Player* player1, Player* player2)
-{
+{   
     Player * FSMTempMatrix[STATECOUNT][EVENTCOUNT] = //Creamos matriz temporal para luego copiar a la final
     {
         //ACTION  SWITCH_PLAYER

@@ -2,6 +2,7 @@
 #define FLOOR_H
 
 #include <vector>
+#include <list>
 #include "Tile.h"
 #include "Guard.h"
 //#include "View.h"
@@ -12,13 +13,13 @@ typedef enum {
 
 class Floor {
 public:
-    Floor();
+    Floor(std::list<Tile*> &tileDeck);
     ~Floor();
-    //void randomizeFloor();
     void randomizeFloor();
+    void setTile(Tile* tile);
 private:
-    std::vector< std::vector<Tile> > tiles;
     std::vector<patrol_t> patrolDeck;
+    std::vector< std::vector<Tile*> > tiles;
 
 };
 
