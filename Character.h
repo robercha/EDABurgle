@@ -3,6 +3,7 @@
 
 #include <list>
 #include "Tile.h"
+#include "Floor.h"
 
 class Character {
 public:
@@ -10,70 +11,80 @@ public:
     Character(const Character& orig);
     virtual ~Character();
     void move();
-    void peek();
+    //void peek();      esto esta en tile
     void pass();
-    void rollDice();
-    void addDiceToSafe();
-
-    //enum class action_t {
-    //    MOVE, PEEK, PASS, ADD_DICE_TO_SAFE, ROLL_DICE_FOR_SAFE, SPEND_ACTIONS_TO_ENTER, HACK_COMPUTER, USE_HACK_TOKEN,
-    //    OFFER_LOOT, REQUEST_LOOT, PICK_UP_LOOT, CREATE_ALARM, SPY_PATROL_DECK, PATROL_IS_TOP, PATROL_IS_BOTTOM,
-    //    PLACE_CROW_TOKEN, ACCEPT, DECLINE, PLAY_AGAIN_YES, PLAY_AGAIN_NO, ACTION_COUNT
-    //};
-
-    void addToken(token_t);
-    void useToken(Tile*); //no hace falta pasarle el token porq solo se usan los hack tokens, los demas son automaticos
-
-    bool virtual specialMove() = 0;
+    bool virtual hiddenTalent() = 0;
 protected:
     Tile* currentTile;
     unsigned actions;
     unsigned stealthTokens;
     //std::list<Loot> loots;
-
-    //loot
 };
 
 class Juicer : public Character {
 public:
+    bool hiddenTalent(); //coloca alarma triggereada si isTileAdyacent()==true
+    void setTile(Tile*);
 private:
+    Tile* adyacentTile;
+    bool isTileAdyacent();
 
 };
 
 class Hacker : public Character {
 public:
+    bool hiddenTalent(); //no triggerea alarma
+
 private:
+    bool isPartnerOnSameTile();
+    bool isFML(); //chequea si la tile es fingerprint, motion, laser
+
 
 };
 
 class Acrobat : public Character {
 public:
+    bool hiddenTalent(); //se fija si la cant de actions es 0 y si el guardia sigue en la misma tile le quita un stealth
 private:
-
+    bool isGuardOnCurrTile();
+    bool actionCount(); //se fija si la cant de actions es 0
 };
 
 class Spotter : public Character {
 public:
+    bool hiddenTalent(); //esta usa spend action
+    void sendToTop(); //para los botoncitos
+    void sendToBottom(std::vector<patrol_t>* patrolDeck);
 private:
-
+    void spendExtraAction();
 };
 
 class Hawk : public Character {
 public:
+    bool hiddenTalent(); //chequea si hay una pared y si la hay el peek no cuesta action
+    void setTile(Tile*);
 private:
+    void addAction();
+    bool isThereAWall();
+    Tile* destiny;
 
 };
 
 class Raven : public Character {
 public:
+    bool canPlaceCrowToken(); //hasta dos tiles adyacentes
+    bool hiddenTalent(); //place crow token
+    void setTile(Tile*);
 private:
-    void placeCrowToken(Tile*);
-
+    void placeCrowToken();
+    Tile* tile;
 };
 
 class Peterman : public Character {
 public:
+    bool hiddenTalent(); //throw aditional dice for safe or keypad
 private:
+    unsigned throwAditionalDice();
 
 };
 

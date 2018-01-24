@@ -17,21 +17,21 @@ public:
     //void giveLoot(Character* destiny);
     //void takeLoot(Character* source);
     void pickUpLoot();
-    bool virtual specialMove() = 0;
+    bool virtual awakenCurse() = 0;
 protected:
     Character* currentCharacter;
 };
 
 class Goblet : public Loot {
 public:
-    bool specialMove();
+    bool awakenCurse();
 private:
     bool virgin;
 };
 
 class Kitty : public Loot { //chequear al principio del turno
 public:
-    bool specialMove();
+    bool awakenCurse();
 private:
     bool rollDice(); //si es 1 o 2
     bool isThereAnAlarmTile();
@@ -41,7 +41,7 @@ private:
 
 class Tiara : public Loot { //chequear al final del turno
 public:
-    bool specialMove();
+    bool awakenCurse();
     void setGuard(Guard*);
 private:
     bool isGuardNearby();
@@ -51,7 +51,7 @@ private:
 
 class Painting : public Loot {
 public:
-    bool specialMove(); //si devuelve true, no puede pasar
+    bool awakenCurse(); //si devuelve true, no puede pasar
 private:
     bool onServiceDuctTile();
     bool isSecretDoorNearby();
@@ -59,7 +59,7 @@ private:
 
 class Mirror : public Loot { //principio del turno y cuando se mueve el personaje
 public:
-    bool specialMove(); //si devuelve false, no cambia el estado de la alarma
+    bool awakenCurse(); //si devuelve false, no cambia el estado de la alarma
 private:
     bool deactivateLaser(); //evita que se active el flag de triggered alarm
     void decreaseActions(); //si tiene >3 actions, le resta una
@@ -67,20 +67,20 @@ private:
 
 class KeyCard : public Loot {
 public:
-    bool specialMove(); //poner en todos los safe tile el flag de poder crakear en false y si el jugador esta en esa safe tile cambiarlo a true
+    bool awakenCurse(); //poner en todos los safe tile el flag de poder crakear en false y si el jugador esta en esa safe tile cambiarlo a true
 private:
 };
 
 class Isotope : public Loot {
 public:
-    bool specialMove(); //dispara alarma de thermo
+    bool awakenCurse(); //dispara alarma de thermo
 private:
     bool onThermoTile(); //tal vez no es necesario
 };
 
 class Gemstone : public Loot {
 public:
-    bool specialMove(); //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
+    bool awakenCurse(); //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
     void setPartner(Character*); //solo una vez
     void setPrevTile(Tile*); //solo se setea cuando agarra el loot
 private:
@@ -91,14 +91,14 @@ private:
 
 class Chihuahua : public Loot { //chequear al principio del turno
 public:
-    bool specialMove(); //triggerea alarma de cualquier currentTile
+    bool awakenCurse(); //triggerea alarma de cualquier currentTile
 private:
     bool rollDice(); //si es 6
 };
 
 class GoldBar : public Loot { //quien lleve un goldbar debe ser diferente a quien lleve el otro
 public:
-    bool specialMove(); //clonarse y crear GoldBar2
+    bool awakenCurse(); //clonarse y crear GoldBar2
     //   Loot getGoldBar();
 private:
     //  Loot goldBar2;
