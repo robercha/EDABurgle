@@ -1,5 +1,11 @@
 #include "Model.h"
-
+#include <algorithm>
+#include <random>
+#include <chrono>
+#include <vector>
+#define FLOORS_QTY 3
+#define FLOORTILE_QTY 16
+#define TOTALTILE_QTY 48
 
 #define ATRIUM_QTY 2
 #define CAMERA_QTY 4
@@ -23,45 +29,78 @@
 #define WALKWAY_QTY 3
 
 Model::Model()
-{
-    std::list<Tile*> deck; //toda la preparacion del juego, onda los random, las tiles etc
-   
+{  
     unsigned i = 0;
-
+    
     for (i = 0; i < ATRIUM_QTY; i++)
-        deck.push_front(new Atrium);    
+        deck.push_back(new Atrium);    
     for (i = 0; i < ATRIUM_QTY; i++)
-        deck.push_front(new Atrium);
+        deck.push_back(new Atrium);
     for (i = 0; i < CAMERA_QTY; i++)
-        deck.push_front(new Camera);
+        deck.push_back(new Camera);
     for (i = 0; i < CROOM_FINGERPRINT_QTY; i++)
-        deck.push_front(new CRFingerprint);
+        deck.push_back(new CRFingerprint);
     for (i = 0; i < CROOM_LASER_QTY; i++)
-        deck.push_front(new CRLaser);
+        deck.push_back(new CRLaser);
     for (i = 0; i < CROOM_MOTION_QTY; i++)
-        deck.push_front(new CRMotion);
+        deck.push_back(new CRMotion);
     for (i = 0; i < DEADBOLT_QTY; i++)
-        deck.push_front(new Deadbolt);
+        deck.push_back(new Deadbolt);
     for (i = 0; i < FINGERPRINT_QTY; i++)
-        deck.push_front(new Fingerprint);    
+        deck.push_back(new Fingerprint);    
     for (i = 0; i < FOYER_QTY; i++)
-        deck.push_front(new Foyer);
+        deck.push_back(new Foyer);
     for (i = 0; i < KEYPAD_QTY; i++)
-        deck.push_front(new Keypad);
+        deck.push_back(new Keypad);
     for (i = 0; i < LABORATORY_QTY; i++)
-        deck.push_front(new Laboratory);
+        deck.push_back(new Laboratory);
     for (i = 0; i < LASER_QTY; i++)
-        deck.push_front(new Laser);
+        deck.push_back(new Laser);
+    for (i = 0; i < LAVATORY_QTY; i++)
+        deck.push_back(new Lavatory);
+    for (i = 0; i < MOTION_QTY; i++)
+        deck.push_back(new Motion);
+    for (i = 0; i < SCANNER_DETECTOR_QTY; i++)
+        deck.push_back(new Detector);
+    for (i = 0; i < SECRET_DOOR_QTY; i++)
+        deck.push_back(new SecretDoor);
+    for (i = 0; i < SERVICE_DUCT_QTY; i++)
+        deck.push_back(new ServiceDuct);
+    for (i = 0; i < THERMO_QTY; i++)
+        deck.push_back(new Thermo);
+    for (i = 0; i < WALKWAY_QTY; i++)
+        deck.push_back(new Walkway);
+   
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
+    std::shuffle(deck.begin(), deck.end(), std::default_random_engine(seed));
+    
+    std::list<Tile*> finalDeck;
+    
+    for(i=0; i<TOTALTILE_QTY; i++)
+    {
+        finalDeck.push_back(deck[i]);
+    }
+    
+    for(i=0; i<FLOORS_QTY; i++)
+    {
+        for(unsigned j=0; j<FLOORTILE_QTY; j++)
+        {
+            floorDeck.push_back(finalDeck.back());
+            finalDeck.pop_back();
+        }
+        floors[i] = new Floor(floorDeck) ;
+    }
+
+ 
 }
 
-Model::Model(const Model& orig)
-{
-
-}
 
 Model::~Model()
 {
+    unsigned i;
+        for (i = 0; i < TOTALTILE_QTY; i++)
+        delete deck[i];    
 }
 
 void

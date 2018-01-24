@@ -4,20 +4,18 @@
 #define FLOOR_H
 
 #include <vector>
+#include <list>
 #include "Tile.h"
 #include "Guard.h"
 
 class Floor {
 public:
-    Floor();
+    Floor(std::list<Tile*> &tileDeck);
     ~Floor();
-<<<<<<< HEAD
-    //void randomizeFloor();
-=======
     void randomizeFloor();
->>>>>>> a87a25276e785be9552dddfaf320b8d808bd69b4
+    void setTile(Tile* tile);
 private:
-    std::vector< std::vector<Tile> > tiles;
+    std::vector< std::vector<Tile*> > tiles;
 
 };
 
