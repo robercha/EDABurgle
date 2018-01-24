@@ -22,7 +22,7 @@ class Floor {
 public:
     Floor();
     ~Floor();
-    randomizeFloor();
+    //void randomizeFloor();
 private:
     std::vector< std::vector<Tile> > tiles;
  

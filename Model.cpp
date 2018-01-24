@@ -25,8 +25,11 @@
 Model::Model()
 {
     std::list<Tile*> deck; //toda la preparacion del juego, onda los random, las tiles etc
+   
     unsigned i = 0;
 
+    for (i = 0; i < ATRIUM_QTY; i++)
+        deck.push_front(new Atrium);    
     for (i = 0; i < ATRIUM_QTY; i++)
         deck.push_front(new Atrium);
     for (i = 0; i < CAMERA_QTY; i++)
@@ -40,7 +43,7 @@ Model::Model()
     for (i = 0; i < DEADBOLT_QTY; i++)
         deck.push_front(new Deadbolt);
     for (i = 0; i < FINGERPRINT_QTY; i++)
-        deck.push_front(new Fingerprint);
+        deck.push_front(new Fingerprint);    
     for (i = 0; i < FOYER_QTY; i++)
         deck.push_front(new Foyer);
     for (i = 0; i < KEYPAD_QTY; i++)
