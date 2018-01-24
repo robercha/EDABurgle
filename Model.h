@@ -8,6 +8,7 @@
 #include "Guard.h"
 #include "Character.h"
 #include "Loot.h"
+#include "Floor.h"
 
 typedef struct gameData {
 } gameData_t;
@@ -20,7 +21,8 @@ public:
     virtual ~Model();
 private:
     //std::vector<std::vector< std::vector<Tile> >> bank; //tile asi o punteros a tile?
-    std::vector<Floor> floors;    
+    std::list<Tile*> deck;
+    std::vector<Floor> floors;
     std::vector<Guard> guards;
     std::vector<Character> characters;
 
