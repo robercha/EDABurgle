@@ -92,6 +92,27 @@ Model::Model()
         floors[i] = new Floor(floorDeck) ;
     }
 
+    
+        Actions * FSMTempMatrix[STATECOUNT][EVENTCOUNT] = //Creamos matriz temporal para luego copiar a la final
+    {
+        //ACTION  SWITCH_PLAYER
+        {player1, player2},     //Player 1
+        {player2, player1},     //Player 2
+    };
+
+    gameHandlerMatrix = new Actions**[STATECOUNT];
+    for (int i = 0; i < STATECOUNT; i++)
+    {
+        gameHandlerMatrix[i] = new Actions*[EVENTCOUNT]; //Alocamos las columnas
+
+        for (int j = 0; j < EVENTCOUNT; j++)
+        {
+            gameHandlerMatrix[i][j] = FSMTempMatrix[i][j]; //copiamos celda a celda la matriz temporal
+        }
+    }
+    
+    //currentAction = player1; //SOLO DE PRUEBA;
+    //event = NO_EVENT;
  
 }
 

@@ -9,6 +9,7 @@
 #include "Character.h"
 #include "Loot.h"
 #include "Floor.h"
+#include "Actions.h"
 
 typedef struct gameData {
 } gameData_t;
@@ -25,6 +26,8 @@ private:
     std::vector<Guard*> guards;
     std::vector<Character*> characters;
 
+    Actions*** gameHandlerMatrix;
+    Actions* currentAction;
 };
 
 #endif /* MODEL_H */

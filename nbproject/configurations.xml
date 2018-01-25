@@ -9,6 +9,7 @@
       <itemPath>EventGenerator.h</itemPath>
       <itemPath>FSM.h</itemPath>
       <itemPath>Floor.h</itemPath>
+      <itemPath>GameHandler.h</itemPath>
       <itemPath>Guard.h</itemPath>
       <itemPath>Loot.h</itemPath>
       <itemPath>Model.h</itemPath>
@@ -23,6 +24,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Actions.cpp</itemPath>
       <itemPath>Character.cpp</itemPath>
       <itemPath>Controller.cpp</itemPath>
       <itemPath>EventGenerator.cpp</itemPath>
@@ -89,6 +91,8 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="Actions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Character.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Character.h" ex="false" tool="3" flavor2="0">
@@ -108,6 +112,8 @@
       <item path="Floor.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Floor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GameHandler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Guard.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -158,6 +164,8 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="Actions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Character.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Character.h" ex="false" tool="3" flavor2="0">
@@ -177,6 +185,8 @@
       <item path="Floor.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Floor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GameHandler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Guard.cpp" ex="false" tool="1" flavor2="0">
       </item>
