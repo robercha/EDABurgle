@@ -94,22 +94,16 @@ Model::Model()
 
     GameStep * FSMTempMatrix[STATECOUNT][EVENTCOUNT] = //Creamos matriz temporal para luego copiar a la final
     {
-<<<<<<< HEAD
-        //VALID TILE    INVALID TILE    VALID ACTION0   INVALID ACTION0   VALID ACTION1   INVALID ACTION1   VALID ACTION2   INVALID ACTION2     WIN     LOSE    ACCEPT  DECLINE          
-        {Player1,       player2},     //IDLE
-        {player2,       player1},     //WAITING FOR FIRST ACTION
-        {player2,       player1},     //WAITING FOR SECOND ACTION
-        {player2,       player1},     //WAITING FOR PLAYER RESPONSE
-        {player2,       player1},     //PLAY AGAIN?
-        {player2,       player1},     //EXIT GAME
-   
-        
-        
-=======
-        //ACTION  SWITCH_PLAYER
-        {player1, player2}, //Player 1
-        {player2, player1}, //Player 2
->>>>>>> bd4945f5860f96222a168f219343e0542f1c369a
+
+        //VALID TILE    INVALID TILE    VALID ACTION0   INVALID ACTION0   VALID ACTION1   INVALID ACTION1   VALID ACTION2   INVALID ACTION2     WIN     LOSE    ACCEPT  DECLINE
+        {Player1, player2}, //IDLE
+        {player2, player1}, //WAITING FOR FIRST ACTION
+        {player2, player1}, //WAITING FOR SECOND ACTION
+        {player2, player1}, //WAITING FOR PLAYER RESPONSE
+        {player2, player1}, //PLAY AGAIN?
+        {player2, player1}, //EXIT GAME
+
+
     };
 
     gameHandlerMatrix = new GameStep**[STATECOUNT];
