@@ -1,5 +1,5 @@
 #include "Controller.h"
-#include "FSM.h"
+#include "PlayerHandle.h"
 #include <new>
 
 void fillGraphicsData(View&view);
@@ -13,7 +13,7 @@ Controller::Controller(char* ip)
 
     Player* player1 = new Player(model, P1);
     Player* player2 = new Player(model, P2);
-    this->fsm = new FSM(player1, player2);
+    this->playerHandle = new PlayerHandle(player1, player2);
     //this->networking = new Networking(ip);
     this->view = new View;
     this->user = new userInterface(getDisplay());
@@ -26,7 +26,7 @@ Controller::Controller(char* ip)
 Controller::~Controller()
 {
     //delete networking;
-    delete fsm;
+    delete playerHandle;
     delete user;
     delete userData;
 }
@@ -82,8 +82,8 @@ Controller::manageEvent(void)
 {
     user->getEvent(userData);
     translateUserData();
-    if (fsm->getEvent() != NO_EVENT)
-        fsm->FSMCycle(fsm->getEvent(), gameData); //Funcion de FSM
+    if (playerHandle->getEvent() != NO_EVENT)
+        playerHandle->PlayerCycle(playerHandle->getEvent(), gameData); //Funcion de FSM
 
     //    networking->getEvent(userData);
     //    translatePackage();
@@ -127,12 +127,12 @@ void
 Controller::translateUserData()
 {
     if (userData->buttonClicked == (unsigned) button_t::PASS)
-        fsm->setEvent(SWITCH_PLAYER);
+        playerHandle->setEvent(SWITCH_PLAYER);
     else if ((userData->buttonClicked == (unsigned) button_t::NO_BUTTON) ||
             (userData->buttonClicked == (unsigned) button_t::HOME_EXIT))
-        fsm->setEvent(NO_EVENT);
+        playerHandle->setEvent(NO_EVENT);
     else
-        fsm->setEvent(ACTION);
+        playerHandle->setEvent(ACTION);
     userData->buttonClicked == (unsigned) button_t::NO_BUTTON;
 }
 

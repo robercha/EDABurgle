@@ -3,7 +3,7 @@
 
 #include "EventGenerator.h"
 #include "View.h"
-#include "FSM.h"
+#include "PlayerHandle.h"
 
 class Controller {
 public:
@@ -23,7 +23,7 @@ private:
     userData_t* userData;
     gameData_t* gameData;
     //graphics_t* graphics;
-    FSM* fsm;
+    PlayerHandle* playerHandle;
     userInterface* user;
     //Networking* networking;
     View *view;
