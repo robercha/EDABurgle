@@ -9,6 +9,7 @@
       <itemPath>EventGenerator.h</itemPath>
       <itemPath>Floor.h</itemPath>
       <itemPath>GameHandler.h</itemPath>
+      <itemPath>GameStep.h</itemPath>
       <itemPath>Guard.h</itemPath>
       <itemPath>Loot.h</itemPath>
       <itemPath>Model.h</itemPath>
@@ -112,6 +113,11 @@
       </item>
       <item path="GameStep.cpp" ex="false" tool="1" flavor2="0">
       </item>
+<<<<<<< HEAD
+=======
+      <item path="GameStep.h" ex="false" tool="3" flavor2="0">
+      </item>
+>>>>>>> 258a82c6cb528d6814d78759d8e1914f56e2525e
       <item path="Guard.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Guard.h" ex="false" tool="3" flavor2="0">
@@ -187,6 +193,11 @@
       </item>
       <item path="GameStep.cpp" ex="false" tool="1" flavor2="0">
       </item>
+<<<<<<< HEAD
+=======
+      <item path="GameStep.h" ex="false" tool="3" flavor2="0">
+      </item>
+>>>>>>> 258a82c6cb528d6814d78759d8e1914f56e2525e
       <item path="Guard.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Guard.h" ex="false" tool="3" flavor2="0">

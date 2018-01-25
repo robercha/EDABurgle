@@ -10,6 +10,11 @@
 #include "Loot.h"
 #include "Floor.h"
 #include "GameStep.h"
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 959d79a83e4deee651dcd2a5814b14217e623f1c
+>>>>>>> 258a82c6cb528d6814d78759d8e1914f56e2525e
 
 typedef struct gameData {
 } gameData_t;
