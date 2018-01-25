@@ -2,7 +2,6 @@
 
 GameStep::GameStep()
 {
-
 }
 
 GameStep::~GameStep()
