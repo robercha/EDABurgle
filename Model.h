@@ -8,7 +8,6 @@
 #include "Guard.h"
 #include "Character.h"
 #include "Loot.h"
-#include "Floor.h"
 
 typedef struct gameData {
 } gameData_t;

@@ -8,17 +8,19 @@ Controller::Controller(char* ip)
 {
     Model* model = new Model;
     this->userData = new userData_t;
-    this->userData->buttonClicked = (unsigned)button_t::NO_BUTTON;
-    
+    this->gameData = new gameData_t;
+    this->userData->buttonClicked = (unsigned) button_t::NO_BUTTON;
+
     Player* player1 = new Player(model, P1);
     Player* player2 = new Player(model, P2);
     this->fsm = new FSM(player1, player2);
     //this->networking = new Networking(ip);
-    this->view = new View;    
+    this->view = new View;
     this->user = new userInterface(getDisplay());
     this->copyButtons();
     fillGraphicsData(*view);
     view->updateGraphics();
+
 }
 
 Controller::~Controller()
@@ -75,11 +77,12 @@ Controller::~Controller()
 //    return success;
 //}
 
-void Controller::manageEvent(void)
+void
+Controller::manageEvent(void)
 {
     user->getEvent(userData);
     translateUserData();
-    if(fsm->getEvent() != NO_EVENT)
+    if (fsm->getEvent() != NO_EVENT)
         fsm->FSMCycle(fsm->getEvent(), gameData); //Funcion de FSM
 
     //    networking->getEvent(userData);
@@ -105,36 +108,39 @@ void Controller::manageEvent(void)
 //    }
 //}
 
-void Controller::copyButtons()
+void
+Controller::copyButtons()
 {
-    for(unsigned i=0; i<(unsigned)button_t::BUTTON_COUNT; i++)
+    for (unsigned i = 0; i < (unsigned) button_t::BUTTON_COUNT; i++)
     {
-        user->setButton(i,view->getButtonW(i),view->getButtonH(i),view->getButtonX(i),view->getButtonY(i));    
+        user->setButton(i, view->getButtonW(i), view->getButtonH(i), view->getButtonX(i), view->getButtonY(i));
     }
 }
 
-unsigned Controller::getLastEvent()
+unsigned
+Controller::getLastEvent()
 {
     return this->userData->buttonClicked;
 }
 
-void Controller::translateUserData()
+void
+Controller::translateUserData()
 {
-    if (userData->buttonClicked == (unsigned)button_t::PASS)
+    if (userData->buttonClicked == (unsigned) button_t::PASS)
         fsm->setEvent(SWITCH_PLAYER);
-    else if ((userData->buttonClicked == (unsigned)button_t::NO_BUTTON) || 
-            (userData->buttonClicked == (unsigned)button_t::HOME_EXIT))
+    else if ((userData->buttonClicked == (unsigned) button_t::NO_BUTTON) ||
+            (userData->buttonClicked == (unsigned) button_t::HOME_EXIT))
         fsm->setEvent(NO_EVENT);
     else
         fsm->setEvent(ACTION);
-    userData->buttonClicked == (unsigned)button_t::NO_BUTTON;    
+    userData->buttonClicked == (unsigned) button_t::NO_BUTTON;
 }
 
-void* Controller::getDisplay()
+void*
+Controller::getDisplay()
 {
     return view->getDisplay();
 }
-
 
 void
 fillGraphicsData(View &view)
