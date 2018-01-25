@@ -10,7 +10,7 @@
 #include "Loot.h"
 <<<<<<< HEAD
 #include "Floor.h"
-#include "Actions.h"
+#include "GameStep.h"
 =======
 >>>>>>> 959d79a83e4deee651dcd2a5814b14217e623f1c
 
