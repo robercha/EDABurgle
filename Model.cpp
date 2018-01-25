@@ -101,9 +101,9 @@ Model::Model()
 
     GameStep * FSMTempMatrix[STATECOUNT][EVENTCOUNT] = //Creamos matriz temporal para luego copiar a la final
     {
-        //VALID TILE            INVALID TILE    INVALID ACTION      VALID ACTION1   INVALID ACTION1     VALID ACTION2   INVALID ACTION2     WIN         LOSE        ACCEPT      DECLINE
-        {waitingFirstAction, idle, idle, idle, idle, idle, idle, idle, playAgain PlayAgain idle, idle,}, //IDLE
-        {waitingFirstAction, idle, waitingFirstAction, waitingFirstAction, idle, waitingFirstAction,}, //WAITING FOR FIRST ACTION
+        //VALID TILE            INVALID TILE    FREE MOVE                PAID MOVE              PEEK                    PASS                ADD_DICE_TO_SAFE    ROLL_DICE_FOR_SAFE  SPEND_ACTIONS_TO_ENTER      HACK_COMPUTER       USE_HACK_TOKEN          OFFER_LOOT          REQUEST_LOOT        PICK_UP_LOOT        CREATE_ALARM        SPY_PATROL_DECK     PATROL_IS_TOP       PATROL_IS_BOTTOM    PLACE_CROW_TOKEN    WIN             LOSE        ACCEPT                  DECLINE
+        {waitingFirstAction,    idle,           idle,                      idle,                idle,                   idle,               idle,               idle,               idle,                       idle,               idle,                   waitingResponse,    waitingResponse,    idle,               idle,               waitingFirstAction, idle,               idle,               idle,               playAgain,      playAgain,  idle,                   idle }, //IDLE
+        {waitingFirstAction,    idle,           idle,                      waitingSecondAction, waitingFirstAction,     waitingFirstAction, waitingFirstAction, waitingFirstAction, waitingFirstAction,         waitingFirstAction, waitingFirstAction,     waitingFirstAction, waitingFirstAction, waitingFirstAction, waitingFirstAction, waitingFirstAction, idle,               idle,               waitingFirstAction, playAgain,      playAgain,  waitingFirstAction,     waitingFirstAction }, //WAITING FOR FIRST ACTION
         {player2, player1}, //WAITING FOR SECOND ACTION
         {player2, player1}, //WAITING FOR PLAYER RESPONSE
         {player2, player1}, //PLAY AGAIN?
@@ -133,8 +133,7 @@ Model::~Model()
         delete deck[i];
 }
 
-void
-Model::analyzeAction(gameData_t*)
+void Model::analyzeAction(gameData_t*)
 {
     switch ()
     {
