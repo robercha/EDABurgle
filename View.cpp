@@ -80,8 +80,8 @@ View::View()
                                                 this->titleFont = al_load_ttf_font("fonts/Whatnot.ttf", 65, 0);
                                                 if (this->titleFont != NULL)
                                                 {
-                                                    this->graphicsData = (graphicsData_t*) malloc(sizeof (graphicsData_t));
-                                                    this->buttons = (bitmap_t*) malloc(sizeof (bitmap_t) * (int) button_t::BUTTON_COUNT);
+                                                    this->graphicsData = new graphicsData_t;
+                                                    this->buttons = new bitmap_t[button_t::BUTTON_COUNT];
                                                     al_draw_bitmap(this->background, 0, 0, 0);
                                                     al_start_timer(this->timer);
                                                 }
@@ -221,8 +221,8 @@ View::~View()
     al_uninstall_mouse();
     al_uninstall_keyboard();
 
-    free(this->graphicsData);
-    free(this->buttons);
+    delete this->graphicsData;
+    delete this->buttons;
 
 }
 

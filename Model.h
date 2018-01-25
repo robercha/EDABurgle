@@ -8,8 +8,11 @@
 #include "Guard.h"
 #include "Character.h"
 #include "Loot.h"
+<<<<<<< HEAD
 #include "Floor.h"
 #include "Actions.h"
+=======
+>>>>>>> 959d79a83e4deee651dcd2a5814b14217e623f1c
 
 typedef struct gameData {
 } gameData_t;

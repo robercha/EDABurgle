@@ -7,13 +7,13 @@
       <itemPath>Character.h</itemPath>
       <itemPath>Controller.h</itemPath>
       <itemPath>EventGenerator.h</itemPath>
-      <itemPath>FSM.h</itemPath>
       <itemPath>Floor.h</itemPath>
       <itemPath>GameHandler.h</itemPath>
       <itemPath>Guard.h</itemPath>
       <itemPath>Loot.h</itemPath>
       <itemPath>Model.h</itemPath>
       <itemPath>Player.h</itemPath>
+      <itemPath>PlayerHandle.h</itemPath>
       <itemPath>Tile.h</itemPath>
       <itemPath>View.h</itemPath>
     </logicalFolder>
@@ -28,12 +28,12 @@
       <itemPath>Character.cpp</itemPath>
       <itemPath>Controller.cpp</itemPath>
       <itemPath>EventGenerator.cpp</itemPath>
-      <itemPath>FSM.cpp</itemPath>
       <itemPath>Floor.cpp</itemPath>
       <itemPath>Guard.cpp</itemPath>
       <itemPath>Loot.cpp</itemPath>
       <itemPath>Model.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
+      <itemPath>PlayerHandle.cpp</itemPath>
       <itemPath>Tile.cpp</itemPath>
       <itemPath>View.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -105,10 +105,6 @@
       </item>
       <item path="EventGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="FSM.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="FSM.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Floor.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Floor.h" ex="false" tool="3" flavor2="0">
@@ -130,6 +126,10 @@
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PlayerHandle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PlayerHandle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -178,10 +178,6 @@
       </item>
       <item path="EventGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="FSM.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="FSM.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Floor.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Floor.h" ex="false" tool="3" flavor2="0">
@@ -203,6 +199,10 @@
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PlayerHandle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PlayerHandle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>

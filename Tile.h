@@ -18,7 +18,7 @@ public:
     Tile(const Tile& orig);
     virtual ~Tile();
     bool peek(coordinates_t);
-    bool virtual itsATrap() = 0;
+    virtual bool itsATrap() = 0;
     bool triggerAlarm();
     void useHackToken();
 protected:
