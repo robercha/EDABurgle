@@ -91,9 +91,10 @@ Model::Model()
         }
         floors[i] = new Floor(floorDeck);
     }
-    
-        Actions * FSMTempMatrix[STATECOUNT][EVENTCOUNT] = //Creamos matriz temporal para luego copiar a la final
+
+    GameStep * FSMTempMatrix[STATECOUNT][EVENTCOUNT] = //Creamos matriz temporal para luego copiar a la final
     {
+<<<<<<< HEAD
         //VALID TILE    INVALID TILE    VALID ACTION0   INVALID ACTION0   VALID ACTION1   INVALID ACTION1   VALID ACTION2   INVALID ACTION2     WIN     LOSE    ACCEPT  DECLINE          
         {Player1,       player2},     //IDLE
         {player2,       player1},     //WAITING FOR FIRST ACTION
@@ -104,19 +105,24 @@ Model::Model()
    
         
         
+=======
+        //ACTION  SWITCH_PLAYER
+        {player1, player2}, //Player 1
+        {player2, player1}, //Player 2
+>>>>>>> bd4945f5860f96222a168f219343e0542f1c369a
     };
 
-    gameHandlerMatrix = new Actions**[STATECOUNT];
+    gameHandlerMatrix = new GameStep**[STATECOUNT];
     for (int i = 0; i < STATECOUNT; i++)
     {
-        gameHandlerMatrix[i] = new Actions*[EVENTCOUNT]; //Alocamos las columnas
+        gameHandlerMatrix[i] = new GameStep*[EVENTCOUNT]; //Alocamos las columnas
 
         for (int j = 0; j < EVENTCOUNT; j++)
         {
             gameHandlerMatrix[i][j] = FSMTempMatrix[i][j]; //copiamos celda a celda la matriz temporal
         }
     }
-    
+
     //currentAction = player1; //SOLO DE PRUEBA;
     //event = NO_EVENT;
 }

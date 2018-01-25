@@ -1,59 +1,85 @@
-#ifndef ACTION_H
-#define ACTION_H
+#ifndef GAMESTEP_H
+#define GAMESTEP_H
 
 typedef enum {
-<<<<<<< HEAD
-
-}modelEvent_t;
-=======
     IDLE, WAITING_1_ACTION, WAITING_2_ACTION, WAITING_RESPONSE, PLAY_AGAIN, END, STATE_COUNT
 } modelState_t;
 
 typedef enum {
     VALID_TILE, INVALID_TILE, VALID_ACTION_0_STEP, INVALID_ACTION_0_STEP, VALID_ACTION_1_STEP, INVALID_ACTION_1_STEP, VALID_ACTION_2_STEP, INVALID_ACTION_2_STEP, WIN, LOSE, ACCEPT, DECLINE, EVENT_COUNT
 } modelEvent_t;
->>>>>>> 258a82c6cb528d6814d78759d8e1914f56e2525e
 
-class Action {
+
+class GameStep {
 public:
-    Action();
-    virtual ~Action();
-<<<<<<< HEAD
-    virtual void doAction(gameData_t* gameData , modelEvent_t event)=0;
+    GameStep();
+    virtual ~GameStep();
+    virtual void eventHandler(gameData_t *gameData, modelEvent_t event) = 0;
+    modelState_t getState();
 protected:
+    modelState_t state;
 };
 
-class Move:public Action
-{
+class Idle : public GameStep {
 public:
-    void doAction(gameData_t* gameData, modelEvent_t event);
+
+    idle() {
+        state = IDLE;
+    };
+    void eventHandler(gameData_t *gameData, modelEvent_t event);
 private:
-};    
-    
-class Peek:public Action
-{
-public:
-    void doAction(gameData_t* gameData, modelEvent_t event);
-private:
-};  
-
-class :public Action
-{
-public:
-    void doAction(gameData_t* gameData, modelEvent_t event);
-private:
-};  
-
-
-=======
-    virtual void eventHandler(gameData_t gameData, modelEvent_t event) = 0;
-protected:
-
-
-
-
 };
->>>>>>> 258a82c6cb528d6814d78759d8e1914f56e2525e
 
-#endif /* ACTION_H */
+class WaitingFirstAction : public GameStep {
+public:
+
+    WaitingFirstAction() {
+        state = WAITING_1_ACTION;
+    };
+    void eventHandler(gameData_t *gameData, modelEvent_t event);
+private:
+};
+
+class WaitingSecondAction : public GameStep {
+public:
+
+    WaitingSecondAction() {
+        state = WAITING_2_ACTION;
+    };
+    void eventHandler(gameData_t *gameData, modelEvent_t event);
+private:
+};
+
+class WaitingResponse : public GameStep {
+public:
+
+    WaitingResponse() {
+        state = WAITING_RESPONSE;
+    };
+    void eventHandler(gameData_t *gameData, modelEvent_t event);
+private:
+};
+
+class PlayAgain : public GameStep {
+public:
+
+    PlayAgain() {
+        state = PLAY_AGAIN;
+    };
+    void eventHandler(gameData_t *gameData, modelEvent_t event);
+private:
+};
+
+class End : public GameStep {
+public:
+
+    End() {
+        state = END;
+    };
+    void eventHandler(gameData_t *gameData, modelEvent_t event);
+private:
+};
+
+
+#endif /* GAMESTEP_H */
 
