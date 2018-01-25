@@ -29,6 +29,7 @@
       <itemPath>Controller.cpp</itemPath>
       <itemPath>EventGenerator.cpp</itemPath>
       <itemPath>Floor.cpp</itemPath>
+      <itemPath>GameStep.cpp</itemPath>
       <itemPath>Guard.cpp</itemPath>
       <itemPath>Loot.cpp</itemPath>
       <itemPath>Model.cpp</itemPath>
@@ -36,7 +37,6 @@
       <itemPath>PlayerHandle.cpp</itemPath>
       <itemPath>Tile.cpp</itemPath>
       <itemPath>View.cpp</itemPath>
-      <itemPath>gameStep.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>model.cpp</itemPath>
     </logicalFolder>
@@ -110,6 +110,8 @@
       </item>
       <item path="GameHandler.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="GameStep.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Guard.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Guard.h" ex="false" tool="3" flavor2="0">
@@ -137,8 +139,6 @@
       <item path="View.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="View.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="gameStep.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="gameStep.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -185,6 +185,8 @@
       </item>
       <item path="GameHandler.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="GameStep.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Guard.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Guard.h" ex="false" tool="3" flavor2="0">
@@ -212,8 +214,6 @@
       <item path="View.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="View.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="gameStep.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="gameStep.h" ex="false" tool="3" flavor2="0">
       </item>

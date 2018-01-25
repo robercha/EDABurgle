@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Controller.o \
 	${OBJECTDIR}/EventGenerator.o \
 	${OBJECTDIR}/Floor.o \
+	${OBJECTDIR}/GameStep.o \
 	${OBJECTDIR}/Guard.o \
 	${OBJECTDIR}/Loot.o \
 	${OBJECTDIR}/Model.o \
@@ -46,7 +47,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/PlayerHandle.o \
 	${OBJECTDIR}/Tile.o \
 	${OBJECTDIR}/View.o \
-	${OBJECTDIR}/gameStep.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/model.o
 
@@ -95,6 +95,11 @@ ${OBJECTDIR}/Floor.o: Floor.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Floor.o Floor.cpp
 
+${OBJECTDIR}/GameStep.o: GameStep.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GameStep.o GameStep.cpp
+
 ${OBJECTDIR}/Guard.o: Guard.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -129,11 +134,6 @@ ${OBJECTDIR}/View.o: View.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/View.o View.cpp
-
-${OBJECTDIR}/gameStep.o: gameStep.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gameStep.o gameStep.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

@@ -9,7 +9,7 @@
 #include "Character.h"
 #include "Loot.h"
 #include "Floor.h"
-#include "gameStep.h"
+#include "GameStep.h"
 
 typedef struct gameData {
 } gameData_t;
