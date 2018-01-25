@@ -35,7 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Actions.o \
 	${OBJECTDIR}/Character.o \
 	${OBJECTDIR}/Controller.o \
 	${OBJECTDIR}/EventGenerator.o \
@@ -47,6 +46,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/PlayerHandle.o \
 	${OBJECTDIR}/Tile.o \
 	${OBJECTDIR}/View.o \
+	${OBJECTDIR}/gameStep.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/model.o
 
@@ -74,11 +74,6 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/edaburgle: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/edaburgle ${OBJECTFILES} ${LDLIBSOPTIONS}
-
-${OBJECTDIR}/Actions.o: Actions.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Actions.o Actions.cpp
 
 ${OBJECTDIR}/Character.o: Character.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -134,6 +129,11 @@ ${OBJECTDIR}/View.o: View.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/View.o View.cpp
+
+${OBJECTDIR}/gameStep.o: gameStep.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gameStep.o gameStep.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

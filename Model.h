@@ -8,11 +8,8 @@
 #include "Guard.h"
 #include "Character.h"
 #include "Loot.h"
-<<<<<<< HEAD
 #include "Floor.h"
-#include "Actions.h"
-=======
->>>>>>> 959d79a83e4deee651dcd2a5814b14217e623f1c
+#include "gameStep.h"
 
 typedef struct gameData {
 } gameData_t;
@@ -23,6 +20,8 @@ public:
     Model();
     virtual ~Model();
 private:
+    void eventGenerator(event_t event);
+    
     std::list<Tile*> floorDeck;
     std::vector<Tile*> deck;
     std::vector<Floor*> floors;

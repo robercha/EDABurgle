@@ -5,23 +5,21 @@
  */
 
 /* 
- * File:   Actions.cpp
+ * File:   Action.cpp
  * Author: rober
  * 
  * Created on January 25, 2018, 4:11 PM
  */
 
-#include "Actions.h"
+#include "gameStep.h"
 
-Actions::Actions() 
+Action::Action() 
 {  
 
 }
 
 
-GameHandler::GameHandler(const GameHandler& orig) {
-}
-
-GameHandler::~GameHandler() {
+Action::~Action() 
+{
 }
 
