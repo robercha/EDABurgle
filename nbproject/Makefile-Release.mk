@@ -47,8 +47,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/PlayerHandle.o \
 	${OBJECTDIR}/Tile.o \
 	${OBJECTDIR}/View.o \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/model.o
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -139,11 +138,6 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/model.o: model.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/model.o model.cpp
 
 # Subprojects
 .build-subprojects:
