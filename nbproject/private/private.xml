@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Controller.h</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.cpp</file>
@@ -16,6 +17,12 @@
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Player.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.h</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Controller.cpp</file>
+=======
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Model.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/View.h</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.h</file>
+>>>>>>> acd18a5c0f7c1e575cdce6be692f513283c0f4b2
         </group>
     </open-files>
 </project-private>
