@@ -14,13 +14,17 @@ typedef enum {
 
 class Tile {
 public:
-    Tile();
+
+    Tile() {
+        isAlarmTile = false;
+    }; //si la tile es de tipo alarma, declaramos explicitamente el constructor y seteamos isAlarmTile a true
     Tile(const Tile& orig);
     virtual ~Tile();
     bool peek(coordinates_t);
     virtual bool itsATrap() = 0;
     bool triggerAlarm();
     void useHackToken();
+    virtual bool isAlarmTile(); //getter de isAlarmTile
 protected:
     location_t currentLocation;
     Tile* rightTile;
@@ -31,6 +35,7 @@ protected:
     Tile* lowerFloorTile;
     bool isVisible;
     bool crackedToken;
+    bool isAlarmTile;
 };
 
 //enum class action_t {
