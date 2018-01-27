@@ -82,7 +82,7 @@ Model::Model()
         finalDeck.push_back(deck[i]);
     }
 
-    for (i = 0; i < FLOORS_QTY; i++)
+    for (i = 0; i < FLOORS_QTY; i++)                    //POR ACA NO FALTA AGREGAR LA SAFE Y LA STAIRS???? NO ENTIENDO LO QUE HACE ROBER
     {
         for (unsigned j = 0; j < FLOORTILE_QTY; j++)
         {
@@ -107,16 +107,15 @@ Model::Model()
         {waitingSecondAction,   waitingSecondAction,    idle,               waitingSecondAction,   waitingSecondAction,    waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction,     waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction,  waitingSecondAction,    waitingSecondAction,    waitingSecondAction, waitingSecondAction, idle,                   idle,                  waitingSecondAction }, //WAITING FOR SECOND ACTION
         {waitingResponse,       waitingResponse,        waitingResponse,    waitingResponse,       waitingResponse,        waitingResponse,     waitingResponse,     waitingResponse,     waitingResponse,     waitingResponse,         waitingResponse,     waitingResponse,     waitingResponse,     waitingResponse,     waitingResponse,     waitingResponse,      waitingResponse,        waitingResponse,        waitingResponse,     waitingResponse,     idle,                   idle,                  waitingResponse     }, //WAITING FOR PLAYER RESPONSE
         {playAgain,             playAgain,              playAgain,          playAgain,             playAgain,              playAgain,           playAgain,           playAgain,           playAgain,           playAgain,               playAgain,           playAgain,           playAgain,           playAgain,           playAgain,           playAgain,            playAgain,              playAgain,              playAgain,           playAgain,           idle,                   end,                   playAgain           }, //PLAY AGAIN?
-        {end,                   end,                    end,                end,                   end,                    end,                 end,                 end,                 end,                 end,                     end,                 end,                 end,                 end,                 end,                 end,                  end,                    end,                    end,                 end,                 end,                    end,                   end                 },//EXIT GAME
-
+        {end,                   end,                    end,                end,                   end,                    end,                 end,                 end,                 end,                 end,                     end,                 end,                 end,                 end,                 end,                 end,                  end,                    end,                    end,                 end,                 end,                    end,                   end                 }, //EXIT GAME
     };
 
-    gameHandlerMatrix = new GameStep**[STATECOUNT];
-    for (int i = 0; i < STATECOUNT; i++)
+    gameHandlerMatrix = new GameStep**[STATE_COUNT];
+    for (int i = 0; i < STATE_COUNT; i++)
     {
-        gameHandlerMatrix[i] = new GameStep*[EVENTCOUNT]; //Alocamos las columnas
+        gameHandlerMatrix[i] = new GameStep*[EVENT_COUNT]; //Alocamos las columnas
 
-        for (int j = 0; j < EVENTCOUNT; j++)
+        for (int j = 0; j < EVENT_COUNT; j++)
         {
             gameHandlerMatrix[i][j] = FSMTempMatrix[i][j]; //copiamos celda a celda la matriz temporal
         }
@@ -124,6 +123,11 @@ Model::Model()
 
     //currentAction = player1; //SOLO DE PRUEBA;
     //event = NO_EVENT;
+
+    createLoots(seed);
+
+
+
 }
 
 Model::~Model()
@@ -131,6 +135,23 @@ Model::~Model()
     unsigned i;
     for (i = 0; i < TOTALTILE_QTY; i++)
         delete deck[i];
+}
+
+void Model::createLoots(unsigned seed)
+{
+    loots.push_back(new Tiara);
+    loots.push_back(new Kitty);
+    loots.push_back(new Painting);
+    loots.push_back(new Mirror);
+    loots.push_back(new KeyCard);
+    loots.push_back(new Isotope);
+    loots.push_back(new Gemstone);
+    loots.push_back(new Goblet);
+    loots.push_back(new Chihuahua);
+    loots.push_back(new GoldBar);
+
+    std::shuffle(loots.begin(), loots.end(), std::default_random_engine(seed));
+
 }
 
 void Model::analyzeAction(gameData_t*)
