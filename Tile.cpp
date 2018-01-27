@@ -1,4 +1,3 @@
-
 #include "Tile.h"
 
 typedef enum
@@ -8,6 +7,12 @@ typedef enum
 
 Tile::Tile()
 {
+    alarmTile = false;
+}
+
+bool Tile::isAlarmTile()
+{
+    return alarmTile;
 }
 
 Tile::Tile(const Tile& orig)
