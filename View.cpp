@@ -870,6 +870,10 @@ View::initUtilities()
         initButton(V_TOTAL_TILES + i, x, y, LOOT_CARD_SIZE, LOOT_CARD_SIZE);
     }
 
+    //patrol decks
+    for (unsigned i = 0; i < V_TOTAL_FLOORS; i++)
+        initButton(V_TOTAL_TILES + V_TOTAL_LOOTS + i, 20 + 1 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3), 135 + TILE_SIZE * 4 + SPACE_TILE * 6, PATROL_CARD_SIZE, PATROL_CARD_SIZE);
+
     //actions
     initButton((int) button_t::MOVE, SPACE_DIVIDER_L + 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, 50, height);
     initButton((int) button_t::PEEK, SPACE_DIVIDER_L + (DISPLAYW - SPACE_DIVIDER_L) / 2 - 20, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, 50, height);

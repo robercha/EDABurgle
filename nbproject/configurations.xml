@@ -8,7 +8,6 @@
       <itemPath>Controller.h</itemPath>
       <itemPath>EventGenerator.h</itemPath>
       <itemPath>Floor.h</itemPath>
-      <itemPath>GameHandler.h</itemPath>
       <itemPath>GameStep.h</itemPath>
       <itemPath>Guard.h</itemPath>
       <itemPath>Loot.h</itemPath>
@@ -109,8 +108,6 @@
       </item>
       <item path="Floor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="GameHandler.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="GameStep.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Guard.cpp" ex="false" tool="1" flavor2="0">
@@ -183,8 +180,6 @@
       <item path="Floor.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Floor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="GameHandler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GameStep.cpp" ex="false" tool="1" flavor2="0">
       </item>
