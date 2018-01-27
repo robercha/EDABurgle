@@ -26,7 +26,7 @@ protected:
 class Idle : public GameStep {
 public:
 
-    idle() {
+    Idle() {
         state = IDLE;
     };
     void eventHandler(gameData_t *gameData, modelEvent_t event);
