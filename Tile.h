@@ -48,14 +48,13 @@ public:
     bool triggerAlarm();
     void useHackToken();
     bool isAlarmTile(); //getter de isAlarmTile
+
 protected:
     location_t currentLocation;
     Tile* rightTile;
     Tile* leftTile;
     Tile* upperTile;
     Tile* lowerTile;
-    Tile* upperFloorTile;
-    Tile* lowerFloorTile;
     bool isVisible;
     bool crackedToken;
     bool alarmTile;
@@ -75,6 +74,8 @@ public:
     bool isGuardBelow(Tile* guardLocation); //devuelve true si hay q sacarle un stealth
 private:
     Tile* peekaboo; //la tile a peekaer
+    Tile* upperFloorTile;
+    Tile* lowerFloorTile;
 };
 
 class Camera : public Tile {

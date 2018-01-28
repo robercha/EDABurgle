@@ -4,12 +4,10 @@
 #include <chrono>
 #include <vector>
 
-
-
 Model::Model()
 {
     std::vector<Tile*> deck;
-    
+
     createTiles(deck);
     shuffleTiles(deck);
     createFloors(deck);
@@ -42,16 +40,16 @@ void Model::createLoots()
     loots.push_back(new Goblet);
     loots.push_back(new Chihuahua);
     loots.push_back(new GoldBar);
-    
+
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::shuffle(loots.begin(), loots.end(), std::default_random_engine(seed));
 
 }
 
-    void Model::createTiles(std::vector<Tile*> deck)
+void Model::createTiles(std::vector<Tile*> deck)
 {
-      unsigned i;
-      
+    unsigned i;
+
     for (i = 0; i < ATRIUM_QTY; i++)
         deck.push_back(new Atrium);
     for (i = 0; i < ATRIUM_QTY; i++)
@@ -102,10 +100,10 @@ void Model::shuffleTiles(std::vector<Tile*> deck)
 void Model::createFloors(std::vector<Tile*> deck)
 {
     std::vector<Tile*> floorDeck;
-    
-    for (unsigned i = 0; i < FLOORS_QTY; i++)                    
+
+    for (unsigned i = 0; i < FLOORS_QTY; i++)
     {
-        for (unsigned j = 0; j < (FLOORTILE_QTY-2); j++)
+        for (unsigned j = 0; j < (FLOORTILE_QTY - 2); j++)
         {
             floorDeck.push_back(deck.back());
             deck.pop_back();
@@ -116,7 +114,7 @@ void Model::createFloors(std::vector<Tile*> deck)
 
 void Model::createModelFSM()
 {
-     Idle* idle = new Idle;
+    Idle* idle = new Idle;
     WaitingFirstAction* waitingFirstAction = new WaitingFirstAction;
     WaitingSecondAction* waitingSecondAction = new WaitingSecondAction;
     WaitingResponse* waitingResponse = new WaitingResponse;
@@ -146,6 +144,7 @@ void Model::createModelFSM()
     }
 
 }
+
 void Model::analyzeAction(gameData_t*)
 {
     switch ()
@@ -159,19 +158,20 @@ void Model::analyzeAction(gameData_t*)
 //A1F1, B1F1, C1F1, D1F1, A2F1, B2F1, C2F1, D2F1, A3F1, B3F1, C3F1, D3F1, A4F1, B4F1, C4F1, D4F1,
 //    A1F2, B1F2, C1F2, D1F2, A2F2, B2F2, C2F2, D2F2, A3F2, B3F2, C3F2, D3F2, A4F2, B4F2, C4F2, D4F2,
 //    A1F3, B1F3, C1F3, D1F3, A2F3, B2F3, C2F3, D2F3, A3F3, B3F3, C3F3, D3F3, A4F3, B4F3, C4F3, D4F3,
-void Model::eventGenerator(event_t event, gameData_t gameData)
+
+void Model::eventGenerator(button_t event, gameData_t gameData)
 {
-    
-    
-    
-    
-    switch(event)
+
+
+
+
+    switch (event)
     {
         case A1F1: case B1F1: case C1F1: case D1F1: case A2F1: case B2F1: case C2F1: case D2F1:
-        case A3F1: case B3F1: case C3F1: case D3F1: case A4F1: case B4F1: case C4F1: case D4F1: 
+        case A3F1: case B3F1: case C3F1: case D3F1: case A4F1: case B4F1: case C4F1: case D4F1:
         case A1F2: case B1F2: case C1F2: case D1F2: case A2F2: case B2F2: case C2F2: case D2F2:
-        case A3F2: case B3F2: case C3F2: case D3F2: case A4F2: case B4F2: case C4F2: case D4F2: 
+        case A3F2: case B3F2: case C3F2: case D3F2: case A4F2: case B4F2: case C4F2: case D4F2:
         case A1F3: case B1F3: case C1F3: case D1F3: case A2F3: case B2F3: case C2F3: case D2F3:
-        case A3F3: case B3F3: case C3F3: case D3F3: case A4F3: case B4F3: case C4F3: case D4F3: ;            
+        case A3F3: case B3F3: case C3F3: case D3F3: case A4F3: case B4F3: case C4F3: case D4F3: ;
     }
 }

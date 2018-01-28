@@ -9,6 +9,7 @@
 #include "Character.h"
 #include "Loot.h"
 #include "GameStep.h"
+#include "View.h"
 
 class Model {
 public:
@@ -16,7 +17,7 @@ public:
     Model();
     virtual ~Model();
 private:
-    
+
     void createTiles(std::vector<Tile*>);
     void shuffleTiles(std::vector<Tile*>);
     void createFloors(std::vector<Tile*>);
@@ -24,11 +25,11 @@ private:
     void createCharacters();
     void createModelFSM();
     void createLoots();
-    
-    void eventGenerator(event_t event, gameData_t* gameData);
-    
+
+    void eventGenerator(button_t event, gameData_t* gameData);
+
     //std::list<Tile*> floorDeck;
-    //std::vector<Tile*> deck; 
+    //std::vector<Tile*> deck;
     std::vector<Floor*> floors;
     std::vector<Guard*> guards;
     std::vector<Character*> characters;
