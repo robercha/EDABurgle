@@ -5,16 +5,22 @@
 #include "Tile.h"
 #include "Floor.h"
 
+typedef enum {
+    JUICER, HACKER, ACROBAT, SPOTTER, HAWK, RAVEN, PETERMAN
+} character_t;
+
 class Character {
 public:
     Character();
     Character(const Character& orig);
     virtual ~Character();
     void move();
-    //void peek();      esto esta en tile
+    //void peek();          esto esta en tile
     void pass();
-    bool virtual hiddenTalent() = 0;
+    virtual bool hiddenTalent() = 0;
+    virtual bool canIUseThisTile(location_t); //de cada character y le pregunta a la tile sus adyacentes
 protected:
+    character_t name;
     Tile* currentTile;
     unsigned actions;
     unsigned stealthTokens;
@@ -23,6 +29,10 @@ protected:
 
 class Juicer : public Character {
 public:
+
+    Juicer() {
+        name = JUICER;
+    };
     bool hiddenTalent(); //coloca alarma triggereada si isTileAdyacent()==true
     void setTile(Tile*);
 private:
@@ -33,6 +43,10 @@ private:
 
 class Hacker : public Character {
 public:
+
+    Hacker() {
+        name = HACKER;
+    };
     bool hiddenTalent(); //no triggerea alarma
 
 private:
@@ -44,6 +58,10 @@ private:
 
 class Acrobat : public Character {
 public:
+
+    Acrobat() {
+        name = ACROBAT;
+    };
     bool hiddenTalent(); //se fija si la cant de actions es 0 y si el guardia sigue en la misma tile le quita un stealth
 private:
     bool isGuardOnCurrTile();
@@ -52,6 +70,10 @@ private:
 
 class Spotter : public Character {
 public:
+
+    Spotter() {
+        name = SPOTTER;
+    };
     bool hiddenTalent(); //esta usa spend action
     void sendToTop(); //para los botoncitos
     void sendToBottom(std::vector<patrol_t>* patrolDeck);
@@ -61,6 +83,10 @@ private:
 
 class Hawk : public Character {
 public:
+
+    Hawk() {
+        name = HAWK;
+    };
     bool hiddenTalent(); //chequea si hay una pared y si la hay el peek no cuesta action
     void setTile(Tile*);
 private:
@@ -72,6 +98,10 @@ private:
 
 class Raven : public Character {
 public:
+
+    Raven() {
+        name = RAVEN;
+    };
     bool canPlaceCrowToken(); //hasta dos tiles adyacentes
     bool hiddenTalent(); //place crow token
     void setTile(Tile*);
@@ -82,6 +112,10 @@ private:
 
 class Peterman : public Character {
 public:
+
+    Peterman() {
+        name = PETERMAN;
+    };
     bool hiddenTalent(); //throw aditional dice for safe or keypad
 private:
     unsigned throwAditionalDice();

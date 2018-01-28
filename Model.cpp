@@ -161,7 +161,10 @@ void Model::analyzeAction(gameData_t*)
 
 void Model::eventGenerator(button_t event, gameData_t gameData)
 {
+    if (event >= (int) button_t::A1F1 && event <= (int) button_t::D4F3)
+    {
 
+    }
 
 
 

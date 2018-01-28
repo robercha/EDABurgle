@@ -1,6 +1,8 @@
 #ifndef TILE_H
 #define TILE_H
 
+#include <stdio.h>
+
 #define FLOORS_QTY 3
 #define FLOORTILE_QTY 16
 #define TOTALTILE_QTY 48
@@ -48,7 +50,7 @@ public:
     bool triggerAlarm();
     void useHackToken();
     bool isAlarmTile(); //getter de isAlarmTile
-
+    virtual bool isTileValid(location_t); //se fija si es adyacente
 protected:
     location_t currentLocation;
     Tile* rightTile;
@@ -58,6 +60,10 @@ protected:
     bool isVisible;
     bool crackedToken;
     bool alarmTile;
+    unsigned getColumn(location_t);
+    unsigned getRow(location_t);
+    unsigned getFloor(location_t);
+    bool isAdyacentTileValid(location_t selectedLocation);
 };
 
 //enum class action_t {
@@ -69,6 +75,7 @@ protected:
 class Atrium : public Tile {
 public:
     bool itsATrap();
+    bool isTileValid(location_t);
     void setTile(Tile*); //la tile a peekaer
     bool isGuardAbove(Tile* guardLocation); //devuelve true si hay q sacarle un stealth
     bool isGuardBelow(Tile* guardLocation); //devuelve true si hay q sacarle un stealth

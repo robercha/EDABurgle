@@ -43,7 +43,7 @@ enum class button_t {
 };
 
 enum class character_t {
-    JUICER, HACKER, ACROBAT, SPOTTER, HAWK, RAVEN, PETERMAN, GUARD
+    V_JUICER, V_HACKER, V_ACROBAT, V_SPOTTER, V_HAWK, V_RAVEN, V_PETERMAN, V_GUARD
 };
 
 enum class loot_t {

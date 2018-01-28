@@ -1,4 +1,10 @@
+#include <stdbool.h>
+
 #include "Tile.h"
+
+#define ROWS    4
+#define COLS    4
+#define FLOORS   3
 
 typedef enum
 {
@@ -13,6 +19,49 @@ Tile::Tile()
 bool Tile::isAlarmTile()
 {
     return alarmTile;
+}
+
+bool Tile::isTileValid(location_t selectedTile)
+{
+    bool isTileValid = isAdyacentTileValid(selectedTile);
+
+    return isTileValid;
+
+}
+
+bool Tile::isAdyacentTileValid(location_t selectedTile)
+{
+    bool isTileValid = false;
+    unsigned currRow = getRow(currentLocation);
+    unsigned currCol = getColumn(currentLocation);
+    unsigned currFloor = getFloor(currentLocation);
+
+    unsigned selectedRow = getRow(selectedTile);
+    unsigned selectedCol = getColumn(selectedTile);
+    unsigned selectedFloor = getFloor(selectedTile);
+
+
+    if (selectedFloor == currFloor)
+    {
+        if (selectedCol == (currCol + 1) || selectedCol == (currCol - 1))
+        {
+            if (selectedRow == (currRow + 1) || selectedRow == (currRow - 1))
+            {
+                if (selectedCol == (currCol + 1) && rightTile != NULL)
+                    isTileValid = true;
+                else if (selectedCol == (currCol - 1) && leftTile != NULL)
+                    isTileValid = true;
+                else if (selectedRow == (currRow + 1) && lowerTile != NULL)
+                    isTileValid = true;
+                else if (selectedRow == (currRow - 1) && upperTile != NULL)
+                    isTileValid = true;
+                else
+                    isTileValid = false;
+            }
+        }
+    }
+
+    return isTileValid;
 }
 
 Tile::Tile(const Tile& orig)
@@ -42,4 +91,44 @@ bool
 Camera::isOnCamera(Tile* location)
 {
     // return (location == Camera) ? true : false;
+}
+
+unsigned
+Tile::getColumn(location_t location)
+{
+    unsigned floor = getFloor(location);
+    unsigned index = (int) location - (floor) * ROWS*COLS;
+
+    return index % COLS;
+}
+
+unsigned
+Tile::getRow(location_t location)
+{
+    unsigned floor = getFloor(location);
+    unsigned index = (int) location - (floor) * ROWS*COLS;
+
+    return (int) (index / COLS);
+}
+
+unsigned
+Tile::getFloor(location_t location)
+{
+    return ((int) location) / (ROWS * COLS);
+}
+
+bool Atrium::isTileValid(location_t selectedTile)
+{
+    bool isTileValid = false;
+
+    if (isAdyacentTileValid(selectedTile) == true)
+        isTileValid = true;
+    else if (selectedTile == (currentLocation + ROWS * COLS) && upperFloorTile != NULL)
+        isTileValid = true;
+    else if (selectedTile == (currentLocation - ROWS * COLS) && lowerFloorTile != NULL)
+        isTileValid = true;
+    else
+        isTileValid = false;
+
+
 }

@@ -602,7 +602,7 @@ View::drawGuards()
     {
         if (graphicsData->guards[i].location == location_t::NO_LOCATION)
             continue;
-        ALLEGRO_BITMAP * guard = loadCharacter(character_t::GUARD, false);
+        ALLEGRO_BITMAP * guard = loadCharacter(character_t::V_GUARD, false);
         col = getColumn(graphicsData->guards[i].location);
         row = getRow(graphicsData->guards[i].location);
         floor = getFloor(graphicsData->guards[i].location);
@@ -808,12 +808,12 @@ View::writeActions()
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *11, ALLEGRO_ALIGN_RIGHT, "*Request loot");
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *12, ALLEGRO_ALIGN_RIGHT, "*Pick up loot");
 
-    if (graphicsData->players[0].character != character_t::JUICER) //si player one no es juicer, escribo transparente "create alarm"
+    if (graphicsData->players[0].character != character_t::V_JUICER) //si player one no es juicer, escribo transparente "create alarm"
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *13, ALLEGRO_ALIGN_RIGHT, "*Create Alarm");
     else
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *13, ALLEGRO_ALIGN_RIGHT, "*Create Alarm");
 
-    if (graphicsData->players[0].character != character_t::SPOTTER) //si player one no es spotter, escribo transparente "spy patrol deck" & "place card top/bottom"
+    if (graphicsData->players[0].character != character_t::V_SPOTTER) //si player one no es spotter, escribo transparente "spy patrol deck" & "place card top/bottom"
     {
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *14, ALLEGRO_ALIGN_RIGHT, "*Spy patrol deck");
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *15, ALLEGRO_ALIGN_RIGHT, "*Place patrol card on top");
@@ -826,7 +826,7 @@ View::writeActions()
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *16, ALLEGRO_ALIGN_RIGHT, "*Place patrol card on bottom");
     }
 
-    if (graphicsData->players[0].character != character_t::RAVEN) //si player one no es Raven, escribo transparente "place crow token"
+    if (graphicsData->players[0].character != character_t::V_RAVEN) //si player one no es Raven, escribo transparente "place crow token"
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *17, ALLEGRO_ALIGN_RIGHT, "*Place crow token");
     else
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *17, ALLEGRO_ALIGN_RIGHT, "*Place crow token");
@@ -922,56 +922,56 @@ View::loadCharacter(character_t c, bool shrink)
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (c)
     {
-        case character_t::JUICER:
+        case character_t::V_JUICER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/juicersmall.png");
             else
                 bitmap = al_load_bitmap("images/character/juicer.png");
             break;
 
-        case character_t::HACKER:
+        case character_t::V_HACKER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/hackersmall.png");
             else
                 bitmap = al_load_bitmap("images/character/hacker.png");
             break;
 
-        case character_t::ACROBAT:
+        case character_t::V_ACROBAT:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/acrobatsmall.png");
             else
                 bitmap = al_load_bitmap("images/character/acrobat.png");
             break;
 
-        case character_t::SPOTTER:
+        case character_t::V_SPOTTER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/spottersmall.png");
             else
                 bitmap = al_load_bitmap("images/character/spotter.png");
             break;
 
-        case character_t::HAWK:
+        case character_t::V_HAWK:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/hawksmall.png");
             else
                 bitmap = al_load_bitmap("images/character/hawk.png");
             break;
 
-        case character_t::RAVEN:
+        case character_t::V_RAVEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/ravensmall.png");
             else
                 bitmap = al_load_bitmap("images/character/raven.png");
             break;
 
-        case character_t::PETERMAN:
+        case character_t::V_PETERMAN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/petermansmall.png");
             else
                 bitmap = al_load_bitmap("images/character/peterman.png");
             break;
 
-        case character_t::GUARD:
+        case character_t::V_GUARD:
             bitmap = al_load_bitmap("images/character/guard.png");
 
             break;

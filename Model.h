@@ -34,6 +34,7 @@ private:
     std::vector<Guard*> guards;
     std::vector<Character*> characters;
     std::vector<Loot*> loots;
+    Character
 
     GameStep*** gameHandlerMatrix;
     GameStep* currentAction;
