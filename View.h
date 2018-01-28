@@ -34,7 +34,7 @@ enum class button_t {
     //loots
     LOOTF1, LOOTF2, LOOTF3,
     //patrol decks
-    //PATROL_DECK_1, PATROL_DECK_2 , PATROL_DECK_3,
+    PATROL_DECK_1, PATROL_DECK_2, PATROL_DECK_3,
     //actions
     MOVE, PEEK, PASS, ADD_DICE_TO_SAFE, ROLL_DICE_FOR_SAFE, SPEND_ACTIONS_TO_ENTER, HACK_COMPUTER, USE_HACK_TOKEN,
     OFFER_LOOT, REQUEST_LOOT, PICK_UP_LOOT, CREATE_ALARM, SPY_PATROL_DECK, PATROL_IS_TOP, PATROL_IS_BOTTOM,
@@ -70,6 +70,10 @@ enum class patrol_t {
     A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4, D1, D2, D3, D4, NO_PATROL
 };
 
+typedef enum {
+    YOU, PARTNER, NO_PLAYER
+} player_t;
+
 //enum class action_t {
 //    MOVE, PEEK, PASS, ADD_DICE_TO_SAFE, ROLL_DICE_FOR_SAFE, SPEND_ACTIONS_TO_ENTER, HACK_COMPUTER, USE_HACK_TOKEN,
 //    OFFER_LOOT, REQUEST_LOOT, PICK_UP_LOOT, CREATE_ALARM, SPY_PATROL_DECK, PATROL_IS_TOP, PATROL_IS_BOTTOM,
@@ -81,7 +85,7 @@ typedef struct {
     unsigned stealthTokens;
     unsigned actionsLeft;
     location_t location;
-} player_t;
+} playerInfo_t;
 
 typedef struct {
     unsigned movements; //moves por turno del guardia, 6 como maximo
@@ -89,6 +93,11 @@ typedef struct {
     location_t guardDie; //donde esta el dado (a donde va si no suenan alarmas)/puede ser patrol_t tmb?
     patrol_t patrolDeck;
 } guard_t;
+
+typedef struct {
+    player_t owner;
+    loot_t loot;
+} lootInfo_t;
 
 typedef struct {
     room_t iAm; //e.g. atrium
@@ -107,10 +116,10 @@ typedef struct {
 } bitmap_t;
 
 typedef struct {
-    player_t players[V_TOTAL_PLAYERS];
+    playerInfo_t players[V_TOTAL_PLAYERS];
     guard_t guards[V_TOTAL_GUARDS];
     tile_t tiles[V_TOTAL_TILES];
-    loot_t loots [V_TOTAL_LOOTS]; //para mostrar los loots de c/piso abajo de los floors
+    lootInfo_t loots [V_TOTAL_LOOTS]; //para mostrar los loots de c/piso abajo de los floors
     button_t currentCardSelected; //muestra en upper-right corner toda la informacion
     unsigned crackingDice[V_TOTAL_CRACKINGDICE];
     //aca faltan los mensajes

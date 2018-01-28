@@ -525,7 +525,7 @@ View::drawLoots()
     {
         x = 20 + 2 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3);
         y = 135 + TILE_SIZE * 4 + SPACE_TILE * 6;
-        ALLEGRO_BITMAP* bitmap = loadLoot(graphicsData->loots[i], true);
+        ALLEGRO_BITMAP* bitmap = loadLoot(graphicsData->loots[i].loot, true);
         al_draw_bitmap(bitmap, x, y, 0);
         al_destroy_bitmap(bitmap);
     }
@@ -770,17 +770,17 @@ View::drawLootSelectedInfo()
     ALLEGRO_BITMAP* loot = NULL;
     if (graphicsData->currentCardSelected == button_t::LOOTF1)
     {
-        loot = loadLoot(graphicsData->loots[0], false);
+        loot = loadLoot(graphicsData->loots[0].loot, false);
         al_draw_text(textFont, al_map_rgb(0, 0, 0), (DISPLAYW - SPACE_DIVIDER_L) / 2 + SPACE_DIVIDER_L, 0, ALLEGRO_ALIGN_CENTER, "1st Floor Loot");
     }
     else if (graphicsData->currentCardSelected == button_t::LOOTF2)
     {
-        loot = loadLoot(graphicsData->loots[1], false);
+        loot = loadLoot(graphicsData->loots[1].loot, false);
         al_draw_text(textFont, al_map_rgb(0, 0, 0), (DISPLAYW - SPACE_DIVIDER_L) / 2 + SPACE_DIVIDER_L, 0, ALLEGRO_ALIGN_CENTER, "2nd Floor Loot");
     }
     else
     {
-        loot = loadLoot(graphicsData->loots[2], false);
+        loot = loadLoot(graphicsData->loots[2].loot, false);
         al_draw_text(textFont, al_map_rgb(0, 0, 0), (DISPLAYW - SPACE_DIVIDER_L) / 2 + SPACE_DIVIDER_L, 0, ALLEGRO_ALIGN_CENTER, "3rd Floor Loot");
     }
     al_draw_bitmap(loot, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE) / 2 + SPACE_DIVIDER_L, SPACE_UP_MARGIN, 0);
@@ -869,6 +869,10 @@ View::initUtilities()
         y = 135 + TILE_SIZE * 4 + SPACE_TILE * 6;
         initButton(V_TOTAL_TILES + i, x, y, LOOT_CARD_SIZE, LOOT_CARD_SIZE);
     }
+
+    //patrol decks
+    for (unsigned i = 0; i < V_TOTAL_FLOORS; i++)
+        initButton(V_TOTAL_TILES + V_TOTAL_LOOTS + i, 20 + 1 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3), 135 + TILE_SIZE * 4 + SPACE_TILE * 6, PATROL_CARD_SIZE, PATROL_CARD_SIZE);
 
     //actions
     initButton((int) button_t::MOVE, SPACE_DIVIDER_L + 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, 50, height);
