@@ -13,7 +13,7 @@ typedef enum {
 
 class Floor {
 public:
-    Floor(std::list<Tile*> &tileDeck);
+    Floor(std::vector<Tile*> &tileDeck);
     ~Floor();
     void randomizeFloor();
     void setTile(Tile* tile);

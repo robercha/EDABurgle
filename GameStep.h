@@ -13,6 +13,10 @@ typedef enum {
 
 } modelEvent_t;
 
+typedef struct gameData {
+    modelEvent_t event;
+} gameData_t;
+
 class GameStep {
 public:
     GameStep();

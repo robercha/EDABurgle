@@ -10,21 +10,25 @@
 #include "Loot.h"
 #include "GameStep.h"
 
-typedef struct gameData {
-    modelEvent_t event;
-} gameData_t;
-
 class Model {
 public:
     void analyzeAction(gameData_t* gameData);
     Model();
     virtual ~Model();
 private:
-
+    
+    void createTiles(std::vector<Tile*>);
+    void shuffleTiles(std::vector<Tile*>);
+    void createFloors(std::vector<Tile*>);
+    void createGuards();
+    void createCharacters();
+    void createModelFSM();
+    void createLoots();
+    
     void eventGenerator(event_t event, gameData_t* gameData);
     
-    std::list<Tile*> floorDeck;
-    std::vector<Tile*> deck; //no lo usamos
+    //std::list<Tile*> floorDeck;
+    //std::vector<Tile*> deck; 
     std::vector<Floor*> floors;
     std::vector<Guard*> guards;
     std::vector<Character*> characters;
@@ -33,7 +37,7 @@ private:
     GameStep*** gameHandlerMatrix;
     GameStep* currentAction;
 
-    void createLoots(unsigned);
+
 
 };
 
