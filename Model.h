@@ -11,16 +11,18 @@
 #include "GameStep.h"
 
 typedef struct gameData {
+    modelEvent_t event;
 } gameData_t;
 
 class Model {
 public:
-    void analyzeAction(gameData_t*);
+    void analyzeAction(gameData_t* gameData);
     Model();
     virtual ~Model();
 private:
-    void eventGenerator(event_t event);
 
+    void eventGenerator(event_t event, gameData_t* gameData);
+    
     std::list<Tile*> floorDeck;
     std::vector<Tile*> deck; //no lo usamos
     std::vector<Floor*> floors;
@@ -32,6 +34,7 @@ private:
     GameStep* currentAction;
 
     void createLoots(unsigned);
+
 };
 
 #endif /* MODEL_H */
