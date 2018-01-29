@@ -13,11 +13,13 @@ typedef enum {
 
 class Floor {
 public:
-    Floor(std::vector<Tile*> &tileDeck);
+    Floor(std::vector<Tile*> &tileDeck, unsigned floorNumber);
     ~Floor();
     void randomizeFloor();
     void setTile(Tile* tile);
 private:
+    void setAdjacentTiles(unsigned row, unsigned col);
+    void createWalls(unsigned);
     Guard* guard;
     std::vector<patrol_t> patrolDeck;
     std::vector< std::vector<Tile*> > tiles;

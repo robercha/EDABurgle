@@ -2,6 +2,10 @@
 
 #include "Tile.h"
 
+unsigned getColumn(location_t location);
+unsigned getRow(location_t location);
+unsigned getFloor(location_t location);
+
 #define ROWS    4
 #define COLS    4
 #define FLOORS   3
@@ -101,6 +105,73 @@ Tile::~Tile()
 {
 }
 
+void Tile::setCurrentLocation(location_t location)
+{
+    currentLocation = location;
+}
+void Tile::setAdjacentTiles(Tile* left, Tile* right, Tile* upper, Tile* lower)
+{
+    rightTile = right; secretRightTile = right;
+    leftTile = left; secretLeftTile = left;
+    upperTile = upper; secretUpperTile = upper;
+    lowerTile = lower; secretLowerTile = lower;
+}
+
+void Tile::setLeftWall()
+{
+    leftTile = NULL;
+}
+
+void Tile::setRightWall()
+{
+    rightTile = NULL;
+}
+
+void Tile::setUpperWall()
+{
+    upperTile = NULL;
+}
+
+void Tile::setLowerWall()
+{
+    lowerTile = NULL;
+}
+
+unsigned getColumn(location_t location)
+{
+    unsigned floor = getFloor(location);
+    unsigned index = (int) location - (floor) * ROWS*COLS;
+
+    return index % COLS;
+}
+
+unsigned getRow(location_t location)
+{
+    unsigned floor = getFloor(location);
+    unsigned index = (int) location - (floor) * ROWS*COLS;
+
+    return (int) (index / COLS);
+}
+
+unsigned getFloor(location_t location)
+{
+    return ((int) location) / (ROWS * COLS);
+}
+
+bool Atrium::isTileValid(location_t selectedTile)
+{
+    bool isTileValid = false;
+
+    if (isAdyacentTileValid(selectedTile) == true)
+        isTileValid = true;
+    else if (selectedTile == (currentLocation + ROWS * COLS) && upperFloorTile != NULL)
+        isTileValid = true;
+    else if (selectedTile == (currentLocation - ROWS * COLS) && lowerFloorTile != NULL)
+        isTileValid = true;
+    else
+        isTileValid = false;
+}
+
 bool
 Camera::itsATrap()
 {
@@ -120,44 +191,4 @@ bool
 Camera::isOnCamera(Tile* location)
 {
     // return (location == Camera) ? true : false;
-}
-
-unsigned
-Tile::getColumn(location_t location)
-{
-    unsigned floor = getFloor(location);
-    unsigned index = (int) location - (floor) * ROWS*COLS;
-
-    return index % COLS;
-}
-
-unsigned
-Tile::getRow(location_t location)
-{
-    unsigned floor = getFloor(location);
-    unsigned index = (int) location - (floor) * ROWS*COLS;
-
-    return (int) (index / COLS);
-}
-
-unsigned
-Tile::getFloor(location_t location)
-{
-    return ((int) location) / (ROWS * COLS);
-}
-
-bool Atrium::isTileValid(location_t selectedTile)
-{
-    bool isTileValid = false;
-
-    if (isAdyacentTileValid(selectedTile) == true)
-        isTileValid = true;
-    else if (selectedTile == (currentLocation + ROWS * COLS) && upperFloorTile != NULL)
-        isTileValid = true;
-    else if (selectedTile == (currentLocation - ROWS * COLS) && lowerFloorTile != NULL)
-        isTileValid = true;
-    else
-        isTileValid = false;
-
-
 }
