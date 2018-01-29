@@ -18,6 +18,7 @@ public:
     void randomizeFloor();
     void setTile(Tile* tile);
 private:
+    Guard* guard;
     std::vector<patrol_t> patrolDeck;
     std::vector< std::vector<Tile*> > tiles;
 

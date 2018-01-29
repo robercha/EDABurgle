@@ -361,7 +361,7 @@ View::drawCharactersInfo()
     al_draw_bitmap(playerOne, 25 + 1 * (TILE_SIZE + SPACE_TILE), 95 - (al_get_bitmap_height(playerOne)), 0);
     al_destroy_bitmap(playerOne);
 
-    ALLEGRO_BITMAP* stealthOne = loadToken(token_t::STEALTHTOKEN, false);
+    ALLEGRO_BITMAP* stealthOne = loadToken(token_t::V_STEALTHTOKEN, false);
     for (unsigned i = 0; i < graphicsData->players[0].stealthTokens; ++i)
         al_draw_bitmap(stealthOne, 85 + 1 * (TILE_SIZE + SPACE_TILE), i * (5 + TOKENS_BIG_SIZE) + 5, 0);
     al_destroy_bitmap(stealthOne);
@@ -374,7 +374,7 @@ View::drawCharactersInfo()
     al_draw_bitmap(playerTwo, 270 + 625, 95 - (al_get_bitmap_height(playerTwo)), 0);
     al_destroy_bitmap(playerTwo);
 
-    ALLEGRO_BITMAP * stealthTwo = loadToken(token_t::STEALTHTOKEN, false);
+    ALLEGRO_BITMAP * stealthTwo = loadToken(token_t::V_STEALTHTOKEN, false);
     for (unsigned i = 0; i < graphicsData->players[1].stealthTokens; ++i)
         al_draw_bitmap(stealthTwo, 240 + 625, i * (5 + TOKENS_BIG_SIZE) + 5, 0);
     al_destroy_bitmap(stealthTwo);
@@ -625,7 +625,7 @@ View::drawTokensOnTiles()
     {
         if (graphicsData->tiles[i].goldBarOnTheLoose == true)
         {
-            ALLEGRO_BITMAP* extraGold = loadLoot(loot_t::GOLD2, false);
+            ALLEGRO_BITMAP* extraGold = loadLoot(loot_t::V_GOLD2, false);
             floor = i / (V_ROWS * V_COLUMNS);
             col = (i - floor * V_ROWS * V_COLUMNS) % V_COLUMNS;
             row = (i - floor * V_ROWS * V_COLUMNS) / V_COLUMNS;
@@ -726,7 +726,7 @@ View::drawSelectedTileTokens()
             y = j * (TOKENS_BIG_SIZE + SPACE_TOKEN_UD) + SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
             if (graphicsData->tiles[(int) graphicsData->currentCardSelected].tokens[tokenCount])
             {
-                if (tokenCount == (int) token_t::HACKTOKEN || tokenCount == (int) token_t::STEALTHTOKEN)
+                if (tokenCount == (int) token_t::V_HACKTOKEN || tokenCount == (int) token_t::V_STEALTHTOKEN)
                 {
                     tokenCount++;
                     continue;
@@ -744,7 +744,7 @@ View::drawSelectedTileTokens()
     {
         x = 3 * (TOKENS_BIG_SIZE + SPACE_TOKEN_LR) + SPACE_DIVIDER_L + SPACE_TOKEN_LR;
         y = SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
-        ALLEGRO_BITMAP* token = loadToken(token_t::STEALTHTOKEN, false);
+        ALLEGRO_BITMAP* token = loadToken(token_t::V_STEALTHTOKEN, false);
         al_draw_bitmap(token, x, y, 0);
         al_destroy_bitmap(token);
         al_draw_textf(textFont, al_map_rgb(0, 0, 0), x + TOKENS_BIG_SIZE + 5, y, ALLEGRO_ALIGN_LEFT, "x%d", graphicsData->tiles[(int) graphicsData->currentCardSelected].howManyStealthTokens);
@@ -756,7 +756,7 @@ View::drawSelectedTileTokens()
     {
         x = 3 * (TOKENS_BIG_SIZE + SPACE_TOKEN_LR) + SPACE_DIVIDER_L + SPACE_TOKEN_LR;
         y = 1 * (TOKENS_BIG_SIZE + SPACE_TOKEN_UD) + SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
-        ALLEGRO_BITMAP* token = loadToken(token_t::HACKTOKEN, false);
+        ALLEGRO_BITMAP* token = loadToken(token_t::V_HACKTOKEN, false);
         al_draw_bitmap(token, x, y, 0);
         al_destroy_bitmap(token);
         al_draw_textf(textFont, al_map_rgb(0, 0, 0), x + TOKENS_BIG_SIZE + 5, y, ALLEGRO_ALIGN_LEFT, "x%d", graphicsData->tiles[(int) graphicsData->currentCardSelected].howManyHackTokens);
@@ -987,81 +987,81 @@ View::loadLoot(loot_t l, bool shrink)
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (l)
     {
-        case loot_t::TIARA:
+        case loot_t::V_TIARA:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/tiarasmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/tiara.png");
             break;
 
-        case loot_t::KITTY:
+        case loot_t::V_KITTY:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/kittysmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/kitty.png");
             break;
 
-        case loot_t::PAINTING:
+        case loot_t::V_PAINTING:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/paintingsmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/painting.png");
             break;
 
-        case loot_t::MIRROR:
+        case loot_t::V_MIRROR:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/mirrorsmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/mirror.png");
             break;
 
-        case loot_t::KEYCARD:
+        case loot_t::V_KEYCARD:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/keycardsmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/keycard.png");
             break;
 
-        case loot_t::ISOTOPE:
+        case loot_t::V_ISOTOPE:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/isotopesmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/isotope.png");
             break;
 
-        case loot_t::GEMSTONE:
+        case loot_t::V_GEMSTONE:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/gemstonesmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/gemstone.png");
             break;
 
-        case loot_t::GOBLET:
+        case loot_t::V_GOBLET:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/gobletsmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/goblet.png");
             break;
 
-        case loot_t::CHIHUAHUA:
+        case loot_t::V_CHIHUAHUA:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/chihuahuasmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/chihuahua.png");
             break;
 
-        case loot_t::GOLD:
+        case loot_t::V_GOLD:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/goldsmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/gold.png");
             break;
 
-        case loot_t::GOLD2:
+        case loot_t::V_GOLD2:
             bitmap = al_load_bitmap("images/loots/gold2.png");
             break;
 
-        case loot_t::NO_LOOT:
+        case loot_t::V_NO_LOOT:
             bitmap = al_load_bitmap("images/loots/lootBack.png");
 
             break;
@@ -1076,14 +1076,14 @@ View::loadToken(token_t t, bool shrink)
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (t)
     {
-        case token_t::ALARMTOKEN:
+        case token_t::V_ALARMTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/alarmsmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/alarm.png");
             break;
 
-        case token_t::CROWTOKEN:
+        case token_t::V_CROWTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/crowsmall.png");
             else
@@ -1091,42 +1091,42 @@ View::loadToken(token_t t, bool shrink)
                 bitmap = al_load_bitmap("images/tokens/crow.png");
             break;
 
-        case token_t::HACKTOKEN:
+        case token_t::V_HACKTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/hacksmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/hack.png");
             break;
 
-        case token_t::KITTYTOKEN:
+        case token_t::V_KITTYTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/kittysmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/kitty.png");
             break;
 
-        case token_t::OPENTOKEN:
+        case token_t::V_OPENTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/opensmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/open.png");
             break;
 
-        case token_t::CRACKEDTOKEN:
+        case token_t::V_CRACKEDTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/safesmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/safe.png");
             break;
 
-        case token_t::DOWNSTAIRSTOKEN:
+        case token_t::V_DOWNSTAIRSTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/stairssmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/stairs.png");
             break;
 
-        case token_t::STEALTHTOKEN:
+        case token_t::V_STEALTHTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/stealthsmall.png");
             else
@@ -1298,71 +1298,71 @@ View::loadPatrolCard(patrol_t p)
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (p)
     {
-        case patrol_t::A1:
+        case patrol_t::V_A1:
             bitmap = al_load_bitmap("images/patrol/A1.png");
             break;
 
-        case patrol_t::A2:
+        case patrol_t::V_A2:
             bitmap = al_load_bitmap("images/patrol/A2.png");
             break;
 
-        case patrol_t::A3:
+        case patrol_t::V_A3:
             bitmap = al_load_bitmap("images/patrol/A3.png");
             break;
 
-        case patrol_t::A4:
+        case patrol_t::V_A4:
             bitmap = al_load_bitmap("images/patrol/A4.png");
             break;
 
-        case patrol_t::B1:
+        case patrol_t::V_B1:
             bitmap = al_load_bitmap("images/patrol/B1.png");
             break;
 
-        case patrol_t::B2:
+        case patrol_t::V_B2:
             bitmap = al_load_bitmap("images/patrol/B2.png");
             break;
 
-        case patrol_t::B3:
+        case patrol_t::V_B3:
             bitmap = al_load_bitmap("images/patrol/B3.png");
             break;
 
-        case patrol_t::B4:
+        case patrol_t::V_B4:
             bitmap = al_load_bitmap("images/patrol/B4.png");
             break;
 
-        case patrol_t::C1:
+        case patrol_t::V_C1:
             bitmap = al_load_bitmap("images/patrol/C1.png");
             break;
 
-        case patrol_t::C2:
+        case patrol_t::V_C2:
             bitmap = al_load_bitmap("images/patrol/C2.png");
             break;
 
-        case patrol_t::C3:
+        case patrol_t::V_C3:
             bitmap = al_load_bitmap("images/patrol/C3.png");
             break;
 
-        case patrol_t::C4:
+        case patrol_t::V_C4:
             bitmap = al_load_bitmap("images/patrol/C4.png");
             break;
 
-        case patrol_t::D1:
+        case patrol_t::V_D1:
             bitmap = al_load_bitmap("images/patrol/D1.png");
             break;
 
-        case patrol_t::D2:
+        case patrol_t::V_D2:
             bitmap = al_load_bitmap("images/patrol/D2.png");
             break;
 
-        case patrol_t::D3:
+        case patrol_t::V_D3:
             bitmap = al_load_bitmap("images/patrol/D3.png");
             break;
 
-        case patrol_t::D4:
+        case patrol_t::V_D4:
             bitmap = al_load_bitmap("images/patrol/D4.png");
             break;
 
-        case patrol_t::NO_PATROL:
+        case patrol_t::V_NO_PATROL:
             bitmap = al_load_bitmap("images/patrol/patrolBack.png");
 
             break;
