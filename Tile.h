@@ -78,6 +78,7 @@ protected:
     bool crackedToken;
     bool alarmTile;
     bool isAdyacentTileValid(location_t selectedLocation);
+    bool isThereASecretDoor(location_t selectedLocation);
 };
 
 //enum class action_t {

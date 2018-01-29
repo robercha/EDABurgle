@@ -56,8 +56,13 @@ bool Tile::isTileTwoTilesAway(location_t selectedTile)
 
 bool Tile::isTileValid(location_t selectedTile)
 {
-    bool isTileValid = isAdyacentTileValid(selectedTile);
-
+    bool isTileValid = false;
+    if(isAdyacentTileValid(selectedTile))
+        isTileValid = true;
+    else if(isThereASecretDoor(selectedTile))
+        isTileValid = true;
+    
+    
     return isTileValid;
 
 }
@@ -97,8 +102,10 @@ bool Tile::isAdyacentTileValid(location_t selectedTile)
     return isTileValid;
 }
 
-Tile::Tile(const Tile& orig)
+Tile::isThereASecretDoor(location_t selectedLocation)
 {
+    
+    
 }
 
 Tile::~Tile()
