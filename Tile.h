@@ -55,12 +55,13 @@ public:
     void setRightWall();
     void setLeftWall();
     void setUpperWall();
-    void setLowerWall();    
+    void setLowerWall();
     void setAdjacentTiles(Tile* left, Tile* right, Tile* up, Tile* down);
+
     location_t getCurrentLocation() {
         return currentLocation;
     };
-    bool checkWall(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
+    bool checkDurlock(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
     bool isTileTwoTilesAway(location_t location);
 protected:
     location_t currentLocation;
@@ -102,6 +103,10 @@ private:
 
 class Camera : public Tile {
 public:
+
+    Camera() {
+        alarmTile = true;
+    };
     bool itsATrap();
     bool isOnCamera(Tile* Location);
 private:
