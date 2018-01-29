@@ -159,22 +159,16 @@ void Model::analyzeAction(gameData_t*)
 //    A1F2, B1F2, C1F2, D1F2, A2F2, B2F2, C2F2, D2F2, A3F2, B3F2, C3F2, D3F2, A4F2, B4F2, C4F2, D4F2,
 //    A1F3, B1F3, C1F3, D1F3, A2F3, B2F3, C2F3, D2F3, A3F3, B3F3, C3F3, D3F3, A4F3, B4F3, C4F3, D4F3,
 
-void Model::eventGenerator(button_t event, gameData_t gameData)
+void Model::eventGenerator(button_t event, gameData_t* gameData)
 {
     if (event >= (int) button_t::A1F1 && event <= (int) button_t::D4F3)
     {
-
+        if (currentCharacter->canIUseThisTile((location_t) event))
+            gameData->event = VALID_TILE;
+        else
+            gameData->event = INVALID_TILE;
     }
 
 
 
-    switch (event)
-    {
-        case A1F1: case B1F1: case C1F1: case D1F1: case A2F1: case B2F1: case C2F1: case D2F1:
-        case A3F1: case B3F1: case C3F1: case D3F1: case A4F1: case B4F1: case C4F1: case D4F1:
-        case A1F2: case B1F2: case C1F2: case D1F2: case A2F2: case B2F2: case C2F2: case D2F2:
-        case A3F2: case B3F2: case C3F2: case D3F2: case A4F2: case B4F2: case C4F2: case D4F2:
-        case A1F3: case B1F3: case C1F3: case D1F3: case A2F3: case B2F3: case C2F3: case D2F3:
-        case A3F3: case B3F3: case C3F3: case D3F3: case A4F3: case B4F3: case C4F3: case D4F3: ;
-    }
 }
