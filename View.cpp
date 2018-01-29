@@ -750,7 +750,7 @@ View::drawSelectedTileTokens()
         al_draw_textf(textFont, al_map_rgb(0, 0, 0), x + TOKENS_BIG_SIZE + 5, y, ALLEGRO_ALIGN_LEFT, "x%d", graphicsData->tiles[(int) graphicsData->currentCardSelected].howManyStealthTokens);
     }
 
-    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::CR_FINGERPRINT
+    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_CR_FINGERPRINT
             || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_CR_LASER
             || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_CR_MOTION)
     {
