@@ -51,6 +51,12 @@ public:
     void useHackToken();
     bool isAlarmTile(); //getter de isAlarmTile
     virtual bool isTileValid(location_t); //se fija si es adyacente
+    void setCurrentLocation(location_t);
+    void setRightWall();
+    void setLeftWall();
+    void setUpperWall();
+    void setLowerWall();    
+    void setAdjacentTiles(Tile* left, Tile* right, Tile* up, Tile* down);
 protected:
     location_t currentLocation;
     Tile* rightTile;
@@ -59,16 +65,13 @@ protected:
     Tile* lowerTile;
     
     Tile* secretRightTile;
-    Tile* secretRightTile;
-    Tile* secretRightTile;
-    Tile* secretRightTile;
+    Tile* secretLeftTile;
+    Tile* secretUpperTile;
+    Tile* secretLowerTile;
     
     bool isVisible;
     bool crackedToken;
     bool alarmTile;
-    unsigned getColumn(location_t);
-    unsigned getRow(location_t);
-    unsigned getFloor(location_t);
     bool isAdyacentTileValid(location_t selectedLocation);
 };
 
