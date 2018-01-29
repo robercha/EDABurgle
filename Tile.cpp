@@ -18,12 +18,23 @@ typedef enum
 Tile::Tile()
 {
     alarmTile = false;
+    mustSpendActions = false;
 }
 
 bool Tile::isAlarmTile()
 {
     return alarmTile;
 }
+
+bool Tile::isPaidMove()
+{
+    return mustSpendActions;
+}
+
+location_t Tile::getCurrentLocation()
+{
+    return currentLocation;
+};
 
 bool Tile::checkDurlock(location_t selectedTile)
 {
