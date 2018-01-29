@@ -51,6 +51,10 @@ public:
     void useHackToken();
     bool isAlarmTile(); //getter de isAlarmTile
     virtual bool isTileValid(location_t); //se fija si es adyacente
+
+    location_t getCurrentLocation() {
+        return currentLocation;
+    };
 protected:
     location_t currentLocation;
     Tile* rightTile;
