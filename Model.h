@@ -31,7 +31,7 @@ private:
     //std::list<Tile*> floorDeck;
     //std::vector<Tile*> deck;
     std::vector<Floor*> floors;
-    std::vector<Guard*> guards;
+    //std::vector<Guard*> guards;       //esto lo tiene floor
     std::vector<Character*> characters;
     std::vector<Loot*> loots;
     Character
