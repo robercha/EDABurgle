@@ -57,18 +57,23 @@ public:
     void setUpperWall();
     void setLowerWall();    
     void setAdjacentTiles(Tile* left, Tile* right, Tile* up, Tile* down);
+    location_t getCurrentLocation() {
+        return currentLocation;
+    };
+    bool checkWall(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
+    bool isTileTwoTilesAway(location_t location);
 protected:
     location_t currentLocation;
     Tile* rightTile;
     Tile* leftTile;
     Tile* upperTile;
     Tile* lowerTile;
-    
+
     Tile* secretRightTile;
     Tile* secretLeftTile;
     Tile* secretUpperTile;
     Tile* secretLowerTile;
-    
+
     bool isVisible;
     bool crackedToken;
     bool alarmTile;

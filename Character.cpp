@@ -21,14 +21,34 @@ Character::~Character()
 {
 }
 
-void
-Character::move()
+void Character::move()
 {
 
 }
 
-void
-Character::pass()
+void Character::pass()
 {
 
+}
+
+bool Hawk::canIUseThisTile(location_t selectedTile)
+{
+    bool isTileValid = false;
+    if (currentTile->isTileValid(selectedTile))
+        isTileValid = true;
+    else if (currentTile->checkWall(selectedTile))
+        isTileValid = true;
+
+    return isTileValid;
+}
+
+bool Raven::canIUseThisTile(location_t selectedTile)
+{
+    bool isTileValid = false;
+    if (currentTile->isTileValid(selectedTile))
+        isTileValid = true;
+    else if (currentTile->isTileTwoTilesAway(selectedTile))
+        isTileValid = true;
+
+    return isTileValid;
 }
