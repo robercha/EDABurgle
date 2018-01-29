@@ -61,6 +61,12 @@ protected:
     Tile* leftTile;
     Tile* upperTile;
     Tile* lowerTile;
+    
+    Tile* secretRightTile;
+    Tile* secretRightTile;
+    Tile* secretRightTile;
+    Tile* secretRightTile;
+    
     bool isVisible;
     bool crackedToken;
     bool alarmTile;
