@@ -25,7 +25,7 @@ bool Tile::isAlarmTile()
     return alarmTile;
 }
 
-bool Tile::checkWall(location_t selectedTile)
+bool Tile::checkDurlock(location_t selectedTile)
 {
     bool wall = false;
     if (selectedTile == secretRightTile->currentLocation || selectedTile == secretLeftTile->currentLocation ||
@@ -109,12 +109,17 @@ void Tile::setCurrentLocation(location_t location)
 {
     currentLocation = location;
 }
+
 void Tile::setAdjacentTiles(Tile* left, Tile* right, Tile* upper, Tile* lower)
 {
-    rightTile = right; secretRightTile = right;
-    leftTile = left; secretLeftTile = left;
-    upperTile = upper; secretUpperTile = upper;
-    lowerTile = lower; secretLowerTile = lower;
+    rightTile = right;
+    secretRightTile = right;
+    leftTile = left;
+    secretLeftTile = left;
+    upperTile = upper;
+    secretUpperTile = upper;
+    lowerTile = lower;
+    secretLowerTile = lower;
 }
 
 void Tile::setLeftWall()
