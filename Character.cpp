@@ -21,14 +21,24 @@ Character::~Character()
 {
 }
 
-void
-Character::move()
+void Character::move()
 {
 
 }
 
-void
-Character::pass()
+void Character::pass()
 {
 
+}
+
+bool Hawk::canIUseThisTile(location_t selectedTile)
+{
+    bool isTileValid = false;
+    if (currentTile->isTileValid(selectedTile))
+        isTileValid = true;
+    else if (currentTile->)
+
+
+
+        return isTileValid;
 }

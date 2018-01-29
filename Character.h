@@ -87,11 +87,13 @@ public:
     Hawk() {
         name = HAWK;
     };
+    bool canIUseThisTile(location_t);
+
     bool hiddenTalent(); //chequea si hay una pared y si la hay el peek no cuesta action
     void setTile(Tile*);
 private:
     void addAction();
-    bool isThereAWall();
+    bool isThereAWall(location_t);
     Tile* destiny;
 
 };
@@ -102,6 +104,7 @@ public:
     Raven() {
         name = RAVEN;
     };
+    bool canIUseThisTile(location_t);
     bool canPlaceCrowToken(); //hasta dos tiles adyacentes
     bool hiddenTalent(); //place crow token
     void setTile(Tile*);
