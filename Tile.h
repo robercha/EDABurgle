@@ -55,18 +55,20 @@ public:
     location_t getCurrentLocation() {
         return currentLocation;
     };
+    bool checkWall(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
+    bool isTileTwoTilesAway(location_t location);
 protected:
     location_t currentLocation;
     Tile* rightTile;
     Tile* leftTile;
     Tile* upperTile;
     Tile* lowerTile;
-    
+
     Tile* secretRightTile;
-    Tile* secretRightTile;
-    Tile* secretRightTile;
-    Tile* secretRightTile;
-    
+    Tile* secretLeftTile;
+    Tile* secretUpperTile;
+    Tile* secretLowerTile;
+
     bool isVisible;
     bool crackedToken;
     bool alarmTile;

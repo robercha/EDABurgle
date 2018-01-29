@@ -21,6 +21,35 @@ bool Tile::isAlarmTile()
     return alarmTile;
 }
 
+bool Tile::checkWall(location_t selectedTile)
+{
+    bool wall = false;
+    if (selectedTile == secretRightTile->currentLocation || selectedTile == secretLeftTile->currentLocation ||
+            selectedTile == secretUpperTile->currentLocation || selectedTile == secretLowerTile->currentLocation)
+        wall = true;
+
+    return wall;
+}
+
+bool Tile::isTileTwoTilesAway(location_t selectedTile)
+{
+    bool isTileValid = false;
+    if (rightTile != NULL && rightTile->rightTile != NULL)
+        if (selectedTile == rightTile->rightTile->currentLocation)
+            isTileValid = true;
+    if (leftTile != NULL && leftTile->leftTile != NULL)
+        if (selectedTile == leftTile->leftTile->currentLocation)
+            isTileValid = true;
+    if (upperTile != NULL && upperTile->upperTile != NULL)
+        if (selectedTile == upperTile->upperTile->currentLocation)
+            isTileValid = true;
+    if (lowerTile != NULL && lowerTile->lowerTile != NULL)
+        if (selectedTile == lowerTile->lowerTile->currentLocation)
+            isTileValid = true;
+
+    return isTileValid;
+}
+
 bool Tile::isTileValid(location_t selectedTile)
 {
     bool isTileValid = isAdyacentTileValid(selectedTile);
