@@ -95,7 +95,7 @@ typedef struct {
 
 typedef struct {
     room_t iAm; //e.g. atrium
-    bool tokens[(unsigned) token_t::TOKEN_COUNT];
+    bool tokens[(unsigned) token_t::V_TOKEN_COUNT];
     unsigned combinationNumber; //0 si es la safe, ó 1,2,3,4,5,6
     unsigned howManyHackTokens; //solo computers room (3 comp rooms)
     bool goldBarOnTheLoose; //dónde esta la segunda gold bar q debe ser agarrada por alguno de los ladrones
