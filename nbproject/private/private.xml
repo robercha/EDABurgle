@@ -7,42 +7,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Tile.h</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Floor.cpp</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Floor.h</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Tile.cpp</file>
-=======
-<<<<<<< HEAD
->>>>>>> 69aaa768ce85c0b7dc818ef6ea0db1a16dbe8a80
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/View.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/View.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.h</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Controller.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/main.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Player.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Player.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Controller.cpp</file>
-<<<<<<< HEAD
-=======
-=======
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.cpp</file>
->>>>>>> 288bc57e570561c0b7741d400deaf5f75f571b88
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Model.cpp</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Loot.h</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Model.h</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.h</file>
->>>>>>> e1a2e35c87ca37688a592ebf3d006b98100614c4
->>>>>>> 69aaa768ce85c0b7dc818ef6ea0db1a16dbe8a80
         </group>
     </open-files>
 </project-private>
