@@ -48,15 +48,6 @@ typedef enum tileType {
     LABORATORY, LASER, LAVATORY, MOTION, SAFE, SECRETDOOR, SERVICEDUCT, STAIRS, THERMO, WALKWAY, ROOMBACK
 } tileType_t;
 
-typedef struct {
-    room_t iAm; //e.g. atrium
-    bool tokens[(unsigned) TOKEN_COUNT];
-    unsigned combinationNumber; //0 si es la safe, ó 1,2,3,4,5,6
-    unsigned howManyHackTokens; //solo computers room (3 comp rooms)
-    bool goldBarOnTheLoose; //dónde esta la segunda gold bar q debe ser agarrada por alguno de los ladrones
-    unsigned howManyStealthTokens; //solo para lavatory
-} tileDraw_t;
-
 class Tile {
 public:
     Tile(); //si la tile es de tipo alarma, declaramos explicitamente el constructor y seteamos isAlarmTile a true

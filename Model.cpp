@@ -4,7 +4,7 @@
 #include <chrono>
 #include <vector>
 
-Model::Model(View* view)
+Model::Model()
 {
     std::vector<Tile*> deck;
 
@@ -13,7 +13,6 @@ Model::Model(View* view)
     createFloors(deck);
     createModelFSM();
     createLoots();
-    this->view = view;
     fillGraphicsData();
     //currentAction = player1; //SOLO DE PRUEBA;
     //event = NO_EVENT;
@@ -86,14 +85,14 @@ void Model::createTiles(std::vector<Tile*> deck)
         deck.push_back(new SecretDoor);
     for (i = 0; i < SERVICE_DUCT_QTY; i++)
         deck.push_back(new ServiceDuct);
-    
+
     ServiceDuct* tempDuct; //inicializamos los punteros a los respectivos Service Ducts
     unsigned n = deck.size();
-    tempDuct = (ServiceDuct*)deck.at(n-1);
-    tempDuct->setSecondduct((ServiceDuct*)deck.at(n-2));
-    tempDuct = (ServiceDuct*)deck.at(n-2);
-    tempDuct->setSecondduct((ServiceDuct*)deck.at(n-1));
-    
+    tempDuct = (ServiceDuct*) deck.at(n - 1);
+    tempDuct->setSecondduct((ServiceDuct*) deck.at(n - 2));
+    tempDuct = (ServiceDuct*) deck.at(n - 2);
+    tempDuct->setSecondduct((ServiceDuct*) deck.at(n - 1));
+
     for (i = 0; i < THERMO_QTY; i++)
         deck.push_back(new Thermo);
     for (i = 0; i < WALKWAY_QTY; i++)
@@ -171,7 +170,7 @@ void Model::analyzeAction(gameData_t*)
 
 void Model::eventGenerator(button_t event, gameData_t* gameData)
 {
-    if (event >= (int) button_t::A1F1 && event <= (int) button_t::D4F3)
+    if ((int) event >= (int) button_t::A1F1 && (int) event <= (int) button_t::D4F3)
     {
         if (currentCharacter->canIUseThisTile((location_t) event))
             gameData->event = VALID_TILE;
@@ -183,11 +182,12 @@ void Model::eventGenerator(button_t event, gameData_t* gameData)
 
 }
 
-void Model::fillGraphicsData()
+void Model::fillGraphicsData(View* view)
 {
-    view->graphicsData->gameLost = false;
-    view->graphicsData->gameWon = false;
-    //view->graphicsData->players[0].character = character_t::;
+
+    view->graphicsData->gameLost = isGameLost();
+    view->graphicsData->gameWon = isGameWon();
+    view->graphicsData->players[0].character = (character_t) characters.at(0)->getName();
     view->graphicsData->players[0].stealthTokens = 3;
     //view->graphicsData->players[0].location = location_t::;
     view->graphicsData->players[0].actionsLeft = 4;

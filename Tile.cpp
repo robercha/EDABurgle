@@ -17,6 +17,7 @@ typedef enum
 
 Tile::Tile()
 {
+    isVisible = false;
     alarmTile = false;
     mustSpendActions = false;
 }
@@ -68,12 +69,12 @@ bool Tile::isTileTwoTilesAway(location_t selectedTile)
 bool Tile::isTileValid(location_t selectedTile)
 {
     bool isTileValid = false;
-    if(isAdyacentTileValid(selectedTile))
+    if (isAdyacentTileValid(selectedTile))
         isTileValid = true;
-    else if(isThereASecretDoor(selectedTile))
+    else if (isThereASecretDoor(selectedTile))
         isTileValid = true;
-    
-    
+
+
     return isTileValid;
 
 }
@@ -116,28 +117,28 @@ bool Tile::isAdyacentTileValid(location_t selectedTile)
 bool Tile::isThereASecretDoor(location_t selectedTile)
 {
     bool secretDoor = false;
-   
+
     unsigned selectedFloor = getFloor(selectedTile);
     unsigned currentFloor = getFloor(currentLocation);
-    
-    
-    if(selectedFloor==currentFloor)
+
+
+    if (selectedFloor == currentFloor)
     {
-        if(checkDurlock(selectedTile))
+        if (checkDurlock(selectedTile))
         {
 
-            if(leftTile!=secretLeftTile)
-                if(secretLeftTile->isVisible && secretLeftTile->tileType==SECRETDOOR)
-                    bool secretDoor=true;       
-            if(rightTile!=secretRightTile)
-                if(secretRightTile->isVisible && secretRightTile->tileType==SECRETDOOR)
-                    bool secretDoor=true;  
-            if(upperTile!=secretUpperTile)
-                if(secretUpperTile->isVisible && secretUpperTile->tileType==SECRETDOOR)
-                    bool secretDoor=true;  
-            if(lowerTile!=secretLowerTile)
-                if(secretLowerTile->isVisible && secretLowerTile->tileType==SECRETDOOR)
-                    bool secretDoor=true;              
+            if (leftTile != secretLeftTile)
+                if (secretLeftTile->isVisible && secretLeftTile->tileType == SECRETDOOR)
+                    bool secretDoor = true;
+            if (rightTile != secretRightTile)
+                if (secretRightTile->isVisible && secretRightTile->tileType == SECRETDOOR)
+                    bool secretDoor = true;
+            if (upperTile != secretUpperTile)
+                if (secretUpperTile->isVisible && secretUpperTile->tileType == SECRETDOOR)
+                    bool secretDoor = true;
+            if (lowerTile != secretLowerTile)
+                if (secretLowerTile->isVisible && secretLowerTile->tileType == SECRETDOOR)
+                    bool secretDoor = true;
         }
     }
 }
@@ -249,14 +250,14 @@ Camera::isOnCamera(Tile* location)
 bool ServiceDuct::isTileValid(location_t selectedTile)
 {
     bool isTileValid = false;
-    
-    if(isAdyacentTileValid(selectedTile))
+
+    if (isAdyacentTileValid(selectedTile))
         isTileValid = true;
-    else if(isThereASecretDoor(selectedTile))
+    else if (isThereASecretDoor(selectedTile))
         isTileValid = true;
-    else if(secondServiceDuct->getCurrentLocation()==selectedTile && secondServiceDuct->isTileVisible())
+    else if (secondServiceDuct->getCurrentLocation() == selectedTile && secondServiceDuct->isTileVisible())
         isTileValid = true;
-    
+
     return isTileValid;
 }
 

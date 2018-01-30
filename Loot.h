@@ -16,7 +16,7 @@ public:
     Loot();
     Loot(const Loot& orig);
     virtual ~Loot();
-    void shareLoot(Character* destiny);
+    void shareLoot(/*Character* destiny*/); //esto lo haria ahora character
     //void giveLoot(Character* destiny);
     //void takeLoot(Character* source);
     void pickUpLoot();

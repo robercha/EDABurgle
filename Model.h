@@ -14,10 +14,12 @@
 class Model {
 public:
     void analyzeAction(gameData_t* gameData);
-    Model(View*);
+    Model();
     virtual ~Model();
+    void fillGraphicsData(View *view);
 private:
-
+    bool isGameWon();
+    bool isGameLost();
     void createTiles(std::vector<Tile*>);
     void shuffleTiles(std::vector<Tile*>);
     void createFloors(std::vector<Tile*>);
@@ -39,7 +41,6 @@ private:
     GameStep*** gameHandlerMatrix;
     GameStep* currentAction;
 
-    View* view;
 
 
 
