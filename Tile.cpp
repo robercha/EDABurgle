@@ -3,10 +3,6 @@
 #include "Tile.h"
 #include "View.h"
 
-unsigned getColumn(location_t location);
-unsigned getRow(location_t location);
-unsigned getFloor(location_t location);
-
 #define ROWS    4
 #define COLS    4
 #define FLOORS   3

@@ -15,6 +15,7 @@ typedef enum {
 
 typedef struct gameData {
     modelEvent_t event;
+    location_t selectedTile;
 } gameData_t;
 
 class GameStep {

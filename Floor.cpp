@@ -171,26 +171,6 @@ unsigned floor3(std::vector< std::vector<Tile*> > &floor)
     floor[3][3]->setLeftWall();
 }
 
-unsigned getColumn(location_t location)
-{
-    unsigned floor = getFloor(location);
-    unsigned index = (int) location - (floor) * ROWS*COLS;
-
-    return index % COLS;
-}
-
-unsigned getRow(location_t location)
-{
-    unsigned floor = getFloor(location);
-    unsigned index = (int) location - (floor) * ROWS*COLS;
-
-    return (int) (index / COLS);
-}
-
-unsigned getFloor(location_t location)
-{
-    return ((int) location) / (ROWS * COLS);
-}
 
 location_t  Floor::getGuardLocation()
 {
@@ -200,4 +180,9 @@ location_t  Floor::getGuardLocation()
 unsigned Floor::getGuardSpeed()
 {
     return guard->getSpeed();
+}
+
+std::vector<Tile*>* Floor::getDeck()
+{
+    return this->tiles;
 }
