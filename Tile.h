@@ -2,6 +2,7 @@
 #define TILE_H
 
 #include <stdio.h>
+#include <vector>
 
 #define FLOORS_QTY 3
 #define FLOORTILE_QTY 16
@@ -36,8 +37,9 @@ typedef enum {
 } location_t;
 
 typedef enum {
-    ALARMTOKEN, OPENTOKEN, KITTYTOKEN, STEALTHTOKEN, CRACKEDTOKEN, DOWNSTAIRSTOKEN, CROWTOKEN, HACKTOKEN, TOKEN_COUNT
-} token_t;
+    ALARMTOKEN, OPENTOKEN, KITTYTOKEN, STEALTHTOKEN, CRACKEDTOKEN, DOWNSTAIRSTOKEN, CROWTOKEN, HACKTOKEN, 
+    TOKEN_COUNT
+} tokenInfo_t;
 
 typedef enum {
     RIGHT, LEFT, UP, DOWN, UPPER, LOWER
@@ -48,19 +50,28 @@ typedef enum tileType {
     LABORATORY, LASER, LAVATORY, MOTION, SAFE, SECRETDOOR, SERVICEDUCT, STAIRS, THERMO, WALKWAY, ROOMBACK
 } tileType_t;
 
+
+typedef struct {
+    location_t tile;
+    tokenInfo_t token;
+    Tile* usefulTile;
+}token_t;
+
 class Tile {
 public:
     Tile(); //si la tile es de tipo alarma, declaramos explicitamente el constructor y seteamos isAlarmTile a true
     Tile(const Tile& orig);
     virtual ~Tile();
     bool peek(coordinates_t);
-    bool isTileVisible();
+    bool isTileVisible(); 
     virtual bool itsATrap() = 0;
+    virtual void reveal();
     bool triggerAlarm();
     void useHackToken();
     bool isAlarmTile(); //getter de isAlarmTile
     bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
     virtual bool isTileValid(location_t); //se fija si es adyacente
+    void setToken(tokenInfo_t, Tile*);
     void setCurrentLocation(location_t);
     void setRightWall();
     void setLeftWall();
@@ -74,7 +85,8 @@ public:
 protected:
     location_t currentLocation;
     tileType_t tileType;
-
+    std::vector<token_t*> tokens;
+    
     Tile* rightTile;
     Tile* leftTile;
     Tile* upperTile;
@@ -255,7 +267,10 @@ private:
 class Stairs : public Tile {
 public:
     bool itsATrap();
+    bool isTileValid(location_t);
+    void reveal();
 private:
+    Tile* upstairsTile;
 };
 
 class Thermo : public Tile {

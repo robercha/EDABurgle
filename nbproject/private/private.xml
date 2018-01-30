@@ -7,6 +7,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/View.cpp</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/View.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.cpp</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.cpp</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.cpp</file>
+=======
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/View.cpp</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Tile.h</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Controller.cpp</file>
@@ -15,6 +25,7 @@
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/View.h</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Model.h</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Controller.h</file>
+>>>>>>> a3c8f44391fc70391562357f403cdcf36824898d
         </group>
     </open-files>
 </project-private>

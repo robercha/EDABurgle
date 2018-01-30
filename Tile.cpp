@@ -1,6 +1,7 @@
 #include <stdbool.h>
 
 #include "Tile.h"
+#include "View.h"
 
 unsigned getColumn(location_t location);
 unsigned getRow(location_t location);
@@ -189,6 +190,21 @@ bool Tile::isTileVisible()
     return isVisible;
 }
 
+void Tile::reveal()
+{
+    isVisible = true;
+}
+
+void Tile::setToken(tokenInfo_t tokenType, Tile* usefulTile)
+{
+    tokens.push_back(new token_t);
+    tokens.back()->token = tokenType;
+    tokens.back()->tile = this->currentLocation;
+    
+    if(tokenType==DOWNSTAIRSTOKEN)
+        tokens.back()->usefulTile=usefulTile;
+}
+
 unsigned getColumn(location_t location)
 {
     unsigned floor = getFloor(location);
@@ -265,4 +281,45 @@ bool ServiceDuct::isTileValid(location_t selectedTile)
 void ServiceDuct::setSecondduct(Tile* secondDuct)
 {
     secondServiceDuct = secondDuct;
+}
+
+bool Stairs::isTileValid(location_t selectedTile)
+{
+        bool isTileValid = false;
+    
+    if(isAdyacentTileValid(selectedTile))
+        isTileValid = true;    
+    else if(selectedTile==(currentLocation+16))
+        isTileValid = true;
+        
+    return isTileValid; 
+}
+
+void Stairs::reveal()
+{
+    isVisible = true;  
+    
+    upstairsTile->setToken(DOWNSTAIRSTOKEN, this);
+    
+}
+
+unsigned getColumn(location_t location)
+{
+    unsigned floor = getFloor(location);
+    unsigned index = (int) location - (floor) * ROWS*COLS;
+
+    return index % COLS;
+}
+
+unsigned getRow(location_t location)
+{
+    unsigned floor = getFloor(location);
+    unsigned index = (int) location - (floor) * ROWS*COLS;
+
+    return (int) (index / COLS);
+}
+
+unsigned getFloor(location_t location)
+{
+    return ((int) location) / (ROWS * COLS);
 }
