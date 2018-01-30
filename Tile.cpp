@@ -102,10 +102,33 @@ bool Tile::isAdyacentTileValid(location_t selectedTile)
     return isTileValid;
 }
 
-Tile::isThereASecretDoor(location_t selectedLocation)
+bool Tile::isThereASecretDoor(location_t selectedTile)
 {
+    bool secretDoor = false;
+   
+    unsigned selectedFloor = getFloor(selectedTile);
+    unsigned currentFloor = getFloor(currentLocation);
     
     
+    if(selectedFloor==currentFloor)
+    {
+        if(checkDurlock(selectedTile))
+        {
+
+            if(leftTile!=secretLeftTile)
+                if(secretLeftTile->isVisible && secretLeftTile->tileType==SECRETDOOR)
+                    bool secretDoor=true;       
+            if(rightTile!=secretRightTile)
+                if(secretRightTile->isVisible && secretRightTile->tileType==SECRETDOOR)
+                    bool secretDoor=true;  
+            if(upperTile!=secretUpperTile)
+                if(secretUpperTile->isVisible && secretUpperTile->tileType==SECRETDOOR)
+                    bool secretDoor=true;  
+            if(lowerTile!=secretLowerTile)
+                if(secretLowerTile->isVisible && secretLowerTile->tileType==SECRETDOOR)
+                    bool secretDoor=true;              
+        }
+    }
 }
 
 Tile::~Tile()
@@ -149,6 +172,11 @@ void Tile::setLowerWall()
     lowerTile = NULL;
 }
 
+bool Tile::isTileVisible()
+{
+    return isVisible;
+}
+
 unsigned getColumn(location_t location)
 {
     unsigned floor = getFloor(location);
@@ -182,6 +210,8 @@ bool Atrium::isTileValid(location_t selectedTile)
         isTileValid = true;
     else
         isTileValid = false;
+
+    return isTileValid;
 }
 
 bool
@@ -203,4 +233,23 @@ bool
 Camera::isOnCamera(Tile* location)
 {
     // return (location == Camera) ? true : false;
+}
+
+bool ServiceDuct::isTileValid(location_t selectedTile)
+{
+    bool isTileValid = false;
+    
+    if(isAdyacentTileValid(selectedTile))
+        isTileValid = true;
+    else if(isThereASecretDoor(selectedTile))
+        isTileValid = true;
+    else if(secondServiceDuct->getCurrentLocation()==selectedTile && secondServiceDuct->isTileVisible())
+        isTileValid = true;
+    
+    return isTileValid;
+}
+
+void ServiceDuct::setSecondduct(Tile* secondDuct)
+{
+    secondServiceDuct = secondDuct;
 }

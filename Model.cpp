@@ -84,6 +84,14 @@ void Model::createTiles(std::vector<Tile*> deck)
         deck.push_back(new SecretDoor);
     for (i = 0; i < SERVICE_DUCT_QTY; i++)
         deck.push_back(new ServiceDuct);
+    
+    ServiceDuct* tempDuct; //inicializamos los punteros a los respectivos Service Ducts
+    unsigned n = deck.size();
+    tempDuct = (ServiceDuct*)deck.at(n-1);
+    tempDuct->setSecondduct((ServiceDuct*)deck.at(n-2));
+    tempDuct = (ServiceDuct*)deck.at(n-2);
+    tempDuct->setSecondduct((ServiceDuct*)deck.at(n-1));
+    
     for (i = 0; i < THERMO_QTY; i++)
         deck.push_back(new Thermo);
     for (i = 0; i < WALKWAY_QTY; i++)

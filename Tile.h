@@ -39,13 +39,19 @@ typedef enum {
     RIGHT, LEFT, UP, DOWN, UPPER, LOWER
 } coordinates_t;
 
+typedef enum tileType {
+    ATRIUM, CAMERA, CR_FINGERPRINT, CR_LASER, CR_MOTION, DEADBOLT, DETECTOR, FINGERPRINT, FOYER, KEYPAD,
+    LABORATORY, LASER, LAVATORY, MOTION, SAFE, SECRETDOOR, SERVICEDUCT, STAIRS, THERMO, WALKWAY, ROOMBACK
+}tileType_t;
+
 class Tile {
 public:
 
     Tile(); //si la tile es de tipo alarma, declaramos explicitamente el constructor y seteamos isAlarmTile a true
     Tile(const Tile& orig);
     virtual ~Tile();
-    bool peek(coordinates_t);
+    bool peek(coordinates_t);}
+    bool isTileVisible(); 
     virtual bool itsATrap() = 0;
     bool triggerAlarm();
     void useHackToken();
@@ -65,6 +71,8 @@ public:
     bool isTileTwoTilesAway(location_t location);
 protected:
     location_t currentLocation;
+    tileType_t tileType;
+    
     Tile* rightTile;
     Tile* leftTile;
     Tile* upperTile;
@@ -210,7 +218,10 @@ private:
 class ServiceDuct : public Tile {
 public:
     bool itsATrap();
+    bool isTileValid();
+    void setSecondduct(Tile* secondDuct);
 private:
+    Tile* secondServiceDuct;
 };
 
 class Stairs : public Tile {
