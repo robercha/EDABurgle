@@ -56,6 +56,7 @@ public:
     bool triggerAlarm();
     void useHackToken();
     bool isAlarmTile(); //getter de isAlarmTile
+    bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
     virtual bool isTileValid(location_t); //se fija si es adyacente
     void setCurrentLocation(location_t);
     void setRightWall();
@@ -64,9 +65,7 @@ public:
     void setLowerWall();
     void setAdjacentTiles(Tile* left, Tile* right, Tile* up, Tile* down);
 
-    location_t getCurrentLocation() {
-        return currentLocation;
-    };
+    location_t getCurrentLocation();
     bool checkDurlock(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
     bool isTileTwoTilesAway(location_t location);
 protected:
@@ -86,6 +85,7 @@ protected:
     bool isVisible;
     bool crackedToken;
     bool alarmTile;
+    bool mustSpendActions;
     bool isAdyacentTileValid(location_t selectedLocation);
     bool isThereASecretDoor(location_t selectedLocation);
 };
@@ -148,12 +148,20 @@ private:
 
 class Deadbolt : public Tile {
 public:
+
+    Deadbolt() {
+        mustSpendActions = true;
+    };
     bool itsATrap();
 private:
 };
 
 class Fingerprint : public Tile {
 public:
+
+    Fingerprint() {
+        alarmTile = true;
+    };
     bool itsATrap();
 private:
 };
@@ -166,6 +174,10 @@ private:
 
 class Keypad : public Tile {
 public:
+
+    Keypad() {
+        mustSpendActions = true; //le preguntamos al user si quiere tirar los dados para abrir el keypad
+    };
     bool itsATrap();
 private:
 };
@@ -178,6 +190,11 @@ private:
 
 class Laser : public Tile {
 public:
+
+    Laser() {
+        alarmTile = true;
+        mustSpendActions = true;
+    };
     bool itsATrap();
 private:
 };
@@ -191,6 +208,10 @@ private:
 
 class Motion : public Tile {
 public:
+
+    Motion() {
+        alarmTile = true;
+    };
     bool itsATrap();
 private:
 };
@@ -205,6 +226,10 @@ private:
 
 class Detector : public Tile {
 public:
+
+    Detector() {
+        alarmTile = true;
+    };
     bool itsATrap();
 private:
 };
@@ -232,6 +257,10 @@ private:
 
 class Thermo : public Tile {
 public:
+
+    Thermo() {
+        alarmTile = true;
+    };
     bool itsATrap();
 private:
 };

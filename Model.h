@@ -14,7 +14,7 @@
 class Model {
 public:
     void analyzeAction(gameData_t* gameData);
-    Model();
+    Model(View*);
     virtual ~Model();
 private:
 
@@ -25,7 +25,7 @@ private:
     void createCharacters();
     void createModelFSM();
     void createLoots();
-
+    void fillGraphicsData();
     void eventGenerator(button_t event, gameData_t* gameData);
 
     //std::list<Tile*> floorDeck;
@@ -38,6 +38,8 @@ private:
 
     GameStep*** gameHandlerMatrix;
     GameStep* currentAction;
+
+    View* view;
 
 
 

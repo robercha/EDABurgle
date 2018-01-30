@@ -396,9 +396,9 @@ View::drawTiles()
             {
                 x = 20 + cols * (TILE_SIZE + SPACE_TILE) + floor * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3);
                 y = 135 + rows * (TILE_SIZE + SPACE_TILE);
-                if (graphicsData->tiles[i].iAm == room_t::ROOMBACK)
+                if (graphicsData->tiles[i].iAm == room_t::V_ROOMBACK)
                 {
-                    ALLEGRO_BITMAP* tile = loadRoom(room_t::ROOMBACK, false);
+                    ALLEGRO_BITMAP* tile = loadRoom(room_t::V_ROOMBACK, false);
                     al_draw_bitmap(tile, x, y, 0);
                     al_destroy_bitmap(tile);
                 }
@@ -407,7 +407,7 @@ View::drawTiles()
                     ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[i].iAm, true);
                     al_draw_bitmap(tile, x, y, 0);
                     al_destroy_bitmap(tile);
-                    if (graphicsData->tiles[i].iAm != room_t::SAFE)
+                    if (graphicsData->tiles[i].iAm != room_t::V_SAFE)
                     {
 
                         ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[i].combinationNumber, true);
@@ -646,13 +646,13 @@ View::drawTileSelectedInfo()
 {
     unsigned index = (int) graphicsData->currentCardSelected;
 
-    if (graphicsData->tiles[index].iAm != room_t::ROOMBACK)
+    if (graphicsData->tiles[index].iAm != room_t::V_ROOMBACK)
     {
         ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[index].iAm, false);
         al_draw_bitmap(tile, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE) / 2 + SPACE_DIVIDER_L, SPACE_UP_MARGIN, 0);
 
         al_destroy_bitmap(tile);
-        if (graphicsData->tiles[index].iAm != room_t::SAFE)
+        if (graphicsData->tiles[index].iAm != room_t::V_SAFE)
         {
             ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[index].combinationNumber, true);
             al_draw_bitmap(number, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE)*2 + SPACE_DIVIDER_L - 17, SPACE_UP_MARGIN + CARD_SELECTED_SIZE / 2 + 3, 0);
@@ -740,7 +740,7 @@ View::drawSelectedTileTokens()
 
     }
 
-    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::LAVATORY)
+    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_LAVATORY)
     {
         x = 3 * (TOKENS_BIG_SIZE + SPACE_TOKEN_LR) + SPACE_DIVIDER_L + SPACE_TOKEN_LR;
         y = SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
@@ -750,9 +750,9 @@ View::drawSelectedTileTokens()
         al_draw_textf(textFont, al_map_rgb(0, 0, 0), x + TOKENS_BIG_SIZE + 5, y, ALLEGRO_ALIGN_LEFT, "x%d", graphicsData->tiles[(int) graphicsData->currentCardSelected].howManyStealthTokens);
     }
 
-    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::CR_FINGERPRINT
-            || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::CR_LASER
-            || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::CR_MOTION)
+    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_CR_FINGERPRINT
+            || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_CR_LASER
+            || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_CR_MOTION)
     {
         x = 3 * (TOKENS_BIG_SIZE + SPACE_TOKEN_LR) + SPACE_DIVIDER_L + SPACE_TOKEN_LR;
         y = 1 * (TOKENS_BIG_SIZE + SPACE_TOKEN_UD) + SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
@@ -1143,144 +1143,144 @@ View::loadRoom(room_t r, bool shrink)
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (r)
     {
-        case room_t::ATRIUM:
+        case room_t::V_ATRIUM:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/atriumsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/atrium.png");
             break;
 
-        case room_t::CAMERA:
+        case room_t::V_CAMERA:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/camerasmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/camera.png");
             break;
 
-        case room_t::CR_FINGERPRINT:
+        case room_t::V_CR_FINGERPRINT:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/CRFingerprintsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/CRFingerprint.png");
             break;
 
-        case room_t::CR_LASER:
+        case room_t::V_CR_LASER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/CRLasersmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/CRLaser.png");
             break;
 
-        case room_t::CR_MOTION:
+        case room_t::V_CR_MOTION:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/CRMotionsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/CRMotion.png");
             break;
 
-        case room_t::DEADBOLT:
+        case room_t::V_DEADBOLT:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/deadboltsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/deadbolt.png");
             break;
 
-        case room_t::DETECTOR:
+        case room_t::V_DETECTOR:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/detectorsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/detector.png");
             break;
 
-        case room_t::FINGERPRINT:
+        case room_t::V_FINGERPRINT:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/fingerprintsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/fingerprint.png");
             break;
 
-        case room_t::FOYER:
+        case room_t::V_FOYER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/foyersmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/foyer.png");
             break;
 
-        case room_t::KEYPAD:
+        case room_t::V_KEYPAD:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/keypadsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/keypad.png");
             break;
 
-        case room_t::LABORATORY:
+        case room_t::V_LABORATORY:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/laboratorysmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/laboratory.png");
             break;
 
-        case room_t::LASER:
+        case room_t::V_LASER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/lasersmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/laser.png");
             break;
 
-        case room_t::LAVATORY:
+        case room_t::V_LAVATORY:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/lavatorysmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/lavatory.png");
             break;
 
-        case room_t::MOTION:
+        case room_t::V_MOTION:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/motionsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/motion.png");
             break;
 
-        case room_t::ROOMBACK:
+        case room_t::V_ROOMBACK:
             bitmap = al_load_bitmap("images/tiles/roomBack.png");
             break;
 
-        case room_t::SAFE:
+        case room_t::V_SAFE:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/safesmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/safe.png");
             break;
 
-        case room_t::SECRETDOOR:
+        case room_t::V_SECRETDOOR:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/secretDoorsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/secretDoor.png");
             break;
 
-        case room_t::SERVICEDUCT:
+        case room_t::V_SERVICEDUCT:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/serviceDuctsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/serviceDuct.png");
             break;
 
-        case room_t::STAIRS:
+        case room_t::V_STAIRS:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/stairssmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/stairs.png");
             break;
 
-        case room_t::THERMO:
+        case room_t::V_THERMO:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/thermosmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/thermo.png");
             break;
 
-        case room_t::WALKWAY:
+        case room_t::V_WALKWAY:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/walkwaysmall.png");
             else

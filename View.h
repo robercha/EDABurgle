@@ -55,8 +55,8 @@ enum class token_t {
 };
 
 enum class room_t {
-    ATRIUM, CAMERA, CR_FINGERPRINT, CR_LASER, CR_MOTION, DEADBOLT, DETECTOR, FINGERPRINT, FOYER, KEYPAD,
-    LABORATORY, LASER, LAVATORY, MOTION, SAFE, SECRETDOOR, SERVICEDUCT, STAIRS, THERMO, WALKWAY, ROOMBACK
+    V_ATRIUM, V_CAMERA, V_CR_FINGERPRINT, V_CR_LASER, V_CR_MOTION, V_DEADBOLT, V_DETECTOR, V_FINGERPRINT, V_FOYER, V_KEYPAD,
+    V_LABORATORY, V_LASER, V_LAVATORY, V_MOTION, V_SAFE, V_SECRETDOOR, V_SERVICEDUCT, V_STAIRS, V_THERMO, V_WALKWAY, V_ROOMBACK
 };
 
 enum class location_t {
@@ -95,7 +95,7 @@ typedef struct {
 
 typedef struct {
     room_t iAm; //e.g. atrium
-    bool tokens[(unsigned) token_t::TOKEN_COUNT];
+    bool tokens[(unsigned) token_t::V_TOKEN_COUNT];
     unsigned combinationNumber; //0 si es la safe, ó 1,2,3,4,5,6
     unsigned howManyHackTokens; //solo computers room (3 comp rooms)
     bool goldBarOnTheLoose; //dónde esta la segunda gold bar q debe ser agarrada por alguno de los ladrones
