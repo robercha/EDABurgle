@@ -212,7 +212,20 @@ void Model::fillGraphicsData(View* view)
         //loots
         for (lootIt = loots.begin(); lootIt = loots.end(); lootIt++)
         {
-            view->graphicsData->loots[lootIt - loots.begin()].loot = (lootV_t) (*lootIt)->getLootName();
+            if ((*lootIt)->isLootVisible() == true)
+            {
+                view->graphicsData->loots[lootIt - loots.begin()].owner = (playerV_t) (*lootIt)->getOwner();
+                view->graphicsData->loots[lootIt - loots.begin()].loot = (lootV_t) (*lootIt)->getLootName();
+                view->graphicsData->loots[lootIt - loots.begin()].isVisible = true;
+            }
+            else
+            {
+                view->graphicsData->loots[lootIt - loots.begin()].owner = NO_PLAYER;
+                view->graphicsData->loots[lootIt - loots.begin()].isVisible = false;
+            }
+
+            //tiles
+
 
         }
     }
