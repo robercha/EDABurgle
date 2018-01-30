@@ -4,6 +4,7 @@
 #include <list>
 #include "Tile.h"
 #include "Floor.h"
+#include "Loot.h"
 
 typedef enum {
     JUICER, HACKER, ACROBAT, SPOTTER, HAWK, RAVEN, PETERMAN
@@ -24,7 +25,7 @@ protected:
     Tile* currentTile;
     unsigned actions;
     unsigned stealthTokens;
-    //std::list<Loot> loots;
+    std::vector<Loot*> loots;
 };
 
 class Juicer : public Character {
