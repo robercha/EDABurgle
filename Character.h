@@ -20,6 +20,10 @@ public:
     void pass();
     virtual bool hiddenTalent() = 0;
     virtual bool canIUseThisTile(location_t); //de cada character y le pregunta a la tile sus adyacentes
+    character_t getName();
+    unsigned getStealthTokensQty();
+    location_t getLocation();
+    unsigned getActionsLeft();
 protected:
     character_t name;
     Tile* currentTile;

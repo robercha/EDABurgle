@@ -7,26 +7,28 @@ typedef enum {
     TIARA, PERSIAN_KITTY, PAINTING, MIRROR, KEYCARD, ISOTOPE, GEMSTONE, CURSED_GOBLET, CHIHUAHUA, GOLD_BAR, LOOT_COUNT
 } loot_t;
 
-typedef enum {
-    YOU, PARTNER, NO_PLAYER
-} player_t;
-
 class Loot {
 public:
     Loot();
     Loot(const Loot& orig);
     virtual ~Loot();
-    void shareLoot(Character* destiny);
+    void shareLoot(/*Character* destiny*/); //esto lo haria ahora character
     //void giveLoot(Character* destiny);
     //void takeLoot(Character* source);
     void pickUpLoot();
     bool virtual awakenCurse() = 0;
+    loot_t getLootName();
 protected:
+    loot_t lootName;
     //player_t owner;
 };
 
 class Goblet : public Loot {
 public:
+
+    Goblet() {
+        lootName = CURSED_GOBLET;
+    };
     bool awakenCurse();
 private:
     bool virgin;
@@ -34,6 +36,10 @@ private:
 
 class Kitty : public Loot { //chequear al principio del turno
 public:
+
+    Kitty() {
+        lootName = PERSIAN_KITTY;
+    };
     bool awakenCurse();
     void setTile();
 private:
@@ -45,6 +51,10 @@ private:
 
 class Tiara : public Loot { //chequear al final del turno
 public:
+
+    Tiara() {
+        lootName = TIARA;
+    };
     bool awakenCurse();
     void setGuard(Guard*);
 private:
@@ -55,6 +65,10 @@ private:
 
 class Painting : public Loot {
 public:
+
+    Painting() {
+        lootName = PAINTING;
+    };
     bool awakenCurse(); //si devuelve true, no puede pasar
 private:
     bool onServiceDuctTile();
@@ -63,6 +77,10 @@ private:
 
 class Mirror : public Loot { //principio del turno y cuando se mueve el personaje
 public:
+
+    Mirror() {
+        lootName = MIRROR;
+    };
     bool awakenCurse(); //si devuelve false, no cambia el estado de la alarma
 private:
     bool deactivateLaser(); //evita que se active el flag de triggered alarm
@@ -71,12 +89,20 @@ private:
 
 class KeyCard : public Loot {
 public:
+
+    KeyCard() {
+        lootName = KEYCARD;
+    };
     bool awakenCurse(); //poner en todos los safe tile el flag de poder crakear en false y si el jugador esta en esa safe tile cambiarlo a true
 private:
 };
 
 class Isotope : public Loot {
 public:
+
+    Isotope() {
+        lootName = ISOTOPE;
+    };
     bool awakenCurse(); //dispara alarma de thermo
 private:
     bool onThermoTile(); //tal vez no es necesario
@@ -84,12 +110,16 @@ private:
 
 class Gemstone : public Loot {
 public:
+
+    Gemstone() {
+        lootName = GEMSTONE;
+    };
     bool awakenCurse(); //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
-    void setPartner(Character*); //solo una vez
+    void setPartner(/*Character**/); //solo una vez
     void setPrevTile(Tile*); //solo se setea cuando agarra el loot
 private:
     bool onSameTileAsPartner();
-    Character* partner;
+    //Character* partner;
     Tile* previousTile;
 };
 

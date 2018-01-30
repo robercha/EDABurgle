@@ -16,6 +16,10 @@ public:
     ~Floor();
     void randomizeFloor();
     void setTile(Tile* tile);
+    unsigned getGuardSpeed();
+    location_t getGuardLocation();
+    location_t getGuardDieLocation(); //no se bien que hace pero la necesitamos para graphicsData //donde esta el dado (a donde va si no suenan alarmas)/puede ser patrol_t tmb?
+    //patrol_t getPatrolCard(); //para view
 private:
     void setAdjacentTiles(unsigned row, unsigned col);
     void createWalls(unsigned);

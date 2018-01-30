@@ -10,7 +10,26 @@ bool Character::canIUseThisTile(location_t selectedTile)
     isTileValid = currentTile->isTileValid(selectedTile);
 
     return isTileValid;
+}
 
+character_t Character::getName()
+{
+    return name;
+}
+
+unsigned Character::getStealthTokensQty()
+{
+    return stealthTokens;
+}
+
+location_t Character::getLocation()
+{
+    return currentTile->getCurrentLocation();
+}
+
+unsigned Character::getActionsLeft()
+{
+    return actions;
 }
 
 Character::Character(const Character& orig)

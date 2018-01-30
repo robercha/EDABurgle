@@ -361,7 +361,7 @@ View::drawCharactersInfo()
     al_draw_bitmap(playerOne, 25 + 1 * (TILE_SIZE + SPACE_TILE), 95 - (al_get_bitmap_height(playerOne)), 0);
     al_destroy_bitmap(playerOne);
 
-    ALLEGRO_BITMAP* stealthOne = loadToken(token_t::V_STEALTHTOKEN, false);
+    ALLEGRO_BITMAP* stealthOne = loadToken(tokenV_t::V_STEALTHTOKEN, false);
     for (unsigned i = 0; i < graphicsData->players[0].stealthTokens; ++i)
         al_draw_bitmap(stealthOne, 85 + 1 * (TILE_SIZE + SPACE_TILE), i * (5 + TOKENS_BIG_SIZE) + 5, 0);
     al_destroy_bitmap(stealthOne);
@@ -374,7 +374,7 @@ View::drawCharactersInfo()
     al_draw_bitmap(playerTwo, 270 + 625, 95 - (al_get_bitmap_height(playerTwo)), 0);
     al_destroy_bitmap(playerTwo);
 
-    ALLEGRO_BITMAP * stealthTwo = loadToken(token_t::V_STEALTHTOKEN, false);
+    ALLEGRO_BITMAP * stealthTwo = loadToken(tokenV_t::V_STEALTHTOKEN, false);
     for (unsigned i = 0; i < graphicsData->players[1].stealthTokens; ++i)
         al_draw_bitmap(stealthTwo, 240 + 625, i * (5 + TOKENS_BIG_SIZE) + 5, 0);
     al_destroy_bitmap(stealthTwo);
@@ -396,9 +396,9 @@ View::drawTiles()
             {
                 x = 20 + cols * (TILE_SIZE + SPACE_TILE) + floor * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3);
                 y = 135 + rows * (TILE_SIZE + SPACE_TILE);
-                if (graphicsData->tiles[i].iAm == room_t::V_ROOMBACK)
+                if (graphicsData->tiles[i].iAm == roomV_t::V_ROOMBACK)
                 {
-                    ALLEGRO_BITMAP* tile = loadRoom(room_t::V_ROOMBACK, false);
+                    ALLEGRO_BITMAP* tile = loadRoom(roomV_t::V_ROOMBACK, false);
                     al_draw_bitmap(tile, x, y, 0);
                     al_destroy_bitmap(tile);
                 }
@@ -407,7 +407,7 @@ View::drawTiles()
                     ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[i].iAm, true);
                     al_draw_bitmap(tile, x, y, 0);
                     al_destroy_bitmap(tile);
-                    if (graphicsData->tiles[i].iAm != room_t::V_SAFE)
+                    if (graphicsData->tiles[i].iAm != roomV_t::V_SAFE)
                     {
 
                         ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[i].combinationNumber, true);
@@ -602,7 +602,7 @@ View::drawGuards()
     {
         if (graphicsData->guards[i].location == location_t::NO_LOCATION)
             continue;
-        ALLEGRO_BITMAP * guard = loadCharacter(character_t::V_GUARD, false);
+        ALLEGRO_BITMAP * guard = loadCharacter(characterV_t::V_GUARD, false);
         col = getColumn(graphicsData->guards[i].location);
         row = getRow(graphicsData->guards[i].location);
         floor = getFloor(graphicsData->guards[i].location);
@@ -625,7 +625,7 @@ View::drawTokensOnTiles()
     {
         if (graphicsData->tiles[i].goldBarOnTheLoose == true)
         {
-            ALLEGRO_BITMAP* extraGold = loadLoot(loot_t::V_GOLD2, false);
+            ALLEGRO_BITMAP* extraGold = loadLoot(lootV_t::V_GOLD2, false);
             floor = i / (V_ROWS * V_COLUMNS);
             col = (i - floor * V_ROWS * V_COLUMNS) % V_COLUMNS;
             row = (i - floor * V_ROWS * V_COLUMNS) / V_COLUMNS;
@@ -646,13 +646,13 @@ View::drawTileSelectedInfo()
 {
     unsigned index = (int) graphicsData->currentCardSelected;
 
-    if (graphicsData->tiles[index].iAm != room_t::V_ROOMBACK)
+    if (graphicsData->tiles[index].iAm != roomV_t::V_ROOMBACK)
     {
         ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[index].iAm, false);
         al_draw_bitmap(tile, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE) / 2 + SPACE_DIVIDER_L, SPACE_UP_MARGIN, 0);
 
         al_destroy_bitmap(tile);
-        if (graphicsData->tiles[index].iAm != room_t::V_SAFE)
+        if (graphicsData->tiles[index].iAm != roomV_t::V_SAFE)
         {
             ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[index].combinationNumber, true);
             al_draw_bitmap(number, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE)*2 + SPACE_DIVIDER_L - 17, SPACE_UP_MARGIN + CARD_SELECTED_SIZE / 2 + 3, 0);
@@ -726,12 +726,12 @@ View::drawSelectedTileTokens()
             y = j * (TOKENS_BIG_SIZE + SPACE_TOKEN_UD) + SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
             if (graphicsData->tiles[(int) graphicsData->currentCardSelected].tokens[tokenCount])
             {
-                if (tokenCount == (int) token_t::V_HACKTOKEN || tokenCount == (int) token_t::V_STEALTHTOKEN)
+                if (tokenCount == (int) tokenV_t::V_HACKTOKEN || tokenCount == (int) tokenV_t::V_STEALTHTOKEN)
                 {
                     tokenCount++;
                     continue;
                 }
-                ALLEGRO_BITMAP* token = loadToken((token_t) tokenCount, false);
+                ALLEGRO_BITMAP* token = loadToken((tokenV_t) tokenCount, false);
                 al_draw_bitmap(token, x, y, 0);
                 al_destroy_bitmap(token);
             }
@@ -740,23 +740,23 @@ View::drawSelectedTileTokens()
 
     }
 
-    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_LAVATORY)
+    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_LAVATORY)
     {
         x = 3 * (TOKENS_BIG_SIZE + SPACE_TOKEN_LR) + SPACE_DIVIDER_L + SPACE_TOKEN_LR;
         y = SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
-        ALLEGRO_BITMAP* token = loadToken(token_t::V_STEALTHTOKEN, false);
+        ALLEGRO_BITMAP* token = loadToken(tokenV_t::V_STEALTHTOKEN, false);
         al_draw_bitmap(token, x, y, 0);
         al_destroy_bitmap(token);
         al_draw_textf(textFont, al_map_rgb(0, 0, 0), x + TOKENS_BIG_SIZE + 5, y, ALLEGRO_ALIGN_LEFT, "x%d", graphicsData->tiles[(int) graphicsData->currentCardSelected].howManyStealthTokens);
     }
 
-    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_CR_FINGERPRINT
-            || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_CR_LASER
-            || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == room_t::V_CR_MOTION)
+    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_CR_FINGERPRINT
+            || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_CR_LASER
+            || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_CR_MOTION)
     {
         x = 3 * (TOKENS_BIG_SIZE + SPACE_TOKEN_LR) + SPACE_DIVIDER_L + SPACE_TOKEN_LR;
         y = 1 * (TOKENS_BIG_SIZE + SPACE_TOKEN_UD) + SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
-        ALLEGRO_BITMAP* token = loadToken(token_t::V_HACKTOKEN, false);
+        ALLEGRO_BITMAP* token = loadToken(tokenV_t::V_HACKTOKEN, false);
         al_draw_bitmap(token, x, y, 0);
         al_destroy_bitmap(token);
         al_draw_textf(textFont, al_map_rgb(0, 0, 0), x + TOKENS_BIG_SIZE + 5, y, ALLEGRO_ALIGN_LEFT, "x%d", graphicsData->tiles[(int) graphicsData->currentCardSelected].howManyHackTokens);
@@ -808,12 +808,12 @@ View::writeActions()
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *11, ALLEGRO_ALIGN_RIGHT, "*Request loot");
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *12, ALLEGRO_ALIGN_RIGHT, "*Pick up loot");
 
-    if (graphicsData->players[0].character != character_t::V_JUICER) //si player one no es juicer, escribo transparente "create alarm"
+    if (graphicsData->players[0].character != characterV_t::V_JUICER) //si player one no es juicer, escribo transparente "create alarm"
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *13, ALLEGRO_ALIGN_RIGHT, "*Create Alarm");
     else
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *13, ALLEGRO_ALIGN_RIGHT, "*Create Alarm");
 
-    if (graphicsData->players[0].character != character_t::V_SPOTTER) //si player one no es spotter, escribo transparente "spy patrol deck" & "place card top/bottom"
+    if (graphicsData->players[0].character != characterV_t::V_SPOTTER) //si player one no es spotter, escribo transparente "spy patrol deck" & "place card top/bottom"
     {
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *14, ALLEGRO_ALIGN_RIGHT, "*Spy patrol deck");
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *15, ALLEGRO_ALIGN_RIGHT, "*Place patrol card on top");
@@ -826,7 +826,7 @@ View::writeActions()
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *16, ALLEGRO_ALIGN_RIGHT, "*Place patrol card on bottom");
     }
 
-    if (graphicsData->players[0].character != character_t::V_RAVEN) //si player one no es Raven, escribo transparente "place crow token"
+    if (graphicsData->players[0].character != characterV_t::V_RAVEN) //si player one no es Raven, escribo transparente "place crow token"
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *17, ALLEGRO_ALIGN_RIGHT, "*Place crow token");
     else
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *17, ALLEGRO_ALIGN_RIGHT, "*Place crow token");
@@ -917,61 +917,61 @@ View::writeMessages()
 }
 
 ALLEGRO_BITMAP*
-View::loadCharacter(character_t c, bool shrink)
+View::loadCharacter(characterV_t c, bool shrink)
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (c)
     {
-        case character_t::V_JUICER:
+        case characterV_t::V_JUICER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/juicersmall.png");
             else
                 bitmap = al_load_bitmap("images/character/juicer.png");
             break;
 
-        case character_t::V_HACKER:
+        case characterV_t::V_HACKER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/hackersmall.png");
             else
                 bitmap = al_load_bitmap("images/character/hacker.png");
             break;
 
-        case character_t::V_ACROBAT:
+        case characterV_t::V_ACROBAT:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/acrobatsmall.png");
             else
                 bitmap = al_load_bitmap("images/character/acrobat.png");
             break;
 
-        case character_t::V_SPOTTER:
+        case characterV_t::V_SPOTTER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/spottersmall.png");
             else
                 bitmap = al_load_bitmap("images/character/spotter.png");
             break;
 
-        case character_t::V_HAWK:
+        case characterV_t::V_HAWK:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/hawksmall.png");
             else
                 bitmap = al_load_bitmap("images/character/hawk.png");
             break;
 
-        case character_t::V_RAVEN:
+        case characterV_t::V_RAVEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/ravensmall.png");
             else
                 bitmap = al_load_bitmap("images/character/raven.png");
             break;
 
-        case character_t::V_PETERMAN:
+        case characterV_t::V_PETERMAN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/character/petermansmall.png");
             else
                 bitmap = al_load_bitmap("images/character/peterman.png");
             break;
 
-        case character_t::V_GUARD:
+        case characterV_t::V_GUARD:
             bitmap = al_load_bitmap("images/character/guard.png");
 
             break;
@@ -982,86 +982,86 @@ View::loadCharacter(character_t c, bool shrink)
 }
 
 ALLEGRO_BITMAP*
-View::loadLoot(loot_t l, bool shrink)
+View::loadLoot(lootV_t l, bool shrink)
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (l)
     {
-        case loot_t::V_TIARA:
+        case lootV_t::V_TIARA:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/tiarasmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/tiara.png");
             break;
 
-        case loot_t::V_KITTY:
+        case lootV_t::V_KITTY:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/kittysmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/kitty.png");
             break;
 
-        case loot_t::V_PAINTING:
+        case lootV_t::V_PAINTING:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/paintingsmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/painting.png");
             break;
 
-        case loot_t::V_MIRROR:
+        case lootV_t::V_MIRROR:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/mirrorsmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/mirror.png");
             break;
 
-        case loot_t::V_KEYCARD:
+        case lootV_t::V_KEYCARD:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/keycardsmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/keycard.png");
             break;
 
-        case loot_t::V_ISOTOPE:
+        case lootV_t::V_ISOTOPE:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/isotopesmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/isotope.png");
             break;
 
-        case loot_t::V_GEMSTONE:
+        case lootV_t::V_GEMSTONE:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/gemstonesmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/gemstone.png");
             break;
 
-        case loot_t::V_GOBLET:
+        case lootV_t::V_GOBLET:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/gobletsmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/goblet.png");
             break;
 
-        case loot_t::V_CHIHUAHUA:
+        case lootV_t::V_CHIHUAHUA:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/chihuahuasmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/chihuahua.png");
             break;
 
-        case loot_t::V_GOLD:
+        case lootV_t::V_GOLD:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/loots/goldsmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/gold.png");
             break;
 
-        case loot_t::V_GOLD2:
+        case lootV_t::V_GOLD2:
             bitmap = al_load_bitmap("images/loots/gold2.png");
             break;
 
-        case loot_t::V_NO_LOOT:
+        case lootV_t::V_NO_LOOT:
             bitmap = al_load_bitmap("images/loots/lootBack.png");
 
             break;
@@ -1071,19 +1071,19 @@ View::loadLoot(loot_t l, bool shrink)
 }
 
 ALLEGRO_BITMAP*
-View::loadToken(token_t t, bool shrink)
+View::loadToken(tokenV_t t, bool shrink)
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (t)
     {
-        case token_t::V_ALARMTOKEN:
+        case tokenV_t::V_ALARMTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/alarmsmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/alarm.png");
             break;
 
-        case token_t::V_CROWTOKEN:
+        case tokenV_t::V_CROWTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/crowsmall.png");
             else
@@ -1091,42 +1091,42 @@ View::loadToken(token_t t, bool shrink)
                 bitmap = al_load_bitmap("images/tokens/crow.png");
             break;
 
-        case token_t::V_HACKTOKEN:
+        case tokenV_t::V_HACKTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/hacksmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/hack.png");
             break;
 
-        case token_t::V_KITTYTOKEN:
+        case tokenV_t::V_KITTYTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/kittysmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/kitty.png");
             break;
 
-        case token_t::V_OPENTOKEN:
+        case tokenV_t::V_OPENTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/opensmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/open.png");
             break;
 
-        case token_t::V_CRACKEDTOKEN:
+        case tokenV_t::V_CRACKEDTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/safesmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/safe.png");
             break;
 
-        case token_t::V_DOWNSTAIRSTOKEN:
+        case tokenV_t::V_DOWNSTAIRSTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/stairssmall.png");
             else
                 bitmap = al_load_bitmap("images/tokens/stairs.png");
             break;
 
-        case token_t::V_STEALTHTOKEN:
+        case tokenV_t::V_STEALTHTOKEN:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tokens/stealthsmall.png");
             else
@@ -1138,149 +1138,149 @@ View::loadToken(token_t t, bool shrink)
 }
 
 ALLEGRO_BITMAP*
-View::loadRoom(room_t r, bool shrink)
+View::loadRoom(roomV_t r, bool shrink)
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (r)
     {
-        case room_t::V_ATRIUM:
+        case roomV_t::V_ATRIUM:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/atriumsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/atrium.png");
             break;
 
-        case room_t::V_CAMERA:
+        case roomV_t::V_CAMERA:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/camerasmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/camera.png");
             break;
 
-        case room_t::V_CR_FINGERPRINT:
+        case roomV_t::V_CR_FINGERPRINT:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/CRFingerprintsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/CRFingerprint.png");
             break;
 
-        case room_t::V_CR_LASER:
+        case roomV_t::V_CR_LASER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/CRLasersmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/CRLaser.png");
             break;
 
-        case room_t::V_CR_MOTION:
+        case roomV_t::V_CR_MOTION:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/CRMotionsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/CRMotion.png");
             break;
 
-        case room_t::V_DEADBOLT:
+        case roomV_t::V_DEADBOLT:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/deadboltsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/deadbolt.png");
             break;
 
-        case room_t::V_DETECTOR:
+        case roomV_t::V_DETECTOR:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/detectorsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/detector.png");
             break;
 
-        case room_t::V_FINGERPRINT:
+        case roomV_t::V_FINGERPRINT:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/fingerprintsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/fingerprint.png");
             break;
 
-        case room_t::V_FOYER:
+        case roomV_t::V_FOYER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/foyersmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/foyer.png");
             break;
 
-        case room_t::V_KEYPAD:
+        case roomV_t::V_KEYPAD:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/keypadsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/keypad.png");
             break;
 
-        case room_t::V_LABORATORY:
+        case roomV_t::V_LABORATORY:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/laboratorysmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/laboratory.png");
             break;
 
-        case room_t::V_LASER:
+        case roomV_t::V_LASER:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/lasersmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/laser.png");
             break;
 
-        case room_t::V_LAVATORY:
+        case roomV_t::V_LAVATORY:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/lavatorysmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/lavatory.png");
             break;
 
-        case room_t::V_MOTION:
+        case roomV_t::V_MOTION:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/motionsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/motion.png");
             break;
 
-        case room_t::V_ROOMBACK:
+        case roomV_t::V_ROOMBACK:
             bitmap = al_load_bitmap("images/tiles/roomBack.png");
             break;
 
-        case room_t::V_SAFE:
+        case roomV_t::V_SAFE:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/safesmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/safe.png");
             break;
 
-        case room_t::V_SECRETDOOR:
+        case roomV_t::V_SECRETDOOR:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/secretDoorsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/secretDoor.png");
             break;
 
-        case room_t::V_SERVICEDUCT:
+        case roomV_t::V_SERVICEDUCT:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/serviceDuctsmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/serviceDuct.png");
             break;
 
-        case room_t::V_STAIRS:
+        case roomV_t::V_STAIRS:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/stairssmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/stairs.png");
             break;
 
-        case room_t::V_THERMO:
+        case roomV_t::V_THERMO:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/thermosmall.png");
             else
                 bitmap = al_load_bitmap("images/tiles/thermo.png");
             break;
 
-        case room_t::V_WALKWAY:
+        case roomV_t::V_WALKWAY:
             if (shrink == true)
                 bitmap = al_load_bitmap("images/tiles/walkwaysmall.png");
             else
@@ -1293,76 +1293,76 @@ View::loadRoom(room_t r, bool shrink)
 }
 
 ALLEGRO_BITMAP*
-View::loadPatrolCard(patrol_t p)
+View::loadPatrolCard(patrolV_t p)
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (p)
     {
-        case patrol_t::V_A1:
+        case patrolV_t::V_A1:
             bitmap = al_load_bitmap("images/patrol/A1.png");
             break;
 
-        case patrol_t::V_A2:
+        case patrolV_t::V_A2:
             bitmap = al_load_bitmap("images/patrol/A2.png");
             break;
 
-        case patrol_t::V_A3:
+        case patrolV_t::V_A3:
             bitmap = al_load_bitmap("images/patrol/A3.png");
             break;
 
-        case patrol_t::V_A4:
+        case patrolV_t::V_A4:
             bitmap = al_load_bitmap("images/patrol/A4.png");
             break;
 
-        case patrol_t::V_B1:
+        case patrolV_t::V_B1:
             bitmap = al_load_bitmap("images/patrol/B1.png");
             break;
 
-        case patrol_t::V_B2:
+        case patrolV_t::V_B2:
             bitmap = al_load_bitmap("images/patrol/B2.png");
             break;
 
-        case patrol_t::V_B3:
+        case patrolV_t::V_B3:
             bitmap = al_load_bitmap("images/patrol/B3.png");
             break;
 
-        case patrol_t::V_B4:
+        case patrolV_t::V_B4:
             bitmap = al_load_bitmap("images/patrol/B4.png");
             break;
 
-        case patrol_t::V_C1:
+        case patrolV_t::V_C1:
             bitmap = al_load_bitmap("images/patrol/C1.png");
             break;
 
-        case patrol_t::V_C2:
+        case patrolV_t::V_C2:
             bitmap = al_load_bitmap("images/patrol/C2.png");
             break;
 
-        case patrol_t::V_C3:
+        case patrolV_t::V_C3:
             bitmap = al_load_bitmap("images/patrol/C3.png");
             break;
 
-        case patrol_t::V_C4:
+        case patrolV_t::V_C4:
             bitmap = al_load_bitmap("images/patrol/C4.png");
             break;
 
-        case patrol_t::V_D1:
+        case patrolV_t::V_D1:
             bitmap = al_load_bitmap("images/patrol/D1.png");
             break;
 
-        case patrol_t::V_D2:
+        case patrolV_t::V_D2:
             bitmap = al_load_bitmap("images/patrol/D2.png");
             break;
 
-        case patrol_t::V_D3:
+        case patrolV_t::V_D3:
             bitmap = al_load_bitmap("images/patrol/D3.png");
             break;
 
-        case patrol_t::V_D4:
+        case patrolV_t::V_D4:
             bitmap = al_load_bitmap("images/patrol/D4.png");
             break;
 
-        case patrol_t::V_NO_PATROL:
+        case patrolV_t::V_NO_PATROL:
             bitmap = al_load_bitmap("images/patrol/patrolBack.png");
 
             break;
