@@ -1,12 +1,15 @@
 #ifndef LOOT_H
 #define LOOT_H
 
-#include "Character.h"
 #include "Guard.h"
 
 typedef enum {
     TIARA, PERSIAN_KITTY, PAINTING, MIRROR, KEYCARD, ISOTOPE, GEMSTONE, CURSED_GOBLET, CHIHUAHUA, GOLD_BAR, LOOT_COUNT
 } loot_t;
+
+typedef enum {
+    YOU, PARTNER, NO_PLAYER
+} player_t;
 
 class Loot {
 public:
@@ -19,7 +22,7 @@ public:
     void pickUpLoot();
     bool virtual awakenCurse() = 0;
 protected:
-    Character* currentCharacter;
+    //player_t owner;
 };
 
 class Goblet : public Loot {
@@ -32,11 +35,12 @@ private:
 class Kitty : public Loot { //chequear al principio del turno
 public:
     bool awakenCurse();
+    void setTile();
 private:
     bool rollDice(); //si es 1 o 2
     bool isThereAnAlarmTile();
     Tile* calculateRoute(); //devuelve la tile a la q deberia moverse el kitty
-    Tile* currentTile;
+    Tile* currentTile; //o location_t location;
 };
 
 class Tiara : public Loot { //chequear al final del turno

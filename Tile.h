@@ -36,22 +36,34 @@ typedef enum {
 } location_t;
 
 typedef enum {
+    ALARMTOKEN, OPENTOKEN, KITTYTOKEN, STEALTHTOKEN, CRACKEDTOKEN, DOWNSTAIRSTOKEN, CROWTOKEN, HACKTOKEN, TOKEN_COUNT
+} token_t;
+
+typedef enum {
     RIGHT, LEFT, UP, DOWN, UPPER, LOWER
 } coordinates_t;
 
 typedef enum tileType {
     ATRIUM, CAMERA, CR_FINGERPRINT, CR_LASER, CR_MOTION, DEADBOLT, DETECTOR, FINGERPRINT, FOYER, KEYPAD,
     LABORATORY, LASER, LAVATORY, MOTION, SAFE, SECRETDOOR, SERVICEDUCT, STAIRS, THERMO, WALKWAY, ROOMBACK
-}tileType_t;
+} tileType_t;
+
+typedef struct {
+    room_t iAm; //e.g. atrium
+    bool tokens[(unsigned) TOKEN_COUNT];
+    unsigned combinationNumber; //0 si es la safe, ó 1,2,3,4,5,6
+    unsigned howManyHackTokens; //solo computers room (3 comp rooms)
+    bool goldBarOnTheLoose; //dónde esta la segunda gold bar q debe ser agarrada por alguno de los ladrones
+    unsigned howManyStealthTokens; //solo para lavatory
+} tileDraw_t;
 
 class Tile {
 public:
-
     Tile(); //si la tile es de tipo alarma, declaramos explicitamente el constructor y seteamos isAlarmTile a true
     Tile(const Tile& orig);
     virtual ~Tile();
-    bool peek(coordinates_t);}
-    bool isTileVisible(); 
+    bool peek(coordinates_t);
+    bool isTileVisible();
     virtual bool itsATrap() = 0;
     bool triggerAlarm();
     void useHackToken();
@@ -71,7 +83,7 @@ public:
 protected:
     location_t currentLocation;
     tileType_t tileType;
-    
+
     Tile* rightTile;
     Tile* leftTile;
     Tile* upperTile;
