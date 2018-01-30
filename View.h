@@ -91,6 +91,7 @@ typedef struct {
 typedef struct {
     playerV_t owner;
     lootV_t loot;
+    bool isVisible;
 } lootInfo_t;
 
 typedef struct {
