@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <vector>
 
+unsigned getColumn(location_t location);
+unsigned getRow(location_t location);
+unsigned getFloor(location_t location);
+
 #define FLOORS_QTY 3
 #define FLOORTILE_QTY 16
 #define TOTALTILE_QTY 48
@@ -49,7 +53,7 @@ typedef enum tileType {
     ATRIUM, CAMERA, CR_FINGERPRINT, CR_LASER, CR_MOTION, DEADBOLT, DETECTOR, FINGERPRINT, FOYER, KEYPAD,
     LABORATORY, LASER, LAVATORY, MOTION, SAFE, SECRETDOOR, SERVICEDUCT, STAIRS, THERMO, WALKWAY, ROOMBACK
 } tileType_t;
-
+    
 
 typedef struct {
     location_t tile;
@@ -77,8 +81,7 @@ public:
     void setLeftWall();
     void setUpperWall();
     void setLowerWall();
-    void setAdjacentTiles(Tile* left, Tile* right, Tile* up, Tile* down);
-
+    void setAdjacentTiles(Tile* left, Tile* right, Tile* up, Tile* down);    
     location_t getCurrentLocation();
     bool checkDurlock(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
     bool isTileTwoTilesAway(location_t location);
