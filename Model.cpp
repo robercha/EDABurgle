@@ -187,15 +187,18 @@ void Model::fillGraphicsData(View* view)
 
     view->graphicsData->gameLost = isGameLost();
     view->graphicsData->gameWon = isGameWon();
-    view->graphicsData->players[0].character = (character_t) characters.at(0)->getName();
-    view->graphicsData->players[0].stealthTokens = 3;
-    //view->graphicsData->players[0].location = location_t::;
-    view->graphicsData->players[0].actionsLeft = 4;
-    //view->graphicsData->players[1].character = character_t::;
-    view->graphicsData->players[1].stealthTokens = 3;
-    //view->graphicsData->players[1].location = location_t::;
-    view->graphicsData->players[1].actionsLeft = 4;
 
+    //players
+    view->graphicsData->players[0].character = (characterV_t) characters.at(0)->getName();
+    view->graphicsData->players[0].stealthTokens = characters.at(0)->getStealthTokensQty();
+    view->graphicsData->players[0].location = (locationV_t) characters.at(0)->getLocation();
+    view->graphicsData->players[0].actionsLeft = characters.at(0)->getActionsLeft();
+    view->graphicsData->players[0].character = (characterV_t) characters.at(1)->getName();
+    view->graphicsData->players[0].stealthTokens = characters.at(1)->getStealthTokensQty();
+    view->graphicsData->players[0].location = (locationV_t) characters.at(1)->getLocation();
+    view->graphicsData->players[0].actionsLeft = characters.at(1)->getActionsLeft();
+
+    //guards
     //view->graphicsData->guards[0].location = location_t::;
     //view->graphicsData->guards[1].location = location_t::;
     //view->graphicsData->guards[2].location = location_t::;

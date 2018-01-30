@@ -7,10 +7,6 @@ typedef enum {
     TIARA, PERSIAN_KITTY, PAINTING, MIRROR, KEYCARD, ISOTOPE, GEMSTONE, CURSED_GOBLET, CHIHUAHUA, GOLD_BAR, LOOT_COUNT
 } loot_t;
 
-typedef enum {
-    YOU, PARTNER, NO_PLAYER
-} player_t;
-
 class Loot {
 public:
     Loot();
@@ -85,11 +81,11 @@ private:
 class Gemstone : public Loot {
 public:
     bool awakenCurse(); //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
-    void setPartner(Character*); //solo una vez
+    void setPartner(/*Character**/); //solo una vez
     void setPrevTile(Tile*); //solo se setea cuando agarra el loot
 private:
     bool onSameTileAsPartner();
-    Character* partner;
+    //Character* partner;
     Tile* previousTile;
 };
 

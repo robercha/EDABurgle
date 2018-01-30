@@ -246,7 +246,7 @@ private:
 class ServiceDuct : public Tile {
 public:
     bool itsATrap();
-    bool isTileValid();
+    bool isTileValid(location_t);
     void setSecondduct(Tile* secondDuct);
 private:
     Tile* secondServiceDuct;

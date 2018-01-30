@@ -259,6 +259,7 @@ bool ServiceDuct::isTileValid(location_t selectedTile)
         isTileValid = true;
 
     return isTileValid;
+
 }
 
 void ServiceDuct::setSecondduct(Tile* secondDuct)
