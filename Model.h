@@ -37,6 +37,8 @@ private:
     std::vector<Character*> characters;
     std::vector<Loot*> loots;
     Character* currentCharacter;
+    
+    bool gameWon;
 
     GameStep*** gameHandlerMatrix;
     GameStep* currentAction;

@@ -14,6 +14,7 @@ typedef enum {
 } modelEvent_t;
 
 typedef struct gameData {
+    button_t preEvent;
     modelEvent_t event;
     location_t selectedTile;
 } gameData_t;
@@ -22,7 +23,7 @@ class GameStep {
 public:
     GameStep();
     virtual ~GameStep();
-    virtual void eventHandler(gameData_t *gameData, modelEvent_t event) = 0;
+    virtual void eventHandler(gameData_t *gameData) = 0;
     modelState_t getState();
 protected:
     modelState_t state;
@@ -34,7 +35,7 @@ public:
     Idle() {
         state = IDLE;
     };
-    void eventHandler(gameData_t *gameData, modelEvent_t event);
+    void eventHandler(gameData_t *gameData);
 private:
 };
 
@@ -44,7 +45,7 @@ public:
     WaitingFirstAction() {
         state = WAITING_1_ACTION;
     };
-    void eventHandler(gameData_t *gameData, modelEvent_t event);
+    void eventHandler(gameData_t *gameData);
 private:
 };
 
@@ -54,7 +55,7 @@ public:
     WaitingSecondAction() {
         state = WAITING_2_ACTION;
     };
-    void eventHandler(gameData_t *gameData, modelEvent_t event);
+    void eventHandler(gameData_t *gameData);
 private:
 };
 
@@ -64,7 +65,7 @@ public:
     WaitingResponse() {
         state = WAITING_RESPONSE;
     };
-    void eventHandler(gameData_t *gameData, modelEvent_t event);
+    void eventHandler(gameData_t *gameData);
 private:
 };
 
@@ -74,7 +75,7 @@ public:
     PlayAgain() {
         state = PLAY_AGAIN;
     };
-    void eventHandler(gameData_t *gameData, modelEvent_t event);
+    void eventHandler(gameData_t *gameData);
 private:
 };
 
@@ -84,7 +85,7 @@ public:
     End() {
         state = END;
     };
-    void eventHandler(gameData_t *gameData, modelEvent_t event);
+    void eventHandler(gameData_t *gameData);
 private:
 };
 
