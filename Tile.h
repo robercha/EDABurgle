@@ -44,13 +44,22 @@ typedef enum tileType {
     LABORATORY, LASER, LAVATORY, MOTION, SAFE, SECRETDOOR, SERVICEDUCT, STAIRS, THERMO, WALKWAY, ROOMBACK
 }tileType_t;
 
+typedef enum token {
+    
+}token_t;
+
+typedef struct {
+    token_t token;
+    Tile* usefulTile;
+}tokenInfo_t;
+
 class Tile {
 public:
 
     Tile(); //si la tile es de tipo alarma, declaramos explicitamente el constructor y seteamos isAlarmTile a true
     Tile(const Tile& orig);
     virtual ~Tile();
-    bool peek(coordinates_t);}
+    bool peek(coordinates_t);
     bool isTileVisible(); 
     virtual bool itsATrap() = 0;
     bool triggerAlarm();
