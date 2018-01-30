@@ -132,7 +132,7 @@ public:
     unsigned getButtonW(unsigned);
     View();
     virtual ~View();
-    bool updateGraphics(); //devuelve false si hubo problema al updatear los graficos, e.g. al cargar algun bitmap
+    void updateGraphics();
     void* getDisplay();
 
 private:

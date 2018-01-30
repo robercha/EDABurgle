@@ -250,7 +250,7 @@ View::getButtonH(unsigned i)
     return buttons[i].height;
 }
 
-bool
+void
 View::updateGraphics()
 {
     drawBackground();
