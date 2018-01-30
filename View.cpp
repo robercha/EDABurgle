@@ -525,9 +525,18 @@ View::drawLoots()
     {
         x = 20 + 2 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3);
         y = 135 + TILE_SIZE * 4 + SPACE_TILE * 6;
-        ALLEGRO_BITMAP* bitmap = loadLoot(graphicsData->loots[i].loot, true);
-        al_draw_bitmap(bitmap, x, y, 0);
-        al_destroy_bitmap(bitmap);
+        if (graphicsData->loots[i].isVisible == true)
+        {
+            ALLEGRO_BITMAP * bitmap = loadLoot(graphicsData->loots[i].loot, true);
+            al_draw_bitmap(bitmap, x, y, 0);
+            al_destroy_bitmap(bitmap);
+        }
+        else
+        {
+            ALLEGRO_BITMAP* bitmap = loadLoot(lootV_t::V_NO_LOOT, true);
+            al_draw_bitmap(bitmap, x, y, 0);
+            al_destroy_bitmap(bitmap);
+        }
     }
     return;
 }
@@ -551,7 +560,7 @@ View::drawCharacters()
 }
 
 unsigned
-View::getColumn(location_t location)
+View::getColumn(locationV_t location)
 {
     unsigned floor = getFloor(location);
     unsigned index = (int) location - (floor) * V_ROWS*V_COLUMNS;
@@ -560,7 +569,7 @@ View::getColumn(location_t location)
 }
 
 unsigned
-View::getRow(location_t location)
+View::getRow(locationV_t location)
 {
     unsigned floor = getFloor(location);
     unsigned index = (int) location - (floor) * V_ROWS*V_COLUMNS;
@@ -569,7 +578,7 @@ View::getRow(location_t location)
 }
 
 unsigned
-View::getFloor(location_t location)
+View::getFloor(locationV_t location)
 {
     return ((int) location) / (V_ROWS * V_COLUMNS);
 }
@@ -580,7 +589,7 @@ View::drawGuardDice()
     unsigned col, row, floor, x, y;
     for (unsigned i = 0; i < V_TOTAL_GUARDS; i++)
     {
-        if (graphicsData->guards[i].location == location_t::NO_LOCATION)
+        if (graphicsData->guards[i].location == locationV_t::NO_LOCATION)
             continue;
         ALLEGRO_BITMAP * die = loadGuardDie(graphicsData->guards[i].movements);
         col = getColumn(graphicsData->guards[i].guardDie);
@@ -600,7 +609,7 @@ View::drawGuards()
     unsigned col, row, floor, x, y;
     for (unsigned i = 0; i < V_TOTAL_GUARDS; i++)
     {
-        if (graphicsData->guards[i].location == location_t::NO_LOCATION)
+        if (graphicsData->guards[i].location == locationV_t::NO_LOCATION)
             continue;
         ALLEGRO_BITMAP * guard = loadCharacter(characterV_t::V_GUARD, false);
         col = getColumn(graphicsData->guards[i].location);
@@ -667,9 +676,9 @@ View::writeSelectedTileInfo()
 {
     std::string c, r, f, tile;
     unsigned col, row, floor;
-    col = getColumn((location_t) graphicsData->currentCardSelected);
-    row = getRow((location_t) graphicsData->currentCardSelected);
-    floor = getFloor((location_t) graphicsData->currentCardSelected);
+    col = getColumn((locationV_t) graphicsData->currentCardSelected);
+    row = getRow((locationV_t) graphicsData->currentCardSelected);
+    floor = getFloor((locationV_t) graphicsData->currentCardSelected);
     switch (col)
     {
         case 0: c = "A";
