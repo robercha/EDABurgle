@@ -164,10 +164,6 @@ void Model::analyzeAction(gameData_t*)
             break;
     }
 }
-//    VALID_TILE, INVALID_TILE, A_PASS, A_FREE_MOVE, A_PAID_MOVE, A_PEEK, A_ADD_DICE_TO_SAFE,
-//    A_ROL_DICE_FOR_SAFE, A_HACK_COMPUTER, A_USE_HACK_TOKEN, A_OFFER_LOOT,
-//    A_REQUEST_LOOT, A_PICKUP_LOOT, A_CREATE_ALARM, A_SPY_PATROL_DECK, A_PATROL_IS_TOP,
-//    A_PATROL_IS_BOTTOM, A_PLACE_CROW_TOKEN, WIN, LOSE, ACCEPT, DECLINE, LOOT, PATROL_CARD, EVENT_COUNT
 
 void Model::eventGenerator(button_t event, gameData_t* gameData)
 {
@@ -194,12 +190,70 @@ void Model::eventGenerator(button_t event, gameData_t* gameData)
         else
             gameData->event = A_FREE_MOVE;
     }
+    
+    else if(event == button_t::PEEK)
+        gameData->event = A_PEEK;
+    
+    
+    else if(event == button_t::ADD_DICE_TO_SAFE)
+        gameData->event = A_ADD_DICE_TO_SAFE;
+    
+    
+    else if(event == button_t::ROLL_DICE_FOR_SAFE)
+        gameData->event = A_ROLL_DICE_FOR_SAFE;
+    
+    else if(event == button_t::HACK_COMPUTER)
+        gameData->event = A_HACK_COMPUTER;
+
+    else if(event == button_t::OFFER_LOOT)
+        gameData->event = A_OFFER_LOOT;
+    
+    else if(event == button_t::REQUEST_LOOT)
+        gameData->event = A_REQUEST_LOOT;
         
+    else if(event == button_t::PICK_UP_LOOT)
+        gameData->event = A_PICKUP_LOOT;
 
+    else if(event == button_t::CREATE_ALARM)
+        gameData->event = A_CREATE_ALARM;
+    
+    else if(event == button_t::SPY_PATROL_DECK)
+        gameData->event = A_SPY_PATROL_DECK;
+        
+    else if(event == button_t::PATROL_IS_TOP)
+        gameData->event = A_PATROL_IS_TOP;
+        
+    else if(event == button_t::PATROL_IS_BOTTOM)
+        gameData->event = A_PATROL_IS_BOTTOM;
+        
+    else if(event == button_t::PLACE_CROW_TOKEN)
+        gameData->event = A_PLACE_CROW_TOKEN;
+        
+//    else if(event == button_t::WIN)
+//        gameData->event = WIN;
+//        
+//    else if(event == button_t::LOSE)
+//        gameData->event = LOSE;
+//        
+    else if(event == button_t::ACCEPT)
+        gameData->event = ACCEPT;
+        
+    else if(event == button_t::DECLINE)
+        gameData->event = DECLINE;
 
-
+    else if(event == button_t::LOOTF1 || event == button_t::LOOTF2 || event == button_t::LOOTF3)
+        gameData->event = LOOT;
+        
+    else if(event == button_t::PATROL_DECK_1 || event == button_t::PATROL_DECK_2 || event == button_t::PATROL_DECK_3)   
+        gameData->event = PATROL_CARD;
+        
 }
 
+
+//    VALID_TILE, INVALID_TILE, A_PASS, A_FREE_MOVE, A_PAID_MOVE, A_PEEK, A_ADD_DICE_TO_SAFE,
+//    A_ROL_DICE_FOR_SAFE, A_HACK_COMPUTER, A_USE_HACK_TOKEN, A_OFFER_LOOT,
+//    A_REQUEST_LOOT, A_PICKUP_LOOT, A_CREATE_ALARM, A_SPY_PATROL_DECK, A_PATROL_IS_TOP,
+//    A_PATROL_IS_BOTTOM, A_PLACE_CROW_TOKEN, WIN, LOSE, ACCEPT, DECLINE, LOOT, PATROL_CARD, EVENT_COUNT
 void Model::fillGraphicsData(View* view)
 {
 
