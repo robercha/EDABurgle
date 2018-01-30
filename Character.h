@@ -24,6 +24,7 @@ public:
     unsigned getStealthTokensQty();
     location_t getLocation();
     unsigned getActionsLeft();
+    loot_t getLootName();
 protected:
     character_t name;
     Tile* currentTile;

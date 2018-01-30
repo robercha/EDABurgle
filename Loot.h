@@ -7,6 +7,10 @@ typedef enum {
     TIARA, PERSIAN_KITTY, PAINTING, MIRROR, KEYCARD, ISOTOPE, GEMSTONE, CURSED_GOBLET, CHIHUAHUA, GOLD_BAR, LOOT_COUNT
 } loot_t;
 
+typedef enum {
+    YOU, PARTNER, NO_PLAYER
+} player_t;
+
 class Loot {
 public:
     Loot();
@@ -18,9 +22,18 @@ public:
     void pickUpLoot();
     bool virtual awakenCurse() = 0;
     loot_t getLootName();
+
+    player_t getOwner() {
+        return owner;
+    };
+
+    bool isLootVisible() {
+        return isVisible;
+    };
 protected:
+    bool isVisible;
     loot_t lootName;
-    //player_t owner;
+    player_t owner;
 };
 
 class Goblet : public Loot {
@@ -28,6 +41,8 @@ public:
 
     Goblet() {
         lootName = CURSED_GOBLET;
+        isVisible = false;
+        owner = NO_PLAYER;
     };
     bool awakenCurse();
 private:
@@ -39,6 +54,8 @@ public:
 
     Kitty() {
         lootName = PERSIAN_KITTY;
+        isVisible = false;
+        owner = NO_PLAYER;
     };
     bool awakenCurse();
     void setTile();
@@ -54,6 +71,8 @@ public:
 
     Tiara() {
         lootName = TIARA;
+        isVisible = false;
+        owner = NO_PLAYER;
     };
     bool awakenCurse();
     void setGuard(Guard*);
@@ -68,6 +87,8 @@ public:
 
     Painting() {
         lootName = PAINTING;
+        isVisible = false;
+        owner = NO_PLAYER;
     };
     bool awakenCurse(); //si devuelve true, no puede pasar
 private:
@@ -80,6 +101,8 @@ public:
 
     Mirror() {
         lootName = MIRROR;
+        isVisible = false;
+        owner = NO_PLAYER;
     };
     bool awakenCurse(); //si devuelve false, no cambia el estado de la alarma
 private:
@@ -92,6 +115,8 @@ public:
 
     KeyCard() {
         lootName = KEYCARD;
+        isVisible = false;
+        owner = NO_PLAYER;
     };
     bool awakenCurse(); //poner en todos los safe tile el flag de poder crakear en false y si el jugador esta en esa safe tile cambiarlo a true
 private:
@@ -102,6 +127,8 @@ public:
 
     Isotope() {
         lootName = ISOTOPE;
+        isVisible = false;
+        owner = NO_PLAYER;
     };
     bool awakenCurse(); //dispara alarma de thermo
 private:
@@ -113,6 +140,8 @@ public:
 
     Gemstone() {
         lootName = GEMSTONE;
+        isVisible = false;
+        owner = NO_PLAYER;
     };
     bool awakenCurse(); //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
     void setPartner(/*Character**/); //solo una vez
@@ -125,6 +154,12 @@ private:
 
 class Chihuahua : public Loot { //chequear al principio del turno
 public:
+
+    Chihuahua() {
+        lootName = CHIHUAHUA;
+        isVisible = false;
+        owner = NO_PLAYER;
+    };
     bool awakenCurse(); //triggerea alarma de cualquier currentTile
 private:
     bool rollDice(); //si es 6
@@ -132,6 +167,12 @@ private:
 
 class GoldBar : public Loot { //quien lleve un goldbar debe ser diferente a quien lleve el otro
 public:
+
+    GoldBar() {
+        lootName = GOLD_BAR;
+        isVisible = false;
+        owner = NO_PLAYER;
+    };
     bool awakenCurse(); //clonarse y crear GoldBar2
     //   Loot getGoldBar();
 private:
