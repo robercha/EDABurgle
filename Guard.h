@@ -2,6 +2,8 @@
 #define GUARD_H
 
 #include "Tile.h"
+#include "View.h"
+#include "Floor.h"
 
 class Guard {
 public:
@@ -10,10 +12,10 @@ public:
     virtual ~Guard();
     //walk() avanza de a uno, o al destino final, hay q verlo!!!
     void walk(); //usa calculateRoute() tantas veces como steps tenga que dar y camina
-    unsigned movements; //moves por turno del guardia, 6 como maximo
-    locationV_t location;
-    locationV_t guardDie; //donde esta el dado (a donde va si no suenan alarmas)/puede ser patrol_t tmb?
-    patrolV_t patrolDeck;
+    unsigned getSpeed();
+    location_t getLocation();
+    location_t getDieLocation(); //no se bien que hace pero la necesitamos para graphicsData //donde esta el dado (a donde va si no suenan alarmas)/puede ser patrol_t tmb?
+    //patrol_t getPatrolCard(); //para view
 private:
     Tile* currentTile;
     unsigned steps;

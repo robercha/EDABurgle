@@ -12,3 +12,8 @@ Loot::~Loot()
 {
 }
 
+loot_t Loot::getLootName()
+{
+    return lootName;
+}
+

@@ -188,17 +188,38 @@ void Model::fillGraphicsData(View* view)
     view->graphicsData->gameLost = isGameLost();
     view->graphicsData->gameWon = isGameWon();
 
-    //players
-    view->graphicsData->players[0].character = (characterV_t) characters.at(0)->getName();
-    view->graphicsData->players[0].stealthTokens = characters.at(0)->getStealthTokensQty();
-    view->graphicsData->players[0].location = (locationV_t) characters.at(0)->getLocation();
-    view->graphicsData->players[0].actionsLeft = characters.at(0)->getActionsLeft();
-    view->graphicsData->players[0].character = (characterV_t) characters.at(1)->getName();
-    view->graphicsData->players[0].stealthTokens = characters.at(1)->getStealthTokensQty();
-    view->graphicsData->players[0].location = (locationV_t) characters.at(1)->getLocation();
-    view->graphicsData->players[0].actionsLeft = characters.at(1)->getActionsLeft();
+    std::vector<Character*>::iterator characterIt;
+    std::vector<Floor*>::iterator floorIt;
+    std::vector<Loot*>::iterator lootIt;
 
-    //guards
+    //players
+    for (characterIt = characters.begin(); characterIt != characters.end(); characterIt++)
+    {
+        view->graphicsData->players[characterIt - characters.begin()].character = (characterV_t) (*characterIt)->getName();
+        view->graphicsData->players[characterIt - characters.begin()].stealthTokens = (*characterIt)->getStealthTokensQty();
+        view->graphicsData->players[characterIt - characters.begin()].location = (locationV_t) (*characterIt)->getLocation();
+        view->graphicsData->players[characterIt - characters.begin()].actionsLeft = (*characterIt)->getActionsLeft();
+    }
+
+    for (floorIt = floors.begin(); floorIt = floors.end(); floorIt++)
+    {
+        //guards
+        view->graphicsData->guards[floorIt - floors.begin()].movements = (*floorIt)->getGuardSpeed();
+        view->graphicsData->guards[floorIt - floors.begin()].location = (locationV_t) (*floorIt)->getGuardLocation();
+        //view->graphicsData->guards[floorIt - floors.begin()].guardDie = (*floorIt)->getGuardDieLocation();
+        //view->graphicsData->guards[floorIt - floors.begin()].patrolDeck = (*floorIt)->getPatrolCard();
+
+        //loots
+        for (lootIt = loots.begin(); lootIt = loots.end(); lootIt++)
+        {
+            view->graphicsData->loots[lootIt - loots.begin()].loot = (lootV_t) (*lootIt)->getLootName();
+
+        }
+    }
+
+
+
+
     //view->graphicsData->guards[0].location = location_t::;
     //view->graphicsData->guards[1].location = location_t::;
     //view->graphicsData->guards[2].location = location_t::;
@@ -213,86 +234,86 @@ void Model::fillGraphicsData(View* view)
     //    view->graphicsData->guards[2].guardDie = location_t::;
 
 
-    std::vector<Floor*>::iterator floorIt;
     std::vector<Tile*>::iterator tileIt;
     for (floorIt = floors.begin(); floorIt != floors.end(); floorIt++)
     {
-        for (tileIt = (*floorIt).
-                view->graphicsData->tiles[i].iAm = room_t::ROOMBACK;
-                view->graphicsData->tiles[i].goldBarOnTheLoose = false;
-        }
+
+        view->graphicsData->tiles[i].iAm = roomV_t::V_ROOMBACK;
+        view->graphicsData->tiles[i].goldBarOnTheLoose = false;
+    }
     view->graphicsData->tiles[46].goldBarOnTheLoose = true;
 
-            view->graphicsData->tiles[0].iAm = room_t::LAVATORY;
-            view->graphicsData->tiles[0].combinationNumber = 1;
-            view->graphicsData->tiles[0].howManyStealthTokens = 1;
-            view->graphicsData->tiles[1].iAm = room_t::CR_FINGERPRINT;
-            view->graphicsData->tiles[1].combinationNumber = 2;
-            view->graphicsData->tiles[1].howManyHackTokens = 6;
-            view->graphicsData->tiles[4].iAm = room_t::CR_LASER;
-            view->graphicsData->tiles[4].combinationNumber = 3;
-            view->graphicsData->tiles[5].iAm = room_t::CR_MOTION;
-            view->graphicsData->tiles[5].combinationNumber = 4;
-            view->graphicsData->tiles[6].iAm = room_t::DEADBOLT;
-            view->graphicsData->tiles[6].combinationNumber = 5;
-            view->graphicsData->tiles[7].iAm = room_t::ATRIUM;
-            view->graphicsData->tiles[7].combinationNumber = 6;
-            view->graphicsData->tiles[20].iAm = room_t::DETECTOR;
-            view->graphicsData->tiles[20].combinationNumber = 1;
-            view->graphicsData->tiles[22].iAm = room_t::FINGERPRINT;
-            view->graphicsData->tiles[22].combinationNumber = 2;
-            view->graphicsData->tiles[23].iAm = room_t::FOYER;
-            view->graphicsData->tiles[23].combinationNumber = 3;
-            view->graphicsData->tiles[26].iAm = room_t::KEYPAD;
-            view->graphicsData->tiles[26].combinationNumber = 4;
-            view->graphicsData->tiles[27].iAm = room_t::LABORATORY;
-            view->graphicsData->tiles[27].combinationNumber = 5;
-            view->graphicsData->tiles[29].iAm = room_t::LASER;
-            view->graphicsData->tiles[29].combinationNumber = 6;
-            view->graphicsData->tiles[30].iAm = room_t::LAVATORY;
-            view->graphicsData->tiles[30].combinationNumber = 1;
-            view->graphicsData->tiles[32].iAm = room_t::MOTION;
-            view->graphicsData->tiles[32].combinationNumber = 2;
-            view->graphicsData->tiles[34].iAm = room_t::ROOMBACK;
-            view->graphicsData->tiles[34].combinationNumber = 3;
-            view->graphicsData->tiles[35].iAm = room_t::SAFE;
-            view->graphicsData->tiles[35].combinationNumber = 4;
-            view->graphicsData->tiles[37].iAm = room_t::SECRETDOOR;
-            view->graphicsData->tiles[37].combinationNumber = 5;
-            view->graphicsData->tiles[39].iAm = room_t::SERVICEDUCT;
-            view->graphicsData->tiles[39].combinationNumber = 6;
-            view->graphicsData->tiles[32].iAm = room_t::MOTION;
-            view->graphicsData->tiles[32].combinationNumber = 2;
-            view->graphicsData->tiles[34].iAm = room_t::ROOMBACK;
-            view->graphicsData->tiles[34].combinationNumber = 3;
-            view->graphicsData->tiles[35].iAm = room_t::SAFE;
-            view->graphicsData->tiles[35].combinationNumber = 4;
-            view->graphicsData->tiles[37].iAm = room_t::SECRETDOOR;
-            view->graphicsData->tiles[37].combinationNumber = 5;
-            view->graphicsData->tiles[39].iAm = room_t::SERVICEDUCT;
-            view->graphicsData->tiles[39].combinationNumber = 6;
-            view->graphicsData->tiles[41].iAm = room_t::STAIRS;
-            view->graphicsData->tiles[41].combinationNumber = 2;
-            view->graphicsData->tiles[43].iAm = room_t::THERMO;
-            view->graphicsData->tiles[43].combinationNumber = 3;
-            view->graphicsData->tiles[44].iAm = room_t::WALKWAY;
-            view->graphicsData->tiles[44].combinationNumber = 4;
-            view->graphicsData->tiles[46].iAm = room_t::FOYER;
-            view->graphicsData->tiles[46].combinationNumber = 5;
-            view->graphicsData->tiles[47].iAm = room_t::SAFE;
-            view->graphicsData->tiles[47].combinationNumber = 6;
-
-    for (unsigned i = 0; i < 3; i++)
-    {
-        view->graphicsData->loots[i].loot = loot_t::TIARA;
-                view->graphicsData->loots[i].owner = YOU;
-    }
-    view->graphicsData->currentCardSelected = button_t::A1F1;
-    for (unsigned i = 0; i < 8; i++)
-            view->graphicsData->tiles[(int) button_t::A2F1].tokens[i] = true;
-            view->graphicsData->tiles[(int) button_t::A2F1].tokens[1] = false;
-
-        for (unsigned i = 0; i < 8; i++)
-                view->graphicsData->tiles[(int) button_t::A1F1].tokens[i] = true;
-
-        }
+    //            view->graphicsData->tiles[0].iAm = room_t::LAVATORY;
+    //            view->graphicsData->tiles[0].combinationNumber = 1;
+    //            view->graphicsData->tiles[0].howManyStealthTokens = 1;
+    //            view->graphicsData->tiles[1].iAm = room_t::CR_FINGERPRINT;
+    //            view->graphicsData->tiles[1].combinationNumber = 2;
+    //            view->graphicsData->tiles[1].howManyHackTokens = 6;
+    //            view->graphicsData->tiles[4].iAm = room_t::CR_LASER;
+    //            view->graphicsData->tiles[4].combinationNumber = 3;
+    //            view->graphicsData->tiles[5].iAm = room_t::CR_MOTION;
+    //            view->graphicsData->tiles[5].combinationNumber = 4;
+    //            view->graphicsData->tiles[6].iAm = room_t::DEADBOLT;
+    //            view->graphicsData->tiles[6].combinationNumber = 5;
+    //            view->graphicsData->tiles[7].iAm = room_t::ATRIUM;
+    //            view->graphicsData->tiles[7].combinationNumber = 6;
+    //            view->graphicsData->tiles[20].iAm = room_t::DETECTOR;
+    //            view->graphicsData->tiles[20].combinationNumber = 1;
+    //            view->graphicsData->tiles[22].iAm = room_t::FINGERPRINT;
+    //            view->graphicsData->tiles[22].combinationNumber = 2;
+    //            view->graphicsData->tiles[23].iAm = room_t::FOYER;
+    //            view->graphicsData->tiles[23].combinationNumber = 3;
+    //            view->graphicsData->tiles[26].iAm = room_t::KEYPAD;
+    //            view->graphicsData->tiles[26].combinationNumber = 4;
+    //            view->graphicsData->tiles[27].iAm = room_t::LABORATORY;
+    //            view->graphicsData->tiles[27].combinationNumber = 5;
+    //            view->graphicsData->tiles[29].iAm = room_t::LASER;
+    //            view->graphicsData->tiles[29].combinationNumber = 6;
+    //            view->graphicsData->tiles[30].iAm = room_t::LAVATORY;
+    //            view->graphicsData->tiles[30].combinationNumber = 1;
+    //            view->graphicsData->tiles[32].iAm = room_t::MOTION;
+    //            view->graphicsData->tiles[32].combinationNumber = 2;
+    //            view->graphicsData->tiles[34].iAm = room_t::ROOMBACK;
+    //            view->graphicsData->tiles[34].combinationNumber = 3;
+    //            view->graphicsData->tiles[35].iAm = room_t::SAFE;
+    //            view->graphicsData->tiles[35].combinationNumber = 4;
+    //            view->graphicsData->tiles[37].iAm = room_t::SECRETDOOR;
+    //            view->graphicsData->tiles[37].combinationNumber = 5;
+    //            view->graphicsData->tiles[39].iAm = room_t::SERVICEDUCT;
+    //            view->graphicsData->tiles[39].combinationNumber = 6;
+    //            view->graphicsData->tiles[32].iAm = room_t::MOTION;
+    //            view->graphicsData->tiles[32].combinationNumber = 2;
+    //            view->graphicsData->tiles[34].iAm = room_t::ROOMBACK;
+    //            view->graphicsData->tiles[34].combinationNumber = 3;
+    //            view->graphicsData->tiles[35].iAm = room_t::SAFE;
+    //            view->graphicsData->tiles[35].combinationNumber = 4;
+    //            view->graphicsData->tiles[37].iAm = room_t::SECRETDOOR;
+    //            view->graphicsData->tiles[37].combinationNumber = 5;
+    //            view->graphicsData->tiles[39].iAm = room_t::SERVICEDUCT;
+    //            view->graphicsData->tiles[39].combinationNumber = 6;
+    //            view->graphicsData->tiles[41].iAm = room_t::STAIRS;
+    //            view->graphicsData->tiles[41].combinationNumber = 2;
+    //            view->graphicsData->tiles[43].iAm = room_t::THERMO;
+    //            view->graphicsData->tiles[43].combinationNumber = 3;
+    //            view->graphicsData->tiles[44].iAm = room_t::WALKWAY;
+    //            view->graphicsData->tiles[44].combinationNumber = 4;
+    //            view->graphicsData->tiles[46].iAm = room_t::FOYER;
+    //            view->graphicsData->tiles[46].combinationNumber = 5;
+    //            view->graphicsData->tiles[47].iAm = room_t::SAFE;
+    //            view->graphicsData->tiles[47].combinationNumber = 6;
+    //
+    //    for (unsigned i = 0; i < 3; i++)
+    //    {
+    //        view->graphicsData->loots[i].loot = loot_t::TIARA;
+    //                view->graphicsData->loots[i].owner = YOU;
+    //    }
+    //    view->graphicsData->currentCardSelected = button_t::A1F1;
+    //    for (unsigned i = 0; i < 8; i++)
+    //            view->graphicsData->tiles[(int) button_t::A2F1].tokens[i] = true;
+    //            view->graphicsData->tiles[(int) button_t::A2F1].tokens[1] = false;
+    //
+    //        for (unsigned i = 0; i < 8; i++)
+    //                view->graphicsData->tiles[(int) button_t::A1F1].tokens[i] = true;
+    //
+    //        }
+}
