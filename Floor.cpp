@@ -182,7 +182,7 @@ unsigned Floor::getGuardSpeed()
     return guard->getSpeed();
 }
 
-std::vector<Tile*>* Floor::getDeck()
+std::vector< std::vector<Tile*> >& Floor::getDeck()
 {
     return this->tiles;
 }

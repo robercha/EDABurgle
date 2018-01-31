@@ -4,10 +4,16 @@ Character::Character()
 {
 }
 
-bool Character::canIUseThisTile(location_t selectedTile)
+bool Character::canIUseThisTile(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
-    isTileValid = currentTile->isTileValid(selectedTile);
+    if(currentTile->isTileValid(selectedTile, tileInfo))
+        isTileValid = true;
+    else if(selectedTile==currentTile->getCurrentLocation())
+    {    
+        isTileValid=true;
+        tileInfo->ownTile=true;
+    }
 
     return isTileValid;
 }
@@ -50,24 +56,42 @@ void Character::pass()
 
 }
 
-bool Hawk::canIUseThisTile(location_t selectedTile)
+bool Hawk::canIUseThisTile(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
     if (currentTile->isTileValid(selectedTile))
         isTileValid = true;
     else if (currentTile->checkDurlock(selectedTile))
+    {
         isTileValid = true;
+        tileInfo->hawkWall=true;
+    }
+    else if(selectedTile==currentTile->getCurrentLocation())
+    {    
+        isTileValid=true;
+        tileInfo->ownTile=true;
+    }
 
     return isTileValid;
 }
 
-bool Raven::canIUseThisTile(location_t selectedTile)
+bool Raven::canIUseThisTile(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
     if (currentTile->isTileValid(selectedTile))
+    {
         isTileValid = true;
+    }
     else if (currentTile->isTileTwoTilesAway(selectedTile))
+    {
         isTileValid = true;
-
+        tileInfo->twoTilesAwayTile=true;
+    }
+    else if(selectedTile==currentTile->getCurrentLocation())
+    {    
+        isTileValid=true;
+        tileInfo->ownTile=true;
+    }
+    
     return isTileValid;
 }

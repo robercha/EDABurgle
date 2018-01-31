@@ -1,6 +1,12 @@
 #ifndef GAMESTEP_H
 #define GAMESTEP_H
 
+#include "Floor.h"
+#include "Tile.h"
+#include "Guard.h"
+#include "Character.h"
+#include "Loot.h"
+
 typedef enum {
     IDLE, WAITING_1_ACTION, WAITING_2_ACTION, WAITING_RESPONSE, PLAY_AGAIN, END, STATE_COUNT
 } modelState_t;
@@ -13,10 +19,31 @@ typedef enum {
 
 } modelEvent_t;
 
+typedef struct {
+    bool pass;
+        bool move;
+        bool peek;
+        bool addDice;
+        bool rollDice;
+        bool hackCR;
+        bool useHackToken;
+        bool offerLoot;
+        bool requestLoot;
+        bool pickupLoot;
+        bool createAlarm;
+        bool spyPatrolDeck;
+        bool patrolIsTopBottom;
+        bool placeCrowToken;
+        bool acceptDecline;
+}actions_t;
+
+
 typedef struct gameData {
     button_t preEvent;
     modelEvent_t event;
-    location_t selectedTile;
+    tileInfo_t selectedTile;
+    actions_t actions;
+    
 } gameData_t;
 
 class GameStep {
@@ -35,8 +62,9 @@ public:
     Idle() {
         state = IDLE;
     };
-    void eventHandler(gameData_t *gameData);
+    void eventHandler(gameData_t* gameData);
 private:
+    void enableActions(gameData_t*);
 };
 
 class WaitingFirstAction : public GameStep {

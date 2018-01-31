@@ -3,11 +3,6 @@
 
 #include <vector>
 #include <list>
-#include "Floor.h"
-#include "Tile.h"
-#include "Guard.h"
-#include "Character.h"
-#include "Loot.h"
 #include "GameStep.h"
 #include "View.h"
 
@@ -28,7 +23,7 @@ private:
     void createModelFSM();
     void createLoots();
     void fillGraphicsData();
-    void eventGenerator(button_t event, gameData_t* gameData);
+    void eventGenerator(gameData_t* gameData);
 
     //std::list<Tile*> floorDeck;
     //std::vector<Tile*> deck;

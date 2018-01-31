@@ -39,6 +39,16 @@ typedef enum {
     NO_LOCATION
 } location_t;
 
+typedef struct{
+    location_t location;
+    bool ownTile;
+    bool hawkWall;
+    bool adyacent;
+    bool twoTilesAwayTile;
+    bool serviceDuct;
+    //bool secretDoor;
+}tileInfo_t;
+
 unsigned getColumn(location_t location);
 unsigned getRow(location_t location);
 unsigned getFloor(location_t location);
@@ -70,7 +80,7 @@ public:
     void useHackToken();
     bool isAlarmTile(); //getter de isAlarmTile
     bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
-    virtual bool isTileValid(location_t); //se fija si es adyacente
+    virtual bool isTileValid(location_t, tileInfo_t*); //se fija si es adyacente
     void setToken(tokenInfo_t, Tile*);
     void setCurrentLocation(location_t);
     void setRightWall();
@@ -129,7 +139,7 @@ public:
         isVisible = false;
     };
     bool itsATrap();
-    bool isTileValid(location_t);
+    bool isTileValid(location_t, tileInfo_t*);
     void setTile(Tile*); //la tile a peekaer
     bool isGuardAbove(Tile* guardLocation); //devuelve true si hay q sacarle un stealth
     bool isGuardBelow(Tile* guardLocation); //devuelve true si hay q sacarle un stealth
@@ -373,7 +383,7 @@ public:
         isVisible = false;
     };
     bool itsATrap();
-    bool isTileValid(location_t);
+    bool isTileValid(location_t, tileInfo_t*);
     void setSecondduct(Tile* secondDuct);
 private:
     Tile* secondServiceDuct;
@@ -389,7 +399,7 @@ public:
         isVisible = false;
     };
     bool itsATrap();
-    bool isTileValid(location_t);
+    bool isTileValid(location_t, tileInfo_t*);
     void reveal();
 private:
     Tile* upstairsTile;

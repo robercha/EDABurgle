@@ -111,7 +111,7 @@ void Model::createFloors(std::vector<Tile*> deck)
             floorDeck.push_back(deck.back());
             deck.pop_back();
         }
-        floors[i] = new Floor(floorDeck);
+        floors[i] = new Floor(floorDeck, i);
     }
 }
 
@@ -166,7 +166,7 @@ void Model::eventGenerator(gameData_t* gameData)
 
     else if ((int) gameData->preEvent >= (int) button_t::A1F1 && (int) gameData->preEvent <= (int) button_t::D4F3)
     {
-        if (currentCharacter->canIUseThisTile((location_t) gameData->preEvent))
+        if (currentCharacter->canIUseThisTile((location_t) gameData->preEvent, &(gameData->selectedTile)))
             gameData->event = VALID_TILE;
         else
             gameData->event = INVALID_TILE;
@@ -176,13 +176,23 @@ void Model::eventGenerator(gameData_t* gameData)
 
     else if (gameData->preEvent == button_t::MOVE)
     {
-        std::vector<Tile*>* deck = floors[getFloor(gameData->selectedTile)]->getDeck();
-        std::vector<Tile*>::iterator it;
-        it = deck->begin();
-        while (it->getCurrentLocation() == gameData->selectedTile)
-            it++;
-
-        if (it->isPaidMove())
+        std::vector< std::vector<Tile*> > deck = floors[getFloor(gameData->selectedTile.location)]->getDeck();
+        std::vector< std::vector<Tile*> >::iterator row;
+        std::vector<Tile*>::iterator col;
+        
+        row = deck.begin();
+        col = row->begin();
+        
+        for(row = deck.begin(); row!=deck.end() ; row++)
+        {        
+            for(col = row->begin(); ((*col)->getCurrentLocation() == gameData->selectedTile.location) && 
+                    col!=row->end(); col++);
+            
+            if((*col)->getCurrentLocation() == gameData->selectedTile.location)
+                break;        
+        }
+        
+        if ((*col)->isPaidMove())
             gameData->event = A_PAID_MOVE;
         else
             gameData->event = A_FREE_MOVE;

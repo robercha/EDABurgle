@@ -19,7 +19,7 @@ public:
     //void peek();          esto esta en tile
     void pass();
     virtual bool hiddenTalent() = 0;
-    virtual bool canIUseThisTile(location_t); //de cada character y le pregunta a la tile sus adyacentes
+    virtual bool canIUseThisTile(location_t, tileInfo_t*); //de cada character y le pregunta a la tile sus adyacentes
     character_t getName();
     unsigned getStealthTokensQty();
     location_t getLocation();
@@ -93,7 +93,7 @@ public:
     Hawk() {
         name = HAWK;
     };
-    bool canIUseThisTile(location_t);
+    bool canIUseThisTile(location_t, tileInfo_t*);
 
     bool hiddenTalent(); //chequea si hay una pared y si la hay el peek no cuesta action
     void setTile(Tile*);
@@ -110,7 +110,7 @@ public:
     Raven() {
         name = RAVEN;
     };
-    bool canIUseThisTile(location_t);
+    bool canIUseThisTile(location_t, tileInfo_t*);
     bool canPlaceCrowToken(); //hasta dos tiles adyacentes
     bool hiddenTalent(); //place crow token
     void setTile(Tile*);

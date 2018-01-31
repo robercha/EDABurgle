@@ -58,13 +58,19 @@ bool Tile::isTileTwoTilesAway(location_t selectedTile)
     return isTileValid;
 }
 
-bool Tile::isTileValid(location_t selectedTile)
+bool Tile::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
     if (isAdyacentTileValid(selectedTile))
+    {
         isTileValid = true;
+        tileInfo->adyacent=true;
+    }
     else if (isThereASecretDoor(selectedTile))
+    {
         isTileValid = true;
+        tileInfo->adyacent=true;
+    }
 
 
     return isTileValid;
@@ -217,16 +223,25 @@ unsigned getFloor(location_t location)
     return ((int) location) / (ROWS * COLS);
 }
 
-bool Atrium::isTileValid(location_t selectedTile)
+bool Atrium::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
 
     if (isAdyacentTileValid(selectedTile) == true)
+    {
         isTileValid = true;
+        tileInfo->adyacent=true;
+    }
     else if (selectedTile == (currentLocation + ROWS * COLS) && upperFloorTile != NULL)
+    {
         isTileValid = true;
+        tileInfo->adyacent=true;
+    }
     else if (selectedTile == (currentLocation - ROWS * COLS) && lowerFloorTile != NULL)
+    {
         isTileValid = true;
+        tileInfo->adyacent=true;
+    }
     else
         isTileValid = false;
 
@@ -254,16 +269,25 @@ Camera::isOnCamera(Tile* location)
     // return (location == Camera) ? true : false;
 }
 
-bool ServiceDuct::isTileValid(location_t selectedTile)
+bool ServiceDuct::isTileValid(location_t selectedTile,tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
 
     if (isAdyacentTileValid(selectedTile))
+    {
         isTileValid = true;
+        tileInfo->serviceDuct=true;
+    }
     else if (isThereASecretDoor(selectedTile))
+    {
         isTileValid = true;
+        tileInfo->serviceDuct=true;
+    }
     else if (secondServiceDuct->getCurrentLocation() == selectedTile && secondServiceDuct->isTileVisible())
+    {
         isTileValid = true;
+        tileInfo->serviceDuct=true;
+    }
 
     return isTileValid;
 
@@ -274,14 +298,20 @@ void ServiceDuct::setSecondduct(Tile* secondDuct)
     secondServiceDuct = secondDuct;
 }
 
-bool Stairs::isTileValid(location_t selectedTile)
+bool Stairs::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
 
     if (isAdyacentTileValid(selectedTile))
+    {
         isTileValid = true;
+        tileInfo->adyacent=true;
+    }
     else if (selectedTile == (currentLocation + 16))
+    {
         isTileValid = true;
+        tileInfo->adyacent=true;
+    }
 
     return isTileValid;
 }
