@@ -57,10 +57,26 @@ Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
         createWalls(floorNumber);
 
     }
+    
+    createPatrolDeck();
 }
 
 Floor::~Floor()
 {
+}
+
+void Floor::createPatrolDeck()
+{
+    for(unsigned i=0; i<PATROL_COUNT;i++)
+        patrolDeck.push_back((patrol_t)i);
+    
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+    std::shuffle(patrolDeck.begin(), patrolDeck.end(), std::default_random_engine(seed));
+    
+    for(unsigned i=0;i<DISCARDED_PATROL_COUNT;i++)
+        patrolDeck.pop_back();
+    
 }
 
 void Floor::createWalls(unsigned floorNumber)

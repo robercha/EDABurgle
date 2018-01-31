@@ -64,7 +64,6 @@ public:
     };
     void eventHandler(gameData_t* gameData);
 private:
-    void enableActions(gameData_t*);
 };
 
 class WaitingFirstAction : public GameStep {

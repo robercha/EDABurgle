@@ -14,7 +14,7 @@ void Idle::eventHandler(gameData_t* gameData)
 {
     switch(gameData->event)
     {
-        case VALID_TILE: enableActions(gameData);break; //pone en negrito las opciones posibles;
+        case VALID_TILE: break; //pone en negrito las opciones posibles;
         case INVALID_TILE: break;
         case A_PASS: break;
         case A_ADD_DICE_TO_SAFE: break;
@@ -29,13 +29,6 @@ void Idle::eventHandler(gameData_t* gameData)
     }
     
 }
-
-void Idle::enableActions(gameData_t* gameData)
-{
-    
-    
-}
-
 
 void WaitingFirstAction::eventHandler(gameData_t* gameData) 
 {

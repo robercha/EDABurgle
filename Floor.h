@@ -18,10 +18,12 @@ public:
     std::vector< std::vector<Tile*> >& getDeck();
     //patrol_t getPatrolCard(); //para view
 private:
+    void createPatrolDeck();
     void setAdjacentTiles(unsigned row, unsigned col);
     void createWalls(unsigned);
     Guard* guard;
     std::vector<patrol_t> patrolDeck;
+    std::vector<patrol_t> trashedPatrolDeck;
     std::vector< std::vector<Tile*> > tiles;
 
 };
