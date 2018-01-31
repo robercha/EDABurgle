@@ -238,11 +238,13 @@ void Model::eventGenerator(gameData_t* gameData)
 
 }
 
-void Model::fillGraphicsData(View* view)
+void Model::fillGraphicsData(View* view, gameData_t* gameData)
 {
 
     view->graphicsData->gameLost = isGameLost();
     view->graphicsData->gameWon = isGameWon();
+    view->graphicsData->currentCardSelected = gameData->preEvent;
+
 
     std::vector<Character*>::iterator characterIt;
     std::vector<Floor*>::iterator floorIt;
@@ -309,41 +311,18 @@ void Model::fillGraphicsData(View* view)
             else
                 view->graphicsData->tiles[i].howManyStealthTokens = 0;
 
-            //tokens; lo que hay que hacer que lo dejamos para mañana es cargar el arreglo de tokens
-            std::vector<token_t*>::iterator tokensIt;
+            //tokens
+            for (unsigned j = 0; j < (int) tokenV_t::V_TOKEN_COUNT; j++)
+                view->graphicsData->tiles[i]->tokens[j] = false;      //pongo en false todo el arreglo de tokens
 
+            std::vector<token_t*>::iterator tokensIt;
+            for (tokensIt = (*it)->getTokens()->begin(); tokensIt = (*it)->getTokens()->end(); tokensIt++)
+            {
+                view->graphicsData->tiles[i]->tokens[(unsigned) (*tokensIt)->token] = true;
+            }
 
         }
 
-
-
     }
 
-
-
-
-    std::vector<Tile*>::iterator tileIt;
-    for (floorIt = floors.begin(); floorIt != floors.end(); floorIt++)
-    {
-
-        view->graphicsData->tiles[i].iAm = roomV_t::V_ROOMBACK;
-        view->graphicsData->tiles[i].goldBarOnTheLoose = false;
-    }
-    view->graphicsData->tiles[46].goldBarOnTheLoose = true;
-
-
-    //    for (unsigned i = 0; i < 3; i++)
-    //    {
-    //        view->graphicsData->loots[i].loot = loot_t::TIARA;
-    //                view->graphicsData->loots[i].owner = YOU;
-    //    }
-    //    view->graphicsData->currentCardSelected = button_t::A1F1;
-    //    for (unsigned i = 0; i < 8; i++)
-    //            view->graphicsData->tiles[(int) button_t::A2F1].tokens[i] = true;
-    //            view->graphicsData->tiles[(int) button_t::A2F1].tokens[1] = false;
-    //
-    //        for (unsigned i = 0; i < 8; i++)
-    //                view->graphicsData->tiles[(int) button_t::A1F1].tokens[i] = true;
-    //
-    //        }
 }

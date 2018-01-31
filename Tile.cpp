@@ -314,3 +314,9 @@ unsigned getFloor(location_t location)
 {
     return ((int) location) / (ROWS * COLS);
 }
+
+std::vector<token_t*>* Tile::getTokens()
+{
+    return this->tokens;
+}
+

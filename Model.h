@@ -27,7 +27,7 @@ private:
     void createCharacters();
     void createModelFSM();
     void createLoots();
-    void fillGraphicsData();
+    void fillGraphicsData(View* view, gameData_t* gameData);
     void eventGenerator(button_t event, gameData_t* gameData);
 
     //std::list<Tile*> floorDeck;
@@ -37,7 +37,7 @@ private:
     std::vector<Character*> characters;
     std::vector<Loot*> loots;
     Character* currentCharacter;
-    
+
     bool gameWon;
     bool gameLost;
 
