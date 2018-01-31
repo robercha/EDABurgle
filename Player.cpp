@@ -16,7 +16,7 @@ Player::eventHandler(event_t event, gameData_t* gameData)
 {
     switch (event) //Los eventos que me pasan son solo ACTION y TURN
     {
-        case ACTION: printf("model actúa");//model->analyzeAction(gameData); //Aca empieza la lógica del juego
+        case ACTION: printf("model actúa");//model->analyzeAction(gameData, event); //Aca empieza la lógica del juego
             break; //Pasamos por parámetro el indice al arreglo de characters
         case SWITCH_PLAYER: printf("Cambio de player"); switchPlayer();
             break;

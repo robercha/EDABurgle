@@ -55,7 +55,7 @@ bool Hawk::canIUseThisTile(location_t selectedTile)
     bool isTileValid = false;
     if (currentTile->isTileValid(selectedTile))
         isTileValid = true;
-    else if (currentTile->checkWall(selectedTile))
+    else if (currentTile->checkDurlock(selectedTile))
         isTileValid = true;
 
     return isTileValid;
