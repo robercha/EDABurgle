@@ -39,6 +39,7 @@ private:
     Character* currentCharacter;
     
     bool gameWon;
+    bool gameLost;
 
     GameStep*** gameHandlerMatrix;
     GameStep* currentAction;

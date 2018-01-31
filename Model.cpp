@@ -14,12 +14,6 @@ Model::Model()
     createModelFSM();
     createLoots();
     fillGraphicsData();
-    //currentAction = player1; //SOLO DE PRUEBA;
-    //event = NO_EVENT;
-
-
-
-
 }
 
 Model::~Model()
@@ -152,6 +146,7 @@ void Model::createModelFSM()
         }
     }
 
+    this->currentAction = idle;
 }
 
 void Model::analyzeAction(gameData_t* gameData)
@@ -164,10 +159,10 @@ void Model::analyzeAction(gameData_t* gameData)
 void Model::eventGenerator(gameData_t* gameData)
 {
     if(gameWon)
-        event = WIN;
+        gameData->event = WIN;
     
-    else if(!gameWon)
-        event = LOSE;
+    else if(gameLost)
+        gameData->event = LOSE;
     
     else if ((int) gameData->preEvent >= (int) button_t::A1F1 && (int) gameData->preEvent <= (int) button_t::D4F3)
     {
