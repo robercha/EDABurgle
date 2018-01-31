@@ -7,11 +7,6 @@
 #define COLS    4
 #define FLOORS   3
 
-typedef enum
-{
-    STEALTH, HACK, CRACKED, ALARM, DOWNSTAIRS, OPEN, CROW, KITTY, TOKEN_COUNT
-} token_t;
-
 Tile::Tile()
 {
     isVisible = false;
@@ -196,9 +191,9 @@ void Tile::setToken(tokenInfo_t tokenType, Tile* usefulTile)
     tokens.push_back(new token_t);
     tokens.back()->token = tokenType;
     tokens.back()->tile = this->currentLocation;
-    
-    if(tokenType==DOWNSTAIRSTOKEN)
-        tokens.back()->usefulTile=usefulTile;
+
+    if (tokenType == DOWNSTAIRSTOKEN)
+        tokens.back()->usefulTile = usefulTile;
 }
 
 unsigned getColumn(location_t location)
@@ -281,22 +276,22 @@ void ServiceDuct::setSecondduct(Tile* secondDuct)
 
 bool Stairs::isTileValid(location_t selectedTile)
 {
-        bool isTileValid = false;
-    
-    if(isAdyacentTileValid(selectedTile))
-        isTileValid = true;    
-    else if(selectedTile==(currentLocation+16))
+    bool isTileValid = false;
+
+    if (isAdyacentTileValid(selectedTile))
         isTileValid = true;
-        
-    return isTileValid; 
+    else if (selectedTile == (currentLocation + 16))
+        isTileValid = true;
+
+    return isTileValid;
 }
 
 void Stairs::reveal()
 {
-    isVisible = true;  
-    
+    isVisible = true;
+
     upstairsTile->setToken(DOWNSTAIRSTOKEN, this);
-    
+
 }
 
 unsigned getColumn(location_t location)

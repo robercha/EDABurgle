@@ -178,23 +178,23 @@ void Model::eventGenerator(button_t event, gameData_t* gameData)
         else
             gameData->event = INVALID_TILE;
     }
-    
-    else if(event == button_t::PASS)
+
+    else if (event == button_t::PASS)
         gameData->event = A_PASS;
-    else if(event == button_t::MOVE)
+    else if (event == button_t::MOVE)
     {
         std::vector<Tile*>* deck = floors[getFloor(gameData->selectedTile)]->getDeck();
         std::vector<Tile*>::iterator it;
         it = deck->begin();
-        while(it->getCurrentLocation()==gameData->selectedTile)
+        while (it->getCurrentLocation() == gameData->selectedTile)
             it++;
-        
-        if(it->isPaidMove())
+
+        if (it->isPaidMove())
             gameData->event = A_PAID_MOVE;
         else
             gameData->event = A_FREE_MOVE;
     }
-        
+
 
 
 
@@ -241,29 +241,47 @@ void Model::fillGraphicsData(View* view)
                 view->graphicsData->loots[lootIt - loots.begin()].owner = NO_PLAYER;
                 view->graphicsData->loots[lootIt - loots.begin()].isVisible = false;
             }
+        }
 
-            //tiles
+        //tiles
+        std::vector<Tile*>* deck = (*floorIt)->getDeck();
+        std::vector<Tile*>::iterator it = deck->begin();
+        for (unsigned i = FLOORTILE_QTY * (floorIt - floors.begin()); i < FLOORTILE_QTY * (++floorIt - floors.begin()); i++, it++, --floorIt)
+        {
+            view->graphicsData->tiles[i].combinationNumber =  (*it)->getCombinationNumber();
+            //            view->graphicsData->tiles[i].goldBarOnTheLoose = ;        //hacer algo con esto
 
+            if ((*it)->isTileVisible())
+                view->graphicsData->tiles[i].iAm = roomV_t::V_ROOMBACK;
+            else
+                view->graphicsData->tiles[i].iAm = (roomV_t) (*it)->getTileType();
+
+
+            if ((*it)->getTileType() == CR_FINGERPRINT)
+                view->graphicsData->tiles[i].howManyHackTokens = ((CRFingerprint) (*it))->getHackTokensQty();
+            else if ((*it)->getTileType() == CR_LASER)
+                view->graphicsData->tiles[i].howManyHackTokens = ((CRLaser) (*it))->getHackTokensQty();
+            else if ((*it)->getTileType() == CR_MOTION)
+                view->graphicsData->tiles[i].howManyHackTokens = ((CRMotion) (*it))->getHackTokensQty();
+            else
+                view->graphicsData->tiles[i].howManyHackTokens = 0;
+
+            if ((*it)->getTileType() == LAVATORY)
+                view->graphicsData->tiles[i].howManyStealthTokens = ((Lavatory) (*it))->getStealthTokensQty();
+            else
+                view->graphicsData->tiles[i].howManyStealthTokens = 0;
+
+            //tokens; lo que hay que hacer que lo dejamos para mañana es cargar el arreglo de tokens   
+            std::vector<token_t*>::iterator tokensIt;
 
 
         }
+
+
+
     }
 
 
-
-
-    //view->graphicsData->guards[0].location = location_t::;
-    //view->graphicsData->guards[1].location = location_t::;
-    //view->graphicsData->guards[2].location = location_t::;
-    //view->graphicsData->guards[0].patrolDeck = patrol_t::;
-    //view->graphicsData->guards[1].patrolDeck = patrol_t::;
-    //view->graphicsData->guards[2].patrolDeck = patrol_t::;
-    view->graphicsData->guards[0].movements = 2;
-    view->graphicsData->guards[1].movements = 3;
-    view->graphicsData->guards[2].movements = 4;
-    //    view->graphicsData->guards[0].guardDie = location_t::;
-    //    view->graphicsData->guards[1].guardDie = location_t::;
-    //    view->graphicsData->guards[2].guardDie = location_t::;
 
 
     std::vector<Tile*>::iterator tileIt;
@@ -275,65 +293,7 @@ void Model::fillGraphicsData(View* view)
     }
     view->graphicsData->tiles[46].goldBarOnTheLoose = true;
 
-    //            view->graphicsData->tiles[0].iAm = room_t::LAVATORY;
-    //            view->graphicsData->tiles[0].combinationNumber = 1;
-    //            view->graphicsData->tiles[0].howManyStealthTokens = 1;
-    //            view->graphicsData->tiles[1].iAm = room_t::CR_FINGERPRINT;
-    //            view->graphicsData->tiles[1].combinationNumber = 2;
-    //            view->graphicsData->tiles[1].howManyHackTokens = 6;
-    //            view->graphicsData->tiles[4].iAm = room_t::CR_LASER;
-    //            view->graphicsData->tiles[4].combinationNumber = 3;
-    //            view->graphicsData->tiles[5].iAm = room_t::CR_MOTION;
-    //            view->graphicsData->tiles[5].combinationNumber = 4;
-    //            view->graphicsData->tiles[6].iAm = room_t::DEADBOLT;
-    //            view->graphicsData->tiles[6].combinationNumber = 5;
-    //            view->graphicsData->tiles[7].iAm = room_t::ATRIUM;
-    //            view->graphicsData->tiles[7].combinationNumber = 6;
-    //            view->graphicsData->tiles[20].iAm = room_t::DETECTOR;
-    //            view->graphicsData->tiles[20].combinationNumber = 1;
-    //            view->graphicsData->tiles[22].iAm = room_t::FINGERPRINT;
-    //            view->graphicsData->tiles[22].combinationNumber = 2;
-    //            view->graphicsData->tiles[23].iAm = room_t::FOYER;
-    //            view->graphicsData->tiles[23].combinationNumber = 3;
-    //            view->graphicsData->tiles[26].iAm = room_t::KEYPAD;
-    //            view->graphicsData->tiles[26].combinationNumber = 4;
-    //            view->graphicsData->tiles[27].iAm = room_t::LABORATORY;
-    //            view->graphicsData->tiles[27].combinationNumber = 5;
-    //            view->graphicsData->tiles[29].iAm = room_t::LASER;
-    //            view->graphicsData->tiles[29].combinationNumber = 6;
-    //            view->graphicsData->tiles[30].iAm = room_t::LAVATORY;
-    //            view->graphicsData->tiles[30].combinationNumber = 1;
-    //            view->graphicsData->tiles[32].iAm = room_t::MOTION;
-    //            view->graphicsData->tiles[32].combinationNumber = 2;
-    //            view->graphicsData->tiles[34].iAm = room_t::ROOMBACK;
-    //            view->graphicsData->tiles[34].combinationNumber = 3;
-    //            view->graphicsData->tiles[35].iAm = room_t::SAFE;
-    //            view->graphicsData->tiles[35].combinationNumber = 4;
-    //            view->graphicsData->tiles[37].iAm = room_t::SECRETDOOR;
-    //            view->graphicsData->tiles[37].combinationNumber = 5;
-    //            view->graphicsData->tiles[39].iAm = room_t::SERVICEDUCT;
-    //            view->graphicsData->tiles[39].combinationNumber = 6;
-    //            view->graphicsData->tiles[32].iAm = room_t::MOTION;
-    //            view->graphicsData->tiles[32].combinationNumber = 2;
-    //            view->graphicsData->tiles[34].iAm = room_t::ROOMBACK;
-    //            view->graphicsData->tiles[34].combinationNumber = 3;
-    //            view->graphicsData->tiles[35].iAm = room_t::SAFE;
-    //            view->graphicsData->tiles[35].combinationNumber = 4;
-    //            view->graphicsData->tiles[37].iAm = room_t::SECRETDOOR;
-    //            view->graphicsData->tiles[37].combinationNumber = 5;
-    //            view->graphicsData->tiles[39].iAm = room_t::SERVICEDUCT;
-    //            view->graphicsData->tiles[39].combinationNumber = 6;
-    //            view->graphicsData->tiles[41].iAm = room_t::STAIRS;
-    //            view->graphicsData->tiles[41].combinationNumber = 2;
-    //            view->graphicsData->tiles[43].iAm = room_t::THERMO;
-    //            view->graphicsData->tiles[43].combinationNumber = 3;
-    //            view->graphicsData->tiles[44].iAm = room_t::WALKWAY;
-    //            view->graphicsData->tiles[44].combinationNumber = 4;
-    //            view->graphicsData->tiles[46].iAm = room_t::FOYER;
-    //            view->graphicsData->tiles[46].combinationNumber = 5;
-    //            view->graphicsData->tiles[47].iAm = room_t::SAFE;
-    //            view->graphicsData->tiles[47].combinationNumber = 6;
-    //
+
     //    for (unsigned i = 0; i < 3; i++)
     //    {
     //        view->graphicsData->loots[i].loot = loot_t::TIARA;
