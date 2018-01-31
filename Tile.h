@@ -99,6 +99,7 @@ public:
     unsigned getCombinationNumber() {
         return combinationNumber;
     };
+    std::vector<token_t*>* getTokens();
 protected:
     location_t currentLocation;
     tileType_t tileType;

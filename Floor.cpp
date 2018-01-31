@@ -171,7 +171,6 @@ unsigned floor3(std::vector< std::vector<Tile*> > &floor)
     floor[3][3]->setLeftWall();
 }
 
-
 location_t  Floor::getGuardLocation()
 {
     return guard->getLocation();
@@ -186,3 +185,4 @@ std::vector< std::vector<Tile*> >& Floor::getDeck()
 {
     return this->tiles;
 }
+
