@@ -4,7 +4,7 @@ PlayerHandle::PlayerHandle(Player* player1, Player* player2)
 {
     Player * PlayerHandleTempMatrix[STATECOUNT][EVENTCOUNT] = //Creamos matriz temporal para luego copiar a la final
     {
-        //ACTION  SWITCH_PLAYER
+        //ACTION  PASS
         {player1, player2}, //Player 1
         {player2, player1}, //Player 2
     };
@@ -27,6 +27,7 @@ PlayerHandle::PlayerHandle(Player* player1, Player* player2)
 void
 PlayerHandle::PlayerCycle(event_t event, gameData_t *gameData)
 {
+
     currentPlayer->eventHandler(event, gameData);
     currentPlayer = PlayerHandleMatrix[currentPlayer->getCurrentPlayer()][event];
 }

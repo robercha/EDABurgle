@@ -12,8 +12,6 @@
       <itemPath>Guard.h</itemPath>
       <itemPath>Loot.h</itemPath>
       <itemPath>Model.h</itemPath>
-      <itemPath>Player.h</itemPath>
-      <itemPath>PlayerHandle.h</itemPath>
       <itemPath>Tile.h</itemPath>
       <itemPath>View.h</itemPath>
     </logicalFolder>
@@ -122,11 +120,7 @@
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Player.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="PlayerHandle.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="PlayerHandle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -191,11 +185,7 @@
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Player.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="PlayerHandle.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="PlayerHandle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>

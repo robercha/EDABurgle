@@ -8,7 +8,7 @@
 
 class Model {
 public:
-    void analyzeAction(gameData_t* gameData);
+    bool analyzeAction(gameData_t* gameData);
     Model();
     virtual ~Model();
     void fillGraphicsData(View *view);
@@ -23,13 +23,13 @@ private:
     void createModelFSM();
     void createLoots();
     void fillGraphicsData(View* view, gameData_t* gameData);
-    void eventGenerator(button_t event, gameData_t* gameData);
+    void eventGenerator(gameData_t* gameData);
 
     //std::list<Tile*> floorDeck;
     //std::vector<Tile*> deck;
     std::vector<Floor*> floors;
     //std::vector<Guard*> guards;       //esto lo tiene floor
-    std::vector<Character*> characters;
+    std::vector<Character*> characters; //Los dos characters en juego
     std::vector<Loot*> loots;
     Character* currentCharacter;
 

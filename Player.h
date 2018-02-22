@@ -5,7 +5,7 @@
 
 
 typedef enum {
-    ACTION, SWITCH_PLAYER, NO_EVENT, EVENTCOUNT
+    ACTION, PASS, NO_EVENT, EVENTCOUNT
 } event_t;
 
 typedef enum {
@@ -16,7 +16,7 @@ class Player {
 public:
     Player();
     Player(Model* model, state_t player);
-    void eventHandler(event_t, gameData_t*);
+    bool eventHandler(gameData_t*);
     state_t getCurrentPlayer();
     ~Player();
 private:
