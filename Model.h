@@ -23,7 +23,7 @@ private:
     void createModelFSM();
     void createLoots();
     void fillGraphicsData(View* view, gameData_t* gameData);
-    void eventGenerator(button_t event, gameData_t* gameData);
+    void eventGenerator(gameData_t* gameData);
 
     //std::list<Tile*> floorDeck;
     //std::vector<Tile*> deck;
