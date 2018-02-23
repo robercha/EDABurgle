@@ -23,7 +23,7 @@ private:
     userData_t* userData;
     gameData_t* gameData;
     //graphics_t* graphics;
-    PlayerHandle* playerHandle;
+    Model* model;
     userInterface* user;
     //Networking* networking;
     View *view;
