@@ -7,6 +7,186 @@
 #define COLS    4
 #define FLOORS   3
 
+Atrium::Atrium()
+{
+    tileType = ATRIUM;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Camera::Camera()
+{
+    tileType = CAMERA;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+CRFingerprint::CRFingerprint()
+{
+    tileType = CR_FINGERPRINT;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+CRLaser::CRLaser()
+{
+    tileType = CR_LASER;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+CRMotion::CRMotion()
+{
+    tileType = CR_MOTION;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Deadbolt::Deadbolt()
+{
+    tileType = DEADBOLT;
+    alarmTile = false;
+    mustSpendActions = true;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Detector::Detector()
+{
+    tileType = DETECTOR;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Fingerprint::Fingerprint()
+{
+    tileType = FINGERPRINT;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Foyer::Foyer()
+{
+    tileType = FOYER;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Keypad::Keypad()
+{
+    tileType = KEYPAD;
+    alarmTile = false;
+    mustSpendActions = true; //le preguntamos al user si quiere tirar los dados para abrir el keypad
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Laboratory::Laboratory()
+{
+    tileType = LABORATORY;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Laser::Laser()
+{
+    tileType = LASER;
+    alarmTile = true;
+    mustSpendActions = true;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Lavatory::Lavatory()
+{
+    tileType = LAVATORY;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Motion::Motion()
+{
+    tileType = MOTION;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Safe::Safe()
+{
+    tileType = SAFE;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+SecretDoor::SecretDoor()
+{
+    tileType = SECRETDOOR;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+ServiceDuct::ServiceDuct()
+{
+    tileType = SERVICEDUCT;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Stairs::Stairs()
+{
+    tileType = STAIRS;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Thermo::Thermo()
+{
+    tileType = THERMO;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Walkway::Walkway()
+{
+    tileType = WALKWAY;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
 void Tile::setJuicerAlarm()
 {
     this->alarmTile = true;
