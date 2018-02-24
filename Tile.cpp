@@ -7,13 +7,6 @@
 #define COLS    4
 #define FLOORS   3
 
-Tile::Tile()
-{
-    isVisible = false;
-    alarmTile = false;
-    mustSpendActions = false;
-}
-
 void Tile::setJuicerAlarm()
 {
     this->alarmTile = true;
@@ -229,6 +222,11 @@ void Tile::reveal()
 
 void Tile::setToken(tokenInfo_t tokenType, Tile* usefulTile)
 {
+    if (tokenType == CROWTOKEN)
+        for (std::vector<token_t*>::iterator tokIt = tokens->begin(); tokIt != tokens->end(); tokIt++)     //si ya hay un token tipo crow lo borro y lo reemplazo por el nuevo
+            if ((*tokIt)->token == CROWTOKEN)
+                tokens.erase(tokIt);
+
     tokens.push_back(new token_t);
     tokens.back()->token = tokenType;
     tokens.back()->tile = this->currentLocation;

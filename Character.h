@@ -95,13 +95,13 @@ private:
 class Raven : public Character {
 public:
     Raven();
-    bool canIUseThisTile(location_t, tileInfo_t*);
-    bool canPlaceCrowToken(); //hasta dos tiles adyacentes
-    //bool hiddenTalent(); //place crow token
-    void setTile(Tile*);
+    void placeCrowToken(Tile*);
+
+    //    bool canPlaceCrowToken(); //hasta dos tiles adyacentes
+    //    void setTile(Tile*);
 private:
-    void placeCrowToken();
-    Tile* tile;
+    bool canIUseThisTile(location_t, tileInfo_t*);
+    //Tile* tile;
 };
 
 class Peterman : public Character {

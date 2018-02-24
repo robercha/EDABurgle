@@ -146,6 +146,11 @@ bool Raven::canIUseThisTile(location_t selectedTile, tileInfo_t* tileInfo)
     return isTileValid;
 }
 
+void Raven::placeCrowToken(Tile* tile)
+{
+    tile->setToken(CROWTOKEN, NULL);
+}
+
 void Juicer::placeExtraAlarm(Tile* tile)
 {
     tile->setJuicerAlarm();
