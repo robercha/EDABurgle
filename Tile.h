@@ -70,11 +70,9 @@ typedef enum {
 class Tile {
 public:
     Tile();
-    Tile(const Tile& orig);
     virtual ~Tile();
     bool peek(coordinates_t);
     bool isTileVisible();
-    virtual bool itsATrap() = 0;
     virtual void reveal();
     bool triggerAlarm();
     void useHackToken();
@@ -91,19 +89,15 @@ public:
     location_t getCurrentLocation();
     bool checkDurlock(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
     bool isTileTwoTilesAway(location_t location);
+    void setJuicerAlarm(); //alarma que puede poner el juicer en tiles
 
     Tile* getRightTile();
     Tile* getLeftTile();
     Tile* getUpperTile();
     Tile* getLowerTile();
 
-    tileType_t getTileType() {
-        return tileType;
-    };
-
-    unsigned getCombinationNumber() {
-        return combinationNumber;
-    };
+    tileType_t getTileType();
+    unsigned getCombinationNumber();
     std::vector<token_t*>* getTokens();
 protected:
     location_t currentLocation;
@@ -144,7 +138,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
     bool isTileValid(location_t, tileInfo_t*);
     void setTile(Tile*); //la tile a peekaer
     bool isGuardAbove(Tile* guardLocation); //devuelve true si hay q sacarle un stealth
@@ -164,7 +157,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
     bool isOnCamera(Tile* Location);
 private:
     Tile* tileP1;
@@ -184,8 +176,6 @@ public:
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
-
-    bool itsATrap();
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
@@ -204,7 +194,6 @@ public:
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
-    bool itsATrap();
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
@@ -223,7 +212,6 @@ public:
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
-    bool itsATrap();
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
@@ -238,7 +226,6 @@ public:
         mustSpendActions = true;
         isVisible = false;
     };
-    bool itsATrap();
 private:
 };
 
@@ -251,7 +238,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
 private:
 };
 
@@ -264,7 +250,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
 private:
 };
 
@@ -277,7 +262,6 @@ public:
         mustSpendActions = true; //le preguntamos al user si quiere tirar los dados para abrir el keypad
         isVisible = false;
     };
-    bool itsATrap();
 private:
 };
 
@@ -290,7 +274,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
 private:
 };
 
@@ -303,7 +286,6 @@ public:
         mustSpendActions = true;
         isVisible = false;
     };
-    bool itsATrap();
 private:
 };
 
@@ -320,7 +302,6 @@ public:
     unsigned getStealthTokensQty() {
         return stealthTokensQty;
     };
-    bool itsATrap();
 private:
     unsigned stealthTokensQty;
 };
@@ -334,7 +315,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
 private:
 };
 
@@ -347,7 +327,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
     void rollDice();
     void addDiceToSafe();
 private:
@@ -362,7 +341,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
 private:
 };
 
@@ -375,7 +353,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
 private:
 };
 
@@ -388,7 +365,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
     bool isTileValid(location_t, tileInfo_t*);
     void setSecondduct(Tile* secondDuct);
 private:
@@ -404,7 +380,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
     bool isTileValid(location_t, tileInfo_t*);
     void reveal();
 private:
@@ -420,7 +395,6 @@ public:
         mustSpendActions = false;
         isVisible = false;
     };
-    bool itsATrap();
 private:
 };
 

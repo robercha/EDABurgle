@@ -14,6 +14,21 @@ Tile::Tile()
     mustSpendActions = false;
 }
 
+void Tile::setJuicerAlarm()
+{
+    this->alarmTile = true;
+}
+
+tileType_t Tile::getTileType()
+{
+    return tileType;
+}
+
+unsigned Tile::getCombinationNumber()
+{
+    return combinationNumber;
+}
+
 Tile* Tile::getRightTile()
 {
     return this->rightTile;
@@ -268,20 +283,20 @@ bool Atrium::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
     return isTileValid;
 }
 
-bool
-Camera::itsATrap()
-{
-    //en model
-    //if(isOnCamera(tile del guardia) && (isOnCamera(tile del player1)||isOnCamera(tile del player2) ))
-    //camera->itsatrap();
-    if (isOnCamera(tileP1))
-        tileP1->triggerAlarm();
-
-    if (isOnCamera(tileP2))
-        tileP2->triggerAlarm();
-
-    return true;
-}
+//bool
+//Camera::itsATrap()
+//{
+//    //en model
+//    //if(isOnCamera(tile del guardia) && (isOnCamera(tile del player1)||isOnCamera(tile del player2) ))
+//    //camera->itsatrap();
+//    if (isOnCamera(tileP1))
+//        tileP1->triggerAlarm();
+//
+//    if (isOnCamera(tileP2))
+//        tileP2->triggerAlarm();
+//
+//    return true;
+//}
 
 bool
 Camera::isOnCamera(Tile* location)
@@ -344,29 +359,8 @@ void Stairs::reveal()
 
 }
 
-unsigned getColumn(location_t location)
-{
-    unsigned floor = getFloor(location);
-    unsigned index = (int) location - (floor) * ROWS*COLS;
-
-    return index % COLS;
-}
-
-unsigned getRow(location_t location)
-{
-    unsigned floor = getFloor(location);
-    unsigned index = (int) location - (floor) * ROWS*COLS;
-
-    return (int) (index / COLS);
-}
-
-unsigned getFloor(location_t location)
-{
-    return ((int) location) / (ROWS * COLS);
-}
-
 std::vector<token_t*>* Tile::getTokens()
 {
-    return this->tokens;
+    return &this->tokens;
 }
 

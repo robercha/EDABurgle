@@ -8,7 +8,7 @@
 
 class Model {
 public:
-    bool analyzeAction(gameData_t* gameData);
+    void analyzeAction(gameData_t* gameData);
     Model();
     virtual ~Model();
     void fillGraphicsData(View *view);
@@ -22,6 +22,7 @@ private:
     void createCharacters();
     void createModelFSM();
     void createLoots();
+    void createCharacters();
     void fillGraphicsData(View* view, gameData_t* gameData);
     void eventGenerator(gameData_t* gameData);
 

@@ -93,6 +93,23 @@ void Model::createTiles(std::vector<Tile*> deck)
         deck.push_back(new Walkway);
 }
 
+void Model::createCharacters()
+{
+    characters.push_back(new Juicer);
+    characters.push_back(new Acrobat);
+    characters.push_back(new Hacker);
+    characters.push_back(new Hawk);
+    characters.push_back(new Spotter);
+    characters.push_back(new Raven);
+    characters.push_back(new Peterman);
+
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(characters.begin(), characters.end(), std::default_random_engine(seed));
+
+    for (std::vector<Character*>::iterator charIt = characters.end(); charIt != (characters.begin() - 2); charIt--)     //shuffleo y saco 5 (de 7) para que queden los dos jugadores
+        characters.erase(charIt);
+}
+
 void Model::shuffleTiles(std::vector<Tile*> deck)
 {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
