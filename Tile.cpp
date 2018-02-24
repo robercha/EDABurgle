@@ -217,7 +217,15 @@ bool Tile::isTileVisible()
 
 void Tile::reveal()
 {
-    isVisible = true;
+    if (isVisible == false)
+    {
+        isVisible = true;
+        unsigned number = ((random() % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
+        this->combinationNumber = number;
+
+        if (this->tileType == SAFE)        //si es la safe, el combination number sera 0
+            this->combinationNumber = 0;
+    }
 }
 
 void Tile::setToken(tokenInfo_t tokenType, Tile* usefulTile)
@@ -226,6 +234,7 @@ void Tile::setToken(tokenInfo_t tokenType, Tile* usefulTile)
         for (std::vector<token_t*>::iterator tokIt = tokens->begin(); tokIt != tokens->end(); tokIt++)     //si ya hay un token tipo crow lo borro y lo reemplazo por el nuevo
             if ((*tokIt)->token == CROWTOKEN)
                 tokens.erase(tokIt);
+
 
     tokens.push_back(new token_t);
     tokens.back()->token = tokenType;
