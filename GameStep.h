@@ -21,24 +21,26 @@ typedef enum {
 
 typedef struct {
     bool pass;
-        bool move;
-        bool peek;
-        bool addDice;
-        bool rollDice;
-        bool hackCR;
-        bool useHackToken;
-        bool offerLoot;
-        bool requestLoot;
-        bool pickupLoot;
-        bool createAlarm;
-        bool spyPatrolDeck;
-        bool patrolIsTopBottom;
-        bool placeCrowToken;
-        bool acceptDecline;
+    bool move;
+    bool peek;
+    bool addDice;
+    bool rollDice;
+    bool hackCR;
+    bool useHackToken;
+    bool offerLoot;
+    bool requestLoot;
+    bool pickupLoot;
+    bool createAlarm;
+    bool spyPatrolDeck;
+    bool patrolIsTopBottom;
+    bool placeCrowToken;
+    bool acceptDecline;
 }actions_t;
 
 
 typedef struct gameData {
+    unsigned currentCharacter;
+    unsigned actionsLeft;
     button_t preEvent;
     modelEvent_t event;
     tileInfo_t selectedTile;

@@ -19,6 +19,7 @@ public:
     unsigned getLastEvent();
     ~Controller();
 private:
+    bool networkingMode;
     void* getDisplay();
     userData_t* userData;
     gameData_t* gameData;

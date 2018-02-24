@@ -202,3 +202,57 @@ std::vector< std::vector<Tile*> >& Floor::getDeck()
     return this->tiles;
 }
 
+Tile* Floor::calculateRoute(Tile* destination)
+{
+    unsigned d[16];
+    Tile* tilex;
+   
+    for(int i = 0; i<16 ; i++)
+        d[i] = (i == (this->getGuardLocation()-floorNumber*16)) ? 0 : INFINITY;
+    
+    for(int i = 0; i<16; i++)
+    {
+        tilex = minDisTance(d);
+        if(d[tilex->getCurrentLocation()-floorNumber*16] == INFINITY) return;
+        tilex->visit();
+        
+        unsigned w = tilex->getCurrentLocation()-floorNumber*16;
+        
+        
+        if(tilex->getUpper()!=NULL)
+            if(d[w+4]>(d[w]+1))
+                d[w+4] = d[w]+1;
+        
+        if(tilex->getRight()!=NULL)
+            if(d[w+1]>(d[w]+1)) 
+                d[w+1] = d[w]+1;
+        
+        if(tilex->getLower()!=NULL)
+            if(d[w-4]>(d[w]+1))
+                d[w-4] = d[w]+1;
+        
+        if(tilex->getLext()!=NULL)  
+            if(d[w-1]>(d[w]+1))
+                d[w-1] = d[w]+1;
+    }
+    
+    //agregando d en cada tile falta hacer el camino de regreso a casa
+    
+    
+    
+}
+
+Tile* Floor::minDistance(unsigned* d)
+{
+    unsigned min = INFINITY;
+    Tile* tilex;
+    
+    for(int i = 0; i < 4; i++)
+        for(int j = 0; j < 4; j++)
+            if(!this->tiles[i][j]->wasTileVisited() && (d[i*4 +j] < min))
+            {
+                min = d[i*4 +j];
+                tilex = tiles[i][j];
+            }
+    return tilex;
+}

@@ -18,9 +18,12 @@ public:
     std::vector< std::vector<Tile*> >& getDeck();
     //patrol_t getPatrolCard(); //para view
 private:
+    unsigned floorNumber;
     void createPatrolDeck();
     void setAdjacentTiles(unsigned row, unsigned col);
     void createWalls(unsigned);
+    Tile* Floor::calculateRoute(Tile* destination, std::vector < std::vector<Tile*> >& floor );
+    unsigned Floor::minDistance(unsigned* d);
     Guard* guard;
     std::vector<patrol_t> patrolDeck;
     std::vector<patrol_t> trashedPatrolDeck;
