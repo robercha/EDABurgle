@@ -39,7 +39,7 @@ typedef enum {
     NO_LOCATION
 } location_t;
 
-typedef struct{
+typedef struct {
     location_t location;
     bool ownTile;
     bool hawkWall;
@@ -47,7 +47,7 @@ typedef struct{
     bool twoTilesAwayTile;
     bool serviceDuct;
     //bool secretDoor;
-}tileInfo_t;
+} tileInfo_t;
 
 unsigned getColumn(location_t location);
 unsigned getRow(location_t location);
@@ -91,6 +91,11 @@ public:
     location_t getCurrentLocation();
     bool checkDurlock(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
     bool isTileTwoTilesAway(location_t location);
+
+    Tile* getRightTile();
+    Tile* getLeftTile();
+    Tile* getUpperTile();
+    Tile* getLowerTile();
 
     tileType_t getTileType() {
         return tileType;
