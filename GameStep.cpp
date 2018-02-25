@@ -8,6 +8,14 @@ GameStep::~GameStep()
 {
 }
 
+void GameStep::drawLoot(gamePointers_t* gamePointers)
+{
+    gamePointers->currentCharacter->addLoot(gamePointers->loots[0]);
+    gamePointers->loots.erase(0);
+    //if(loot==gold Bar)
+    //hacer algo
+}
+
 void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
     switch (gameData->event)
@@ -22,11 +30,34 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             gamePointers->currentCharacter->pass();
             moveGuards();
             break;
-        case A_ADD_DICE_TO_SAFE: break;
-        case A_ROLL_DICE_FOR_SAFE: break;
-        case A_HACK_COMPUTER: break;
-        case A_PICKUP_LOOT: break;
-        case A_USE_HACK_TOKEN: break;
+        case A_ADD_DICE_TO_SAFE:
+            if (gameData->actions.addDice == true)
+                gamePointers->currentCharacter->addDiceToSafe();
+            break;
+        case A_ROLL_DICE_FOR_SAFE:
+            if (gameData->actions.rollDice == true)
+            {
+                gamePointers->floors[(unsigned) gamePointers->currentCharacter->getLocation() / 16]->crack(gamePointers->currentCharacter->getDieQty());
+                if (gamePointers->currentCharacter->wasCracked())
+                    drawLoot(gamePointers);
+            }
+            break;
+        case A_HACK_COMPUTER:
+            if (gameData->actions.hackCR == true)
+            {
+                gamePointers->currentCharacter->addToken(HACKTOKEN, NULL);
+            }
+            break;
+        case A_USE_HACK_TOKEN:
+            if (gameData->actions.useHackToken == true)
+            {
+                //completar
+            }
+            break;
+        case A_LOOT: break;
+        case A_PATROL_CARD:
+            showUsedPatrolCards();
+            break;
         case WIN: break;
         case LOSE: break;
 

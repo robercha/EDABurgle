@@ -14,6 +14,7 @@ Atrium::Atrium()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Camera::Camera()
@@ -23,6 +24,7 @@ Camera::Camera()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 CRFingerprint::CRFingerprint()
@@ -32,6 +34,7 @@ CRFingerprint::CRFingerprint()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 CRLaser::CRLaser()
@@ -41,6 +44,7 @@ CRLaser::CRLaser()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 CRMotion::CRMotion()
@@ -50,6 +54,7 @@ CRMotion::CRMotion()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Deadbolt::Deadbolt()
@@ -59,6 +64,7 @@ Deadbolt::Deadbolt()
     mustSpendActions = true;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Detector::Detector()
@@ -68,6 +74,7 @@ Detector::Detector()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Fingerprint::Fingerprint()
@@ -77,6 +84,7 @@ Fingerprint::Fingerprint()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Foyer::Foyer()
@@ -86,6 +94,7 @@ Foyer::Foyer()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Keypad::Keypad()
@@ -95,6 +104,7 @@ Keypad::Keypad()
     mustSpendActions = true; //le preguntamos al user si quiere tirar los dados para abrir el keypad
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Laboratory::Laboratory()
@@ -104,6 +114,7 @@ Laboratory::Laboratory()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Laser::Laser()
@@ -113,6 +124,7 @@ Laser::Laser()
     mustSpendActions = true;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Lavatory::Lavatory()
@@ -122,6 +134,7 @@ Lavatory::Lavatory()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Motion::Motion()
@@ -131,6 +144,7 @@ Motion::Motion()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Safe::Safe()
@@ -140,6 +154,8 @@ Safe::Safe()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    numberOfDice = 0;
+    crackedToken = false;
 }
 
 SecretDoor::SecretDoor()
@@ -149,6 +165,7 @@ SecretDoor::SecretDoor()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 ServiceDuct::ServiceDuct()
@@ -158,6 +175,7 @@ ServiceDuct::ServiceDuct()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Stairs::Stairs()
@@ -167,6 +185,7 @@ Stairs::Stairs()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Thermo::Thermo()
@@ -176,6 +195,7 @@ Thermo::Thermo()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 Walkway::Walkway()
@@ -185,6 +205,7 @@ Walkway::Walkway()
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
+    crackedToken = false;
 }
 
 void Tile::setJuicerAlarm()
@@ -491,6 +512,11 @@ Camera::isOnCamera(Tile* location)
     // return (location == Camera) ? true : false;
 }
 
+void Safe::addDice()
+{
+    numberOfDice++;
+}
+
 bool ServiceDuct::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
@@ -546,8 +572,6 @@ void Stairs::reveal()
 
 }
 
-std::vector<token_t*>* Tile::getTokens()
-{
-    return &this->tokens;
-}
+
+
 

@@ -81,7 +81,6 @@ Controller::manageEvent(void)
     translateUserData(); //convierte button_t a modelEvent_t que son los de model FSM
     //if (playerHandle->getEvent() != NO_EVENT)
     if ((userData->buttonClicked != (unsigned) button_t::NO_BUTTON) ||
-
             (userData->buttonClicked != (unsigned) button_t::HOME_EXIT))
     {
         if (networkingMode && gameData->currentCharacter == 0) //Si juega online sólo entra al juego si es el turno del de esta compu

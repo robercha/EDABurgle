@@ -22,6 +22,34 @@ public:
     void pass();
     void peek(Tile*);
     //virtual bool hiddenTalent() = 0;
+
+    void addLoot(Loot& loot) {
+        loots.push_back(loot);
+    }
+
+    void addToken(tokenInfo_t token, Tile* tile) {
+        currentTile->setToken(token, tile);
+    }
+
+    void addDiceToSafe() {
+        dynamic_cast<Safe*> (currentTile)->addDice();
+    }
+
+    void addDiceToSafe() {
+        dynamic_cast<Safe*> (currentTile)->addDice();
+    }
+
+    bool wasCracked() {
+        return dynamic_cast<Safe*> (currentTile)->isCracked();
+    }
+
+    unsigned getDieQty() {
+        return dynamic_cast<Safe*> (currentTile)->getDieQty();
+    }
+
+    tileType_t whereAmI() {
+        return currentTile->getTileType();
+    }
     virtual bool canIUseThisTile(location_t, tileInfo_t*); //de cada character y le pregunta a la tile sus adyacentes
     character_t getName();
     unsigned getStealthTokensQty();

@@ -1,6 +1,7 @@
 #ifndef GAMESTEP_H
 #define GAMESTEP_H
 
+#include <string>
 #include "Floor.h"
 #include "Tile.h"
 #include "Guard.h"
@@ -15,15 +16,16 @@ typedef enum {
     VALID_TILE, INVALID_TILE, A_PASS, A_FREE_MOVE, A_PAID_MOVE, A_PEEK, A_ADD_DICE_TO_SAFE,
     A_ROLL_DICE_FOR_SAFE, A_HACK_COMPUTER, A_USE_HACK_TOKEN, A_OFFER_LOOT,
     A_REQUEST_LOOT, A_PICKUP_LOOT, A_CREATE_ALARM, A_SPY_PATROL_DECK, A_PATROL_IS_TOP,
-    A_PATROL_IS_BOTTOM, A_PLACE_CROW_TOKEN, WIN, LOSE, ACCEPT, DECLINE, LOOT, PATROL_CARD, EVENT_COUNT
+    A_PATROL_IS_BOTTOM, A_PLACE_CROW_TOKEN, WIN, LOSE, ACCEPT, DECLINE, A_LOOT, A_PATROL_CARD, EVENT_COUNT
 
 } modelEvent_t;
 
 struct gamePointers_t {
-    std::vector<Floor*>* floors;
-    std::vector<Guard*>* guards; //esto lo tiene floor
-    std::vector<Character*>* characters; //Los dos characters en juego
+    std::vector<Floor*>& floors;
+    std::vector<Guard*>& guards; //esto lo tiene floor
+    std::vector<Character*>& characters; //Los dos characters en juego
     Character* currentCharacter;
+    std::vector<Loot*> loots;
 };
 
 typedef struct {
@@ -42,9 +44,7 @@ typedef struct {
     bool patrolIsTopBottom;
     bool placeCrowToken;
     bool acceptDecline;
-
-}actions_t;
-
+} actions_t;
 
 typedef struct gameData {
     unsigned currentCharacter;
@@ -53,7 +53,8 @@ typedef struct gameData {
     modelEvent_t event;
     tileInfo_t selectedTile;
     actions_t actions;
-
+    unsigned loot; //el loot que se toco
+    unsigned patrolDeck;
 } gameData_t;
 
 class GameStep {
@@ -62,6 +63,11 @@ public:
     virtual ~GameStep();
     virtual void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers) = 0;
     modelState_t getState();
+
+    std::string& getMessage() {
+        return this->message;
+    }
+    void drawLoot(gamePointers_t*);
 protected:
     modelState_t state;
     void moveGuards();
@@ -69,13 +75,15 @@ protected:
     bool isGameWon();
     bool isGameLost();
     void showInvalidTileMessage(); //no tiene acceso a view, deberia hacerlo controller
+    std::string message;
 };
 
 class Idle : public GameStep {
 public:
 
-    Idle();
-    ;
+    Idle() {
+        state = IDLE;
+    };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
 private:
     void enableActions();

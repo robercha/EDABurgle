@@ -11,7 +11,7 @@ public:
     void analyzeAction(gameData_t* gameData);
     Model();
     virtual ~Model();
-    void fillGraphicsData(View *view);
+    void fillGraphicsData(View *view); //que solo le pase graphicsData
 private:
     bool isGameWon();
     bool isGameLost();
