@@ -19,7 +19,6 @@ typedef enum {
 class Guard {
 public:
     Guard();
-    Guard(const Guard& orig);
     virtual ~Guard();
     //walk() avanza de a uno, o al destino final, hay q verlo!!!
     void walk(); //usa calculateRoute() tantas veces como steps tenga que dar y camina

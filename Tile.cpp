@@ -7,11 +7,199 @@
 #define COLS    4
 #define FLOORS   3
 
-Tile::Tile()
+Atrium::Atrium()
 {
-    isVisible = false;
+    tileType = ATRIUM;
     alarmTile = false;
     mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Camera::Camera()
+{
+    tileType = CAMERA;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+CRFingerprint::CRFingerprint()
+{
+    tileType = CR_FINGERPRINT;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+CRLaser::CRLaser()
+{
+    tileType = CR_LASER;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+CRMotion::CRMotion()
+{
+    tileType = CR_MOTION;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Deadbolt::Deadbolt()
+{
+    tileType = DEADBOLT;
+    alarmTile = false;
+    mustSpendActions = true;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Detector::Detector()
+{
+    tileType = DETECTOR;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Fingerprint::Fingerprint()
+{
+    tileType = FINGERPRINT;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Foyer::Foyer()
+{
+    tileType = FOYER;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Keypad::Keypad()
+{
+    tileType = KEYPAD;
+    alarmTile = false;
+    mustSpendActions = true; //le preguntamos al user si quiere tirar los dados para abrir el keypad
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Laboratory::Laboratory()
+{
+    tileType = LABORATORY;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Laser::Laser()
+{
+    tileType = LASER;
+    alarmTile = true;
+    mustSpendActions = true;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Lavatory::Lavatory()
+{
+    tileType = LAVATORY;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Motion::Motion()
+{
+    tileType = MOTION;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Safe::Safe()
+{
+    tileType = SAFE;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+SecretDoor::SecretDoor()
+{
+    tileType = SECRETDOOR;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+ServiceDuct::ServiceDuct()
+{
+    tileType = SERVICEDUCT;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Stairs::Stairs()
+{
+    tileType = STAIRS;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Thermo::Thermo()
+{
+    tileType = THERMO;
+    alarmTile = true;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+Walkway::Walkway()
+{
+    tileType = WALKWAY;
+    alarmTile = false;
+    mustSpendActions = false;
+    isVisible = false;
+    combinationNumber = 0;
+}
+
+void Tile::setJuicerAlarm()
+{
+    this->alarmTile = true;
+}
+
+tileType_t Tile::getTileType()
+{
+    return tileType;
+}
+
+unsigned Tile::getCombinationNumber()
+{
+    return combinationNumber;
 }
 
 Tile* Tile::getRightTile()
@@ -209,11 +397,25 @@ bool Tile::isTileVisible()
 
 void Tile::reveal()
 {
-    isVisible = true;
+    if (isVisible == false)
+    {
+        isVisible = true;
+        unsigned number = ((random() % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
+        this->combinationNumber = number;
+
+        if (this->tileType == SAFE)        //si es la safe, el combination number sera 0
+            this->combinationNumber = 0;
+    }
 }
 
 void Tile::setToken(tokenInfo_t tokenType, Tile* usefulTile)
 {
+    if (tokenType == CROWTOKEN)
+        for (std::vector<token_t*>::iterator tokIt = tokens->begin(); tokIt != tokens->end(); tokIt++)     //si ya hay un token tipo crow lo borro y lo reemplazo por el nuevo
+            if ((*tokIt)->token == CROWTOKEN)
+                tokens.erase(tokIt);
+
+
     tokens.push_back(new token_t);
     tokens.back()->token = tokenType;
     tokens.back()->tile = this->currentLocation;
@@ -268,20 +470,20 @@ bool Atrium::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
     return isTileValid;
 }
 
-bool
-Camera::itsATrap()
-{
-    //en model
-    //if(isOnCamera(tile del guardia) && (isOnCamera(tile del player1)||isOnCamera(tile del player2) ))
-    //camera->itsatrap();
-    if (isOnCamera(tileP1))
-        tileP1->triggerAlarm();
-
-    if (isOnCamera(tileP2))
-        tileP2->triggerAlarm();
-
-    return true;
-}
+//bool
+//Camera::itsATrap()
+//{
+//    //en model
+//    //if(isOnCamera(tile del guardia) && (isOnCamera(tile del player1)||isOnCamera(tile del player2) ))
+//    //camera->itsatrap();
+//    if (isOnCamera(tileP1))
+//        tileP1->triggerAlarm();
+//
+//    if (isOnCamera(tileP2))
+//        tileP2->triggerAlarm();
+//
+//    return true;
+//}
 
 bool
 Camera::isOnCamera(Tile* location)
@@ -344,29 +546,8 @@ void Stairs::reveal()
 
 }
 
-unsigned getColumn(location_t location)
-{
-    unsigned floor = getFloor(location);
-    unsigned index = (int) location - (floor) * ROWS*COLS;
-
-    return index % COLS;
-}
-
-unsigned getRow(location_t location)
-{
-    unsigned floor = getFloor(location);
-    unsigned index = (int) location - (floor) * ROWS*COLS;
-
-    return (int) (index / COLS);
-}
-
-unsigned getFloor(location_t location)
-{
-    return ((int) location) / (ROWS * COLS);
-}
-
 std::vector<token_t*>* Tile::getTokens()
 {
-    return this->tokens;
+    return &this->tokens;
 }
 

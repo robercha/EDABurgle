@@ -70,11 +70,9 @@ typedef enum {
 class Tile {
 public:
     Tile();
-    Tile(const Tile& orig);
     virtual ~Tile();
     bool peek(coordinates_t);
     bool isTileVisible();
-    virtual bool itsATrap() = 0;
     virtual void reveal();
     bool triggerAlarm();
     void useHackToken();
@@ -91,6 +89,7 @@ public:
     location_t getCurrentLocation();
     bool checkDurlock(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
     bool isTileTwoTilesAway(location_t location);
+    void setJuicerAlarm(); //alarma que puede poner el juicer en tiles
 
     Tile* getRightTile();
     Tile* getLeftTile();
@@ -126,6 +125,7 @@ public:
     unsigned getCombinationNumber() {
         return combinationNumber;
     };
+
     std::vector<token_t*>* getTokens();
 protected:
     location_t currentLocation;
@@ -162,14 +162,7 @@ typedef struct tokens {
 
 class Atrium : public Tile {
 public:
-
-    Atrium() {
-        tileType = ATRIUM;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Atrium();
     bool isTileValid(location_t, tileInfo_t*);
     void setTile(Tile*); //la tile a peekaer
     bool isGuardAbove(Tile* guardLocation); //devuelve true si hay q sacarle un stealth
@@ -182,14 +175,7 @@ private:
 
 class Camera : public Tile {
 public:
-
-    Camera() {
-        tileType = CAMERA;
-        alarmTile = true;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Camera();
     bool isOnCamera(Tile* Location);
 private:
     Tile* tileP1;
@@ -198,19 +184,11 @@ private:
 
 class CRFingerprint : public Tile {
 public:
-
-    CRFingerprint() {
-        tileType = CR_FINGERPRINT;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
+    CRFingerprint();
 
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
-
-    bool itsATrap();
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
@@ -218,18 +196,11 @@ private:
 
 class CRMotion : public Tile {
 public:
-
-    CRMotion() {
-        tileType = CR_MOTION;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
+    CRMotion();
 
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
-    bool itsATrap();
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
@@ -237,18 +208,11 @@ private:
 
 class CRLaser : public Tile {
 public:
-
-    CRLaser() {
-        tileType = CR_LASER;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
+    CRLaser();
 
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
-    bool itsATrap();
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
@@ -256,123 +220,60 @@ private:
 
 class Deadbolt : public Tile {
 public:
-
-    Deadbolt() {
-        tileType = DEADBOLT;
-        alarmTile = false;
-        mustSpendActions = true;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Deadbolt();
 private:
 };
 
 class Fingerprint : public Tile {
 public:
-
-    Fingerprint() {
-        tileType = FINGERPRINT;
-        alarmTile = true;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Fingerprint();
 private:
 };
 
 class Foyer : public Tile {
 public:
-
-    Foyer() {
-        tileType = FOYER;
-        alarmTile = true;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Foyer();
 private:
 };
 
 class Keypad : public Tile {
 public:
-
-    Keypad() {
-        tileType = KEYPAD;
-        alarmTile = false;
-        mustSpendActions = true; //le preguntamos al user si quiere tirar los dados para abrir el keypad
-        isVisible = false;
-    };
-    bool itsATrap();
+    Keypad();
 private:
 };
 
 class Laboratory : public Tile {
 public:
-
-    Laboratory() {
-        tileType = LABORATORY;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Laboratory();
 private:
 };
 
 class Laser : public Tile {
 public:
-
-    Laser() {
-        tileType = LASER;
-        alarmTile = true;
-        mustSpendActions = true;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Laser();
 private:
 };
 
 class Lavatory : public Tile {
 public:
-
-    Lavatory() {
-        tileType = LAVATORY;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
+    Lavatory();
 
     unsigned getStealthTokensQty() {
         return stealthTokensQty;
     };
-    bool itsATrap();
 private:
     unsigned stealthTokensQty;
 };
 
 class Motion : public Tile {
 public:
-
-    Motion() {
-        tileType = MOTION;
-        alarmTile = true;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Motion();
 private:
 };
 
 class Safe : public Tile {
 public:
-
-    Safe() {
-        tileType = SAFE;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Safe();
     void rollDice();
     void addDiceToSafe();
 private:
@@ -380,40 +281,19 @@ private:
 
 class Detector : public Tile {
 public:
-
-    Detector() {
-        tileType = DETECTOR;
-        alarmTile = true;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Detector();
 private:
 };
 
 class SecretDoor : public Tile {
 public:
-
-    SecretDoor() {
-        tileType = SECRETDOOR;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    SecretDoor();
 private:
 };
 
 class ServiceDuct : public Tile {
 public:
-
-    ServiceDuct() {
-        tileType = SERVICEDUCT;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    ServiceDuct();
     bool isTileValid(location_t, tileInfo_t*);
     void setSecondduct(Tile* secondDuct);
 private:
@@ -422,14 +302,7 @@ private:
 
 class Stairs : public Tile {
 public:
-
-    Stairs() {
-        tileType = STAIRS;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Stairs();
     bool isTileValid(location_t, tileInfo_t*);
     void reveal();
 private:
@@ -438,26 +311,13 @@ private:
 
 class Thermo : public Tile {
 public:
-
-    Thermo() {
-        tileType = THERMO;
-        alarmTile = true;
-        mustSpendActions = false;
-        isVisible = false;
-    };
-    bool itsATrap();
+    Thermo();
 private:
 };
 
 class Walkway : public Tile {
 public:
-
-    Walkway() {
-        tileType = WALKWAY;
-        alarmTile = false;
-        mustSpendActions = false;
-        isVisible = false;
-    };
+    Walkway();
     bool itsATrap();
 private:
 };

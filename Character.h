@@ -6,8 +6,11 @@
 #include "Floor.h"
 #include "Loot.h"
 
+#define INIT_STEALTH 3
+#define INIT_ACTIONS 4
+
 typedef enum {
-    JUICER, HACKER, ACROBAT, SPOTTER, HAWK, RAVEN, PETERMAN
+    JUICER, HACKER, ACROBAT, SPOTTER, HAWK, RAVEN, PETERMAN, CHARACTER_COUNT
 } character_t;
 
 class Character {
@@ -15,10 +18,10 @@ public:
     Character();
     Character(const Character& orig);
     virtual ~Character();
-    void move();
-    //void peek();          esto esta en tile
+    void move(Tile*);
     void pass();
-    virtual bool hiddenTalent() = 0;
+    void peek(Tile*);
+    //virtual bool hiddenTalent() = 0;
     virtual bool canIUseThisTile(location_t, tileInfo_t*); //de cada character y le pregunta a la tile sus adyacentes
     character_t getName();
     unsigned getStealthTokensQty();
@@ -35,25 +38,19 @@ protected:
 
 class Juicer : public Character {
 public:
-
-    Juicer() {
-        name = JUICER;
-    };
-    bool hiddenTalent(); //coloca alarma triggereada si isTileAdyacent()==true
-    void setTile(Tile*);
+    Juicer();
+    void placeExtraAlarm(Tile*); //se le pasa una tile adyacente
+    //    void setTile(Tile*);
 private:
-    Tile* adyacentTile;
-    bool isTileAdyacent();
+    //    Tile* adyacentTile;
+    //    bool isTileAdyacent();
 
 };
 
 class Hacker : public Character {
 public:
-
-    Hacker() {
-        name = HACKER;
-    };
-    bool hiddenTalent(); //no triggerea alarma
+    Hacker();
+    //bool hiddenTalent(); //no triggerea alarma
 
 private:
     bool isPartnerOnSameTile();
@@ -64,11 +61,8 @@ private:
 
 class Acrobat : public Character {
 public:
-
-    Acrobat() {
-        name = ACROBAT;
-    };
-    bool hiddenTalent(); //se fija si la cant de actions es 0 y si el guardia sigue en la misma tile le quita un stealth
+    Acrobat();
+    //bool hiddenTalent(); //se fija si la cant de actions es 0 y si el guardia sigue en la misma tile le quita un stealth
 private:
     bool isGuardOnCurrTile();
     bool actionCount(); //se fija si la cant de actions es 0
@@ -76,11 +70,8 @@ private:
 
 class Spotter : public Character {
 public:
-
-    Spotter() {
-        name = SPOTTER;
-    };
-    bool hiddenTalent(); //esta usa spend action
+    Spotter();
+    //bool hiddenTalent(); //esta usa spend action
     void sendToTop(); //para los botoncitos
     void sendToBottom(std::vector<patrol_t>* patrolDeck);
 private:
@@ -89,13 +80,10 @@ private:
 
 class Hawk : public Character {
 public:
-
-    Hawk() {
-        name = HAWK;
-    };
+    Hawk();
     bool canIUseThisTile(location_t, tileInfo_t*);
 
-    bool hiddenTalent(); //chequea si hay una pared y si la hay el peek no cuesta action
+    //bool hiddenTalent(); //chequea si hay una pared y si la hay el peek no cuesta action
     void setTile(Tile*);
 private:
     void addAction();
@@ -106,26 +94,20 @@ private:
 
 class Raven : public Character {
 public:
+    Raven();
+    void placeCrowToken(Tile*);
 
-    Raven() {
-        name = RAVEN;
-    };
-    bool canIUseThisTile(location_t, tileInfo_t*);
-    bool canPlaceCrowToken(); //hasta dos tiles adyacentes
-    bool hiddenTalent(); //place crow token
-    void setTile(Tile*);
+    //    bool canPlaceCrowToken(); //hasta dos tiles adyacentes
+    //    void setTile(Tile*);
 private:
-    void placeCrowToken();
-    Tile* tile;
+    bool canIUseThisTile(location_t, tileInfo_t*);
+    //Tile* tile;
 };
 
 class Peterman : public Character {
 public:
-
-    Peterman() {
-        name = PETERMAN;
-    };
-    bool hiddenTalent(); //throw aditional dice for safe or keypad
+    Peterman();
+    //bool hiddenTalent(); //throw aditional dice for safe or keypad
 private:
     unsigned throwAditionalDice();
 
