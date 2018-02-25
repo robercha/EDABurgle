@@ -167,7 +167,7 @@ void Model::createModelFSM()
 
 void Model::analyzeAction(gameData_t* gameData)
 {
-    gamePointers_t *gamePointers;
+    gamePointers_t *gamePointers;           //cargamos estructura con los punteros del juego que se manda a model
     gamePointers->currentCharacter = this->currentCharacter;
     gamePointers->characters = &this->characters;
     gamePointers->floors = &this->floors;

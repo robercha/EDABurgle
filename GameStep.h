@@ -60,16 +60,21 @@ public:
     modelState_t getState();
 protected:
     modelState_t state;
+    void moveGuards();
+    bool hasCharLostLife();
+    bool isGameWon();
+    bool isGameLost();
+    void showInvalidTileMessage(); //no tiene acceso a view, deberia hacerlo controller
 };
 
 class Idle : public GameStep {
 public:
 
-    Idle() {
-        state = IDLE;
-    };
+    Idle();
+    ;
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
 private:
+    void enableActions();
 };
 
 class WaitingFirstAction : public GameStep {

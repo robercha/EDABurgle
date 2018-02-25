@@ -12,9 +12,16 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
     switch (gameData->event)
     {
-        case VALID_TILE: break; //pone en negrito las opciones posibles;
-        case INVALID_TILE: break;
-        case A_PASS: break;
+        case VALID_TILE:
+            enableActions();
+            break; //pone en negrito las opciones posibles;
+        case INVALID_TILE:
+            showInvalidTileMessage();
+            break;
+        case A_PASS:
+            gamePointers->currentCharacter->pass();
+            moveGuards();
+            break;
         case A_ADD_DICE_TO_SAFE: break;
         case A_ROLL_DICE_FOR_SAFE: break;
         case A_HACK_COMPUTER: break;
@@ -25,6 +32,11 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 
         default: break;
     }
+
+}
+
+void Idle::enableActions()
+{
 
 }
 
