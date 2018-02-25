@@ -1,7 +1,5 @@
 #include "GameStep.h"
 
-
-
 GameStep::GameStep()
 {
 }
@@ -10,9 +8,9 @@ GameStep::~GameStep()
 {
 }
 
-void Idle::eventHandler(gameData_t* gameData)
+void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
-    switch(gameData->event)
+    switch (gameData->event)
     {
         case VALID_TILE: break; //pone en negrito las opciones posibles;
         case INVALID_TILE: break;
@@ -24,33 +22,33 @@ void Idle::eventHandler(gameData_t* gameData)
         case A_USE_HACK_TOKEN: break;
         case WIN: break;
         case LOSE: break;
-        
+
         default: break;
     }
-    
+
 }
 
-void WaitingFirstAction::eventHandler(gameData_t* gameData) 
+void WaitingFirstAction::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
 
 }
 
-void WaitingResponse::eventHandler(gameData_t* gameData)
+void WaitingResponse::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
 
 }
 
-void End::eventHandler(gameData_t* gameData) 
+void End::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
 
 }
 
-void PlayAgain::eventHandler(gameData_t* gameData) 
+void PlayAgain::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
 
 }
 
-void WaitingSecondAction::eventHandler(gameData_t* gameData) 
+void WaitingSecondAction::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
 
 }

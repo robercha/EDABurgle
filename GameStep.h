@@ -19,38 +19,44 @@ typedef enum {
 
 } modelEvent_t;
 
+struct gamePointers_t {
+    std::vector<Floor*>* floors;
+    std::vector<Guard*>* guards; //esto lo tiene floor
+    std::vector<Character*>* characters; //Los dos characters en juego
+    Character* currentCharacter;
+};
+
 typedef struct {
     bool pass;
-        bool move;
-        bool peek;
-        bool addDice;
-        bool rollDice;
-        bool hackCR;
-        bool useHackToken;
-        bool offerLoot;
-        bool requestLoot;
-        bool pickupLoot;
-        bool createAlarm;
-        bool spyPatrolDeck;
-        bool patrolIsTopBottom;
-        bool placeCrowToken;
-        bool acceptDecline;
-}actions_t;
-
+    bool move;
+    bool peek;
+    bool addDice;
+    bool rollDice;
+    bool hackCR;
+    bool useHackToken;
+    bool offerLoot;
+    bool requestLoot;
+    bool pickupLoot;
+    bool createAlarm;
+    bool spyPatrolDeck;
+    bool patrolIsTopBottom;
+    bool placeCrowToken;
+    bool acceptDecline;
+} actions_t;
 
 typedef struct gameData {
     button_t preEvent;
     modelEvent_t event;
     tileInfo_t selectedTile;
     actions_t actions;
-    
+
 } gameData_t;
 
 class GameStep {
 public:
     GameStep();
     virtual ~GameStep();
-    virtual void eventHandler(gameData_t *gameData) = 0;
+    virtual void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers) = 0;
     modelState_t getState();
 protected:
     modelState_t state;
@@ -62,7 +68,7 @@ public:
     Idle() {
         state = IDLE;
     };
-    void eventHandler(gameData_t* gameData);
+    void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
 private:
 };
 
@@ -72,7 +78,7 @@ public:
     WaitingFirstAction() {
         state = WAITING_1_ACTION;
     };
-    void eventHandler(gameData_t *gameData);
+    void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
 private:
 };
 
@@ -82,7 +88,7 @@ public:
     WaitingSecondAction() {
         state = WAITING_2_ACTION;
     };
-    void eventHandler(gameData_t *gameData);
+    void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
 private:
 };
 
@@ -92,7 +98,7 @@ public:
     WaitingResponse() {
         state = WAITING_RESPONSE;
     };
-    void eventHandler(gameData_t *gameData);
+    void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
 private:
 };
 
@@ -102,7 +108,7 @@ public:
     PlayAgain() {
         state = PLAY_AGAIN;
     };
-    void eventHandler(gameData_t *gameData);
+    void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
 private:
 };
 
@@ -112,7 +118,7 @@ public:
     End() {
         state = END;
     };
-    void eventHandler(gameData_t *gameData);
+    void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
 private:
 };
 

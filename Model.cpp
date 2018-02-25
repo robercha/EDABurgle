@@ -168,9 +168,14 @@ void Model::createModelFSM()
 
 void Model::analyzeAction(gameData_t* gameData)
 {
+    gamePointers_t *gamePointers;
+    gamePointers->currentCharacter = this->currentCharacter;
+    gamePointers->characters = &this->characters;
+    gamePointers->floors = &this->floors;
+    gamePointers->guards = &this->guards;
 
     eventGenerator(gameData); //traduce de button_t a modelEvent para la fsm de model
-    currentAction->eventHandler(gameData);
+    currentAction->eventHandler(gameData, gamePointers);
     currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
 }
 
