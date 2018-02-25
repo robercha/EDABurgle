@@ -22,8 +22,9 @@ private:
     void createPatrolDeck();
     void setAdjacentTiles(unsigned row, unsigned col);
     void createWalls(unsigned);
-    Tile* Floor::calculateRoute(Tile* destination, std::vector < std::vector<Tile*> >& floor );
-    unsigned Floor::minDistance(unsigned* d);
+    Tile* calculateRoute(Tile* destination);
+    Tile* minDistance();
+    void unvisitTiles();
     Guard* guard;
     std::vector<patrol_t> patrolDeck;
     std::vector<patrol_t> trashedPatrolDeck;

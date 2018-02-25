@@ -204,55 +204,78 @@ std::vector< std::vector<Tile*> >& Floor::getDeck()
 
 Tile* Floor::calculateRoute(Tile* destination)
 {
-    unsigned d[16];
     Tile* tilex;
+    
    
     for(int i = 0; i<16 ; i++)
-        d[i] = (i == (this->getGuardLocation()-floorNumber*16)) ? 0 : INFINITY;
+         tilex->setDistance2Guard(i == this->getGuardLocation() ? 0 : INFINITY);
     
     for(int i = 0; i<16; i++)
     {
-        tilex = minDisTance(d);
-        if(d[tilex->getCurrentLocation()-floorNumber*16] == INFINITY) return;
+        tilex = minDistance();
         tilex->visit();
+             
+        if(tilex->getLowerTile() != NULL)
+            if(tilex->getLowerTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
+                tilex->getLowerTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
         
-        unsigned w = tilex->getCurrentLocation()-floorNumber*16;
+        if(tilex->getRightTile() != NULL)
+            if(tilex->getRightTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
+                tilex->getRightTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
         
+        if(tilex->getUpperTile() != NULL)
+            if(tilex->getUpperTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
+                tilex->getUpperTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
         
-        if(tilex->getUpper()!=NULL)
-            if(d[w+4]>(d[w]+1))
-                d[w+4] = d[w]+1;
-        
-        if(tilex->getRight()!=NULL)
-            if(d[w+1]>(d[w]+1)) 
-                d[w+1] = d[w]+1;
-        
-        if(tilex->getLower()!=NULL)
-            if(d[w-4]>(d[w]+1))
-                d[w-4] = d[w]+1;
-        
-        if(tilex->getLext()!=NULL)  
-            if(d[w-1]>(d[w]+1))
-                d[w-1] = d[w]+1;
+        if(tilex->getLeftTile() != NULL)  
+            if(tilex->getLeftTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
+                tilex->getLeftTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
     }
     
-    //agregando d en cada tile falta hacer el camino de regreso a casa
+    tilex = destination;
     
+    while(tilex->getDistance2Guard() != 1)
+    {
+        if(tilex->getUpperTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+            tilex = tilex->getUpperTile();
+        
+        if(tilex->getRightTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+            tilex = tilex->getRightTile();
+
+        if(tilex->getLowerTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+            tilex = tilex->getLowerTile();
+
+        if(tilex->getLeftTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+            tilex = tilex->getLeftTile();        
+    }
     
+    unvisitTiles();
+    
+    return tilex;
     
 }
 
-Tile* Floor::minDistance(unsigned* d)
+Tile* Floor::minDistance()
 {
     unsigned min = INFINITY;
     Tile* tilex;
     
     for(int i = 0; i < 4; i++)
         for(int j = 0; j < 4; j++)
-            if(!this->tiles[i][j]->wasTileVisited() && (d[i*4 +j] < min))
+            if(!tiles[i][j]->wasItVisited() && (tiles[i][j]->getDistance2Guard() < min))
             {
-                min = d[i*4 +j];
+                min = tiles[i][j]->getDistance2Guard();
                 tilex = tiles[i][j];
-            }
+            }    
+    
     return tilex;
+}
+
+void Floor::unvisitTiles()
+{
+
+    for(int i = 0; i < 4; i++)
+        for(int j = 0; j < 4; j++)
+            tiles[i][j]->unvisit();
+    
 }
