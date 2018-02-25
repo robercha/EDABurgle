@@ -82,14 +82,20 @@ Controller::manageEvent(void)
     //if (playerHandle->getEvent() != NO_EVENT)
     if ((userData->buttonClicked != (unsigned) button_t::NO_BUTTON) ||
             (userData->buttonClicked != (unsigned) button_t::HOME_EXIT))
-        
+
         model->analyzeAction(gameData); //Funcion de FSM
 
     //    networking->getEvent(userData);
     //    translatePackage();
     //    FSMCycle(userData->event, gameData);
-    view->updateGraphics();
+    updateGraphics();
 
+}
+
+void Controller::updateGraphics()
+{
+    model->fillGraphicsData(view);
+    view->updateGraphics();
 }
 
 //Controller::initGame()
@@ -128,14 +134,14 @@ void
 Controller::translateUserData()
 {
     gameData->preEvent = userData->buttonClicked;
-////    if (userData->buttonClicked == (unsigned) button_t::PASS)
-////        playerHandle->setEvent(PASS);
-//    if ((userData->buttonClicked == (unsigned) button_t::NO_BUTTON) ||
-//            (userData->buttonClicked == (unsigned) button_t::HOME_EXIT))
-//        playerHandle->setEvent(NO_EVENT);
-////  else
-////        playerHandle->setEvent(ACTION);
-//    userData->buttonClicked == (unsigned) button_t::NO_BUTTON;
+    ////    if (userData->buttonClicked == (unsigned) button_t::PASS)
+    ////        playerHandle->setEvent(PASS);
+    //    if ((userData->buttonClicked == (unsigned) button_t::NO_BUTTON) ||
+    //            (userData->buttonClicked == (unsigned) button_t::HOME_EXIT))
+    //        playerHandle->setEvent(NO_EVENT);
+    ////  else
+    ////        playerHandle->setEvent(ACTION);
+    //    userData->buttonClicked == (unsigned) button_t::NO_BUTTON;
 }
 
 void*

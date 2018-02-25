@@ -13,7 +13,6 @@ Model::Model()
     createFloors(deck);
     createModelFSM();
     createLoots();
-    fillGraphicsData();
 }
 
 Model::~Model()
