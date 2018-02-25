@@ -42,9 +42,13 @@ typedef struct {
     bool patrolIsTopBottom;
     bool placeCrowToken;
     bool acceptDecline;
-} actions_t;
+
+}actions_t;
+
 
 typedef struct gameData {
+    unsigned currentCharacter;
+    unsigned actionsLeft;
     button_t preEvent;
     modelEvent_t event;
     tileInfo_t selectedTile;

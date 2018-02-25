@@ -202,3 +202,80 @@ std::vector< std::vector<Tile*> >& Floor::getDeck()
     return this->tiles;
 }
 
+Tile* Floor::calculateRoute(Tile* destination)
+{
+    Tile* tilex;
+    
+   
+    for(int i = 0; i<16 ; i++)
+         tilex->setDistance2Guard(i == this->getGuardLocation() ? 0 : INFINITY);
+    
+    for(int i = 0; i<16; i++)
+    {
+        tilex = minDistance();
+        tilex->visit();
+             
+        if(tilex->getLowerTile() != NULL)
+            if(tilex->getLowerTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
+                tilex->getLowerTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
+        
+        if(tilex->getRightTile() != NULL)
+            if(tilex->getRightTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
+                tilex->getRightTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
+        
+        if(tilex->getUpperTile() != NULL)
+            if(tilex->getUpperTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
+                tilex->getUpperTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
+        
+        if(tilex->getLeftTile() != NULL)  
+            if(tilex->getLeftTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
+                tilex->getLeftTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
+    }
+    
+    tilex = destination;
+    
+    while(tilex->getDistance2Guard() != 1)
+    {
+        if(tilex->getUpperTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+            tilex = tilex->getUpperTile();
+        
+        if(tilex->getRightTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+            tilex = tilex->getRightTile();
+
+        if(tilex->getLowerTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+            tilex = tilex->getLowerTile();
+
+        if(tilex->getLeftTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+            tilex = tilex->getLeftTile();        
+    }
+    
+    unvisitTiles();
+    
+    return tilex;
+    
+}
+
+Tile* Floor::minDistance()
+{
+    unsigned min = INFINITY;
+    Tile* tilex;
+    
+    for(int i = 0; i < 4; i++)
+        for(int j = 0; j < 4; j++)
+            if(!tiles[i][j]->wasItVisited() && (tiles[i][j]->getDistance2Guard() < min))
+            {
+                min = tiles[i][j]->getDistance2Guard();
+                tilex = tiles[i][j];
+            }    
+    
+    return tilex;
+}
+
+void Floor::unvisitTiles()
+{
+
+    for(int i = 0; i < 4; i++)
+        for(int j = 0; j < 4; j++)
+            tiles[i][j]->unvisit();
+    
+}

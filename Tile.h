@@ -95,9 +95,37 @@ public:
     Tile* getLeftTile();
     Tile* getUpperTile();
     Tile* getLowerTile();
+    
+    void visit() {
+        
+        visited = true;
+    };
 
-    tileType_t getTileType();
-    unsigned getCombinationNumber();
+    void unvisit() {
+        
+        visited = false;
+    }
+    bool wasItVisited() {
+        
+        return visited;
+    };
+    
+    unsigned getDistance2Guard() {
+        return distance2guard;
+    }
+    
+    void setDistance2Guard(unsigned distance) {
+        distance2guard = distance;
+    }
+    
+    tileType_t getTileType() {
+        return tileType;
+    };
+
+    unsigned getCombinationNumber() {
+        return combinationNumber;
+    };
+
     std::vector<token_t*>* getTokens();
 protected:
     location_t currentLocation;
@@ -113,6 +141,9 @@ protected:
     Tile* secretLeftTile;
     Tile* secretUpperTile;
     Tile* secretLowerTile;
+    
+    bool visited; //deberia poder desvisitarla
+    unsigned distance2guard;
 
     bool isVisible;
     bool crackedToken;

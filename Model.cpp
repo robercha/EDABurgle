@@ -176,6 +176,12 @@ void Model::analyzeAction(gameData_t* gameData)
     eventGenerator(gameData); //traduce de button_t a modelEvent para la fsm de model
     currentAction->eventHandler(gameData, gamePointers);
     currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
+    if(gameData->actionsLeft == 0)
+    {
+        gameData->event = A_PASS;
+        currentAction->eventHandler(gameData);
+        currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
+    }
 }
 
 void Model::eventGenerator(gameData_t* gameData)
