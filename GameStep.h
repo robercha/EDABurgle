@@ -76,6 +76,7 @@ protected:
     bool isGameWon();
     bool isGameLost();
     void showInvalidTileMessage(); //no tiene acceso a view, deberia hacerlo controller
+    void showUsedPatrolCards();
     std::string message;
 };
 

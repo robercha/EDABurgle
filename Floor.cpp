@@ -214,13 +214,16 @@ Tile* Floor::calculateRoute(Tile* destination)
     
    
     for(int i = 0; i<16 ; i++)
-         tilex->setDistance2Guard(i == this->getGuardLocation() ? 0 : INFINITY);
+         tilex->setDistance2Guard(i == this->getGuardLocation() ? 0 : INFINITY); //Setea la distancia al guardia de todas las tiles en INF menos la tile actual del guard
     
     for(int i = 0; i<16; i++)
     {
-        tilex = minDistance();
-        tilex->visit();
+        tilex = minDistance(); //devuelve la tile mas cercana a la tile del guard que no haya sido visitada todavia
+        tilex->visit(); //la chequea como visitada
              
+        /*Analiza las tiles adyacentes. Si al distancia de la tile adyacente a la del guardia es mayor que
+         la de la tile en cuestion + 1, entonces es mas corto ir por el camino que se esta analizando que por otro
+         que se haya analizado anteriormente*/
         if(tilex->getLowerTile() != NULL)
             if(tilex->getLowerTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
                 tilex->getLowerTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
@@ -238,26 +241,28 @@ Tile* Floor::calculateRoute(Tile* destination)
                 tilex->getLeftTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
     }
     
-    tilex = destination;
+    tilex = destination; //En este punto, todas las tiles tienen guardada su distancia hasta el guardia
     
+    /*Voy desde la tile destino hasta la del guardia camianando por las tiles adyacentes
+     que marcan el camino mas corto*/
     while(tilex->getDistance2Guard() != 1)
     {
         if(tilex->getUpperTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
             tilex = tilex->getUpperTile();
         
-        if(tilex->getRightTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+        else if(tilex->getRightTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
             tilex = tilex->getRightTile();
 
-        if(tilex->getLowerTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+        else if(tilex->getLowerTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
             tilex = tilex->getLowerTile();
 
-        if(tilex->getLeftTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+        else if(tilex->getLeftTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
             tilex = tilex->getLeftTile();        
     }
     
-    unvisitTiles();
+    unvisitTiles(); //marco las tiles como no visitadas
     
-    return tilex;
+    return tilex; //devuelve la tile adyacente al guardia a la que tiene que moverse
     
 }
 
