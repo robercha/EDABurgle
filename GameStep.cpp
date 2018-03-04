@@ -29,7 +29,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case A_PASS:
             gamePointers->currentCharacter->pass();
             //Cambio el pointer del currentCharacter
-            (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0]; 
+            (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0];
             moveGuards();
             break;
         case A_ADD_DICE_TO_SAFE:
@@ -67,10 +67,10 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             showPepe();
             reset();
             break;
-        case LOSE: 
-            showSth();
+        case LOSE:
+            showSadPepe();
             break;
-            
+
         default: break;
     }
 
@@ -78,26 +78,26 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 
 void Idle::enableActions(gameData_t gameData)
 {
-    if(gameData->selectedTile.adyacent)
+    if (gameData->selectedTile.adyacent)
     {
         gameData->actions.move = true;
         gameData->actions.peek = true;
         gameData->actions.pass = true;
     }
-    if(gameData->selectedTile.hawkWall)
+    if (gameData->selectedTile.hawkWall)
     {
         gameData->actions.createAlarm = true;
     }
-    if(gameData->selectedTile.serviceDuct)
+    if (gameData->selectedTile.serviceDuct)
     {
         gameData->actions.move = true;
     }
-    if(gameData->selectedTile.twoTilesAwayTile)
+    if (gameData->selectedTile.twoTilesAwayTile)
     {
         gameData->actions.placeCrowToken = true;
     }
-    
-    
+
+
 
 }
 
