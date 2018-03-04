@@ -7,6 +7,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.cpp</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.cpp</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.cpp</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.cpp</file>
+=======
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.cpp</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Character.h</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Character.cpp</file>
@@ -17,6 +26,7 @@
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Loot.h</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.h</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Model.h</file>
+>>>>>>> 6b9986705921626d5b06cf5f15b1f7aec54a4c89
         </group>
     </open-files>
 </project-private>

@@ -28,6 +28,8 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             break;
         case A_PASS:
             gamePointers->currentCharacter->pass();
+            //Cambio el pointer del currentCharacter
+            (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0]; 
             moveGuards();
             break;
         case A_ADD_DICE_TO_SAFE:
@@ -37,7 +39,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case A_ROLL_DICE_FOR_SAFE:
             if (gameData->actions.rollDice == true)
             {
-                gamePointers->floors[(unsigned) gamePointers->currentCharacter->getLocation() / 16]->crack(gamePointers->currentCharacter->getDieQty());
+                gamePointers->floors[(unsigned) gamePointers->currentCharacter->getLocation() / 16]->crack(gamePointers->currentCharacter->getDieQty(), (location_t) gamePointers->currentCharacter->getLocation() % 16, gameData);
                 if (gamePointers->currentCharacter->wasCracked())
                     drawLoot(gamePointers);
             }
@@ -61,16 +63,41 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case A_PATROL_CARD:
             showUsedPatrolCards();
             break;
-        case WIN: break;
-        case LOSE: break;
-
+        case WIN:
+            showPepe();
+            reset();
+            break;
+        case LOSE: 
+            showSth();
+            break;
+            
         default: break;
     }
 
 }
 
-void Idle::enableActions()
+void Idle::enableActions(gameData_t gameData)
 {
+    if(gameData->selectedTile.adyacent)
+    {
+        gameData->actions.move = true;
+        gameData->actions.peek = true;
+        gameData->actions.pass = true;
+    }
+    if(gameData->selectedTile.hawkWall)
+    {
+        gameData->actions.createAlarm = true;
+    }
+    if(gameData->selectedTile.serviceDuct)
+    {
+        gameData->actions.move = true;
+    }
+    if(gameData->selectedTile.twoTilesAwayTile)
+    {
+        gameData->actions.placeCrowToken = true;
+    }
+    
+    
 
 }
 

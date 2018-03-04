@@ -203,6 +203,7 @@ Safe::Safe()
     combinationNumber = 0;
     numberOfDice = 0;
     crackedToken = false;
+    crackedSafe = false;
     crowToken = false;
 }
 
@@ -604,7 +605,15 @@ void Safe::addDice()
 {
     numberOfDice++;
 }
+bool Safe :: isCracked()
+{
+    return crackedSafe;
+}
 
+void Safe :: setCracked()
+{
+    crackedSafe = true;
+}
 bool ServiceDuct::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;

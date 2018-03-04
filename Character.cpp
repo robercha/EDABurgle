@@ -55,6 +55,7 @@ Character::~Character()
 void Character::pass()
 {
     actions = INIT_ACTIONS;
+    
 }
 
 Juicer::Juicer()
