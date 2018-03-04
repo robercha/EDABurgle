@@ -9,11 +9,11 @@
         <group>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.h</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.h</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.cpp</file>
-
         </group>
     </open-files>
 </project-private>

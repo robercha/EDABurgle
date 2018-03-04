@@ -39,6 +39,7 @@ typedef enum {
     NO_LOCATION
 } location_t;
 
+
 typedef struct {
     location_t location;
     bool ownTile;

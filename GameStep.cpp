@@ -51,23 +51,48 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case A_USE_HACK_TOKEN:
             if (gameData->actions.useHackToken == true)
             {
-                //completar
+                gamePointers->currentCharacter->useHackToken();
             }
             break;
         case A_LOOT: break;
         case A_PATROL_CARD:
             showUsedPatrolCards();
             break;
-        case WIN: break;
-        case LOSE: break;
-
+        case WIN:
+            showPepe();
+            reset();
+            break;
+        case LOSE: 
+            showSth();
+            break;
+            
         default: break;
     }
 
 }
 
-void Idle::enableActions()
+void Idle::enableActions(gameData_t gameData)
 {
+    if(gameData->selectedTile.adyacent)
+    {
+        gameData->actions.move = true;
+        gameData->actions.peek = true;
+        gameData->actions.pass = true;
+    }
+    if(gameData->selectedTile.hawkWall)
+    {
+        gameData->actions.createAlarm = true;
+    }
+    if(gameData->selectedTile.serviceDuct)
+    {
+        gameData->actions.move = true;
+    }
+    if(gameData->selectedTile.twoTilesAwayTile)
+    {
+        gameData->actions.placeCrowToken = true;
+    }
+    
+    
 
 }
 
