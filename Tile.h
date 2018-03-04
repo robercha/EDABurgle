@@ -96,6 +96,15 @@ public:
     Tile* getUpperTile();
     Tile* getLowerTile();
 
+    void setCrackToken()
+    {
+        crackedToken = true;
+    }
+    
+    bool getCrackToken()
+    {
+        return crackedToken;
+    }
     void visit() {
         visited = true;
     }
@@ -282,12 +291,14 @@ public:
     void rollDice();
     void addDice();
     bool isCracked();
+    void setCracked();
 
     unsigned getDieQty() {
         return numberOfDice;
     }
 private:
     unsigned numberOfDice;
+    bool crackedSafe;
 };
 
 class Detector : public Tile {
