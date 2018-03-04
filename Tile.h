@@ -75,7 +75,6 @@ public:
     bool isTileVisible();
     virtual void reveal();
     bool triggerAlarm();
-    void useHackToken();
     bool isAlarmTile(); //getter de isAlarmTile
     bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
     virtual bool isTileValid(location_t, tileInfo_t*); //se fija si es adyacente
@@ -90,6 +89,9 @@ public:
     bool checkDurlock(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
     bool isTileTwoTilesAway(location_t location);
     void setJuicerAlarm(); //alarma que puede poner el juicer en tiles
+    void setCrowToken(bool state);
+    void setUpperLoorTile(Tile* tile);
+
 
     Tile* getRightTile();
     Tile* getLeftTile();
@@ -134,13 +136,16 @@ public:
 protected:
     location_t currentLocation;
     tileType_t tileType;
-    std::vector<token_t*> tokens;
+    //std::vector<token_t*> tokens;
     std::vector<Loot*> loots;
 
     Tile* rightTile;
     Tile* leftTile;
     Tile* upperTile;
     Tile* lowerTile;
+
+    Tile* upperFloorTile;
+    Tile* lowerFloorTile;
 
     Tile* secretRightTile;
     Tile* secretLeftTile;
@@ -152,6 +157,7 @@ protected:
 
     bool isVisible;
     bool crackedToken;
+    bool crowToken;
     bool alarmTile;
     bool mustSpendActions;
     unsigned combinationNumber;
@@ -194,6 +200,7 @@ public:
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
+    void useHackToken();
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
@@ -206,6 +213,7 @@ public:
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
+    void useHackToken();
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
@@ -218,6 +226,7 @@ public:
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
+    void useHackToken();
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;

@@ -10,202 +10,265 @@
 Atrium::Atrium()
 {
     tileType = ATRIUM;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Camera::Camera()
 {
     tileType = CAMERA;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = true;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 CRFingerprint::CRFingerprint()
 {
     tileType = CR_FINGERPRINT;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    hackTokensQty = 0;
+    crowToken = false;
 }
 
 CRLaser::CRLaser()
 {
     tileType = CR_LASER;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    hackTokensQty = 0;
+    crowToken = false;
 }
 
 CRMotion::CRMotion()
 {
     tileType = CR_MOTION;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    hackTokensQty = 0;
+    crowToken = false;
 }
 
 Deadbolt::Deadbolt()
 {
     tileType = DEADBOLT;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = true;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Detector::Detector()
 {
     tileType = DETECTOR;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = true;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Fingerprint::Fingerprint()
 {
     tileType = FINGERPRINT;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = true;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Foyer::Foyer()
 {
     tileType = FOYER;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = true;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Keypad::Keypad()
 {
     tileType = KEYPAD;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = true; //le preguntamos al user si quiere tirar los dados para abrir el keypad
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Laboratory::Laboratory()
 {
     tileType = LABORATORY;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Laser::Laser()
 {
     tileType = LASER;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = true;
     mustSpendActions = true;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Lavatory::Lavatory()
 {
     tileType = LAVATORY;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Motion::Motion()
 {
     tileType = MOTION;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = true;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Safe::Safe()
 {
     tileType = SAFE;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     numberOfDice = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 SecretDoor::SecretDoor()
 {
     tileType = SECRETDOOR;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 ServiceDuct::ServiceDuct()
 {
     tileType = SERVICEDUCT;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Stairs::Stairs()
 {
     tileType = STAIRS;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Thermo::Thermo()
 {
     tileType = THERMO;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = true;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 Walkway::Walkway()
 {
     tileType = WALKWAY;
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
+    crowToken = false;
 }
 
 void Tile::setJuicerAlarm()
@@ -418,10 +481,11 @@ bool Tile::isTileVisible()
 
 void Tile::reveal()
 {
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     if (isVisible == false)
     {
         isVisible = true;
-        unsigned number = ((random() % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
+        unsigned number = ((rand_r(seed) % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
         this->combinationNumber = number;
 
         if (this->tileType == SAFE)        //si es la safe, el combination number sera 0
@@ -429,20 +493,14 @@ void Tile::reveal()
     }
 }
 
-void Tile::setToken(tokenInfo_t tokenType, Tile* usefulTile)
+void Tile::setCrowToken(bool state)
 {
-    if (tokenType == CROWTOKEN)
-        for (std::vector<token_t*>::iterator tokIt = tokens->begin(); tokIt != tokens->end(); tokIt++)     //si ya hay un token tipo crow lo borro y lo reemplazo por el nuevo
-            if ((*tokIt)->token == CROWTOKEN)
-                tokens.erase(tokIt);
+    crowToken = state;
+}
 
-
-    tokens.push_back(new token_t);
-    tokens.back()->token = tokenType;
-    tokens.back()->tile = this->currentLocation;
-
-    if (tokenType == DOWNSTAIRSTOKEN)
-        tokens.back()->usefulTile = usefulTile;
+void Tile::setUpperLoorTile(Tile* tile)
+{
+    upperFloorTile = tile;
 }
 
 unsigned getColumn(location_t location)
@@ -505,6 +563,36 @@ bool Atrium::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 //
 //    return true;
 //}
+
+void CRFingerprint::hack()
+{
+    hackTokensQty++;
+}
+
+void CRFingerprint::useHackToken()
+{
+    hackTokensQty--;
+}
+
+void CRMotion::hack()
+{
+    hackTokensQty++;
+}
+
+void CRMotion::useHackToken()
+{
+    hackTokensQty--;
+}
+
+void CRLaser::hack()
+{
+    hackTokensQty++;
+}
+
+void CRLaser::useHackToken()
+{
+    hackTokensQty--;
+}
 
 bool
 Camera::isOnCamera(Tile* location)
