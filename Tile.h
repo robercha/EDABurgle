@@ -40,7 +40,8 @@ typedef enum {
 } location_t;
 
 typedef struct {
-    location_t location;
+    //location_t location;
+    Tile* tile;
     bool ownTile;
     bool hawkWall;
     bool adyacent;

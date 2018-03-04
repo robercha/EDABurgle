@@ -182,6 +182,8 @@ void Model::analyzeAction(gameData_t* gameData)
         currentAction->eventHandler(gameData);
         currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
     }
+    if (currentAction->getState() == IDLE)
+        dynamic_cast <Idle*> (currentAction)->enableActions();
 }
 
 void Model::eventGenerator(gameData_t* gameData)
@@ -204,7 +206,7 @@ void Model::eventGenerator(gameData_t* gameData)
 
     else if (gameData->preEvent == button_t::MOVE)
     {
-        std::vector< std::vector<Tile*> > deck = floors[getFloor(gameData->selectedTile.location)]->getDeck();
+        std::vector< std::vector<Tile*> > deck = floors[getFloor(gameData->selectedTile.tile->getCurrentLocation())]->getDeck();
         std::vector< std::vector<Tile*> >::iterator row;
         std::vector<Tile*>::iterator col;
 
@@ -213,10 +215,10 @@ void Model::eventGenerator(gameData_t* gameData)
 
         for (row = deck.begin(); row != deck.end() ; row++)
         {
-            for (col = row->begin(); ((*col)->getCurrentLocation() == gameData->selectedTile.location) &&
+            for (col = row->begin(); ((*col)->getCurrentLocation() == gameData->selectedTile.tile->getCurrentLocation()) &&
                     col != row->end(); col++);
 
-            if ((*col)->getCurrentLocation() == gameData->selectedTile.location)
+            if ((*col)->getCurrentLocation() == gameData->selectedTile.tile->getCurrentLocation())
                 break;
         }
 
@@ -269,10 +271,10 @@ void Model::eventGenerator(gameData_t* gameData)
         gameData->event = DECLINE;
 
     else if (gameData->preEvent == button_t::LOOTF1 || gameData->preEvent == button_t::LOOTF2 || gameData->preEvent == button_t::LOOTF3)
-        gameData->event = LOOT;
+        gameData->event = A_LOOT;
 
     else if (gameData->preEvent == button_t::PATROL_DECK_1 || gameData->preEvent == button_t::PATROL_DECK_2 || gameData->preEvent == button_t::PATROL_DECK_3)
-        gameData->event = PATROL_CARD;
+        gameData->event = A_PATROL_CARD;
 
 }
 

@@ -68,6 +68,8 @@ public:
         return this->message;
     }
     void drawLoot(gamePointers_t*);
+
+    virtual void enableActions() = 0;
 protected:
     modelState_t state;
     void moveGuards();
@@ -76,6 +78,7 @@ protected:
     bool isGameLost();
     void showInvalidTileMessage(); //no tiene acceso a view, deberia hacerlo controller
     void showUsedPatrolCards();
+    void faceConsequences();
     std::string message;
 };
 
@@ -86,8 +89,8 @@ public:
         state = IDLE;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
-private:
     void enableActions();
+private:
 };
 
 class WaitingFirstAction : public GameStep {
@@ -97,6 +100,7 @@ public:
         state = WAITING_1_ACTION;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
+    void enableActions();
 private:
 };
 
@@ -107,6 +111,7 @@ public:
         state = WAITING_2_ACTION;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
+    void enableActions();
 private:
 };
 
@@ -117,6 +122,7 @@ public:
         state = WAITING_RESPONSE;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
+    void enableActions();
 private:
 };
 
@@ -127,6 +133,7 @@ public:
         state = PLAY_AGAIN;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
+    void enableActions();
 private:
 };
 
@@ -137,6 +144,7 @@ public:
         state = END;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
+    void enableActions();
 private:
 };
 
