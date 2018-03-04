@@ -26,9 +26,22 @@ public:
     void addLoot(Loot& loot) {
         loots.push_back(loot);
     }
+    //
+    //    void addToken(tokenInfo_t token, Tile* tile) {
+    //        currentTile->setToken(token, tile);
+    //    }
 
-    void addToken(tokenInfo_t token, Tile* tile) {
-        currentTile->setToken(token, tile);
+    void setHackToken() {
+        dynamic_cast<CRFingerprint*> (currentTile)->hack();
+    }
+
+    void useHackToken(tileType_t computerRoom) {
+        if (computerRoom == CR_FINGERPRINT)
+            dynamic_cast<CRFingerprint*> (currentTile)->useHackToken();
+        else if (computerRoom == CR_MOTION)
+            dynamic_cast<CRMotion*> (currentTile)->useHackToken();
+        else if (computerRoom == CR_LASER)
+            dynamic_cast<CRLaser*> (currentTile)->useHackToken();
     }
 
     void addDiceToSafe() {

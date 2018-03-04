@@ -45,13 +45,14 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case A_HACK_COMPUTER:
             if (gameData->actions.hackCR == true)
             {
-                gamePointers->currentCharacter->addToken(HACKTOKEN, NULL);
+                gamePointers->currentCharacter->setHackToken();
             }
             break;
         case A_USE_HACK_TOKEN:
             if (gameData->actions.useHackToken == true)
             {
-                gamePointers->currentCharacter->useHackToken();
+                gamePointers->currentCharacter->useHackToken(gamePointers->currentCharacter->whereAmI());
+                //untrigger alarm
             }
             break;
         case A_LOOT: break;
