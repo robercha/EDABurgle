@@ -7,8 +7,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/PlayerHandle.cpp</file>
-
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.cpp</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.cpp</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.cpp</file>
         </group>
     </open-files>
 </project-private>
