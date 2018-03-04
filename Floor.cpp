@@ -2,9 +2,15 @@
 #define COLS 4
 
 #include "Floor.h"
+#include "GameStep.h"
 #include <chrono>
 #include <random>
 #include <algorithm>
+
+#define ROWS    4
+#define COLS    4
+#define ALL_CRACK 6
+
 
 unsigned floor1(std::vector< std::vector<Tile*> > &floor);
 unsigned floor2(std::vector< std::vector<Tile*> > &floor);
@@ -277,5 +283,47 @@ void Floor::unvisitTiles()
     for(int i = 0; i < 4; i++)
         for(int j = 0; j < 4; j++)
             tiles[i][j]->unvisit();
+    
+}
+
+void Floor :: crack (unsigned diceQty, location_t location, gameData_t* gameData)
+{
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    unsigned Row = getRow (location);
+    unsigned Col = getColumn (location);
+    unsigned crackDiceNum;
+    unsigned crackedTiles= 0;
+    
+    //Se tira el dado y a todos los tiles que tienen el combination number igual al numero que salio se le pone un crack token
+    for(unsigned n = 0; n<diceQty; n++)
+    {
+        crackDiceNum = rand_r(seed%6+1);
+        gameData->diceResult[n] = crackDiceNum;
+        for (int i = 0; i<ROWS; i++)
+        {
+            if ((tiles[i][Col]->getCombinationNumber() == crackDiceNum)&&(tiles[i][Col]!=tiles[Row][Col]))  //Chequea toda la columna de la safe
+                tiles[i][Col]->setCrackToken(); //Si el dado 
+        }
+        for (int j = 0; j<COLS; j++)
+        {
+            if ((tiles[Row][j]->getCombinationNumber() == crackDiceNum)&&(tiles[Row][j]!= tiles[Row][Col])) //Chequea toda la row de la safe
+                tiles[Row][j]->setCrackToken();
+        }
+        
+    }
+    
+    //Chequea si se termino de crackear la safe
+    for (int i = 0; i<ROWS; i++)
+    {
+        if ((tiles[i][Col]->getCrackToken()== true)&&(tiles[i][Col]!=tiles[Row][Col]))
+            crackedTiles++;
+    }
+    for (int j = 0; j<COLS; j++)
+    {
+         if ((tiles[Row][j]->getCrackToken() == true)&&(tiles[Row][j]!= tiles[Row][Col]))
+             crackedTiles++;
+    }
+    if(crackedTiles == ALL_CRACK)   //Verifico si todas sus tiles adyacentes tienen crack token
+        dynamic_cast<Safe*> (tiles[Row][Col])->setCracked();    //Se crackeo la safe
     
 }
