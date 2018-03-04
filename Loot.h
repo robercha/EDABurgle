@@ -25,11 +25,11 @@ public:
 
     player_t getOwner() {
         return owner;
-    };
+    }
 
     bool isLootVisible() {
         return isVisible;
-    };
+    }
 protected:
     bool isVisible;
     loot_t lootName;

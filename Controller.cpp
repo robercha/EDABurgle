@@ -81,19 +81,25 @@ Controller::manageEvent(void)
     translateUserData(); //convierte button_t a modelEvent_t que son los de model FSM
     //if (playerHandle->getEvent() != NO_EVENT)
     if ((userData->buttonClicked != (unsigned) button_t::NO_BUTTON) ||
-            (userData->buttonClicked != (unsigned) button_t::HOME_EXIT)) 
+            (userData->buttonClicked != (unsigned) button_t::HOME_EXIT))
     {
-        if(networkingMode && gameData->currentCharacter == 0) //Si juega online sólo entra al juego si es el turno del de esta compu
+        if (networkingMode && gameData->currentCharacter == 0) //Si juega online sólo entra al juego si es el turno del de esta compu
             model->analyzeAction(gameData); //Empieza la logica del juego
-        else if(!networkingMode) //Sino esta jugando online los turnos son irrelevantes.
+        else if (!networkingMode) //Sino esta jugando online los turnos son irrelevantes.
             model->analyzeAction(gameData);
     }
 
     //    networking->getEvent(userData);
     //    translatePackage();
     //    FSMCycle(userData->event, gameData);
-    view->updateGraphics();
+    updateGraphics();
 
+}
+
+void Controller::updateGraphics()
+{
+    model->fillGraphicsData(view);
+    view->updateGraphics();
 }
 
 //Controller::initGame()
@@ -132,14 +138,14 @@ void
 Controller::translateUserData()
 {
     gameData->preEvent = userData->buttonClicked;
-////    if (userData->buttonClicked == (unsigned) button_t::PASS)
-////        playerHandle->setEvent(PASS);
-//    if ((userData->buttonClicked == (unsigned) button_t::NO_BUTTON) ||
-//            (userData->buttonClicked == (unsigned) button_t::HOME_EXIT))
-//        playerHandle->setEvent(NO_EVENT);
-////  else
-////        playerHandle->setEvent(ACTION);
-//    userData->buttonClicked == (unsigned) button_t::NO_BUTTON;
+    ////    if (userData->buttonClicked == (unsigned) button_t::PASS)
+    ////        playerHandle->setEvent(PASS);
+    //    if ((userData->buttonClicked == (unsigned) button_t::NO_BUTTON) ||
+    //            (userData->buttonClicked == (unsigned) button_t::HOME_EXIT))
+    //        playerHandle->setEvent(NO_EVENT);
+    ////  else
+    ////        playerHandle->setEvent(ACTION);
+    //    userData->buttonClicked == (unsigned) button_t::NO_BUTTON;
 }
 
 void*

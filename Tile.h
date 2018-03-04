@@ -95,42 +95,47 @@ public:
     Tile* getLeftTile();
     Tile* getUpperTile();
     Tile* getLowerTile();
-    
+
     void visit() {
-        
         visited = true;
-    };
+    }
 
     void unvisit() {
-        
         visited = false;
     }
+
     bool wasItVisited() {
-        
         return visited;
-    };
-    
+    }
+
     unsigned getDistance2Guard() {
         return distance2guard;
     }
-    
+
     void setDistance2Guard(unsigned distance) {
         distance2guard = distance;
     }
-    
+
     tileType_t getTileType() {
         return tileType;
-    };
+    }
 
     unsigned getCombinationNumber() {
         return combinationNumber;
-    };
+    }
 
-    std::vector<token_t*>* getTokens();
+    std::vector<token_t*>& getTokens() {
+        return this->tokens;
+    }
+
+    std::vector<Loot*>& getLoots() {
+        return this->loots;
+    }
 protected:
     location_t currentLocation;
     tileType_t tileType;
     std::vector<token_t*> tokens;
+    std::vector<Loot*> loots;
 
     Tile* rightTile;
     Tile* leftTile;
@@ -141,7 +146,7 @@ protected:
     Tile* secretLeftTile;
     Tile* secretUpperTile;
     Tile* secretLowerTile;
-    
+
     bool visited; //deberia poder desvisitarla
     unsigned distance2guard;
 
@@ -275,8 +280,14 @@ class Safe : public Tile {
 public:
     Safe();
     void rollDice();
-    void addDiceToSafe();
+    void addDice();
+    bool isCracked();
+
+    unsigned getDieQty() {
+        return numberOfDice;
+    }
 private:
+    unsigned numberOfDice;
 };
 
 class Detector : public Tile {

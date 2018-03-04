@@ -10,7 +10,7 @@ public:
     Controller(char* ip);
     void manageEvent(void); //Recibe input de usuario (y networking) y llama a fsm
     //  bool connect(void);
-    //void updateGraphics(void);
+    void updateGraphics();
     bool initGame(void);
     //  bool buildPacket(packet_t packet); //enum
     void translateUserData(void); //traduce input de usuario a eventos de FSM
