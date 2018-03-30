@@ -31,8 +31,8 @@ private:
     void unvisitTiles();
     Guard* guard;
     bool compare(Tile*, Tile*);
-    std::vector<patrol_t> patrolDeck;
-    std::vector<patrol_t> trashedPatrolDeck;
+    std::vector<location_t> patrolDeck;
+    std::vector<location_t> trashedPatrolDeck;
     std::vector< std::vector<Tile*> > tiles;
 
 };

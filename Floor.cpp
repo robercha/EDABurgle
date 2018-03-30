@@ -73,8 +73,10 @@ Floor::~Floor()
 
 void Floor::createPatrolDeck()
 {
-    for (unsigned i = 0; i < PATROL_COUNT; i++)
-        patrolDeck.push_back((patrol_t) i);
+    trashedPatrolDeck.clear();
+
+    for (unsigned i = floorNumber * (ROWS * COLS); i < (floorNumber + 1)*(ROWS * COLS); i++)
+        patrolDeck.push_back((location_t) i);
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
@@ -245,7 +247,7 @@ Tile* Floor::setDistance2Guard()
 Tile* Floor::nextStep(Tile* destination)
 {
     Tile* tilex;
-    
+
     tilex = destination; //En este punto, todas las tiles tienen guardada su distancia hasta el guardia
 
     /*Voy desde la tile destino hasta la del guardia camianando por las tiles adyacentes
@@ -341,18 +343,19 @@ void Floor::crack (unsigned diceQty, location_t location, gameData_t* gameData)
 void Floor::moveGuard()
 {
     std::vector<Tile*> alarmTiles;
-    
+
     for (int i = 0; i < ROWS; i++)
         for (int j = 0; j < COLS; j++)
             if (tiles[i][j]->isAlarmTriggered())
                 alarmTiles.push_back(tiles[i][j]);
-        
-    
-    if(alarmTiles != NULL)
+
+
+    if (alarmTiles != NULL)
     {
         setDistance2Guard();
         std::sort(alarmTiles.begin(), alarmTiles.end(), compare);    //la tile con la minima distancia al guardia queda en el ultimo elemento del vector
         guard->walk(nextStep(alarmTiles.at(0)));
+<<<<<<< HEAD
         if(guard->getLocation()==alarmTiles.at(0))
         {
             alarmTiles.at(0)->deactivateAlarm();
@@ -366,6 +369,14 @@ void Floor::moveGuard()
         else
             createPatrolDeck();
     }
+=======
+        //        if(guard->getLocation()==alarmTiles.at(0))
+        //        {
+        //
+        //        }
+    }
+
+>>>>>>> 60b92bfa0fa7c56e123712b721174a423d795104
 
 }
 
