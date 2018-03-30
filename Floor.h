@@ -28,7 +28,7 @@ private:
     Tile* minDistance();
     void unvisitTiles();
     Guard* guard;
-    std::
+    bool compare();
     std::vector<patrol_t> patrolDeck;
     std::vector<patrol_t> trashedPatrolDeck;
     std::vector< std::vector<Tile*> > tiles;
