@@ -15,6 +15,11 @@ location_t Guard::getLocation()
     return this->currentTile->getCurrentLocation();
 }
 
+location_t Guard::getDestination()
+{
+    return currentPatrolCard
+}
+
 Guard::Guard(const Guard& orig)
 {
 

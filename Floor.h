@@ -22,6 +22,7 @@ public:
 private:
     unsigned floorNumber;
     void createPatrolDeck();
+    bool takePatrolCard();
     void setAdjacentTiles(unsigned row, unsigned col);
     void createWalls(unsigned);
     Tile* setDistance2Guard();

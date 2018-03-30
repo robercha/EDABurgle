@@ -76,6 +76,10 @@ public:
     bool isTileVisible();
     virtual void reveal();
     bool triggerAlarm();
+    bool deactivateAlarm()
+    {
+        triggeredAlarm = false;
+    }
     bool isAlarmTile(); //getter de isAlarmTile
     bool isAlarmTriggered()
     {
