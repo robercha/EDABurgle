@@ -117,7 +117,8 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
             break;
         case A_PASS:
             gamePointers->currentCharacter->pass();
-            gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
+            for (unsigned i = 0; i < (gamePointers->guards[gamePointers->currentCharacter->getLocation() / 16]->getSpeed()); i++)
+                gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
 
             break;
         case A_PEEK:
