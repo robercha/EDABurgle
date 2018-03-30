@@ -3,7 +3,6 @@
 
 #include "Tile.h"
 #include "View.h"
-//#include "Floor.h"
 
 #define DISCARDED_PATROL_COUNT 6
 
