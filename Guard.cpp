@@ -26,7 +26,7 @@ Guard::~Guard()
 }
 
 void
-Guard::walk()
+Guard::walk(Tile* nextStep)
 {
-
+    currentTile = nextStep;
 }

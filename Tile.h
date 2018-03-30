@@ -77,6 +77,10 @@ public:
     virtual void reveal();
     bool triggerAlarm();
     bool isAlarmTile(); //getter de isAlarmTile
+    bool isAlarmTriggered()
+    {
+        return triggeredAlarm;
+    }
     bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
     virtual bool isTileValid(location_t, tileInfo_t*); //se fija si es adyacente
     void setToken(tokenInfo_t, Tile*);

@@ -57,6 +57,7 @@ CRLaser::CRLaser()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -71,6 +72,7 @@ CRMotion::CRMotion()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -85,6 +87,7 @@ Deadbolt::Deadbolt()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = true;
     isVisible = false;
     combinationNumber = 0;
@@ -98,6 +101,7 @@ Detector::Detector()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = true;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -111,6 +115,7 @@ Fingerprint::Fingerprint()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = true;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -124,6 +129,7 @@ Foyer::Foyer()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = true;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -137,6 +143,7 @@ Keypad::Keypad()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = true; //le preguntamos al user si quiere tirar los dados para abrir el keypad
     isVisible = false;
     combinationNumber = 0;
@@ -150,6 +157,7 @@ Laboratory::Laboratory()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -163,6 +171,7 @@ Laser::Laser()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = true;
+    triggeredAlarm = false;
     mustSpendActions = true;
     isVisible = false;
     combinationNumber = 0;
@@ -176,6 +185,7 @@ Lavatory::Lavatory()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -189,6 +199,7 @@ Motion::Motion()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = true;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -202,6 +213,7 @@ Safe::Safe()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -217,6 +229,7 @@ SecretDoor::SecretDoor()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -230,6 +243,7 @@ ServiceDuct::ServiceDuct()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -243,6 +257,7 @@ Stairs::Stairs()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -256,6 +271,7 @@ Thermo::Thermo()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = true;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -269,6 +285,7 @@ Walkway::Walkway()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;

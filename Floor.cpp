@@ -208,7 +208,7 @@ std::vector< std::vector<Tile*> >& Floor::getDeck()
     return this->tiles;
 }
 
-Tile* Floor::calculateRoute(Tile* destination)
+Tile* Floor::setDistance2Guard()
 {
     Tile* tilex;
 
@@ -240,7 +240,12 @@ Tile* Floor::calculateRoute(Tile* destination)
             if (tilex->getLeftTile()->getDistance2Guard()>(tilex->getDistance2Guard() + 1))
                 tilex->getLeftTile()->setDistance2Guard(tilex->getDistance2Guard() + 1);
     }
+}
 
+Tile* Floor::nextStep(Tile* destination)
+{
+    Tile* tilex;
+    
     tilex = destination; //En este punto, todas las tiles tienen guardada su distancia hasta el guardia
 
     /*Voy desde la tile destino hasta la del guardia camianando por las tiles adyacentes

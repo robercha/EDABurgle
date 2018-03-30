@@ -24,7 +24,8 @@ private:
     void createPatrolDeck();
     void setAdjacentTiles(unsigned row, unsigned col);
     void createWalls(unsigned);
-    Tile* calculateRoute(Tile* destination);
+    Tile* setDistance2Guard();
+    Tile* nextStep(Tile* destination);
     Tile* minDistance();
     void unvisitTiles();
     Guard* guard;
