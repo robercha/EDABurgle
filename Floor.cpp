@@ -355,28 +355,20 @@ void Floor::moveGuard()
         setDistance2Guard();
         std::sort(alarmTiles.begin(), alarmTiles.end(), compare);    //la tile con la minima distancia al guardia queda en el ultimo elemento del vector
         guard->walk(nextStep(alarmTiles.at(0)));
-<<<<<<< HEAD
-        if(guard->getLocation()==alarmTiles.at(0))
+
+        if (guard->getLocation() == alarmTiles.at(0))
         {
             alarmTiles.at(0)->deactivateAlarm();
         }
     }
-    
-    else if(guard->getLocation()==guard->getDestination())
+
+    else if (guard->getLocation() == guard->getDestination())
     {
-        if(takePatrolCard());
-        
+        if (takePatrolCard());
+
         else
             createPatrolDeck();
     }
-=======
-        //        if(guard->getLocation()==alarmTiles.at(0))
-        //        {
-        //
-        //        }
-    }
-
->>>>>>> 60b92bfa0fa7c56e123712b721174a423d795104
 
 }
 
@@ -390,7 +382,7 @@ bool Floor::takePatrolCard()
     unsigned finishedDeck = false;
     trashedPatrolDeck.push_back(patrolDeck.back());
     patrolDeck.pop_back();
-    if(patrolDeck==NULL)
+    if (patrolDeck == NULL)
         finishedDeck = true;
     else
         return finishedDeck;
