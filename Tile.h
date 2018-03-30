@@ -39,7 +39,6 @@ typedef enum {
     NO_LOCATION
 } location_t;
 
-
 typedef struct {
     //location_t location;
     Tile* tile;
@@ -100,15 +99,14 @@ public:
     Tile* getUpperTile();
     Tile* getLowerTile();
 
-    void setCrackToken()
-    {
+    void setCrackToken() {
         crackedToken = true;
     }
-    
-    bool getCrackToken()
-    {
+
+    bool getCrackToken() {
         return crackedToken;
     }
+
     void visit() {
         visited = true;
     }
@@ -170,6 +168,7 @@ protected:
     bool crackedToken;
     bool crowToken;
     bool alarmTile;
+    bool triggeredAlarm;
     bool mustSpendActions;
     unsigned combinationNumber;
     bool isAdyacentTileValid(location_t selectedLocation);

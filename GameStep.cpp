@@ -64,7 +64,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             showUsedPatrolCards();
             break;
         case WIN:
-            showPepe();
+            showHappyPepe();
             reset();
             break;
         case LOSE:
@@ -105,8 +105,8 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
 {
     switch (gameData->event)
     {
-        case VALID_TILE:
-            //enableActions();
+        case VALID_TILE:    //nunca va a entrar aca?
+            enableActions();
             break;
         case A_FREE_MOVE:
             if (gameData->actions.move == true)
@@ -117,7 +117,8 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
             break;
         case A_PASS:
             gamePointers->currentCharacter->pass();
-            moveGuards();
+            gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
+
             break;
         case A_PEEK:
             if (gameData->actions.peek == true)
