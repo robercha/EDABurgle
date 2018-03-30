@@ -73,8 +73,7 @@ Floor::~Floor()
 
 void Floor::createPatrolDeck()
 {
-    for (std::vector::iterator<location_t> it = trashedPatrolDeck.begin(); it != trashedPatrolDeck.end(); it++)     //borramos los elementos del trashedPatrolDeck pues ya no nos sirven
-        trashedPatrolDeck.pop_back();
+    trashedPatrolDeck.clear();
 
     for (unsigned i = floorNumber * (ROWS * COLS); i < (floorNumber + 1)*(ROWS * COLS); i++)
         patrolDeck.push_back((location_t) i);
