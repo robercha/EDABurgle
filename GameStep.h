@@ -73,7 +73,6 @@ public:
     virtual void enableActions() = 0;
 protected:
     modelState_t state;
-    void moveGuards();
     bool hasCharLostLife();
     bool isGameWon();
     bool isGameLost();

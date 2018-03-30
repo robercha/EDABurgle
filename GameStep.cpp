@@ -30,7 +30,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             gamePointers->currentCharacter->pass();
             //Cambio el pointer del currentCharacter
             (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0];
-            moveGuards();
+            gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
             break;
         case A_ADD_DICE_TO_SAFE:
             if (gameData->actions.addDice == true)
