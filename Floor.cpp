@@ -63,7 +63,7 @@ Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
         createWalls(floorNumber);
 
     }
-    
+
     createPatrolDeck();
 }
 
@@ -73,16 +73,16 @@ Floor::~Floor()
 
 void Floor::createPatrolDeck()
 {
-    for(unsigned i=0; i<PATROL_COUNT;i++)
-        patrolDeck.push_back((patrol_t)i);
-    
+    for (unsigned i = 0; i < PATROL_COUNT; i++)
+        patrolDeck.push_back((patrol_t) i);
+
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     std::shuffle(patrolDeck.begin(), patrolDeck.end(), std::default_random_engine(seed));
-    
-    for(unsigned i=0;i<DISCARDED_PATROL_COUNT;i++)
+
+    for (unsigned i = 0; i < DISCARDED_PATROL_COUNT; i++)
         patrolDeck.pop_back();
-    
+
 }
 
 void Floor::createWalls(unsigned floorNumber)
@@ -211,124 +211,131 @@ std::vector< std::vector<Tile*> >& Floor::getDeck()
 Tile* Floor::calculateRoute(Tile* destination)
 {
     Tile* tilex;
-    
-   
-    for(int i = 0; i<16 ; i++)
-         tilex->setDistance2Guard(i == this->getGuardLocation() ? 0 : INFINITY); //Setea la distancia al guardia de todas las tiles en INF menos la tile actual del guard
-    
-    for(int i = 0; i<16; i++)
+
+
+    for (int i = 0; i < 16 ; i++)
+        tilex->setDistance2Guard(i == this->getGuardLocation() ? 0 : INFINITY); //Setea la distancia al guardia de todas las tiles en INF menos la tile actual del guard
+
+    for (int i = 0; i < 16; i++)
     {
         tilex = minDistance(); //devuelve la tile mas cercana a la tile del guard que no haya sido visitada todavia
         tilex->visit(); //la chequea como visitada
-             
+
         /*Analiza las tiles adyacentes. Si al distancia de la tile adyacente a la del guardia es mayor que
          la de la tile en cuestion + 1, entonces es mas corto ir por el camino que se esta analizando que por otro
          que se haya analizado anteriormente*/
-        if(tilex->getLowerTile() != NULL)
-            if(tilex->getLowerTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
-                tilex->getLowerTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
-        
-        if(tilex->getRightTile() != NULL)
-            if(tilex->getRightTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
-                tilex->getRightTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
-        
-        if(tilex->getUpperTile() != NULL)
-            if(tilex->getUpperTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
-                tilex->getUpperTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
-        
-        if(tilex->getLeftTile() != NULL)  
-            if(tilex->getLeftTile()->getDistance2Guard()>(tilex->getDistance2Guard()+1))
-                tilex->getLeftTile()->setDistance2Guard(tilex->getDistance2Guard()+1);
+        if (tilex->getLowerTile() != NULL)
+            if (tilex->getLowerTile()->getDistance2Guard()>(tilex->getDistance2Guard() + 1))
+                tilex->getLowerTile()->setDistance2Guard(tilex->getDistance2Guard() + 1);
+
+        if (tilex->getRightTile() != NULL)
+            if (tilex->getRightTile()->getDistance2Guard()>(tilex->getDistance2Guard() + 1))
+                tilex->getRightTile()->setDistance2Guard(tilex->getDistance2Guard() + 1);
+
+        if (tilex->getUpperTile() != NULL)
+            if (tilex->getUpperTile()->getDistance2Guard()>(tilex->getDistance2Guard() + 1))
+                tilex->getUpperTile()->setDistance2Guard(tilex->getDistance2Guard() + 1);
+
+        if (tilex->getLeftTile() != NULL)
+            if (tilex->getLeftTile()->getDistance2Guard()>(tilex->getDistance2Guard() + 1))
+                tilex->getLeftTile()->setDistance2Guard(tilex->getDistance2Guard() + 1);
     }
-    
+
     tilex = destination; //En este punto, todas las tiles tienen guardada su distancia hasta el guardia
-    
+
     /*Voy desde la tile destino hasta la del guardia camianando por las tiles adyacentes
      que marcan el camino mas corto*/
-    while(tilex->getDistance2Guard() != 1)
+    while (tilex->getDistance2Guard() != 1)
     {
-        if(tilex->getUpperTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+        if (tilex->getUpperTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1)
             tilex = tilex->getUpperTile();
-        
-        else if(tilex->getRightTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+
+        else if (tilex->getRightTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1)
             tilex = tilex->getRightTile();
 
-        else if(tilex->getLowerTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
+        else if (tilex->getLowerTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1)
             tilex = tilex->getLowerTile();
 
-        else if(tilex->getLeftTile()->getDistance2Guard() == tilex->getDistance2Guard()-1)
-            tilex = tilex->getLeftTile();        
+        else if (tilex->getLeftTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1)
+            tilex = tilex->getLeftTile();
     }
-    
+
     unvisitTiles(); //marco las tiles como no visitadas
-    
+
     return tilex; //devuelve la tile adyacente al guardia a la que tiene que moverse
-    
+
 }
 
 Tile* Floor::minDistance()
 {
     unsigned min = INFINITY;
     Tile* tilex;
-    
-    for(int i = 0; i < 4; i++)
-        for(int j = 0; j < 4; j++)
-            if(!tiles[i][j]->wasItVisited() && (tiles[i][j]->getDistance2Guard() < min))
+
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            if (!tiles[i][j]->wasItVisited() && (tiles[i][j]->getDistance2Guard() < min))
             {
                 min = tiles[i][j]->getDistance2Guard();
                 tilex = tiles[i][j];
-            }    
-    
+            }
+
     return tilex;
 }
 
 void Floor::unvisitTiles()
 {
 
-    for(int i = 0; i < 4; i++)
-        for(int j = 0; j < 4; j++)
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
             tiles[i][j]->unvisit();
-    
+
 }
 
-void Floor :: crack (unsigned diceQty, location_t location, gameData_t* gameData)
+void Floor::crack (unsigned diceQty, location_t location, gameData_t* gameData)
 {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     unsigned Row = getRow (location);
     unsigned Col = getColumn (location);
     unsigned crackDiceNum;
-    unsigned crackedTiles= 0;
-    
+    unsigned crackedTiles = 0;
+
     //Se tira el dado y a todos los tiles que tienen el combination number igual al numero que salio se le pone un crack token
-    for(unsigned n = 0; n<diceQty; n++)
+    for (unsigned n = 0; n < diceQty; n++)
     {
-        crackDiceNum = rand_r(seed%6+1);
+        crackDiceNum = rand_r(seed % 6 + 1);
         gameData->diceResult[n] = crackDiceNum;
-        for (int i = 0; i<ROWS; i++)
+        for (int i = 0; i < ROWS; i++)
         {
-            if ((tiles[i][Col]->getCombinationNumber() == crackDiceNum)&&(tiles[i][Col]!=tiles[Row][Col]))  //Chequea toda la columna de la safe
-                tiles[i][Col]->setCrackToken(); //Si el dado 
+            if ((tiles[i][Col]->getCombinationNumber() == crackDiceNum)&&(tiles[i][Col] != tiles[Row][Col]))  //Chequea toda la columna de la safe
+                tiles[i][Col]->setCrackToken(); //Si el dado
         }
-        for (int j = 0; j<COLS; j++)
+        for (int j = 0; j < COLS; j++)
         {
-            if ((tiles[Row][j]->getCombinationNumber() == crackDiceNum)&&(tiles[Row][j]!= tiles[Row][Col])) //Chequea toda la row de la safe
+            if ((tiles[Row][j]->getCombinationNumber() == crackDiceNum)&&(tiles[Row][j] != tiles[Row][Col])) //Chequea toda la row de la safe
                 tiles[Row][j]->setCrackToken();
         }
-        
+
     }
-    
+
     //Chequea si se termino de crackear la safe
-    for (int i = 0; i<ROWS; i++)
+    for (int i = 0; i < ROWS; i++)
     {
-        if ((tiles[i][Col]->getCrackToken()== true)&&(tiles[i][Col]!=tiles[Row][Col]))
+        if ((tiles[i][Col]->getCrackToken() == true)&&(tiles[i][Col] != tiles[Row][Col]))
             crackedTiles++;
     }
-    for (int j = 0; j<COLS; j++)
+    for (int j = 0; j < COLS; j++)
     {
-         if ((tiles[Row][j]->getCrackToken() == true)&&(tiles[Row][j]!= tiles[Row][Col]))
-             crackedTiles++;
+        if ((tiles[Row][j]->getCrackToken() == true)&&(tiles[Row][j] != tiles[Row][Col]))
+            crackedTiles++;
     }
-    if(crackedTiles == ALL_CRACK)   //Verifico si todas sus tiles adyacentes tienen crack token
+    if (crackedTiles == ALL_CRACK)   //Verifico si todas sus tiles adyacentes tienen crack token
         dynamic_cast<Safe*> (tiles[Row][Col])->setCracked();    //Se crackeo la safe
-    
+
 }
+
+void Floor::moveGuard()
+{
+    for (int i = 0; i < ROWS; i++)
+        for (int j = 0; j < COLS; j++)
+            if (tiles[i][j].)
+            }

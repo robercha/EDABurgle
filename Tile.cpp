@@ -13,11 +13,13 @@ Atrium::Atrium()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+
 }
 
 Camera::Camera()
@@ -26,6 +28,7 @@ Camera::Camera()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = true;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -39,6 +42,7 @@ CRFingerprint::CRFingerprint()
     upperFloorTile = NULL;
     lowerFloorTile = NULL;
     alarmTile = false;
+    triggeredAlarm = false;
     mustSpendActions = false;
     isVisible = false;
     combinationNumber = 0;
@@ -605,15 +609,17 @@ void Safe::addDice()
 {
     numberOfDice++;
 }
-bool Safe :: isCracked()
+
+bool Safe::isCracked()
 {
     return crackedSafe;
 }
 
-void Safe :: setCracked()
+void Safe::setCracked()
 {
     crackedSafe = true;
 }
+
 bool ServiceDuct::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
