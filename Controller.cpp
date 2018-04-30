@@ -98,7 +98,7 @@ Controller::manageEvent(void)
 
 void Controller::updateGraphics()
 {
-    model->fillGraphicsData(view);
+    model->fillGraphicsData(view->graphicsData);
     view->updateGraphics();
 }
 
