@@ -32,7 +32,7 @@ void drawHorizontalWall(unsigned floor, unsigned row, unsigned col); //floor =(1
 View::View()
 {
 
-    this->display = NULL; //cargamos datos en la estructura display
+    this->display = NULL;       //inicializamos variables de allegro
     this->titleFont = NULL;
     this->textFont = NULL;
     this->smallTextFont = NULL;
@@ -53,14 +53,14 @@ View::View()
                     this->display = al_create_display(this->width, this->height);
                     if (this->display != NULL)
                     {
-                        al_set_window_title(this->display, "Pepe&Co"); //titulo
-                        this->background = al_load_bitmap("images/background.jpg");
+                        al_set_window_title(this->display, "Pepe&Co");              //titulo
+                        this->background = al_load_bitmap("images/background.jpg"); //imagen de fondo
                         if (this->background != NULL)
                         {
                             this->backgroundWidth = al_get_bitmap_width(this->background);
                             this->backgroundHeight = al_get_bitmap_height(this->background);
 
-                            this->textFont = al_load_ttf_font("fonts/Dudu.ttf", 20, 0);
+                            this->textFont = al_load_ttf_font("fonts/Dudu.ttf", 20, 0);         //tipografias
                             this->smallTextFont = al_load_ttf_font("fonts/Dudu.ttf", 16, 0);
                             if (this->textFont != NULL)
                             {
@@ -77,11 +77,11 @@ View::View()
                                                 al_register_event_source(this->eventQueue, al_get_mouse_event_source());
                                                 al_register_event_source(this->eventQueue, al_get_keyboard_event_source());
                                                 al_register_event_source(this->eventQueue, al_get_display_event_source(this->display));
-                                                this->titleFont = al_load_ttf_font("fonts/Whatnot.ttf", 65, 0);
+                                                this->titleFont = al_load_ttf_font("fonts/Whatnot.ttf", 65, 0);     //tipografia de titulo
                                                 if (this->titleFont != NULL)
                                                 {
                                                     this->graphicsData = new graphicsData_t;
-                                                    this->buttons = new bitmap_t[button_t::BUTTON_COUNT];
+                                                    this->buttons = new bitmap_t[button_t::BUTTON_COUNT];   //estructura de botones
                                                     al_draw_bitmap(this->background, 0, 0, 0);
                                                     al_start_timer(this->timer);
                                                 }
@@ -201,7 +201,7 @@ View::View()
             al_shutdown_primitives_addon();
         }
     }
-    initUtilities();
+    initUtilities();        //inicializamos botones
 
 }
 
@@ -227,25 +227,25 @@ View::~View()
 }
 
 unsigned
-View::getButtonX(unsigned i)
+View::getButtonX(unsigned i)        //Devuelve posicion en x del boton
 {
     return buttons[i].x;
 }
 
 unsigned
-View::getButtonY(unsigned i)
+View::getButtonY(unsigned i)        //Devuelve posicion en y del boton
 {
     return buttons[i].y;
 }
 
 unsigned
-View::getButtonW(unsigned i)
+View::getButtonW(unsigned i)        //Devuelve ancho del boton
 {
     return buttons[i].width;
 }
 
 unsigned
-View::getButtonH(unsigned i)
+View::getButtonH(unsigned i)        //Devuelve alto del boton
 {
     return buttons[i].height;
 }
@@ -253,14 +253,14 @@ View::getButtonH(unsigned i)
 void
 View::updateGraphics()
 {
-    drawBackground();
+    drawBackground();       //"Pepe & Co. HQ" y el fondo
     writeTitle();
-    drawChatDividers();
-    drawBoard();
-    drawCardInfo();
+    drawChatDividers();     //dibuja las lineas que separan el chat del tablero
+    drawBoard();            //dibuja todo el tablero
+    drawCardInfo();         //dibuja descripcion detallada de la carta seleccionada asi como sus tokens
 
-    writeActions();
-    writeMessages();
+    writeActions();         //dibujo botones de acciones
+    writeMessages();        //mensajes del chat
 
     //pruebo botones
     for (unsigned i = 0; i < (int) button_t::BUTTON_COUNT; i++)
@@ -275,25 +275,25 @@ View::updateGraphics()
 void
 View::drawBoard()
 {
-    drawCharactersInfo();
-    drawFloors();
+    drawCharactersInfo();       //informacion que se muestra arriba de los personajes, como sus vidas
+    drawFloors();               //tablero
     return;
 }
 
 void
 View::drawFloors()
 {
-    drawTiles();
-    drawWalls();
+    drawTiles();                //dibuja las cartas
+    drawWalls();                //dibuja paredes
 
-    writeFloorTexts();
-    writeCoordinates();
-    drawPatrolDecks();
-    drawLoots();
+    writeFloorTexts();          //"Floor 1", etc
+    writeCoordinates();         //"A, B, C, D" / "1, 2, 3, 4"
+    drawPatrolDecks();          //dibuja el mazo del guardia en cada piso
+    drawLoots();                //el loot de la safe de cada piso
 
-    drawCharacters();
-    drawGuardDice();
-    drawGuards();
+    drawCharacters();           //dibuja los characters en el tablero
+    drawGuardDice();            //el dado del guardia
+    drawGuards();               //dibuja a los guardias en cada piso
     drawTokensOnTiles(); //ver bien
     return;
 }
@@ -301,21 +301,21 @@ View::drawFloors()
 void
 View::drawCardInfo()
 {
-    if (isCardSelectedLoot(graphicsData->currentCardSelected))
+    if (isCardSelectedLoot(graphicsData->currentCardSelected))          //si fue un loot lo que se selecciono, muestra su info
         drawLootSelectedInfo();
-    else if (isCardSelectedTile(graphicsData->currentCardSelected))
+    else if (isCardSelectedTile(graphicsData->currentCardSelected))     //Si se selecciono un room
     {
-        drawTileSelectedInfo();
-        writeSelectedTileInfo();
-        drawSelectedTileTokens();
+        drawTileSelectedInfo();                                         //dibuja la carta
+        writeSelectedTileInfo();                                        //qué carta es, su ubicacion
+        drawSelectedTileTokens();                                       //los tokens que tiene
     }
     else
-        showNoCardSelected();
+        showNoCardSelected();                                           //muestra que no se selecciono ningun loot/room
     return;
 }
 
 bool
-View::isCardSelectedLoot(button_t button)
+View::isCardSelectedLoot(button_t button)           //chequea que se haya tocado un loot
 {
     bool isLoot = false;
     if (button == button_t::LOOTF1 || button == button_t::LOOTF2 || button == button_t::LOOTF3)
@@ -324,7 +324,7 @@ View::isCardSelectedLoot(button_t button)
 }
 
 bool
-View::isCardSelectedTile(button_t button)
+View::isCardSelectedTile(button_t button)           //chequea que se haya tocado un room
 {
     bool isTile = false;
     if ((int) button <= (int) button_t::D4F3)
@@ -333,21 +333,21 @@ View::isCardSelectedTile(button_t button)
 }
 
 void
-View::drawBackground()
+View::drawBackground()                              //dibujo fondo
 {
-    al_draw_bitmap(this->background, 0, 0, 0); //dibujo fondo
+    al_draw_bitmap(this->background, 0, 0, 0);
     return;
 }
 
 void
-View::writeTitle()
+View::writeTitle()                          //escribo el titulo
 {
     al_draw_text(titleFont, al_map_rgb(0, 0, 0), 530, 0, ALLEGRO_ALIGN_CENTER, "Pepe&Co. HQ");
     return;
 }
 
 void
-View::drawChatDividers()
+View::drawChatDividers()                    //lineas que dividen el tablero del chat y la barra lateral
 {
     al_draw_line(1050, 0, 1050, 550, al_map_rgb(0, 0, 0), 1);
     al_draw_line(0, 550, 1050, 550, al_map_rgb(0, 0, 0), 1);
@@ -356,21 +356,22 @@ View::drawChatDividers()
 
 void
 View::drawCharactersInfo()
-{//player one
-    ALLEGRO_BITMAP* playerOne = loadCharacter(graphicsData->players[0].character, false);
-    al_draw_bitmap(playerOne, 25 + 1 * (TILE_SIZE + SPACE_TILE), 95 - (al_get_bitmap_height(playerOne)), 0);
+{
+    //player one
+    ALLEGRO_BITMAP* playerOne = loadCharacter(graphicsData->players[0].character, false);                       //cargo imagen en grande
+    al_draw_bitmap(playerOne, 25 + 1 * (TILE_SIZE + SPACE_TILE), 95 - (al_get_bitmap_height(playerOne)), 0);    //la dibujo y destruyo el bitmap
     al_destroy_bitmap(playerOne);
 
-    ALLEGRO_BITMAP* stealthOne = loadToken(tokenV_t::V_STEALTHTOKEN, false);
+    ALLEGRO_BITMAP* stealthOne = loadToken(tokenV_t::V_STEALTHTOKEN, false);            //dibujo la cantidad de stealth tokens que tiene el character
     for (unsigned i = 0; i < graphicsData->players[0].stealthTokens; ++i)
         al_draw_bitmap(stealthOne, 85 + 1 * (TILE_SIZE + SPACE_TILE), i * (5 + TOKENS_BIG_SIZE) + 5, 0);
     al_destroy_bitmap(stealthOne);
 
-    al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 180 + 70, 43, ALLEGRO_ALIGN_CENTER, "actions x%d", graphicsData->players[0].actionsLeft);
-    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), 55 + 1 * (TILE_SIZE + SPACE_TILE), 90, ALLEGRO_ALIGN_CENTER, "you");
+    al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 180 + 70, 43, ALLEGRO_ALIGN_CENTER, "actions x%d", graphicsData->players[0].actionsLeft);         //la cantidad de actions que le quedan
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), 55 + 1 * (TILE_SIZE + SPACE_TILE), 90, ALLEGRO_ALIGN_CENTER, "you");                               //"You" si es P1
 
     //player two
-    ALLEGRO_BITMAP * playerTwo = loadCharacter(graphicsData->players[1].character, false);
+    ALLEGRO_BITMAP * playerTwo = loadCharacter(graphicsData->players[1].character, false);          //analogo para Player Two
     al_draw_bitmap(playerTwo, 270 + 625, 95 - (al_get_bitmap_height(playerTwo)), 0);
     al_destroy_bitmap(playerTwo);
 
@@ -398,16 +399,16 @@ View::drawTiles()
                 y = 135 + rows * (TILE_SIZE + SPACE_TILE);
                 if (graphicsData->tiles[i].iAm == roomV_t::V_ROOMBACK)
                 {
-                    ALLEGRO_BITMAP* tile = loadRoom(roomV_t::V_ROOMBACK, false);
+                    ALLEGRO_BITMAP* tile = loadRoom(roomV_t::V_ROOMBACK, false);        //cargo la iamgen de la carta dada vuelta en tamaño chico, dibujo y destruyo el bitmap
                     al_draw_bitmap(tile, x, y, 0);
                     al_destroy_bitmap(tile);
                 }
                 else
                 {
-                    ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[i].iAm, true);
+                    ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[i].iAm, true);  //cargo las cards y las dibujo
                     al_draw_bitmap(tile, x, y, 0);
                     al_destroy_bitmap(tile);
-                    if (graphicsData->tiles[i].iAm != roomV_t::V_SAFE)
+                    if (graphicsData->tiles[i].iAm != roomV_t::V_SAFE)                  //si no es la caja fuerte coloco el safe number
                     {
 
                         ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[i].combinationNumber, true);
@@ -424,7 +425,7 @@ View::drawTiles()
 void
 View::drawWalls()
 {
-    drawVerticalWall(1, 1, 1);
+    drawVerticalWall(1, 1, 1);          //dibujo las paredes
     drawVerticalWall(1, 4, 1);
     drawVerticalWall(1, 2, 3);
     drawVerticalWall(1, 4, 2);
@@ -477,7 +478,7 @@ View::drawHorizontalWall(unsigned floor, unsigned row, unsigned col) //floor =(1
 }
 
 void
-View::writeFloorTexts()
+View::writeFloorTexts()     //"Floor 1", etc
 {
     al_draw_text(textFont, al_map_rgb(0, 0, 0), 20 + TILE_SIZE * 2 + SPACE_TILE + SPACE_TILE / 2, 135 + TILE_SIZE * 4 + SPACE_TILE * 3 + SPACE_TILE / 4, ALLEGRO_ALIGN_CENTER, "1st Floor");
     al_draw_text(textFont, al_map_rgb(0, 0, 0), 20 + SPACE_FLOOR + TILE_SIZE * 6 + SPACE_TILE * 4 + SPACE_TILE / 2, 135 + TILE_SIZE * 4 + SPACE_TILE * 3 + SPACE_TILE / 4, ALLEGRO_ALIGN_CENTER, "2nd Floor");
@@ -486,7 +487,7 @@ View::writeFloorTexts()
 }
 
 void
-View::writeCoordinates()
+View::writeCoordinates()        //"A, B, C, D" / "1, 2, 3, 4"
 {
     unsigned x, y;
     x = 20 + TILE_SIZE / 2;
@@ -506,7 +507,7 @@ View::writeCoordinates()
 }
 
 void
-View::drawPatrolDecks()
+View::drawPatrolDecks()     //dibuja los mazos del guardia en cada piso
 {
     for (unsigned i = 0; i < V_TOTAL_GUARDS; i++)
     {
@@ -518,7 +519,7 @@ View::drawPatrolDecks()
 }
 
 void
-View::drawLoots()
+View::drawLoots()           //dibujo el loot de cada piso
 {
     unsigned x, y;
     for (unsigned i = 0; i < V_TOTAL_LOOTS; i++)
@@ -542,7 +543,7 @@ View::drawLoots()
 }
 
 void
-View::drawCharacters()
+View::drawCharacters()          //coloco los characters en el tablero
 {
     unsigned col, row, floor, x, y;
     for (unsigned i = 0; i < V_TOTAL_PLAYERS; i++)
@@ -584,7 +585,7 @@ View::getFloor(locationV_t location)
 }
 
 void
-View::drawGuardDice()
+View::drawGuardDice()           //dibujo el dado del guardia
 {
     unsigned col, row, floor, x, y;
     for (unsigned i = 0; i < V_TOTAL_GUARDS; i++)
@@ -604,7 +605,7 @@ View::drawGuardDice()
 }
 
 void
-View::drawGuards()
+View::drawGuards()          //dibujo los guardias en el tablero
 {
     unsigned col, row, floor, x, y;
     for (unsigned i = 0; i < V_TOTAL_GUARDS; i++)
@@ -657,13 +658,13 @@ View::drawTileSelectedInfo()
 
     if (graphicsData->tiles[index].iAm != roomV_t::V_ROOMBACK)
     {
-        ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[index].iAm, false);
+        ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[index].iAm, false);         //dibujo la carta seleccionada en tamaño grande
         al_draw_bitmap(tile, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE) / 2 + SPACE_DIVIDER_L, SPACE_UP_MARGIN, 0);
 
         al_destroy_bitmap(tile);
         if (graphicsData->tiles[index].iAm != roomV_t::V_SAFE)
         {
-            ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[index].combinationNumber, true);
+            ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[index].combinationNumber, true);        //su combination number (salteo si es la safe)
             al_draw_bitmap(number, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE)*2 + SPACE_DIVIDER_L - 17, SPACE_UP_MARGIN + CARD_SELECTED_SIZE / 2 + 3, 0);
             al_destroy_bitmap(number);
         }
@@ -681,7 +682,7 @@ View::writeSelectedTileInfo()
     floor = getFloor((locationV_t) graphicsData->currentCardSelected);
     switch (col)
     {
-        case 0: c = "A";
+        case 0: c = "A";                //escribo la ubicacion en el tablero de la Tile seleccionada
             break;
         case 1: c = "B";
             break;
@@ -717,14 +718,14 @@ View::writeSelectedTileInfo()
 }
 
 void
-View::showNoCardSelected() //cambiar
+View::showNoCardSelected() //si no se seleccionó ninguna carta... (cambiar)
 {
     al_draw_text(textFont, al_map_rgb(0, 0, 0), (DISPLAYW - SPACE_DIVIDER_L) / 2 + SPACE_DIVIDER_L, 0, ALLEGRO_ALIGN_CENTER, "No Card or Loot Selected");
     return;
 }
 
 void
-View::drawSelectedTileTokens()
+View::drawSelectedTileTokens()          //dibujo los tokens que tiene la carta y su cantidad
 {
     unsigned tokenCount = 0, x, y;
     for (unsigned j = 0; j < 2; j++)
@@ -735,7 +736,7 @@ View::drawSelectedTileTokens()
             y = j * (TOKENS_BIG_SIZE + SPACE_TOKEN_UD) + SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
             if (graphicsData->tiles[(int) graphicsData->currentCardSelected].tokens[tokenCount])
             {
-                if (tokenCount == (int) tokenV_t::V_HACKTOKEN || tokenCount == (int) tokenV_t::V_STEALTHTOKEN)
+                if (tokenCount == (int) tokenV_t::V_HACKTOKEN || tokenCount == (int) tokenV_t::V_STEALTHTOKEN)      //dibujo abajo
                 {
                     tokenCount++;
                     continue;
@@ -749,7 +750,7 @@ View::drawSelectedTileTokens()
 
     }
 
-    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_LAVATORY)
+    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_LAVATORY)    //si es el lavatory coloco la cantidad de stealth tokens q tiene
     {
         x = 3 * (TOKENS_BIG_SIZE + SPACE_TOKEN_LR) + SPACE_DIVIDER_L + SPACE_TOKEN_LR;
         y = SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
@@ -759,7 +760,7 @@ View::drawSelectedTileTokens()
         al_draw_textf(textFont, al_map_rgb(0, 0, 0), x + TOKENS_BIG_SIZE + 5, y, ALLEGRO_ALIGN_LEFT, "x%d", graphicsData->tiles[(int) graphicsData->currentCardSelected].howManyStealthTokens);
     }
 
-    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_CR_FINGERPRINT
+    if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_CR_FINGERPRINT           //si es computerRoom, dibujo la cantidad de hack tokens que tiene
             || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_CR_LASER
             || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_CR_MOTION)
     {
@@ -774,7 +775,7 @@ View::drawSelectedTileTokens()
 }
 
 void
-View::drawLootSelectedInfo()
+View::drawLootSelectedInfo()            //dibujo el loot seleccionado
 {
     ALLEGRO_BITMAP* loot = NULL;
     if (graphicsData->currentCardSelected == button_t::LOOTF1)
@@ -798,7 +799,7 @@ View::drawLootSelectedInfo()
 }
 
 void
-View::writeActions()
+View::writeActions()        //escribo las actions en negro o mas claras dependiendo de si estan habilitadas o no
 {
     float alpha = 0.5f;
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 10 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 3, ALLEGRO_ALIGN_RIGHT, "ACTIONS");
@@ -856,7 +857,7 @@ View::writeActions()
 }
 
 void
-View::initUtilities()
+View::initUtilities()           //cargo el x,y, width y height de cada boton
 {
     //tiles
     unsigned i = 0, x, y, height = 15;
@@ -919,14 +920,14 @@ View::initButton(unsigned i, unsigned x, unsigned y, unsigned w, unsigned h)
 }
 
 void
-View::writeMessages()
+View::writeMessages()           //mensajes del chat
 {
 
     return;
 }
 
 ALLEGRO_BITMAP*
-View::loadCharacter(characterV_t c, bool shrink)
+View::loadCharacter(characterV_t c, bool shrink) //Cargo bitmaps, si shrink=true, se cargan en tamaño chico, si no, en grande
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (c)
@@ -991,7 +992,7 @@ View::loadCharacter(characterV_t c, bool shrink)
 }
 
 ALLEGRO_BITMAP*
-View::loadLoot(lootV_t l, bool shrink)
+View::loadLoot(lootV_t l, bool shrink)      //Cargo bitmaps, si shrink=true, se cargan en tamaño chico, si no, en grande
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (l)
@@ -1080,7 +1081,7 @@ View::loadLoot(lootV_t l, bool shrink)
 }
 
 ALLEGRO_BITMAP*
-View::loadToken(tokenV_t t, bool shrink)
+View::loadToken(tokenV_t t, bool shrink)        //Cargo bitmaps, si shrink=true, se cargan en tamaño chico, si no, en grande
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (t)
@@ -1147,7 +1148,7 @@ View::loadToken(tokenV_t t, bool shrink)
 }
 
 ALLEGRO_BITMAP*
-View::loadRoom(roomV_t r, bool shrink)
+View::loadRoom(roomV_t r, bool shrink)      //Cargo bitmaps, si shrink=true, se cargan en tamaño chico, si no, en grande
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (r)
@@ -1302,7 +1303,7 @@ View::loadRoom(roomV_t r, bool shrink)
 }
 
 ALLEGRO_BITMAP*
-View::loadPatrolCard(patrolV_t p)
+View::loadPatrolCard(patrolV_t p)       //Cargo bitmaps
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (p)
@@ -1380,7 +1381,7 @@ View::loadPatrolCard(patrolV_t p)
 }
 
 ALLEGRO_BITMAP*
-View::loadGuardDie(unsigned number)
+View::loadGuardDie(unsigned number)     //Cargo bitmaps
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (number)
@@ -1414,7 +1415,7 @@ View::loadGuardDie(unsigned number)
 }
 
 ALLEGRO_BITMAP*
-View::loadSafeDie(unsigned number)
+View::loadSafeDie(unsigned number)      //Cargo bitmaps
 {
     ALLEGRO_BITMAP* bitmap = NULL;
     switch (number)
@@ -1448,7 +1449,7 @@ View::loadSafeDie(unsigned number)
 }
 
 ALLEGRO_BITMAP*
-View::loadSafeNumber(unsigned s, bool shrink)
+View::loadSafeNumber(unsigned s, bool shrink)       //Cargo bitmaps, si shrink=true, se cargan en tamaño chico, si no, en grande
 {
 
     ALLEGRO_BITMAP* bitmap = NULL;
