@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <vector>
 #include <stdbool.h>
+#include<chrono>
 
 #define FLOORS_QTY 3
 #define FLOORTILE_QTY 16
@@ -99,6 +100,7 @@ public:
     Tile* getLowerTile();
 
     void setCrackToken() {
+
         crackedToken = true;
     }
 
@@ -138,14 +140,14 @@ public:
         return this->tokens;
     }
 
-    std::vector<Loot*>& getLoots() {
-        return this->loots;
-    }
+    //    std::vector<Loot*>& getLoots() {
+    //        return this->loots;
+    //    }
 protected:
     location_t currentLocation;
     tileType_t tileType;
-    //std::vector<token_t*> tokens;
-    std::vector<Loot*> loots;
+    std::vector<token_t*> tokens;
+    //std::vector<Loot*> loots;       //loots le pasa su ubicacion
 
     Tile* rightTile;
     Tile* leftTile;
