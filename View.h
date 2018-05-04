@@ -71,7 +71,7 @@ enum class patrolV_t {
 } ;
 
 typedef enum {
-    YOU, PARTNER, NO_PLAYER
+    V_YOU, V_PARTNER, V_NO_PLAYER
 } playerV_t;
 
 typedef struct {

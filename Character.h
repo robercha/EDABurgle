@@ -24,7 +24,7 @@ public:
     //virtual bool hiddenTalent() = 0;
 
     void addLoot(Loot& loot) {
-        loots.push_back(loot);
+        loots.push_back(&loot);
     }
     //
     //    void addToken(tokenInfo_t token, Tile* tile) {
@@ -42,10 +42,6 @@ public:
             dynamic_cast<CRMotion*> (currentTile)->useHackToken();
         else if (computerRoom == CR_LASER)
             dynamic_cast<CRLaser*> (currentTile)->useHackToken();
-    }
-
-    void addDiceToSafe() {
-        dynamic_cast<Safe*> (currentTile)->addDice();
     }
 
     void addDiceToSafe() {
