@@ -1,5 +1,5 @@
 #include "Controller.h"
-#include "PlayerHandle.h"
+//#include "PlayerHandle.h"
 #include <new>
 
 Controller::Controller(char* ip)
@@ -10,9 +10,9 @@ Controller::Controller(char* ip)
     this->gameData = new gameData_t;
     this->userData->buttonClicked = (unsigned) button_t::NO_BUTTON;
 
-    Player* player1 = new Player(model, P1);
-    Player* player2 = new Player(model, P2);
-    this->playerHandle = new PlayerHandle(player1, player2);
+//    Player* player1 = new Player(model, P1);
+//    Player* player2 = new Player(model, P2);
+//    this->playerHandle = new PlayerHandle(player1, player2);
     //this->networking = new Networking(ip);
     this->user = new userInterface(getDisplay());
     this->copyButtons();
@@ -23,7 +23,7 @@ Controller::Controller(char* ip)
 Controller::~Controller()
 {
     //delete networking;
-    delete playerHandle;
+//    delete playerHandle;
     delete user;
     delete userData;
 }
