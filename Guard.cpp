@@ -17,21 +17,16 @@ location_t Guard::getLocation()
 
 location_t Guard::getDestination()
 {
-    return currentPatrolCard
+    return currentPatrolCard;
 }
 
-Guard::Guard(const Guard& orig)
-{
-
-}
 
 Guard::~Guard()
 {
 
 }
 
-void
-Guard::walk(Tile* nextStep)
+void Guard::walk(Tile* nextStep)
 {
     currentTile = nextStep;
 }
