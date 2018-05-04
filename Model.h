@@ -11,7 +11,7 @@ public:
     void analyzeAction(gameData_t* gameData);
     Model();
     virtual ~Model();
-    void fillGraphicsData(graphicsData_t* );
+    void fillGraphicsData(View* view, button_t);
 private:
     bool isGameWon();
     bool isGameLost();
@@ -19,11 +19,10 @@ private:
     void shuffleTiles(std::vector<Tile*>);
     void createFloors(std::vector<Tile*>);
     void createGuards();
-    void createCharacters();
     void createModelFSM();
     void createLoots();
     void createCharacters();
-    void fillGraphicsData(View* view, gameData_t* gameData);
+
     void eventGenerator(gameData_t* gameData);
 
     //std::list<Tile*> floorDeck;

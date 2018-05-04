@@ -21,9 +21,9 @@ typedef enum {
 } modelEvent_t;
 
 struct gamePointers_t {
-    std::vector<Floor*>& floors;
-    std::vector<Guard*>& guards; //esto lo tiene floor
-    std::vector<Character*>& characters; //Los dos characters en juego
+    std::vector<Floor*> floors;
+    std::vector<Guard*> guards; //esto lo tiene floor
+    std::vector<Character*> characters; //Los dos characters en juego
     Character* currentCharacter;
     std::vector<Loot*> loots;
 };
@@ -62,7 +62,7 @@ class GameStep {
 public:
     GameStep();
     virtual ~GameStep();
-    virtual void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers) = 0;
+    virtual void eventHandler(gameData_t* , gamePointers_t* ) = 0;
     modelState_t getState();
 
     std::string& getMessage() {

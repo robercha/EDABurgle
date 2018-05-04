@@ -23,7 +23,6 @@ private:
     void* getDisplay();
     userData_t* userData;
     gameData_t* gameData;
-    //graphics_t* graphics;
     Model* model;
     userInterface* user;
     //Networking* networking;
