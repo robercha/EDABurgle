@@ -325,7 +325,7 @@ void Model::fillGraphicsData(View* view, button_t currentCardSelected)
             }
             else
             {
-                view->graphicsData->loots[j].owner = NO_PLAYER;
+                view->graphicsData->loots[j].owner = (playerV_t)NO_PLAYER;
                 view->graphicsData->loots[j].isVisible = false;
             }
         }
