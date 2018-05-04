@@ -57,6 +57,8 @@ typedef enum {
     LABORATORY, LASER, LAVATORY, MOTION, SAFE, SECRETDOOR, SERVICEDUCT, STAIRS, THERMO, WALKWAY, ROOMBACK
 } tileType_t;
 
+typedef struct tileInfo tileInfo_t;
+
 class Tile {
 public:
     Tile();
@@ -172,7 +174,7 @@ protected:
     bool isThereASecretDoor(location_t selectedLocation);
 } ;
 
-typedef struct {
+struct tileInfo {
     //location_t location;
     Tile* tile;
     bool ownTile;
@@ -181,7 +183,7 @@ typedef struct {
     bool twoTilesAwayTile;
     bool serviceDuct;
     //bool secretDoor;
-} tileInfo_t;
+} ;
 
 typedef struct tokens {
     location_t tile;
