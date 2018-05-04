@@ -12,13 +12,14 @@ public:
     ~Floor();
     void randomizeFloor();
     void setTile(Tile* tile);
-    void crack(unsigned, location_t, gameData_t*); //se fija si las tiles son crackeadas
+    unsigned* crack(unsigned, location_t); //se fija si las tiles son crackeadas
     unsigned getGuardSpeed();
     location_t getGuardLocation();
     void moveGuard();
     location_t getGuardDieLocation(); //no se bien que hace pero la necesitamos para graphicsData //donde esta el dado (a donde va si no suenan alarmas)/puede ser patrol_t tmb?
     std::vector< std::vector<Tile*> >& getDeck();
     //patrol_t getPatrolCard(); //para view
+    
 private:
     unsigned floorNumber;
     void createPatrolDeck();
@@ -29,8 +30,7 @@ private:
     Tile* nextStep(Tile* destination);
     Tile* minDistance();
     void unvisitTiles();
-    Guard* guard;
-    bool compare(Tile*, Tile*);
+    Guard* guard; 
     std::vector<location_t> patrolDeck;
     std::vector<location_t> trashedPatrolDeck;
     std::vector< std::vector<Tile*> > tiles;

@@ -2,7 +2,6 @@
 #define COLS 4
 
 #include "Floor.h"
-#include "GameStep.h"
 #include <chrono>
 #include <random>
 #include <algorithm>
@@ -15,6 +14,7 @@
 unsigned floor1(std::vector< std::vector<Tile*> > &floor);
 unsigned floor2(std::vector< std::vector<Tile*> > &floor);
 unsigned floor3(std::vector< std::vector<Tile*> > &floor);
+bool compare(Tile* i, Tile* j);
 
 Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
 {
@@ -298,19 +298,20 @@ void Floor::unvisitTiles()
 
 }
 
-void Floor::crack (unsigned diceQty, location_t location, gameData_t* gameData)
+unsigned* Floor::crack (unsigned diceQty, location_t location)
 {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     unsigned Row = getRow (location);
     unsigned Col = getColumn (location);
     unsigned crackDiceNum;
     unsigned crackedTiles = 0;
+    unsigned diceResult[5];
 
     //Se tira el dado y a todos los tiles que tienen el combination number igual al numero que salio se le pone un crack token
     for (unsigned n = 0; n < diceQty; n++)
     {
-        crackDiceNum = rand_r(seed % 6 + 1);
-        gameData->diceResult[n] = crackDiceNum;
+        crackDiceNum = rand_r(&seed)%6+1;
+        diceResult[n] = crackDiceNum;
         for (int i = 0; i < ROWS; i++)
         {
             if ((tiles[i][Col]->getCombinationNumber() == crackDiceNum)&&(tiles[i][Col] != tiles[Row][Col]))  //Chequea toda la columna de la safe
@@ -338,6 +339,7 @@ void Floor::crack (unsigned diceQty, location_t location, gameData_t* gameData)
     if (crackedTiles == ALL_CRACK)   //Verifico si todas sus tiles adyacentes tienen crack token
         dynamic_cast<Safe*> (tiles[Row][Col])->setCracked();    //Se crackeo la safe
 
+    return diceResult;
 }
 
 void Floor::moveGuard()
@@ -350,13 +352,13 @@ void Floor::moveGuard()
                 alarmTiles.push_back(tiles[i][j]);
 
 
-    if (alarmTiles != NULL)
+    if (!alarmTiles.empty())
     {
         setDistance2Guard();
         std::sort(alarmTiles.begin(), alarmTiles.end(), compare);    //la tile con la minima distancia al guardia queda en el ultimo elemento del vector
         guard->walk(nextStep(alarmTiles.at(0)));
 
-        if (guard->getLocation() == alarmTiles.at(0))
+        if (guard->getLocation() == alarmTiles.at(0)->getCurrentLocation())
         {
             alarmTiles.at(0)->deactivateAlarm();
         }
@@ -372,7 +374,7 @@ void Floor::moveGuard()
 
 }
 
-bool Floor::compare(Tile* i, Tile* j)
+bool compare(Tile* i, Tile* j)
 {
     return i->getDistance2Guard() < j->getDistance2Guard();
 }
@@ -382,7 +384,7 @@ bool Floor::takePatrolCard()
     unsigned finishedDeck = false;
     trashedPatrolDeck.push_back(patrolDeck.back());
     patrolDeck.pop_back();
-    if (patrolDeck == NULL)
+    if (patrolDeck.empty())
         finishedDeck = true;
     else
         return finishedDeck;

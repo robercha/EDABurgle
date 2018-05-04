@@ -55,7 +55,7 @@ typedef struct gameData {
     actions_t actions;
     unsigned loot; //el loot que se toco
     unsigned patrolDeck;
-    unsigned diceResult[6];
+    unsigned diceResult[5];
 } gameData_t;
 
 class GameStep {
