@@ -369,7 +369,7 @@ void Model::fillGraphicsData(graphicsData_t* graphicsData)
                     graphicsData->tiles[index].tokens[k] = false;      //pongo en false todo el arreglo de tokens
 
                 std::vector<token_t*>::iterator tokensIt;               //ver bien
-                for (tokensIt = deck[r][c]->getTokens()->begin(); tokensIt != deck[r][c]->getTokens()->end(); tokensIt++)
+                for (tokensIt = deck[r][c]->getTokens().begin(); tokensIt != deck[r][c]->getTokens().end(); tokensIt++)
                 {
                     graphicsData->tiles[index].tokens[(unsigned) (*tokensIt)->token] = true;
                 }
