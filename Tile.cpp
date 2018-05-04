@@ -298,16 +298,6 @@ void Tile::setJuicerAlarm()
     this->alarmTile = true;
 }
 
-tileType_t Tile::getTileType()
-{
-    return tileType;
-}
-
-unsigned Tile::getCombinationNumber()
-{
-    return combinationNumber;
-}
-
 Tile* Tile::getRightTile()
 {
     return this->rightTile;
@@ -507,7 +497,7 @@ void Tile::reveal()
     if (isVisible == false)
     {
         isVisible = true;
-        unsigned number = ((rand_r(seed) % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
+        unsigned number = ((rand_r(&seed) % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
         this->combinationNumber = number;
 
         if (this->tileType == SAFE)        //si es la safe, el combination number sera 0

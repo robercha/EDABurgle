@@ -43,8 +43,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Guard.o \
 	${OBJECTDIR}/Loot.o \
 	${OBJECTDIR}/Model.o \
-	${OBJECTDIR}/Player.o \
-	${OBJECTDIR}/PlayerHandle.o \
 	${OBJECTDIR}/Tile.o \
 	${OBJECTDIR}/View.o \
 	${OBJECTDIR}/main.o
@@ -113,16 +111,6 @@ ${OBJECTDIR}/Model.o: Model.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Model.o Model.cpp
-
-${OBJECTDIR}/Player.o: Player.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Player.o Player.cpp
-
-${OBJECTDIR}/PlayerHandle.o: PlayerHandle.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PlayerHandle.o PlayerHandle.cpp
 
 ${OBJECTDIR}/Tile.o: Tile.cpp
 	${MKDIR} -p ${OBJECTDIR}

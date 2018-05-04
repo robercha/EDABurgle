@@ -30,8 +30,6 @@
       <itemPath>Guard.cpp</itemPath>
       <itemPath>Loot.cpp</itemPath>
       <itemPath>Model.cpp</itemPath>
-      <itemPath>Player.cpp</itemPath>
-      <itemPath>PlayerHandle.cpp</itemPath>
       <itemPath>Tile.cpp</itemPath>
       <itemPath>View.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -118,10 +116,6 @@
       </item>
       <item path="Model.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="PlayerHandle.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Tile.h" ex="false" tool="3" flavor2="0">
@@ -182,10 +176,6 @@
       <item path="Model.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Model.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="PlayerHandle.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>

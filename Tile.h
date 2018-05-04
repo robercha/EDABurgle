@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <vector>
 #include <stdbool.h>
+#include<chrono>
 
 #define FLOORS_QTY 3
 #define FLOORTILE_QTY 16
@@ -39,17 +40,6 @@ typedef enum {
     NO_LOCATION
 } location_t;
 
-typedef struct {
-    //location_t location;
-    Tile* tile;
-    bool ownTile;
-    bool hawkWall;
-    bool adyacent;
-    bool twoTilesAwayTile;
-    bool serviceDuct;
-    //bool secretDoor;
-} tileInfo_t;
-
 unsigned getColumn(location_t location);
 unsigned getRow(location_t location);
 unsigned getFloor(location_t location);
@@ -68,6 +58,8 @@ typedef enum {
     LABORATORY, LASER, LAVATORY, MOTION, SAFE, SECRETDOOR, SERVICEDUCT, STAIRS, THERMO, WALKWAY, ROOMBACK
 } tileType_t;
 
+typedef struct tileInfo tileInfo_t;
+
 class Tile {
 public:
     Tile();
@@ -76,13 +68,13 @@ public:
     bool isTileVisible();
     virtual void reveal();
     bool triggerAlarm();
-    bool deactivateAlarm()
-    {
+
+    bool deactivateAlarm() {
         triggeredAlarm = false;
     }
     bool isAlarmTile(); //getter de isAlarmTile
-    bool isAlarmTriggered()
-    {
+
+    bool isAlarmTriggered() {
         return triggeredAlarm;
     }
     bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
@@ -108,6 +100,7 @@ public:
     Tile* getLowerTile();
 
     void setCrackToken() {
+
         crackedToken = true;
     }
 
@@ -147,14 +140,14 @@ public:
         return this->tokens;
     }
 
-    std::vector<Loot*>& getLoots() {
-        return this->loots;
-    }
+    //    std::vector<Loot*>& getLoots() {
+    //        return this->loots;
+    //    }
 protected:
     location_t currentLocation;
     tileType_t tileType;
-    //std::vector<token_t*> tokens;
-    std::vector<Loot*> loots;
+    std::vector<token_t*> tokens;
+    //std::vector<Loot*> loots;       //loots le pasa su ubicacion
 
     Tile* rightTile;
     Tile* leftTile;
@@ -181,7 +174,18 @@ protected:
     unsigned combinationNumber;
     bool isAdyacentTileValid(location_t selectedLocation);
     bool isThereASecretDoor(location_t selectedLocation);
-};
+} ;
+
+struct tileInfo {
+    //location_t location;
+    Tile* tile;
+    bool ownTile;
+    bool hawkWall;
+    bool adyacent;
+    bool twoTilesAwayTile;
+    bool serviceDuct;
+    //bool secretDoor;
+} ;
 
 typedef struct tokens {
     location_t tile;
@@ -200,7 +204,7 @@ private:
     Tile* peekaboo; //la tile a peekaer
     Tile* upperFloorTile;
     Tile* lowerFloorTile;
-};
+} ;
 
 class Camera : public Tile {
 public:
@@ -209,7 +213,7 @@ public:
 private:
     Tile* tileP1;
     Tile* tileP2;
-};
+} ;
 
 class CRFingerprint : public Tile {
 public:
@@ -222,7 +226,7 @@ public:
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
-};
+} ;
 
 class CRMotion : public Tile {
 public:
@@ -235,7 +239,7 @@ public:
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
-};
+} ;
 
 class CRLaser : public Tile {
 public:
@@ -248,43 +252,43 @@ public:
     void hack(); //adds hack token to tile
 private:
     unsigned hackTokensQty;
-};
+} ;
 
 class Deadbolt : public Tile {
 public:
     Deadbolt();
 private:
-};
+} ;
 
 class Fingerprint : public Tile {
 public:
     Fingerprint();
 private:
-};
+} ;
 
 class Foyer : public Tile {
 public:
     Foyer();
 private:
-};
+} ;
 
 class Keypad : public Tile {
 public:
     Keypad();
 private:
-};
+} ;
 
 class Laboratory : public Tile {
 public:
     Laboratory();
 private:
-};
+} ;
 
 class Laser : public Tile {
 public:
     Laser();
 private:
-};
+} ;
 
 class Lavatory : public Tile {
 public:
@@ -295,13 +299,13 @@ public:
     };
 private:
     unsigned stealthTokensQty;
-};
+} ;
 
 class Motion : public Tile {
 public:
     Motion();
 private:
-};
+} ;
 
 class Safe : public Tile {
 public:
@@ -317,19 +321,19 @@ public:
 private:
     unsigned numberOfDice;
     bool crackedSafe;
-};
+} ;
 
 class Detector : public Tile {
 public:
     Detector();
 private:
-};
+} ;
 
 class SecretDoor : public Tile {
 public:
     SecretDoor();
 private:
-};
+} ;
 
 class ServiceDuct : public Tile {
 public:
@@ -338,7 +342,7 @@ public:
     void setSecondduct(Tile* secondDuct);
 private:
     Tile* secondServiceDuct;
-};
+} ;
 
 class Stairs : public Tile {
 public:
@@ -347,20 +351,20 @@ public:
     void reveal();
 private:
     Tile* upstairsTile;
-};
+} ;
 
 class Thermo : public Tile {
 public:
     Thermo();
 private:
-};
+} ;
 
 class Walkway : public Tile {
 public:
     Walkway();
     bool itsATrap();
 private:
-};
+} ;
 
 
 #endif /* TILE_H */
