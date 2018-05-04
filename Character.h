@@ -75,7 +75,7 @@ protected:
     unsigned actions;
     unsigned stealthTokens;
     std::vector<Loot*> loots;
-};
+} ;
 
 class Juicer : public Character {
 public:
@@ -86,7 +86,7 @@ private:
     //    Tile* adyacentTile;
     //    bool isTileAdyacent();
 
-};
+} ;
 
 class Hacker : public Character {
 public:
@@ -98,7 +98,7 @@ private:
     bool isFML(); //chequea si la tile es fingerprint, motion, laser
 
 
-};
+} ;
 
 class Acrobat : public Character {
 public:
@@ -107,17 +107,17 @@ public:
 private:
     bool isGuardOnCurrTile();
     bool actionCount(); //se fija si la cant de actions es 0
-};
+} ;
 
 class Spotter : public Character {
 public:
     Spotter();
     //bool hiddenTalent(); //esta usa spend action
     void sendToTop(); //para los botoncitos
-    void sendToBottom(std::vector<patrol_t>* patrolDeck);
+    void sendToBottom(std::vector<location_t>* patrolDeck);
 private:
     void spendExtraAction();
-};
+} ;
 
 class Hawk : public Character {
 public:
@@ -131,7 +131,7 @@ private:
     bool isThereAWall(location_t);
     Tile* destiny;
 
-};
+} ;
 
 class Raven : public Character {
 public:
@@ -143,7 +143,7 @@ public:
 private:
     bool canIUseThisTile(location_t, tileInfo_t*);
     //Tile* tile;
-};
+} ;
 
 class Peterman : public Character {
 public:
@@ -152,7 +152,7 @@ public:
 private:
     unsigned throwAditionalDice();
 
-};
+} ;
 
 
 #endif /* CHARACTER_H */
