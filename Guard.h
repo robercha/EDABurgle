@@ -20,7 +20,7 @@ public:
     Guard();
     virtual ~Guard();
     //walk() avanza de a uno, o al destino final, hay q verlo!!!
-    void walk(); //usa calculateRoute() tantas veces como steps tenga que dar y camina
+    void walk(Tile*); //usa calculateRoute() tantas veces como steps tenga que dar y camina
     unsigned getSpeed();
     location_t getLocation();
     location_t getDestination();
