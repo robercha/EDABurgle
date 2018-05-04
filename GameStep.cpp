@@ -64,11 +64,11 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             showUsedPatrolCards();
             break;
         case WIN:
-            showHappyPepe();
-            reset();
+//            showHappyPepe();
+//            reset();
             break;
         case LOSE:
-            showSadPepe();
+//            showSadPepe();
             break;
 
         default: break;
