@@ -24,7 +24,7 @@ public:
     //virtual bool hiddenTalent() = 0;
 
     void addLoot(Loot& loot) {
-        loots.push_back(&loot);
+        loots.push_back(loot);
     }
     //
     //    void addToken(tokenInfo_t token, Tile* tile) {
@@ -42,6 +42,10 @@ public:
             dynamic_cast<CRMotion*> (currentTile)->useHackToken();
         else if (computerRoom == CR_LASER)
             dynamic_cast<CRLaser*> (currentTile)->useHackToken();
+    }
+
+    void addDiceToSafe() {
+        dynamic_cast<Safe*> (currentTile)->addDice();
     }
 
     void addDiceToSafe() {
@@ -71,7 +75,7 @@ protected:
     unsigned actions;
     unsigned stealthTokens;
     std::vector<Loot*> loots;
-} ;
+};
 
 class Juicer : public Character {
 public:
@@ -82,74 +86,73 @@ private:
     //    Tile* adyacentTile;
     //    bool isTileAdyacent();
 
-} ;
+};
 
 class Hacker : public Character {
 public:
     Hacker();
-    //bool hiddenTalent(); //no triggerea alarma
-
+    bool hiddenTalent(); //no triggerea alarma
+	void setPartnerTile(Tile*);
 private:
     bool isPartnerOnSameTile();
     bool isFML(); //chequea si la tile es fingerprint, motion, laser
+	Tile* partnerTile;
 
-
-} ;
+};
 
 class Acrobat : public Character {
 public:
     Acrobat();
-    //bool hiddenTalent(); //se fija si la cant de actions es 0 y si el guardia sigue en la misma tile le quita un stealth
+    bool hiddenTalent(Floor*); //se fija si la cant de actions es 0 y si el guardia sigue en la misma tile le quita un stealth
 private:
-    bool isGuardOnCurrTile();
+    bool isGuardOnCurrTile(Floor*);
     bool actionCount(); //se fija si la cant de actions es 0
-} ;
+};
 
 class Spotter : public Character {
 public:
     Spotter();
     //bool hiddenTalent(); //esta usa spend action
     void sendToTop(); //para los botoncitos
-    void sendToBottom(std::vector<location_t>* patrolDeck);
+    void sendToBottom(std::vector<patrol_t>* patrolDeck);
 private:
     void spendExtraAction();
-} ;
+};
 
 class Hawk : public Character {
 public:
     Hawk();
     bool canIUseThisTile(location_t, tileInfo_t*);
 
-    //bool hiddenTalent(); //chequea si hay una pared y si la hay el peek no cuesta action
+    bool hiddenTalent(location_t, tileInfo_t*); //chequea si hay una pared y si la hay el peek no cuesta action
     void setTile(Tile*);
 private:
     void addAction();
     bool isThereAWall(location_t);
     Tile* destiny;
 
-} ;
+};
 
 class Raven : public Character {
 public:
     Raven();
     void placeCrowToken(Tile*);
-
-    //    bool canPlaceCrowToken(); //hasta dos tiles adyacentes
+    bool canPlaceCrowToken(); //hasta dos tiles adyacentes
+	bool hiddenTalent(location_t, tileInfo_t*);
     //    void setTile(Tile*);
 private:
     bool canIUseThisTile(location_t, tileInfo_t*);
     //Tile* tile;
-} ;
+};
 
 class Peterman : public Character {
 public:
     Peterman();
-    //bool hiddenTalent(); //throw aditional dice for safe or keypad
+    bool hiddenTalent(); //throw aditional dice for safe or keypad
 private:
-    unsigned throwAditionalDice();
+    unsigned throwAdditionalDice();
 
-} ;
+};
 
 
 #endif /* CHARACTER_H */
-
