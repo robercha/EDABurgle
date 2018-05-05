@@ -627,6 +627,11 @@ void Safe::setCracked()
     crackedSafe = true;
 }
 
+void Safe::disableCracked()
+{
+	crackedSafe = false;
+}
+
 bool ServiceDuct::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
