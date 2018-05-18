@@ -9,6 +9,8 @@
 #define ROWS    4
 #define COLS    4
 #define ALL_CRACK 6
+#define INFINITY 9999999
+
 
 
 unsigned floor1(std::vector< std::vector<Tile*> > &floor);

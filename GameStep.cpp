@@ -10,8 +10,10 @@ GameStep::~GameStep()
 
 void GameStep::drawLoot(gamePointers_t* gamePointers)
 {
-    gamePointers->currentCharacter->addLoot(gamePointers->loots[0]);
-    gamePointers->loots.erase(0);
+    std::vector <Loot*>::iterator  lootIt;
+    lootIt = gamePointers->loots.begin();
+    gamePointers->currentCharacter->addLoot(*(gamePointers->loots[0]));
+    gamePointers->loots.erase(lootIt);
     //if(loot==gold Bar)
     //hacer algo
 }
@@ -21,7 +23,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
     switch (gameData->event)
     {
         case VALID_TILE:
-            enableActions();
+            enableActions(gameData);
             break; //pone en negrito las opciones posibles;
         case INVALID_TILE:
             showInvalidTileMessage();
@@ -39,7 +41,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case A_ROLL_DICE_FOR_SAFE:
             if (gameData->actions.rollDice == true)
             {
-                gamePointers->floors[(unsigned) gamePointers->currentCharacter->getLocation() / 16]->crack(gamePointers->currentCharacter->getDieQty(), (location_t) gamePointers->currentCharacter->getLocation() % 16, gameData);
+                gamePointers->floors[(unsigned) gamePointers->currentCharacter->getLocation() / 16]->crack(gamePointers->currentCharacter->getDieQty(), (location_t) (gamePointers->currentCharacter->getLocation() % 16));
                 if (gamePointers->currentCharacter->wasCracked())
                     drawLoot(gamePointers);
             }
@@ -76,7 +78,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 
 }
 
-void Idle::enableActions(gameData_t gameData)
+void Idle::enableActions(gameData_t* gameData)
 {
     if (gameData->selectedTile.adyacent)
     {

@@ -89,7 +89,7 @@ public:
         state = IDLE;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
-    void enableActions();
+    void enableActions(gameData_t*);
 private:
 };
 
