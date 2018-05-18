@@ -26,7 +26,7 @@ struct gamePointers_t {
     std::vector<Character*> characters; //Los dos characters en juego
     Character* currentCharacter;
     std::vector<Loot*> loots;
-};
+} ;
 
 typedef struct {
     bool pass;
@@ -81,7 +81,7 @@ protected:
     void showUsedPatrolCards();
     void faceConsequences();
     std::string message;
-};
+} ;
 
 class Idle : public GameStep {
 public:
@@ -93,7 +93,8 @@ public:
     void enableActions(gameData_t*);
     void showInvalidTileMessage(gameData_t*);
 private:
-};
+    ;
+} ;
 
 class WaitingFirstAction : public GameStep {
 public:
@@ -105,7 +106,7 @@ public:
     void enableActions(gameData_t*);
     void showInvalidTileMessage(gameData_t*);
 private:
-};
+} ;
 
 class WaitingSecondAction : public GameStep {
 public:
@@ -117,7 +118,7 @@ public:
     void enableActions(gameData_t*);
     void showInvalidTileMessage(gameData_t*);
 private:
-};
+} ;
 
 class WaitingResponse : public GameStep {
 public:
@@ -129,7 +130,7 @@ public:
     void enableActions(gameData_t*);
     void showInvalidTileMessage(gameData_t*);
 private:
-};
+} ;
 
 class PlayAgain : public GameStep {
 public:
@@ -141,7 +142,7 @@ public:
     void enableActions(gameData_t*);
     void showInvalidTileMessage(gameData_t*);
 private:
-};
+} ;
 
 class End : public GameStep {
 public:
@@ -153,7 +154,7 @@ public:
     void enableActions(gameData_t*);
     void showInvalidTileMessage(gameData_t*);
 private:
-};
+} ;
 
 
 #endif /* GAMESTEP_H */

@@ -26,7 +26,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             enableActions(gameData);
             break; //pone en negrito las opciones posibles;
         case INVALID_TILE:
-            showInvalidTileMessage();
+            showInvalidTileMessage(gameData);
             break;
         case A_PASS:
             gamePointers->currentCharacter->pass();
@@ -66,11 +66,11 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             showUsedPatrolCards();
             break;
         case WIN:
-//            showHappyPepe();
-//            reset();
+            //            showHappyPepe();
+            //            reset();
             break;
         case LOSE:
-//            showSadPepe();
+            //            showSadPepe();
             break;
 
         default: break;
@@ -176,11 +176,11 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
 
 void WaitingFirstAction::enableActions(gameData_t* gameData)
 {
-    if(gameData->event == VALID_TILE || gameData->event == INVALID_TILE || gameData->event == A_FREE_MOVE
+    if (gameData->event == VALID_TILE || gameData->event == INVALID_TILE || gameData->event == A_FREE_MOVE
             || gameData->event == )
     {
         gameData->actions.pass = true;
-                
+
         gameData->actions.move = false;
         gameData->actions.peek = false;
         gameData->actions.acceptDecline = false;
@@ -194,12 +194,12 @@ void WaitingFirstAction::enableActions(gameData_t* gameData)
         gameData->actions.offerLoot = false;
         gameData->actions.requestLoot = false;
         gameData->actions.spyPatrolDeck = false;
-        gameData->actions.useHackToken = false;        
+        gameData->actions.useHackToken = false;
     }
-    else if(gameData->event==INVALID_TILE)
+    else if (gameData->event == INVALID_TILE)
     {
         gameData->actions.pass = true;
-                
+
         gameData->actions.move = false;
         gameData->actions.peek = false;
         gameData->actions.acceptDecline = false;
@@ -213,16 +213,16 @@ void WaitingFirstAction::enableActions(gameData_t* gameData)
         gameData->actions.offerLoot = false;
         gameData->actions.requestLoot = false;
         gameData->actions.spyPatrolDeck = false;
-        gameData->actions.useHackToken = false;        
+        gameData->actions.useHackToken = false;
     }
-    else if(gameData->event==)
-    
-    //Pone en false las acciones que ya no se pueden hacer???
-}
+    else if (gameData->event == )
+
+        //Pone en false las acciones que ya no se pueden hacer???
+    }
 
 void WaitingResponse::eventHandler(gameData_t *gameData, gamePointers_t * gamePointers)
 {
-    
+
 }
 
 void End::eventHandler(gameData_t *gameData, gamePointers_t * gamePointers)
