@@ -300,14 +300,15 @@ void Floor::unvisitTiles()
 
 }
 
-unsigned* Floor::crack (unsigned diceQty, location_t location)
+void Floor::crack (unsigned diceQty, location_t location)
 {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     unsigned Row = getRow (location);
     unsigned Col = getColumn (location);
     unsigned crackDiceNum;
     unsigned crackedTiles = 0;
-    unsigned diceResult[5];
+    for (unsigned i = 0; i < 6; i++)
+        this->diceResult[i] = 0;
 
     //Se tira el dado y a todos los tiles que tienen el combination number igual al numero que salio se le pone un crack token
     for (unsigned n = 0; n < diceQty; n++)
