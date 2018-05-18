@@ -56,6 +56,7 @@ typedef struct gameData {
     unsigned loot; //el loot que se toco
     unsigned patrolDeck;
     unsigned diceResult[5];
+    unsigned messageType;
 } gameData_t;
 
 class GameStep {
@@ -76,7 +77,7 @@ protected:
     bool hasCharLostLife();
     bool isGameWon();
     bool isGameLost();
-    void showInvalidTileMessage(); //no tiene acceso a view, deberia hacerlo controller
+    void showInvalidTileMessage(gameData_t*); //no tiene acceso a view, deberia hacerlo controller
     void showUsedPatrolCards();
     void faceConsequences();
     std::string message;
@@ -90,6 +91,7 @@ public:
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
     void enableActions(gameData_t*);
+    void showInvalidTileMessage(gameData_t*);
 private:
 };
 
@@ -101,6 +103,7 @@ public:
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
     void enableActions(gameData_t*);
+    void showInvalidTileMessage(gameData_t*);
 private:
 };
 
@@ -112,6 +115,7 @@ public:
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
     void enableActions(gameData_t*);
+    void showInvalidTileMessage(gameData_t*);
 private:
 };
 
@@ -123,6 +127,7 @@ public:
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
     void enableActions(gameData_t*);
+    void showInvalidTileMessage(gameData_t*);
 private:
 };
 
@@ -134,6 +139,7 @@ public:
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
     void enableActions(gameData_t*);
+    void showInvalidTileMessage(gameData_t*);
 private:
 };
 
@@ -145,6 +151,7 @@ public:
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
     void enableActions(gameData_t*);
+    void showInvalidTileMessage(gameData_t*);
 private:
 };
 
