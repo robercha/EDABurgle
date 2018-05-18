@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro5.h>
 #include <allegro5/timer.h>
 #include <allegro5/bitmap_draw.h>
 #include <allegro5/allegro_image.h>
@@ -12,6 +13,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_color.h>
+
 
 
 
