@@ -70,7 +70,7 @@ public:
     }
     void drawLoot(gamePointers_t*);
 
-    virtual void enableActions() = 0;
+    virtual void enableActions(gameData_t*) = 0;
 protected:
     modelState_t state;
     bool hasCharLostLife();
@@ -100,7 +100,7 @@ public:
         state = WAITING_1_ACTION;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
-    void enableActions();
+    void enableActions(gameData_t*);
 private:
 };
 
@@ -111,7 +111,7 @@ public:
         state = WAITING_2_ACTION;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
-    void enableActions();
+    void enableActions(gameData_t*);
 private:
 };
 
@@ -122,7 +122,7 @@ public:
         state = WAITING_RESPONSE;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
-    void enableActions();
+    void enableActions(gameData_t*);
 private:
 };
 
@@ -133,7 +133,7 @@ public:
         state = PLAY_AGAIN;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
-    void enableActions();
+    void enableActions(gameData_t*);
 private:
 };
 
@@ -144,7 +144,7 @@ public:
         state = END;
     };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
-    void enableActions();
+    void enableActions(gameData_t*);
 private:
 };
 

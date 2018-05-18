@@ -108,7 +108,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
     switch (gameData->event)
     {
         case VALID_TILE:    //nunca va a entrar aca?
-            enableActions();
+            enableActions(gameData);
             break;
         case A_FREE_MOVE:
             if (gameData->actions.move == true)
@@ -174,7 +174,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
     }
 }
 
-void WaitingFirstAction::enableActions()
+void WaitingFirstAction::enableActions(gameData_t* gameData)
 {
 
 }

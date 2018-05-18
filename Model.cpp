@@ -183,7 +183,7 @@ void Model::analyzeAction(gameData_t* gameData)
         currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
     }
     if (currentAction->getState() == IDLE)
-        dynamic_cast <Idle*> (currentAction)->enableActions();
+        dynamic_cast <Idle*> (currentAction)->enableActions(gameData);
 }
 
 void Model::eventGenerator(gameData_t* gameData)
