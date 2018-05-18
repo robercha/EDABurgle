@@ -280,12 +280,12 @@ void Model::eventGenerator(gameData_t* gameData)
 
 }
 
-void Model::fillGraphicsData(View* view, button_t currentCardSelected)
+void Model::fillGraphicsData(View* view, gameData_t* gameData)
 {
 
     view->graphicsData->gameLost = isGameLost();
     view->graphicsData->gameWon = isGameWon();
-    view->graphicsData->currentCardSelected = currentCardSelected;
+    view->graphicsData->currentCardSelected = gameData->preEvent;
 
 
     //    std::vector<Character*>::iterator characterIt;
@@ -327,7 +327,7 @@ void Model::fillGraphicsData(View* view, button_t currentCardSelected)
             }
             else
             {
-                view->graphicsData->loots[j].owner = (playerV_t)NO_PLAYER;
+                view->graphicsData->loots[j].owner = (playerV_t) NO_PLAYER;
                 view->graphicsData->loots[j].isVisible = false;
             }
         }
@@ -378,6 +378,24 @@ void Model::fillGraphicsData(View* view, button_t currentCardSelected)
             }
         }
     }
+
+    view->graphicsData->actions.acceptDecline = gameData.actions.acceptDecline;
+    view->graphicsData->actions.addDice = gameData.actions.addDice;
+    view->graphicsData->actions.createAlarm = gameData.actions.createAlarm;
+    view->graphicsData->actions.hackCR = gameData.actions.hackCR;
+    view->graphicsData->actions.move = gameData.actions.move;
+    view->graphicsData->actions.offerLoot = gameData.actions.offerLoot;
+    view->graphicsData->actions.pass = gameData.actions.pass;
+    view->graphicsData->actions.patrolIsTopBottom = gameData.actions.patrolIsTopBottom;
+    view->graphicsData->actions.peek = gameData.actions.peek;
+    view->graphicsData->actions.pickupLoot = gameData.actions.pickupLoot;
+    view->graphicsData->actions.placeCrowToken = gameData.actions.placeCrowToken;
+    view->graphicsData->actions.requestLoot = gameData.actions.requestLoot;
+    view->graphicsData->actions.rollDice = gameData.actions.rollDice;
+    view->graphicsData->actions.spyPatrolDeck = gameData.actions.spyPatrolDeck;
+    view->graphicsData->actions.useHackToken = gameData.actions.useHackToken;
+
+
 
     //    for (floorIt = floors.begin(); floorIt != floors.end(); floorIt++)
     //    {
