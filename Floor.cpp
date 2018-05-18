@@ -310,7 +310,7 @@ unsigned* Floor::crack (unsigned diceQty, location_t location)
     //Se tira el dado y a todos los tiles que tienen el combination number igual al numero que salio se le pone un crack token
     for (unsigned n = 0; n < diceQty; n++)
     {
-        crackDiceNum = rand_r(&seed)%6+1;
+        crackDiceNum = rand_r(&seed) % 6 + 1;
         diceResult[n] = crackDiceNum;
         for (int i = 0; i < ROWS; i++)
         {
@@ -357,8 +357,8 @@ void Floor::moveGuard()
         setDistance2Guard();
         std::sort(alarmTiles.begin(), alarmTiles.end(), compare);    //la tile con la minima distancia al guardia queda en el ultimo elemento del vector
         guard->walk(nextStep(alarmTiles.at(0)));
-        
-        if (guard->getLocation()==(alarmTiles.at(0)->getCurrentLocation()))
+
+        if (guard->getLocation() == (alarmTiles.at(0)->getCurrentLocation()))
 
         {
             alarmTiles.at(0)->deactivateAlarm();
