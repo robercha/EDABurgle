@@ -149,6 +149,7 @@ Keypad::Keypad()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    openToken = false;
 }
 
 Laboratory::Laboratory()
@@ -677,11 +678,5 @@ bool Stairs::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 void Stairs::reveal()
 {
     isVisible = true;
-
-    upstairsTile->setToken(DOWNSTAIRSTOKEN, this);
-
+    upstairsTile->setDownstairsToken(true);
 }
-
-
-
-

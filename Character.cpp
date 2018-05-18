@@ -1,5 +1,10 @@
 #include "Character.h"
 
+Character::Character()
+{
+    
+}
+
 void Character::move(Tile* tile)
 {
     //reveal y todo eso
@@ -149,7 +154,7 @@ bool Raven::canIUseThisTile(location_t selectedTile, tileInfo_t* tileInfo)
 
 void Raven::placeCrowToken(Tile* tile)
 {
-    tile->setToken(CROWTOKEN, NULL);
+    tile->setCrowToken(true);
 }
 
 void Juicer::placeExtraAlarm(Tile* tile)

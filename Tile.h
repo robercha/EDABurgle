@@ -79,7 +79,7 @@ public:
     }
     bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
     virtual bool isTileValid(location_t, tileInfo_t*); //se fija si es adyacente
-    void setToken(tokenInfo_t, Tile*);
+    //void setToken(tokenInfo_t, Tile*);
     void setCurrentLocation(location_t);
     void setRightWall();
     void setLeftWall();
@@ -102,6 +102,11 @@ public:
     void setCrackToken() {
 
         crackedToken = true;
+    }
+    
+    void setDownstairsToken(bool state)
+    {
+        downstairsToken = state;
     }
 
     bool getCrackToken() {
@@ -168,6 +173,8 @@ protected:
     bool isVisible;
     bool crackedToken;
     bool crowToken;
+    bool downstairsToken;
+    bool kittyToken;
     bool alarmTile;
     bool triggeredAlarm;
     bool mustSpendActions;
@@ -276,7 +283,9 @@ class Keypad : public Tile {
 public:
     Keypad();
 private:
-} ;
+    
+    bool openToken;
+};
 
 class Laboratory : public Tile {
 public:
