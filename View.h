@@ -111,6 +111,24 @@ typedef struct {
 } bitmap_t;
 
 typedef struct {
+    bool pass;
+    bool move;
+    bool peek;
+    bool addDice;
+    bool rollDice;
+    bool hackCR;
+    bool useHackToken;
+    bool offerLoot;
+    bool requestLoot;
+    bool pickupLoot;
+    bool createAlarm;
+    bool spyPatrolDeck;
+    bool patrolIsTopBottom;
+    bool placeCrowToken;
+    bool acceptDecline;
+} action_t;
+
+typedef struct {
     playerInfo_t players[V_TOTAL_PLAYERS];
     guard_t guards[V_TOTAL_GUARDS];
     tile_t tiles[V_TOTAL_TILES];
@@ -118,7 +136,7 @@ typedef struct {
     button_t currentCardSelected;           //muestra en upper-right corner toda la informacion
     unsigned crackingDice[V_TOTAL_CRACKINGDICE];
     //aca faltan los mensajes
-
+    action_t actions;
     bool gameWon;                           //solo fijarse por gameWon=true
     bool gameLost;                          //solo fijarse por gameLost=true
 } graphicsData_t;

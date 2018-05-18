@@ -11,7 +11,7 @@ public:
     void analyzeAction(gameData_t* gameData);
     Model();
     virtual ~Model();
-    void fillGraphicsData(View* view, button_t);
+    void fillGraphicsData(View* view, gameData_t*);
 private:
     bool isGameWon();
     bool isGameLost();
