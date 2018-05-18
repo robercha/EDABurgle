@@ -5,19 +5,19 @@
 Controller::Controller(char* ip)
 {
     this->view = new View;
-    Model* model = new Model(view);
+    Model* model = new Model(/*view*/);
     this->userData = new userData_t;
     this->gameData = new gameData_t;
-    this->graphicsData = new graphicsData_t;
+    this->view->graphicsData = new graphicsData_t;
     this->userData->buttonClicked = (unsigned) button_t::NO_BUTTON;
 
-//    Player* player1 = new Player(model, P1);
-//    Player* player2 = new Player(model, P2);
-//    this->playerHandle = new PlayerHandle(player1, player2);
+    //    Player* player1 = new Player(model, P1);
+    //    Player* player2 = new Player(model, P2);
+    //    this->playerHandle = new PlayerHandle(player1, player2);
     //this->networking = new Networking(ip);
     this->user = new userInterface(getDisplay());
     this->copyButtons();
-    model->fillGraphicsData(graphicsData, gameData->preEvent);
+    model->fillGraphicsData(view, gameData->preEvent);
     view->updateGraphics();
 
 }
@@ -25,7 +25,7 @@ Controller::Controller(char* ip)
 Controller::~Controller()
 {
     //delete networking;
-//    delete playerHandle;
+    //    delete playerHandle;
     delete user;
     delete userData;
 }
@@ -95,7 +95,7 @@ Controller::manageEvent(void)
     //    translatePackage();
     //    FSMCycle(userData->event, gameData);
     model->fillGraphicsData(view, gameData->preEvent);
-    view.updateGraphics();
+    view->updateGraphics();
 
 }
 
@@ -135,7 +135,7 @@ Controller::getLastEvent()
 void
 Controller::translateUserData()
 {
-    gameData->preEvent = (button_t)userData->buttonClicked;
+    gameData->preEvent = (button_t) userData->buttonClicked;
     ////    if (userData->buttonClicked == (unsigned) button_t::PASS)
     ////        playerHandle->setEvent(PASS);
     //    if ((userData->buttonClicked == (unsigned) button_t::NO_BUTTON) ||
