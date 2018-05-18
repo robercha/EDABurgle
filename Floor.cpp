@@ -9,7 +9,7 @@
 #define ROWS    4
 #define COLS    4
 #define ALL_CRACK 6
-#define INFINITY 9999999
+#define INF 999999999
 
 
 
@@ -218,7 +218,7 @@ Tile* Floor::setDistance2Guard()
 
 
     for (int i = 0; i < 16 ; i++)
-        tilex->setDistance2Guard(i == this->getGuardLocation() ? 0 : INFINITY); //Setea la distancia al guardia de todas las tiles en INF menos la tile actual del guard
+        tilex->setDistance2Guard(i == this->getGuardLocation() ? 0 : INF); //Setea la distancia al guardia de todas las tiles en INF menos la tile actual del guard
 
     for (int i = 0; i < 16; i++)
     {
@@ -277,7 +277,7 @@ Tile* Floor::nextStep(Tile* destination)
 
 Tile* Floor::minDistance()
 {
-    unsigned min = INFINITY;
+    unsigned min = INF;
     Tile* tilex;
 
     for (int i = 0; i < 4; i++)
@@ -342,7 +342,6 @@ void Floor::crack (unsigned diceQty, location_t location)
     if (crackedTiles == ALL_CRACK)   //Verifico si todas sus tiles adyacentes tienen crack token
         dynamic_cast<Safe*> (tiles[Row][Col])->setCracked();    //Se crackeo la safe
 
-    return diceResult;
 }
 
 void Floor::moveGuard()

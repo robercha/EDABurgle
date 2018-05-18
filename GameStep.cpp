@@ -134,7 +134,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         case A_ROLL_DICE_FOR_SAFE:
             if (gameData->actions.rollDice == true)
             {
-                gamePointers->floors[(unsigned) gamePointers->currentCharacter->getLocation() / 16]->crack(gamePointers->currentCharacter->getDieQty());
+                gamePointers->floors[(unsigned) gamePointers->currentCharacter->getLocation() / 16]->crack(gamePointers->currentCharacter->getDieQty(), gamePointers->currentCharacter->getLocation());
                 if (gamePointers->currentCharacter->wasCracked())
                     drawLoot(gamePointers);
             }

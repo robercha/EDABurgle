@@ -9,10 +9,12 @@
         <group>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Controller.h</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/View.cpp</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Character.h</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.h</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.h</file>
+            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.h</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.cpp</file>
             <file>file:/home/rober/NetBeansProjects/EDABurgle/Controller.cpp</file>
