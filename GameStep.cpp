@@ -13,6 +13,11 @@ void GameStep::showUsedPatrolCards()
     
 }
 
+void WaitingFirstAction::showInvalidTileMessage(gameData_t* gameData)
+{
+    
+}
+
 void Idle::showInvalidTileMessage(gameData_t* gameData)
 {
     
@@ -263,4 +268,18 @@ void WaitingSecondAction::eventHandler(gameData_t *gameData, gamePointers_t * ga
 
 }
 
+void PlayAgain::showInvalidTileMessage(gameData_t* gameData)
+{
+    
+}
+
+void End::showInvalidTileMessage(gameData_t* gameData)
+{
+    
+}
+
+void WaitingResponse::showInvalidTileMessage(gameData_t* gameData)
+{
+    
+}
 
