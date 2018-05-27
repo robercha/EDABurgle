@@ -15,7 +15,7 @@ void GameStep::showUsedPatrolCards()
 
 void WaitingFirstAction::showInvalidTileMessage(gameData_t* gameData)
 {
-    
+
 }
 
 void Idle::showInvalidTileMessage(gameData_t* gameData)
@@ -253,6 +253,11 @@ void WaitingSecondAction::enableActions(gameData_t* gameData)
 
 }
 
+void WaitingSecondAction::showInvalidTileMessage(gameData_t*)
+{
+
+}
+
 void WaitingResponse::enableActions(gameData_t* gameData)
 {
 
@@ -273,11 +278,6 @@ void End::eventHandler(gameData_t *gameData, gamePointers_t * gamePointers)
 
 }
 
-void PlayAgain::eventHandler(gameData_t *gameData, gamePointers_t * gamePointers)
-{
-
-}
-
 void WaitingSecondAction::eventHandler(gameData_t *gameData, gamePointers_t * gamePointers)
 {
 
@@ -285,16 +285,26 @@ void WaitingSecondAction::eventHandler(gameData_t *gameData, gamePointers_t * ga
 
 void PlayAgain::showInvalidTileMessage(gameData_t* gameData)
 {
-    
+
+}
+
+void PlayAgain::eventHandler(gameData_t *gameData, gamePointers_t * gamePointers)
+{
+
+}
+
+void PlayAgain::enableActions(gameData_t*)
+{
+
 }
 
 void End::showInvalidTileMessage(gameData_t* gameData)
 {
-    
+
 }
 
 void WaitingResponse::showInvalidTileMessage(gameData_t* gameData)
 {
-    
+
 }
 
