@@ -280,6 +280,16 @@ void Model::eventGenerator(gameData_t* gameData)
 
 }
 
+bool Model::isGameLost()
+{
+    
+}
+
+bool Model::isGameWon()
+{
+    
+}
+
 void Model::fillGraphicsData(View* view, gameData_t* gameData)
 {
 
