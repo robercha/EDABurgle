@@ -116,20 +116,23 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
                 gamePointers->currentCharacter->move(gameData->selectedTile.tile);
                 faceConsequences();     //consecuencias cuando se mueve a una tile
             }
+            enableActions(gameData);
             break;
         case A_PASS:
             gamePointers->currentCharacter->pass();
             for (unsigned i = 0; i < (gamePointers->guards[gamePointers->currentCharacter->getLocation() / 16]->getSpeed()); i++)
                 gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
-
+            enableActions(gameData);
             break;
         case A_PEEK:
             if (gameData->actions.peek == true)
                 gamePointers->currentCharacter->peek(gameData->selectedTile.tile);
+            enableActions(gameData);
             break;
         case A_ADD_DICE_TO_SAFE:
             if (gameData->actions.addDice == true)
                 gamePointers->currentCharacter->addDiceToSafe();
+            enableActions(gameData);
             break;
         case A_ROLL_DICE_FOR_SAFE:
             if (gameData->actions.rollDice == true)
@@ -138,11 +141,13 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
                 if (gamePointers->currentCharacter->wasCracked())
                     drawLoot(gamePointers);
             }
+            enableActions(gameData);
             break;
         case A_HACK_COMPUTER:
             if (gameData->actions.hackCR == true)
             {
                 gamePointers->currentCharacter->setHackToken();
+                enableActions(gameData);
             }
             break;
         case A_USE_HACK_TOKEN:
@@ -151,6 +156,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
                 gamePointers->currentCharacter->useHackToken(gamePointers->currentCharacter->whereAmI());
                 //untrigger alarm
             }
+            enableActions(gameData);
             break;
         case A_OFFER_LOOT:
             break;
@@ -177,7 +183,8 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
 void WaitingFirstAction::enableActions(gameData_t* gameData)
 {
     if(gameData->event == VALID_TILE || gameData->event == INVALID_TILE || gameData->event == A_FREE_MOVE
-            || gameData->event == )
+            || gameData->event == A_PEEK || gameData->event == A_PASS || gameData->event == A_PATROL_IS_BOTTOM
+            || gameData->event == A_PATROL_IS_TOP || gameData->event == A_PICKUP_LOOT)
     {
         gameData->actions.pass = true;
                 
