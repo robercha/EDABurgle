@@ -10,7 +10,7 @@ GameStep::~GameStep()
 
 void GameStep::showUsedPatrolCards()
 {
-    
+
 }
 
 void WaitingFirstAction::showInvalidTileMessage(gameData_t* gameData)
@@ -20,12 +20,12 @@ void WaitingFirstAction::showInvalidTileMessage(gameData_t* gameData)
 
 void Idle::showInvalidTileMessage(gameData_t* gameData)
 {
-    
+
 }
 
 void GameStep::faceConsequences()
 {
-    
+
 }
 
 void GameStep::drawLoot(gamePointers_t* gamePointers)
@@ -242,13 +242,28 @@ void WaitingFirstAction::enableActions(gameData_t* gameData)
         gameData->actions.spyPatrolDeck = false;
         gameData->actions.useHackToken = false;
     }
-   // else if (gameData->event == );
+    // else if (gameData->event == );
 
 
     //Pone en false las acciones que ya no se pueden hacer???
 }
 
+void WaitingSecondAction::enableActions(gameData_t* gameData)
+{
+
+}
+
+void WaitingResponse::enableActions(gameData_t* gameData)
+{
+
+}
+
 void WaitingResponse::eventHandler(gameData_t *gameData, gamePointers_t * gamePointers)
+{
+
+}
+
+void End::enableActions(gameData_t* gameData)
 {
 
 }

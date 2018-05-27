@@ -80,7 +80,7 @@ protected:
     bool hasCharLostLife();
     bool isGameWon();
     bool isGameLost();
-    virtual void showInvalidTileMessage(gameData_t*); //no tiene acceso a view, deberia hacerlo controller
+    virtual void showInvalidTileMessage(gameData_t*) = 0; //no tiene acceso a view, deberia hacerlo controller
     void showUsedPatrolCards();
     void faceConsequences();
     std::string message;
@@ -114,9 +114,8 @@ private:
 class WaitingSecondAction : public GameStep {
 public:
 
-    WaitingSecondAction() {
-        state = WAITING_2_ACTION;
-    };
+    WaitingSecondAction();
+    ;
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
     void enableActions(gameData_t*);
     void showInvalidTileMessage(gameData_t*);
