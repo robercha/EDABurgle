@@ -8,6 +8,21 @@ GameStep::~GameStep()
 {
 }
 
+void GameStep::showUsedPatrolCards()
+{
+    
+}
+
+void Idle::showInvalidTileMessage(gameData_t* gameData)
+{
+    
+}
+
+void GameStep::faceConsequences()
+{
+    
+}
+
 void GameStep::drawLoot(gamePointers_t* gamePointers)
 {
     std::vector <Loot*>::iterator  lootIt;
@@ -222,7 +237,7 @@ void WaitingFirstAction::enableActions(gameData_t* gameData)
         gameData->actions.spyPatrolDeck = false;
         gameData->actions.useHackToken = false;
     }
-    else if (gameData->event == );
+   // else if (gameData->event == );
 
         //Pone en false las acciones que ya no se pueden hacer???
 }
