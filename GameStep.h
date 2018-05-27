@@ -80,7 +80,7 @@ protected:
     bool hasCharLostLife();
     bool isGameWon();
     bool isGameLost();
-    virtual void showInvalidTileMessage(gameData_t*); //no tiene acceso a view, deberia hacerlo controller
+    virtual void showInvalidTileMessage(gameData_t*) = 0; //no tiene acceso a view, deberia hacerlo controller
     void showUsedPatrolCards();
     void faceConsequences();
     std::string message;
