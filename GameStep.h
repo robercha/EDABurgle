@@ -114,8 +114,9 @@ private:
 class WaitingSecondAction : public GameStep {
 public:
 
-    WaitingSecondAction();
-    ;
+    WaitingSecondAction() {
+        state = WAITING_2_ACTION;
+    };
     void eventHandler(gameData_t *gameData, gamePointers_t* gamePointers);
     void enableActions(gameData_t*);
     void showInvalidTileMessage(gameData_t*);
