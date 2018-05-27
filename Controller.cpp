@@ -94,7 +94,7 @@ Controller::manageEvent(void)
     //    networking->getEvent(userData);
     //    translatePackage();
     //    FSMCycle(userData->event, gameData);
-    model->fillGraphicsData(view, gameData->preEvent);
+    model->fillGraphicsData(view, gameData);
     view->updateGraphics();
 
 }
