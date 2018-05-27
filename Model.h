@@ -15,7 +15,7 @@ public:
 private:
     bool isGameWon();
     bool isGameLost();
-    void createTiles(std::vector<Tile*>);
+    void createTiles(std::vector<Tile*>&);
     void shuffleTiles(std::vector<Tile*>);
     void createFloors(std::vector<Tile*>);
     void createGuards();

@@ -5,6 +5,11 @@ Character::Character()
     
 }
 
+void Character::setInitialTile(Tile* tile)
+{
+    currentTile = tile;
+}
+
 void Character::move(Tile* tile)
 {
     //reveal y todo eso

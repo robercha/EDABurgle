@@ -30,6 +30,8 @@ public:
     //    void addToken(tokenInfo_t token, Tile* tile) {
     //        currentTile->setToken(token, tile);
     //    }
+    
+    void setInitialTile(Tile*);
 
     void setHackToken() {
         dynamic_cast<CRFingerprint*> (currentTile)->hack();

@@ -20,21 +20,24 @@ bool compare(Tile* i, Tile* j);
 
 Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
 {
-    std::vector< std::vector<Tile*> >::iterator Irow;
-    std::vector<Tile*>::iterator Icol;
+    this->floorNumber = floorNumber;
     unsigned location = 16 * floorNumber;
-
-    for (unsigned i = 0; i < (FLOORTILE_QTY - 2); i++)
+    
+    std::vector <Tile*> tempRow;
+    
+    for(unsigned i = 0; i<4 ; i++)
     {
-        for (Irow = tiles.begin(); Irow != tiles.end(); Irow++)
+        for (unsigned j = 0; j<4; j++)
         {
-            for (Icol = Irow->begin(); Icol != Irow->end(); Icol++)
-            {
-                *Icol = deck.back();
-                deck.pop_back();
-            }
+            if(i==3 && j>=2) //para dejar espacio para la safe y la stair
+                break;
+            tempRow.push_back(deck.back());
+            deck.pop_back();
         }
+        
+        tiles.push_back(tempRow);
     }
+    
 
     tiles[3].push_back(new Stairs);
 
@@ -52,7 +55,7 @@ Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
         for (row = 0; row < ROWS; row++)
         {
 
-            for (col = COLS; col < COLS; col++)
+            for (col = 0; col < COLS; col++)
             {
                 tiles[row][col]->setCurrentLocation((location_t) location);
                 setAdjacentTiles(row, col);

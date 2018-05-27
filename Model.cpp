@@ -13,6 +13,7 @@ Model::Model()
     createFloors(deck);
     createModelFSM();
     createLoots();
+    createCharacters();
 }
 
 Model::~Model()
@@ -40,7 +41,7 @@ void Model::createLoots()
 
 }
 
-void Model::createTiles(std::vector<Tile*> deck)
+void Model::createTiles(std::vector<Tile*> &deck)
 {
     unsigned i;
 
@@ -106,7 +107,13 @@ void Model::createCharacters()
     std::shuffle(characters.begin(), characters.end(), std::default_random_engine(seed));
 
     for (std::vector<Character*>::iterator charIt = characters.end(); charIt != (characters.begin() - 2); charIt--)     //shuffleo y saco 5 (de 7) para que queden los dos jugadores
-        characters.erase(charIt);
+        characters.pop_back();
+    
+    srand(seed);
+    unsigned initialRow = rand()%4;
+    unsigned initialCol = rand()%4;    
+    characters[0]->setInitialTile(floors[0]->getDeck()[initialRow][initialCol]);
+    characters[1]->setInitialTile(floors[0]->getDeck()[initialRow][initialCol]);   
 }
 
 void Model::shuffleTiles(std::vector<Tile*> deck)
@@ -124,10 +131,11 @@ void Model::createFloors(std::vector<Tile*> deck)
     {
         for (unsigned j = 0; j < (FLOORTILE_QTY - 2); j++)
         {
-            floorDeck.push_back(deck.back());
+            floorDeck.push_back(deck.back());            
             deck.pop_back();
         }
-        floors[i] = new Floor(floorDeck, i);
+        floors.push_back(new Floor(floorDeck, i));
+        floorDeck.clear();
     }
 }
 
