@@ -182,7 +182,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
 
 void WaitingFirstAction::enableActions(gameData_t* gameData)
 {
-    if(gameData->event == VALID_TILE || gameData->event == INVALID_TILE || gameData->event == A_FREE_MOVE
+    if (gameData->event == VALID_TILE || gameData->event == INVALID_TILE || gameData->event == A_FREE_MOVE
             || gameData->event == A_PEEK || gameData->event == A_PASS || gameData->event == A_PATROL_IS_BOTTOM
             || gameData->event == A_PATROL_IS_TOP || gameData->event == A_PICKUP_LOOT)
     {
@@ -222,11 +222,10 @@ void WaitingFirstAction::enableActions(gameData_t* gameData)
         gameData->actions.spyPatrolDeck = false;
         gameData->actions.useHackToken = false;
     }
-    else if (gameData->event == );
+    //else if (gameData->event == );
 
-        //Pone en false las acciones que ya no se pueden hacer???
+    //Pone en false las acciones que ya no se pueden hacer???
 }
-
 
 void WaitingResponse::eventHandler(gameData_t *gameData, gamePointers_t * gamePointers)
 {

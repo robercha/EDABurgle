@@ -64,7 +64,10 @@ public:
     GameStep();
     virtual ~GameStep();
     virtual void eventHandler(gameData_t* , gamePointers_t* ) = 0;
-    modelState_t getState();
+
+    modelState_t getState() {
+        return this->state;
+    };
 
     std::string& getMessage() {
         return this->message;

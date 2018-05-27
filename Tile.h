@@ -62,7 +62,9 @@ typedef struct tileInfo tileInfo_t;
 
 class Tile {
 public:
-    Tile();
+
+    Tile() {
+    };
     virtual ~Tile();
     bool peek(coordinates_t);
     bool isTileVisible();
@@ -103,9 +105,8 @@ public:
 
         crackedToken = true;
     }
-    
-    void setDownstairsToken(bool state)
-    {
+
+    void setDownstairsToken(bool state) {
         downstairsToken = state;
     }
 
@@ -283,9 +284,9 @@ class Keypad : public Tile {
 public:
     Keypad();
 private:
-    
+
     bool openToken;
-};
+} ;
 
 class Laboratory : public Tile {
 public:
