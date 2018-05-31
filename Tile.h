@@ -324,6 +324,7 @@ public:
     void addDice();
     bool isCracked();
     void setCracked();
+    void disableCracked();
 
     unsigned getDieQty() {
         return numberOfDice;
