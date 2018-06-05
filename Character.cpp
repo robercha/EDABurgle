@@ -185,6 +185,17 @@ bool Acrobat::isGuardOnCurrTile(Floor* currFloor)
 	return isGuardHere;
 }
 
+void Spotter::sendToBottom(std::vector<patrol_t>* patrolDeck)
+{
+	patrolDeck.push_back(patrolDeck.front());
+	patrolDeck.erase(patrolDeck.begin());
+}
+
+void Spotter::spendExtraAction()
+{
+	actions--;
+}
+
 
 bool Hawk::canIUseThisTile(location_t selectedTile, tileInfo_t* tileInfo)
 {
