@@ -6,6 +6,9 @@
 #include "Tile.h"
 #include "Guard.h"
 
+#define ROWS 4
+#define COLS 4
+
 class Floor {
 public:
     Floor(std::vector<Tile*> &tileDeck, unsigned floorNumber);
