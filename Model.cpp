@@ -326,13 +326,13 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
     //        view->graphicsData->players[characterIt - characters.begin()].actionsLeft = (*characterIt)->getActionsLeft();
     //    }
 
-    for (unsigned i = 0; i < V_TOTAL_FLOORS; i++)
+    for (unsigned floor = 0; floor < V_TOTAL_FLOORS; floor++)
     {
         //guards
-        view->graphicsData->guards[i].movements = floors[i]->getGuardSpeed();
-        view->graphicsData->guards[i].location = (locationV_t) floors[i]->getGuardLocation();
-        //view->view->graphicsData->guards[i].guardDie = floors[i]->getGuardDieLocation();
-        //view->view->graphicsData->guards[i].patrolDeck = floors[i]->getPatrolCard();
+        view->graphicsData->guards[floor].movements = floors[floor]->getGuardSpeed();
+        view->graphicsData->guards[floor].location = (locationV_t) floors[floor]->getGuardLocation();
+        //view->graphicsData->guards[i].guardDie = floors[i]->getGuardDieLocation();
+        view->graphicsData->guards[floor].patrolDeck = (patrolV_t)floors[floor]->getGuardDestination();
 
         //loots
         for (unsigned j = 0; j < V_TOTAL_LOOTS; j++)
@@ -353,34 +353,34 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
         //tiles
 
         //std::vector< std::vector<Tile*> > deck = (*floorIt)->getDeck();
-        std::vector< std::vector<Tile*> >& deck = floors[i]->getDeck();
+        std::vector< std::vector<Tile*> >& deck = floors[floor]->getDeck();
         unsigned index = 0;
-        for (unsigned r = 0; r < 4; r++)
+        for (unsigned row = 0; row < 4; row++)
         {
-            for (unsigned c = 0; c < 4; c++)
+            for (unsigned col = 0; col < 4; col++)
             {
-                index = (r) * FLOORTILE_QTY + r * 4 + c;
-                view->graphicsData->tiles[index].combinationNumber =  deck[r][c]->getCombinationNumber();
+                index = floor * FLOORTILE_QTY + row * 4 + col;
+                view->graphicsData->tiles[index].combinationNumber =  deck[row][col]->getCombinationNumber();
                 //            view->graphicsData->tiles[r].goldBarOnTheLoose = ;        //hacer algo con esto
 
 
-                if (deck[r][c]->isTileVisible())
+                if (!deck[row][col]->isTileVisible())
                     view->graphicsData->tiles[index].iAm = roomV_t::V_ROOMBACK;
                 else
-                    view->graphicsData->tiles[index].iAm = (roomV_t) deck[r][c]->getTileType();
+                    view->graphicsData->tiles[index].iAm = (roomV_t) deck[row][col]->getTileType();
 
 
-                if (deck[r][c]->getTileType() == CR_FINGERPRINT)
-                    view->graphicsData->tiles[index].howManyHackTokens = dynamic_cast < CRFingerprint* > (deck[r][c])->getHackTokensQty();
-                else if (deck[r][c]->getTileType() == CR_LASER)
-                    view->graphicsData->tiles[index].howManyHackTokens = dynamic_cast < CRLaser* > (deck[r][c])->getHackTokensQty();
-                else if (deck[r][c]->getTileType() == CR_MOTION)
-                    view->graphicsData->tiles[index].howManyHackTokens = dynamic_cast < CRMotion* > (deck[r][c])->getHackTokensQty();
+                if (deck[row][col]->getTileType() == CR_FINGERPRINT)
+                    view->graphicsData->tiles[index].howManyHackTokens = dynamic_cast < CRFingerprint* > (deck[row][col])->getHackTokensQty();
+                else if (deck[row][col]->getTileType() == CR_LASER)
+                    view->graphicsData->tiles[index].howManyHackTokens = dynamic_cast < CRLaser* > (deck[row][col])->getHackTokensQty();
+                else if (deck[row][col]->getTileType() == CR_MOTION)
+                    view->graphicsData->tiles[index].howManyHackTokens = dynamic_cast < CRMotion* > (deck[row][col])->getHackTokensQty();
                 else
                     view->graphicsData->tiles[index].howManyHackTokens = 0;
 
-                if (deck[r][c]->getTileType() == LAVATORY)
-                    view->graphicsData->tiles[index].howManyStealthTokens = dynamic_cast < Lavatory* > (deck[r][c])->getStealthTokensQty();
+                if (deck[row][col]->getTileType() == LAVATORY)
+                    view->graphicsData->tiles[index].howManyStealthTokens = dynamic_cast < Lavatory* > (deck[row][col])->getStealthTokensQty();
                 else
                     view->graphicsData->tiles[index].howManyStealthTokens = 0;
 
@@ -389,7 +389,7 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
                     view->graphicsData->tiles[index].tokens[k] = false;      //pongo en false todo el arreglo de tokens
 
                 std::vector<token_t*>::iterator tokensIt;               //ver bien
-                for (tokensIt = deck[r][c]->getTokens().begin(); tokensIt != deck[r][c]->getTokens().end(); tokensIt++)
+                for (tokensIt = deck[row][col]->getTokens().begin(); tokensIt != deck[row][col]->getTokens().end(); tokensIt++)
                 {
                     view->graphicsData->tiles[index].tokens[(unsigned) (*tokensIt)->token] = true;
                 }

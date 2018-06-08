@@ -1,8 +1,10 @@
 #include "Guard.h"
 
-Guard::Guard()
+Guard::Guard(unsigned steps, Tile* startTile, location_t patrolCard)
 {
-
+    this->steps = steps;
+    this->currentTile = startTile;
+    this->currentPatrolCard = patrolCard;
 }
 
 unsigned Guard::getSpeed()
@@ -18,6 +20,11 @@ location_t Guard::getLocation()
 location_t Guard::getDestination()
 {
     return currentPatrolCard;
+}
+
+void Guard::setDestination(location_t destination)
+{
+    currentPatrolCard = destination;
 }
 
 

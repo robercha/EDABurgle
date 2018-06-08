@@ -17,13 +17,14 @@
 
 class Guard {
 public:
-    Guard();
+    Guard(unsigned, Tile*, location_t);
     virtual ~Guard();
     //walk() avanza de a uno, o al destino final, hay q verlo!!!
     void walk(Tile*); //usa calculateRoute() tantas veces como steps tenga que dar y camina
     unsigned getSpeed();
     location_t getLocation();
     location_t getDestination();
+    void setDestination(location_t);
     location_t getDieLocation(); //no se bien que hace pero la necesitamos para graphicsData //donde esta el dado (a donde va si no suenan alarmas)/puede ser patrol_t tmb?
     //patrol_t getPatrolCard(); //para view
 private:

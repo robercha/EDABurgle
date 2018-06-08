@@ -68,8 +68,17 @@ Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
         createWalls(floorNumber);
 
     }
-
+    
     createPatrolDeck();
+    
+    location_t patrolCard = patrolDeck.back();
+    
+    this->trashedPatrolDeck.push_back(patrolCard);
+    patrolDeck.pop_back();
+    guard = new Guard(floorNumber+2, tiles[(unsigned)patrolCard/COLS][(unsigned)patrolCard%COLS], patrolCard);
+
+    
+    
 }
 
 Floor::~Floor()
@@ -80,7 +89,7 @@ void Floor::createPatrolDeck()
 {
     trashedPatrolDeck.clear();
 
-    for (unsigned i = floorNumber * (ROWS * COLS); i < (floorNumber + 1)*(ROWS * COLS); i++)
+    for (unsigned i = 0; i < (ROWS * COLS); i++)
         patrolDeck.push_back((location_t) i);
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -90,6 +99,23 @@ void Floor::createPatrolDeck()
     for (unsigned i = 0; i < DISCARDED_PATROL_COUNT; i++)
         patrolDeck.pop_back();
 
+}
+
+void Floor::updatePatrolCard()
+{
+    if(!patrolDeck.empty())
+    {
+        location_t patrolCard = patrolDeck.back();
+        this->trashedPatrolDeck.push_back(patrolCard);  
+        patrolDeck.pop_back();
+        guard->setDestination(patrolCard);
+    }
+    else
+    {
+        createPatrolDeck();
+        updatePatrolCard();
+    }
+    
 }
 
 void Floor::createWalls(unsigned floorNumber)

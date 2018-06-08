@@ -388,15 +388,17 @@ View::drawCharactersInfo()
 
 void
 View::drawTiles()
+
 {
     unsigned i = 0, x, y;
     for (unsigned floor = 0; floor < 3; floor++)
-        for (unsigned rows = 0; rows < 4; rows++, i++)
+        for (unsigned rows = 0; rows < 4; rows++/*, i++*/)
         {
             for (unsigned cols = 0; cols < 4; cols++, i++)
             {
                 x = 20 + cols * (TILE_SIZE + SPACE_TILE) + floor * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3);
                 y = 135 + rows * (TILE_SIZE + SPACE_TILE);
+                
                 if (graphicsData->tiles[i].iAm == roomV_t::V_ROOMBACK)
                 {
                     ALLEGRO_BITMAP* tile = loadRoom(roomV_t::V_ROOMBACK, false);        //cargo la iamgen de la carta dada vuelta en tamaño chico, dibujo y destruyo el bitmap
@@ -412,12 +414,15 @@ View::drawTiles()
                     {
 
                         ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[i].combinationNumber, true);
-                        al_draw_bitmap(number, x, y, 0);
-                        al_destroy_bitmap(number);
+                        if(number != NULL)
+                        {
+                            al_draw_bitmap(number, x, y, 0);
+                            al_destroy_bitmap(number);
+                        }
                     }
                 }
             }
-            i--;
+            /*i--;*/
         }
     return;
 }
@@ -1537,6 +1542,7 @@ View::loadSafeNumber(unsigned s, bool shrink)       //Cargo bitmaps, si shrink=t
 
             bitmap = al_load_bitmap("images/tiles/6.png");
             break;
+        default: bitmap = NULL; break;
     }
     return bitmap;
 }

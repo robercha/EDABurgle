@@ -14,7 +14,12 @@ public:
     void setTile(Tile* tile);
     void crack(unsigned, location_t); //se fija si las tiles son crackeadas
     unsigned getGuardSpeed();
+    void updatePatrolCard();
     location_t getGuardLocation();
+    location_t getGuardDestination()
+    {
+        return guard->getDestination();
+    }
     void moveGuard();
     location_t getGuardDieLocation(); //no se bien que hace pero la necesitamos para graphicsData //donde esta el dado (a donde va si no suenan alarmas)/puede ser patrol_t tmb?
     std::vector< std::vector<Tile*> >& getDeck();
