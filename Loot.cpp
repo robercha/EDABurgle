@@ -22,10 +22,10 @@ void Tiara::setGuard(Guard* guard)
 	this->guard = guard;
 }
 
-bool Tiara::awakenCurse(location_t location)
+bool Tiara::awakenCurse(Tile* ownerTile, tileInfo_t* tileInfo)
 {
 	bool curse = false;
-	if(isGuardNearby(location))
+	if(isGuardNearby(ownerTile, tileInfo))
 		curse = true;
 	
 	return curse;
@@ -34,16 +34,12 @@ bool Tiara::awakenCurse(location_t location)
 bool Tiara::isGuardNearby(Tile* ownerTile, tileInfo_t* tileInfo)
 {
 	bool isGuard = false;
-	if(ownerTile->isTileValid(guard->getLocation, tileInfo))
+	if(ownerTile->isTileValid(guard->getLocation(), tileInfo))
 		isGuard = true;
 	
 	return isGuard;
 }
 
-void Tiara::setGuard(Guard* guard)
-{
-	this->guard = guard;
-}
 
 bool Painting::awakenCurse(Tile* ownerTile)
 {
@@ -94,7 +90,7 @@ bool Mirror::deactivateLaser(Tile* ownerTile)
 	return deactivate;
 }
 
-bool Keycard::awakenCurse(Floor* currFloor, Tile* ownerTile)
+bool KeyCard::awakenCurse(Floor* currFloor, Tile* ownerTile)
 {
 	bool curse = false;
 	disableCrackFlags(currFloor);
@@ -107,7 +103,7 @@ bool Keycard::awakenCurse(Floor* currFloor, Tile* ownerTile)
 	return curse;
 }
 
-bool Keycard::isOwnerOnSafeTile(Tile* ownerTile)
+bool KeyCard::isOwnerOnSafeTile(Tile* ownerTile)
 {
 	bool isSafe = false;
 	if(ownerTile->getTileType() == SAFE)
@@ -116,8 +112,10 @@ bool Keycard::isOwnerOnSafeTile(Tile* ownerTile)
 	return isSafe;
 }
 
-void Keycard::disableCrackFlags(Floor* currFloor)
+void KeyCard::disableCrackFlags(Floor* currFloor)
 {
+	std::vector< std::vector<Tile*> > tiles;
+	tiles = currFloor->getDeck();
 
 	for (unsigned row = 0; row < ROWS; row++)
 	{
@@ -126,7 +124,7 @@ void Keycard::disableCrackFlags(Floor* currFloor)
 		{
 			if(tiles[row][col]->getTileType() == SAFE)
 			{
-				tiles[row][col]->disableCracked();
+				dynamic_cast <Safe*> (tiles[row][col])->disableCracked();
 			}
 			
 			
