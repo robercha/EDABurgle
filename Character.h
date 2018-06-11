@@ -113,7 +113,7 @@ public:
     Spotter();
     //bool hiddenTalent(); //esta usa spend action
     void sendToTop(); //para los botoncitos
-    void sendToBottom(std::vector<patrol_t>* patrolDeck);
+    void sendToBottom(std::vector<location_t>* patrolDeck);
 private:
     void spendExtraAction();
 };
