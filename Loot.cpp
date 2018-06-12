@@ -17,6 +17,43 @@ loot_t Loot::getLootName()
     return lootName;
 }
 
+bool Kitty::isThereAnAlarmTile(Floor* currFloor)
+{
+	bool isThere = false;
+
+	std::vector< std::vector<Tile*> > tiles;
+	tiles = currFloor->getDeck();
+
+	for (unsigned row = 0; row < ROWS; row++)
+	{
+
+		for (unsigned col = COLS; col < COLS; col++)
+		{
+			if((tiles[row][col]->isAlarmTile())&&(tiles[row][col]->isTileVisible()))
+			{
+				isThere = true;
+			}
+			
+			
+		}
+
+	}
+
+	return isThere;
+}
+
+bool Kitty::rollDice()
+{
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	unsigned result = rand_r(seed % 6 + 1);
+	bool oneOrTwo = false;
+	
+	if((result == 1) || (result == 2))
+		oneOrTwo = true;
+	
+	return oneOrTwo;
+}
+
 void Tiara::setGuard(Guard* guard)
 {
 	this->guard = guard;
@@ -81,7 +118,7 @@ bool Mirror::awakenCurse(Tile* ownerTile)
 bool Mirror::deactivateLaser(Tile* ownerTile)
 {
 	bool deactivate = false;
-	if(ownerTile->getTileType() == LASER)
+	if((ownerTile->getTileType() == LASER) || (ownerTile->isAlarmTile()))
 	{
 		ownerTile->deactivateAlarm();
 		deactivate = true;
