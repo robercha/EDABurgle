@@ -63,7 +63,7 @@ public:
     void setTile();
 private:
     bool rollDice(); //si es 1 o 2
-    bool isThereAnAlarmTile();
+    bool isThereAnAlarmTile(Floor* currFloor);
     Tile* calculateRoute(); //devuelve la tile a la q deberia moverse el kitty
     Tile* currentTile; //o location_t location;
 };
