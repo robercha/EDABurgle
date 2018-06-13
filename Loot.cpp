@@ -31,13 +31,17 @@ bool Kitty::isThereAnAlarmTile(Floor* currFloor)
 		{
 			if((tiles[row][col]->isAlarmTile())&&(tiles[row][col]->isTileVisible()))
 			{
-				isThere = true;
+				alarmTiles.push_back(tiles[row][col]->getCurrentLocation()); //meto la location de ese tile en el vector de alarm tiles
+
 			}
 			
 			
 		}
 
 	}
+
+	if(!alarmTiles.empty())
+		isThere = true;     //si no esta vacío el vector, hay alarm tiles descubiertas
 
 	return isThere;
 }
@@ -54,6 +58,64 @@ bool Kitty::rollDice()
 	return oneOrTwo;
 }
 
+Tile* Kitty::calculateRoute()
+{
+	Tile* kittyTile;
+
+	unsigned distance;
+	unsigned minDistance;
+
+	location_t minDistanceTile = alarmTiles[0];
+	location_t currentLocation = currentTile->getCurrentLocation();
+
+	//Obtengo las filas y columnas de la tile actual y la primera alarm tile del vector alarmTiles
+	int rowCurrent = getRow(currentLocation);
+	int colCurrent = getColumn(currentLocation);
+	int rowAlarm = getRow(minDistanceTile);
+	int colAlarm = getColumn(minDistanceTile);
+
+	minDistance = abs(rowCurrent-rowAlarm) + abs(colCurrent-colAlarm); //calculo de distancia entre tiles (en numero de tiles)
+
+	for(unsigned i=1; i<alarmTiles.size(); i++)
+	{
+		//busco la tile de alarm con menor distancia a la actual
+
+		rowAlarm = getRow(alarmTiles[i]);
+		colAlarm = getColumn(alarmTiles[i]);
+
+		distance = abs(rowCurrent-rowAlarm) + abs(colCurrent-colAlarm);
+
+		if(distance < minDistance)	//como no le puse <=, si llegara a haber varias iguales, la que va es la primera que agarra
+		{
+			minDistanceTile = alarmTiles[i];   
+			minDistance = distance;
+		}
+
+	}
+
+	//obtengo la fila y columna de la alarm tile mas cercana
+
+	rowAlarm = getRow(minDistanceTile);
+	colAlarm = getColumn(minDistanceTile);
+
+	//veo en qué tile tengo que poner el kitty
+
+	if(rowAlarm > rowCurrent)
+		kittyTile = currentTile->getLowerTile();
+
+	else if(rowAlarm < rowCurrent)
+		kittyTile = currentTile->getUpperTile();
+
+	else if(colAlarm > colCurrent)
+		kittyTile = currentTile->getRightTile();
+
+	else if(colAlarm < colCurrent)
+		kittyTile = currentTile->getLeftTile();
+
+	return kittyTile;
+
+}
+
 void Tiara::setGuard(Guard* guard)
 {
 	this->guard = guard;
@@ -62,7 +124,7 @@ void Tiara::setGuard(Guard* guard)
 bool Tiara::awakenCurse(Tile* ownerTile, tileInfo_t* tileInfo)
 {
 	bool curse = false;
-	if(isGuardNearby(ownerTile, tileInfo))
+	if(isGuardNearby(ownerTile,tileInfo))
 		curse = true;
 	
 	return curse;
@@ -242,4 +304,5 @@ bool Chihuahua::rollDice()
 	
 	return isItSix;
 }
+
 
