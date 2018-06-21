@@ -105,7 +105,7 @@ public:
     bool hiddenTalent(Floor*); //se fija si la cant de actions es 0 y si el guardia sigue en la misma tile le quita un stealth
 private:
     bool isGuardOnCurrTile(Floor*);
-    bool actionCount(); //se fija si la cant de actions es 0
+    bool noActionsLeft(); //se fija si la cant de actions es 0
 };
 
 class Spotter : public Character {

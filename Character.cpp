@@ -153,7 +153,7 @@ bool Hacker::isPartnerOnSameTile()
 	return same;
 }
 
-bool Acrobat::actionCount()
+bool Acrobat::noActionsLeft()
 {
 	bool isItZero = false;
 	if(actions == 0)
@@ -165,7 +165,7 @@ bool Acrobat::actionCount()
 bool Acrobat::hiddenTalent(Floor* currFloor)
 {
 	bool hTalent = true; //da true si no lo agarra el guardia; false en caso contrario
-	if((actionCount)&&(isGuardOnCurrTile(currFloor)))
+	if((noActionsLeft())&&(this->isGuardOnCurrTile(currFloor)))
 	{
 		hTalent = false;
 		stealthTokens--;
@@ -178,7 +178,7 @@ bool Acrobat::hiddenTalent(Floor* currFloor)
 bool Acrobat::isGuardOnCurrTile(Floor* currFloor)
 {
 	bool isGuardHere = false;
-	location_t guardLocation = currFloor->guard->getLocation();
+	location_t guardLocation = currFloor->getGuardLocation();
 	if(guardLocation == this->getLocation())
 		isGuardHere = true;
 	
@@ -187,8 +187,8 @@ bool Acrobat::isGuardOnCurrTile(Floor* currFloor)
 
 void Spotter::sendToBottom(std::vector<patrol_t>* patrolDeck)
 {
-	patrolDeck.push_back(patrolDeck.front());
-	patrolDeck.erase(patrolDeck.begin());
+	patrolDeck->push_back(patrolDeck->front());
+	patrolDeck->erase(patrolDeck->begin());
 }
 
 void Spotter::spendExtraAction()
@@ -296,7 +296,9 @@ bool Peterman::hiddenTalent()
 unsigned Peterman::throwAdditionalDice()
 {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	unsigned result = rand_r(seed % 6 + 1);
+        srand(seed);
+	unsigned result = rand()%6 + 1;
+        
 	
 	return result;
 }

@@ -45,7 +45,7 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse();
+    bool awakenCurse(){};
 	
 private:
    // bool virgin; 
@@ -59,7 +59,7 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse();
+    bool awakenCurse(){};
     void setTile();
 private:
     bool rollDice(); //si es 1 o 2
@@ -76,7 +76,7 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(Tile*, tileInfo_t*);
+    bool awakenCurse(){};
     void setGuard(Guard*);
 private:
     bool isGuardNearby(Tile*, tileInfo_t*);  // le agrego Tile* y tileInfo_t* para saber si esta cerca del guard
@@ -92,7 +92,7 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(Tile*); //si devuelve true, no puede pasar
+    bool awakenCurse(){}; //si devuelve true, no puede pasar
 private:
     bool onServiceDuctTile(Tile*);
     bool isSecretDoorNearby(Tile*);
@@ -106,7 +106,7 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(Tile*); //si devuelve false, no cambia el estado de la alarma
+    bool awakenCurse(){}; //si devuelve false, no cambia el estado de la alarma
 private:
     bool deactivateLaser(Tile*); //evita que se active el flag de triggered alarm
     void decreaseActions(); //si tiene >3 actions, le resta una // Aca necesitaria tener acceso al character o que esto se haga en gameStep
@@ -120,7 +120,7 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(Floor*, Tile*); //poner en todos los safe tile el flag de poder crakear en false y si el jugador esta en esa safe tile cambiarlo a true
+    bool awakenCurse(){}; //poner en todos los safe tile el flag de poder crakear en false y si el jugador esta en esa safe tile cambiarlo a true
 private:
 	bool isOwnerOnSafeTile(Tile*);
 	void disableCrackFlags(Floor*); //tendria que tener acceso a todo el floor
@@ -137,7 +137,7 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(Tile*); //dispara alarma de thermo
+    bool awakenCurse(){}; //dispara alarma de thermo
 private:
     bool onThermoTile(Tile*); //tal vez no es necesario
 };
@@ -150,7 +150,7 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(Tile*,Tile*); //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
+    bool awakenCurse(){}; //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
     void setPartner(/*Character**/); //solo una vez
     void setPrevTile(Tile*); //solo se setea cuando agarra el loot
 private:
@@ -167,7 +167,7 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(Tile*); //triggerea alarma de cualquier currentTile
+    bool awakenCurse(){}; //triggerea alarma de cualquier currentTile
 private:
     bool rollDice(); //si es 6
 };
@@ -180,7 +180,7 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(); //clonarse y crear GoldBar2
+    bool awakenCurse(){}; //clonarse y crear GoldBar2
     //   Loot getGoldBar();
 private:
     //  Loot goldBar2;
