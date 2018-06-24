@@ -70,7 +70,7 @@ enum class locationV_t {
 } ;
 
 enum class patrolV_t {
-    V_A1, V_A2, V_A3, V_A4, V_B1, V_B2, V_B3, V_B4, V_C1, V_C2, V_C3, V_C4, V_D1, V_D2, V_D3, V_D4, V_NO_PATROL
+    V_A1, V_B1, V_C1, V_D1, V_A2, V_B2, V_C2, V_D2, V_A3, V_B3, V_C3, V_D3, V_A4, V_B4, V_C4, V_D4, V_NO_PATROL
 } ;
 
 typedef enum {

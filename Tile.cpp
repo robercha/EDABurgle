@@ -19,6 +19,7 @@ Atrium::Atrium()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 
 }
 
@@ -34,6 +35,7 @@ Camera::Camera()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 CRFingerprint::CRFingerprint()
@@ -49,6 +51,7 @@ CRFingerprint::CRFingerprint()
     crackedToken = false;
     hackTokensQty = 0;
     crowToken = false;
+    goldBarToken = false;
 }
 
 CRLaser::CRLaser()
@@ -64,6 +67,7 @@ CRLaser::CRLaser()
     crackedToken = false;
     hackTokensQty = 0;
     crowToken = false;
+    goldBarToken = false;
 }
 
 CRMotion::CRMotion()
@@ -79,6 +83,7 @@ CRMotion::CRMotion()
     crackedToken = false;
     hackTokensQty = 0;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Deadbolt::Deadbolt()
@@ -93,6 +98,7 @@ Deadbolt::Deadbolt()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Detector::Detector()
@@ -107,6 +113,7 @@ Detector::Detector()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Fingerprint::Fingerprint()
@@ -121,6 +128,7 @@ Fingerprint::Fingerprint()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Foyer::Foyer()
@@ -135,6 +143,7 @@ Foyer::Foyer()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Keypad::Keypad()
@@ -150,6 +159,7 @@ Keypad::Keypad()
     crackedToken = false;
     crowToken = false;
     openToken = false;
+    goldBarToken = false;
 }
 
 Laboratory::Laboratory()
@@ -164,6 +174,7 @@ Laboratory::Laboratory()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Laser::Laser()
@@ -178,6 +189,7 @@ Laser::Laser()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Lavatory::Lavatory()
@@ -192,6 +204,7 @@ Lavatory::Lavatory()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Motion::Motion()
@@ -206,6 +219,7 @@ Motion::Motion()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Safe::Safe()
@@ -222,6 +236,7 @@ Safe::Safe()
     crackedToken = false;
     crackedSafe = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 SecretDoor::SecretDoor()
@@ -236,6 +251,7 @@ SecretDoor::SecretDoor()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 ServiceDuct::ServiceDuct()
@@ -250,6 +266,7 @@ ServiceDuct::ServiceDuct()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Stairs::Stairs()
@@ -264,6 +281,7 @@ Stairs::Stairs()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Thermo::Thermo()
@@ -278,6 +296,7 @@ Thermo::Thermo()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 Walkway::Walkway()
@@ -292,6 +311,7 @@ Walkway::Walkway()
     combinationNumber = 0;
     crackedToken = false;
     crowToken = false;
+    goldBarToken = false;
 }
 
 void Tile::setJuicerAlarm()
@@ -304,7 +324,7 @@ Tile* Tile::getRightTile()
     return this->rightTile;
 }
 
-unsigned Tile::isGoldBar()
+bool Tile::isGoldBar()
 {
     return this->goldBarToken;
 }

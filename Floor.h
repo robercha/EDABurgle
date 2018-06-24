@@ -23,7 +23,21 @@ public:
     {
         return guard->getDestination();
     }
+    location_t getGuardPatrolCard()
+    {
+        return guard->getPatrolCard();
+    }
     void moveGuard();
+    void toggleGuard()
+    {
+        guard->toggleGuard();
+    }
+    
+    bool isGuardActive()
+    {
+        return guard->getGuardState();
+    }
+    
     location_t getGuardDieLocation(); //no se bien que hace pero la necesitamos para graphicsData //donde esta el dado (a donde va si no suenan alarmas)/puede ser patrol_t tmb?
     std::vector< std::vector<Tile*> >& getDeck();
     //patrol_t getPatrolCard(); //para view

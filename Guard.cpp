@@ -5,6 +5,8 @@ Guard::Guard(unsigned steps, Tile* startTile, location_t patrolCard)
     this->steps = steps;
     this->currentTile = startTile;
     this->currentPatrolCard = patrolCard;
+    this->destination = patrolCard;
+    this->isActive = false;
 }
 
 unsigned Guard::getSpeed()
@@ -19,12 +21,22 @@ location_t Guard::getLocation()
 
 location_t Guard::getDestination()
 {
+    return destination;
+}
+
+location_t Guard::getPatrolCard()
+{
     return currentPatrolCard;
 }
 
 void Guard::setDestination(location_t destination)
 {
-    currentPatrolCard = destination;
+    destination = destination;
+}
+
+void Guard::setPatrolCard(location_t newPatrolCard)
+{
+    currentPatrolCard = newPatrolCard;
 }
 
 

@@ -17,8 +17,11 @@ Controller::Controller(char* ip)
     //this->networking = new Networking(ip);
     this->user = new userInterface(getDisplay());
     this->copyButtons();
-    model->fillGraphicsData(view, gameData);
+    
+    model->initGraphicsData(view, gameData);
+   
     view->updateGraphics();
+    
 
 }
 

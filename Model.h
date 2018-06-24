@@ -11,6 +11,7 @@ public:
     void analyzeAction(gameData_t* gameData);
     Model();
     virtual ~Model();
+    void initGraphicsData(View* view, gameData_t*);
     void fillGraphicsData(View* view, gameData_t*);
 private:
     bool isGameWon();

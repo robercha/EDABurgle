@@ -3,6 +3,8 @@
 #include <random>
 #include <chrono>
 #include <vector>
+#include <time.h>
+
 
 Model::Model()
 {
@@ -109,9 +111,9 @@ void Model::createCharacters()
     for (std::vector<Character*>::iterator charIt = characters.end(); charIt != (characters.begin() - 2); charIt--)     //shuffleo y saco 5 (de 7) para que queden los dos jugadores
         characters.pop_back();
     
-    srand(seed);
-    unsigned initialRow = rand()%4;
-    unsigned initialCol = rand()%4;    
+    srand(time(NULL));
+    unsigned initialRow = rand()%4; 
+    unsigned initialCol = rand()%4; 
     characters[0]->setInitialTile(floors[0]->getDeck()[initialRow][initialCol]);
     characters[1]->setInitialTile(floors[0]->getDeck()[initialRow][initialCol]);   
 }
@@ -298,17 +300,28 @@ bool Model::isGameWon()
     
 }
 
+void Model::initGraphicsData(View* view, gameData_t* gameData)
+{
+    fillGraphicsData(view, gameData);
+    
+     for (unsigned floor = 1; floor < V_TOTAL_FLOORS; floor++)
+    {
+      
+        view->graphicsData->guards[floor].movements = 0;
+        view->graphicsData->guards[floor].location = locationV_t::NO_LOCATION;
+        view->graphicsData->guards[floor].guardDie = locationV_t::NO_LOCATION;
+        view->graphicsData->guards[floor].patrolDeck = patrolV_t::V_NO_PATROL;
+    
+     }
+    
+}
+
 void Model::fillGraphicsData(View* view, gameData_t* gameData)
 {
 
     view->graphicsData->gameLost = isGameLost();
     view->graphicsData->gameWon = isGameWon();
     view->graphicsData->currentCardSelected = gameData->preEvent;
-
-
-    //    std::vector<Character*>::iterator characterIt;
-    //    std::vector<Floor*>::iterator floorIt;
-    //    std::vector<Loot*>::iterator lootIt;
 
     //players
     for (unsigned p = 0; p < V_TOTAL_PLAYERS; p++)
@@ -322,12 +335,13 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
 
     for (unsigned floor = 0; floor < V_TOTAL_FLOORS; floor++)
     {
-        //guards
-        view->graphicsData->guards[floor].movements = floors[floor]->getGuardSpeed();
-        view->graphicsData->guards[floor].location = (locationV_t) floors[floor]->getGuardLocation();
-        view->graphicsData->guards[floor].guardDie = floors[floor]->getGuardDieLocation();
-        view->graphicsData->guards[floor].patrolDeck = (patrolV_t)floors[floor]->getGuardDestination();
-
+        if(floors[floor]->isGuardActive())
+        {
+            view->graphicsData->guards[floor].movements = floors[floor]->getGuardSpeed();
+            view->graphicsData->guards[floor].location = (locationV_t) floors[floor]->getGuardLocation();
+            view->graphicsData->guards[floor].guardDie = (locationV_t) floors[floor]->getGuardDestination();
+            view->graphicsData->guards[floor].patrolDeck = (patrolV_t) floors[floor]->getGuardPatrolCard();
+        }
         //loots
         for (unsigned j = 0; j < V_TOTAL_LOOTS; j++)
         {
@@ -354,7 +368,7 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
             {
                 index = floor * FLOORTILE_QTY + row * 4 + col;
                 view->graphicsData->tiles[index].combinationNumber =  deck[row][col]->getCombinationNumber();
-                view->graphicsData->tiles[index].goldBarOnTheLoose = deck[row][col]->  ;        //hacer algo con esto
+                view->graphicsData->tiles[index].goldBarOnTheLoose = deck[row][col]->isGoldBar()  ;        //hacer algo con esto
 
 
                 if (!deck[row][col]->isTileVisible())

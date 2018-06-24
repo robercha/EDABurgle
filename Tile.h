@@ -94,7 +94,7 @@ public:
     void setJuicerAlarm(); //alarma que puede poner el juicer en tiles
     void setCrowToken(bool state);
     void setUpperLoorTile(Tile* tile);
-    unsigned isGoldBar();
+    bool isGoldBar();
 
     Tile* getRightTile();
     Tile* getLeftTile();
@@ -176,7 +176,7 @@ protected:
     bool crowToken;
     bool downstairsToken;
     bool kittyToken;
-    unsigned goldBarToken;
+    bool goldBarToken;
     bool alarmTile;
     bool triggeredAlarm;
     bool mustSpendActions;

@@ -50,35 +50,39 @@ Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
     unsigned row = 0;
     unsigned col = 0;
 
-    for (unsigned i = 0; i < FLOORTILE_QTY; i++)
+
+    for (row = 0; row < ROWS; row++)
     {
-        for (row = 0; row < ROWS; row++)
+
+        for (col = 0; col < COLS; col++)
         {
-
-            for (col = 0; col < COLS; col++)
-            {
-                tiles[row][col]->setCurrentLocation((location_t) location);
-                setAdjacentTiles(row, col);
-                location++;
-            }
-
+            tiles[row][col]->setCurrentLocation((location_t) location);
+            setAdjacentTiles(row, col);
+            location++;
         }
 
-
-        createWalls(floorNumber);
-
     }
+
+
+    createWalls(floorNumber);
+
+    
     
     createPatrolDeck();
     
-    location_t patrolCard = patrolDeck.back();
+    location_t startTile = patrolDeck.back();
     
+    this->trashedPatrolDeck.push_back(startTile);
+    patrolDeck.pop_back();
+    
+    location_t patrolCard = patrolDeck.back();
     this->trashedPatrolDeck.push_back(patrolCard);
     patrolDeck.pop_back();
-    guard = new Guard(floorNumber+2, tiles[(unsigned)patrolCard/COLS][(unsigned)patrolCard%COLS], patrolCard);
-
     
+    guard = new Guard(floorNumber+2, tiles[(unsigned)startTile/COLS][(unsigned)startTile%COLS], patrolCard);
     
+    if(floorNumber == 0)
+        guard->toggleGuard();
 }
 
 Floor::~Floor()

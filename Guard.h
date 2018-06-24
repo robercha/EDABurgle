@@ -24,13 +24,28 @@ public:
     unsigned getSpeed();
     location_t getLocation();
     location_t getDestination();
+    location_t getPatrolCard();
+    
     void setDestination(location_t);
-    location_t getDieLocation(); //no se bien que hace pero la necesitamos para graphicsData //donde esta el dado (a donde va si no suenan alarmas)/puede ser patrol_t tmb?
-    //patrol_t getPatrolCard(); //para view
+    void setPatrolCard(location_t newPatrolCard);
+    
+    void toggleGuard()
+    {
+        isActive = ~isActive;
+    }
+    
+    bool getGuardState()
+    {
+        return isActive;
+    }
+ 
+    
 private:
     Tile* currentTile;
     location_t currentPatrolCard;
+    location_t destination;
     unsigned steps;
+    bool isActive;
     Tile* calculateRoute(/*destino y la lista de tiles del floor*/);
     unsigned checkAlarms(); //Devuelve numero de alarmas activadas, (chequea el camino a cada una y devuelve el minimo)???
 };
