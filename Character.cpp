@@ -185,7 +185,7 @@ bool Acrobat::isGuardOnCurrTile(Floor* currFloor)
 	return isGuardHere;
 }
 
-void Spotter::sendToBottom(std::vector<patrol_t>* patrolDeck)
+void Spotter::sendToBottom(std::vector<location_t>* patrolDeck)
 {
 	patrolDeck->push_back(patrolDeck->front());
 	patrolDeck->erase(patrolDeck->begin());

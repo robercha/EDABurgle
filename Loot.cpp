@@ -208,4 +208,3 @@ loot_t Loot::getLootName()
 //	
 //	return isItSix;
 //}
-

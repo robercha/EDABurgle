@@ -63,9 +63,11 @@ public:
     void setTile();
 private:
     bool rollDice(); //si es 1 o 2
-    bool isThereAnAlarmTile();
+    bool isThereAnAlarmTile(Floor* currFloor);
     Tile* calculateRoute(); //devuelve la tile a la q deberia moverse el kitty
     Tile* currentTile; //o location_t location;
+	std::vector<location_t> alarmTiles; //las locations de las alarm tiles que haya descubiertas
+
 };
 
 class Tiara : public Loot { //chequear al final del turno
@@ -188,4 +190,3 @@ private:
 };
 
 #endif /* LOOT_H */
-
