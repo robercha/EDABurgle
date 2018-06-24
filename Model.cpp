@@ -318,20 +318,14 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
         view->graphicsData->players[p].location = (locationV_t) characters[p]->getLocation();
         view->graphicsData->players[p].actionsLeft = characters[p]->getActionsLeft();
     }
-    //    for (characterIt = characters.begin(); characterIt != characters.end(); characterIt++)
-    //    {
-    //        view->graphicsData->players[characterIt - characters.begin()].character = (characterV_t) (*characterIt)->getName();
-    //        view->graphicsData->players[characterIt - characters.begin()].stealthTokens = (*characterIt)->getStealthTokensQty();
-    //        view->graphicsData->players[characterIt - characters.begin()].location = (locationV_t) (*characterIt)->getLocation();
-    //        view->graphicsData->players[characterIt - characters.begin()].actionsLeft = (*characterIt)->getActionsLeft();
-    //    }
+   
 
     for (unsigned floor = 0; floor < V_TOTAL_FLOORS; floor++)
     {
         //guards
         view->graphicsData->guards[floor].movements = floors[floor]->getGuardSpeed();
         view->graphicsData->guards[floor].location = (locationV_t) floors[floor]->getGuardLocation();
-        //view->graphicsData->guards[i].guardDie = floors[i]->getGuardDieLocation();
+        view->graphicsData->guards[floor].guardDie = floors[floor]->getGuardDieLocation();
         view->graphicsData->guards[floor].patrolDeck = (patrolV_t)floors[floor]->getGuardDestination();
 
         //loots
@@ -352,7 +346,6 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
 
         //tiles
 
-        //std::vector< std::vector<Tile*> > deck = (*floorIt)->getDeck();
         std::vector< std::vector<Tile*> >& deck = floors[floor]->getDeck();
         unsigned index = 0;
         for (unsigned row = 0; row < 4; row++)
@@ -361,7 +354,7 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
             {
                 index = floor * FLOORTILE_QTY + row * 4 + col;
                 view->graphicsData->tiles[index].combinationNumber =  deck[row][col]->getCombinationNumber();
-                //            view->graphicsData->tiles[r].goldBarOnTheLoose = ;        //hacer algo con esto
+                view->graphicsData->tiles[index].goldBarOnTheLoose = deck[row][col]->  ;        //hacer algo con esto
 
 
                 if (!deck[row][col]->isTileVisible())

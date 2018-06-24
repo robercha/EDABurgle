@@ -304,6 +304,11 @@ Tile* Tile::getRightTile()
     return this->rightTile;
 }
 
+unsigned Tile::isGoldBar()
+{
+    return this->goldBarToken;
+}
+
 Tile* Tile::getLeftTile()
 {
     return this->leftTile;
