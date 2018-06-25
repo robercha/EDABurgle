@@ -36,6 +36,7 @@ Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
         }
         
         tiles.push_back(tempRow);
+        tempRow.clear();
     }
     
 
