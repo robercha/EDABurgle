@@ -17,6 +17,7 @@ Controller::Controller(char* ip)
     //this->networking = new Networking(ip);
     this->user = new userInterface(getDisplay());
     this->copyButtons();
+    this->networkingMode = false;
     
     model->initGraphicsData(view, gameData);
    
@@ -90,7 +91,7 @@ Controller::manageEvent(void)
     {
         if (networkingMode && gameData->currentCharacter == 0) //Si juega online sólo entra al juego si es el turno del de esta compu
             model->analyzeAction(gameData); //Empieza la logica del juego
-        else if (!networkingMode) //Sino esta jugando online los turnos son irrelevantes.
+        else if (!networkingMode) //Si no esta jugando online los turnos son irrelevantes.
             model->analyzeAction(gameData);
     }
 

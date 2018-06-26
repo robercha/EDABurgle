@@ -116,6 +116,8 @@ void Model::createCharacters()
     unsigned initialCol = rand()%4; 
     characters[0]->setInitialTile(floors[0]->getDeck()[initialRow][initialCol]);
     characters[1]->setInitialTile(floors[0]->getDeck()[initialRow][initialCol]);   
+    this->currentCharacter = characters[0];
+           
 }
 
 void Model::shuffleTiles(std::vector<Tile*> deck)
