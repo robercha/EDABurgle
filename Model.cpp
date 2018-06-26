@@ -108,7 +108,7 @@ void Model::createCharacters()
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::shuffle(characters.begin(), characters.end(), std::default_random_engine(seed));
 
-    for (std::vector<Character*>::iterator charIt = characters.end(); charIt != (characters.begin() - 2); charIt--)     //shuffleo y saco 5 (de 7) para que queden los dos jugadores
+    for (std::vector<Character*>::iterator charIt = characters.end(); charIt != (characters.begin() + 2); charIt--)     //shuffleo y saco 5 (de 7) para que queden los dos jugadores
         characters.pop_back();
     
     srand(time(NULL));

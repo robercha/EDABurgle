@@ -5,7 +5,7 @@
 Controller::Controller(char* ip)
 {
     this->view = new View;
-    Model* model = new Model(/*view*/);
+    this->model = new Model(/*view*/);
     this->userData = new userData_t;
     this->gameData = new gameData_t;
     this->view->graphicsData = new graphicsData_t;
@@ -85,7 +85,7 @@ Controller::manageEvent(void)
     user->getEvent(userData);
     translateUserData(); //convierte button_t a modelEvent_t que son los de model FSM
     //if (playerHandle->getEvent() != NO_EVENT)
-    if ((userData->buttonClicked != (unsigned) button_t::NO_BUTTON) ||
+    if ((userData->buttonClicked != (unsigned) (button_t::NO_BUTTON)) &&
             (userData->buttonClicked != (unsigned) button_t::HOME_EXIT))
     {
         if (networkingMode && gameData->currentCharacter == 0) //Si juega online sólo entra al juego si es el turno del de esta compu
