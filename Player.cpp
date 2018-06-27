@@ -12,24 +12,27 @@ Player::~Player()
 }
 
 bool
-Player::eventHandler(gameData_t* gameData)
+Player::eventHandler(event_t event, gameData_t* gameData)
 {
-    switch (gameData->event) //Los eventos que me pasan son solo ACTION y TURN
+	bool ret = true; //en que caso devolvería false?
+
+    switch (event) //Los eventos que me pasan son solo ACTION y TURN
     {
         case ACTION: 
-            if(model->analyzeAction(gameData, (unsigned)currentPlayer)) //AnalyzeAction devuelve true si se acabaron las actions
+            if(model->analyzeAction(gameData)) //AnalyzeAction devuelve true si se acabaron las actions
             {
-                gameData->event = PASS;
-                eventHandler(gameData);
+                event = PASS;
+                eventHandler(event, gameData);
             }
             
             break; //Pasamos por parámetro el indice al arreglo de characters
-        case PASS: model->analyzeAction(gameData, (unsigned)currentPlayer); 
+        case PASS: model->analyzeAction(gameData); 
             break;
         default: break;
     }
     
- 
+ return ret;
+
 }
 
 state_t
