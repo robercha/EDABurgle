@@ -181,8 +181,8 @@ protected:
     bool triggeredAlarm;
     bool mustSpendActions;
     unsigned combinationNumber;
-    bool isAdyacentTileValid(location_t selectedLocation);
-    bool isThereASecretDoor(location_t selectedLocation);
+    bool isAdyacentTileValid(location_t selectedLocation, tileInfo_t*);
+    bool isThereASecretDoor(location_t selectedLocation, tileInfo_t*);
 } ;
 
 struct tileInfo {

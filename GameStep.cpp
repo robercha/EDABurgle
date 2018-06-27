@@ -109,7 +109,7 @@ void Idle::enableActions(gameData_t* gameData)
 
     if (gameData->selectedTile.hawkWall)
     {
-        gameData->actions.createAlarm = true;
+        gameData->actions.peek = true;
     }
     if (gameData->selectedTile.serviceDuct)
     {

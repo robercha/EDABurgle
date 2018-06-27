@@ -317,7 +317,6 @@ View::drawCardInfo()
             drawTileSelectedInfo();                                         //dibuja la carta
             writeSelectedTileInfo();                                        //qué carta es, su ubicacion
         }
-
     }
     else
         showNoCardSelected();                                           //muestra que no se selecciono ningun loot/room
