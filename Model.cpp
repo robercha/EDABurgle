@@ -8,6 +8,7 @@
 
 Model::Model(gameData_t* gameData)
 {
+    initGameData(gameData);
     std::vector<Tile*> deck;
     createTiles(deck);
     shuffleTiles(deck);
@@ -18,7 +19,7 @@ Model::Model(gameData_t* gameData)
     createModelFSM();
     createLoots();
     createCharacters();
-    initGameData(gameData);
+    
 }
 
 Model::~Model()
@@ -146,6 +147,8 @@ void Model::createCharacters()
     srand(time(NULL));
     unsigned initialRow = rand() % 4;
     unsigned initialCol = rand() % 4;
+    gamePointers->floors[0]->getDeck()[initialRow][initialCol]->reveal();
+    gamePointers->floors[0]->getDeck()[0][1]->reveal();
     gamePointers->characters[0]->setInitialTile(gamePointers->floors[0]->getDeck()[0][1]);
     gamePointers->characters[1]->setInitialTile(gamePointers->floors[0]->getDeck()[0][1]);
     gamePointers->currentCharacter = gamePointers->characters[0];
@@ -216,7 +219,7 @@ void Model::analyzeAction(gameData_t* gameData)
     eventGenerator(gameData); //traduce de button_t a modelEvent para la fsm de model
     currentAction->eventHandler(gameData, gamePointers);
     currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
-    if (gameData->actionsLeft == 0)
+    if (gamePointers->currentCharacter->getActionsLeft() == 0)
     {
         gameData->event = A_PASS;
         currentAction->eventHandler(gameData, gamePointers);
@@ -350,6 +353,7 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
     view->graphicsData->gameLost = isGameLost();
     view->graphicsData->gameWon = isGameWon();
     view->graphicsData->currentCardSelected = gameData->preEvent;
+    view->graphicsData->message = gameData->message;
 
     //players
     for (unsigned p = 0; p < V_TOTAL_PLAYERS; p++)

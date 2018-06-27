@@ -14,6 +14,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_color.h>
+#include <string>
 
 
 
@@ -141,7 +142,8 @@ typedef struct {
     //aca faltan los mensajes
     action_t actions;
     bool gameWon;                           //solo fijarse por gameWon=true
-    bool gameLost;                          //solo fijarse por gameLost=true
+    bool gameLost;   //solo fijarse por gameLost=true
+    std::string message;
 } graphicsData_t;
 
 class View {

@@ -56,7 +56,7 @@ typedef struct gameData {
     unsigned loot; //el loot que se toco
     unsigned patrolDeck;
     unsigned diceResult[5];
-    unsigned messageType;
+    std::string message;
 } gameData_t;
 
 class GameStep {
