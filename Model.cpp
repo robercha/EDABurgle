@@ -19,7 +19,7 @@ Model::Model(gameData_t* gameData)
     createModelFSM();
     createLoots();
     createCharacters();
-    
+
 }
 
 Model::~Model()
@@ -47,15 +47,15 @@ void Model::initGameData(gameData_t* gameData)
     gameData->actions.spyPatrolDeck = false;
     gameData->actions.useHackToken = false;
 
-    
+
     gameData->currentCharacter = 0;
-    gameData->selectedTile.tile=NULL;
-    gameData->selectedTile.adyacent=false;
-    gameData->selectedTile.hawkWall=false;
-    gameData->selectedTile.ownTile=false;
-    gameData->selectedTile.serviceDuct=false;
-    gameData->selectedTile.twoTilesAwayTile=false;
-   
+    gameData->selectedTile.tile = NULL;
+    gameData->selectedTile.adyacent = false;
+    gameData->selectedTile.hawkWall = false;
+    gameData->selectedTile.ownTile = false;
+    gameData->selectedTile.serviceDuct = false;
+    gameData->selectedTile.twoTilesAwayTile = false;
+
 }
 
 void Model::createLoots()
@@ -217,7 +217,7 @@ void Model::createModelFSM()
 bool Model::analyzeAction(gameData_t* gameData)
 {
     bool noActions = false;
-    
+
     eventGenerator(gameData); //traduce de button_t a modelEvent para la fsm de model
     currentAction->eventHandler(gameData, gamePointers);
     currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
@@ -227,12 +227,12 @@ bool Model::analyzeAction(gameData_t* gameData)
         gameData->event = A_PASS;
         currentAction->eventHandler(gameData, gamePointers);
         currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
-        
+
         noActions = true;
     }
     if (currentAction->getState() == IDLE)
         dynamic_cast <Idle*> (currentAction)->enableActions(gameData);
-    
+
     return noActions;
 }
 
@@ -458,81 +458,5 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
     view->graphicsData->actions.rollDice = gameData->actions.rollDice;
     view->graphicsData->actions.spyPatrolDeck = gameData->actions.spyPatrolDeck;
     view->graphicsData->actions.useHackToken = gameData->actions.useHackToken;
-
-
-
-    //    for (floorIt = floors.begin(); floorIt != floors.end(); floorIt++)
-    //    {
-    //        //guards
-    //        view->graphicsData->guards[floorIt - floors.begin()].movements = (*floorIt)->getGuardSpeed();
-    //        view->graphicsData->guards[floorIt - floors.begin()].location = (locationV_t) (*floorIt)->getGuardLocation();
-    //        //view->graphicsData->guards[floorIt - floors.begin()].guardDie = (*floorIt)->getGuardDieLocation();
-    //        //view->graphicsData->guards[floorIt - floors.begin()].patrolDeck = (*floorIt)->getPatrolCard();
-    //
-    //        //loots
-    //        for (lootIt = loots.begin(); lootIt != loots.end(); lootIt++)
-    //        {
-    //            if ((*lootIt)->isLootVisible() == true)
-    //            {
-    //                view->graphicsData->loots[lootIt - loots.begin()].owner = (playerV_t) (*lootIt)->getOwner();
-    //                view->graphicsData->loots[lootIt - loots.begin()].loot = (lootV_t) (*lootIt)->getLootName();
-    //                view->graphicsData->loots[lootIt - loots.begin()].isVisible = true;
-    //            }
-    //            else
-    //            {
-    //                view->graphicsData->loots[lootIt - loots.begin()].owner = NO_PLAYER;
-    //                view->graphicsData->loots[lootIt - loots.begin()].isVisible = false;
-    //            }
-    //        }
-    //
-    //        //tiles
-    //        std::vector< std::vector<Tile*> > deck = (*floorIt)->getDeck();
-    //        unsigned index = 0;
-    //        for (unsigned i = 0; i < 4; i++)
-    //        {
-    //            for (unsigned j = 0; j < 4; j++)
-    //            {
-    //                index = (floorIt - floors.begin()) * FLOORTILE_QTY + i * 4 + j;
-    //                view->graphicsData->tiles[index].combinationNumber =  deck[i][j]->getCombinationNumber();
-    //                //            view->graphicsData->tiles[i].goldBarOnTheLoose = ;        //hacer algo con esto
-    //
-    //
-    //                if (deck[i][j]->isTileVisible())
-    //                    view->graphicsData->tiles[index].iAm = roomV_t::V_ROOMBACK;
-    //                else
-    //                    view->graphicsData->tiles[index].iAm = (roomV_t) deck[i][j]->getTileType();
-    //
-    //
-    //                if (deck[i][j]->getTileType() == CR_FINGERPRINT)
-    //                    view->graphicsData->tiles[index].howManyHackTokens = dynamic_cast < CRFingerprint* > (deck[i][j])->getHackTokensQty();
-    //                else if (deck[i][j]->getTileType() == CR_LASER)
-    //                    view->graphicsData->tiles[index].howManyHackTokens = dynamic_cast < CRLaser* > (deck[i][j])->getHackTokensQty();
-    //                else if (deck[i][j]->getTileType() == CR_MOTION)
-    //                    view->graphicsData->tiles[index].howManyHackTokens = dynamic_cast < CRMotion* > (deck[i][j])->getHackTokensQty();
-    //                else
-    //                    view->graphicsData->tiles[index].howManyHackTokens = 0;
-    //
-    //                if (deck[i][j]->getTileType() == LAVATORY)
-    //                    view->graphicsData->tiles[index].howManyStealthTokens = dynamic_cast < Lavatory* > (deck[i][j])->getStealthTokensQty();
-    //                else
-    //                    view->graphicsData->tiles[index].howManyStealthTokens = 0;
-    //
-    //                //tokens
-    //                for (unsigned k = 0; k < (int) tokenV_t::V_TOKEN_COUNT; k++)
-    //                    view->graphicsData->tiles[index].tokens[k] = false;      //pongo en false todo el arreglo de tokens
-    //
-    //                std::vector<token_t*>::iterator tokensIt;
-    //                for (tokensIt = deck[i][j]->getTokens()->begin(); tokensIt != deck[i][j]->getTokens()->end(); tokensIt++)
-    //                {
-    //                    view->graphicsData->tiles[index].tokens[(unsigned) (*tokensIt)->token] = true;
-    //                }
-    //
-    //            }
-    //
-    //
-    //
-    //        }
-    //
-    //    }
 
 }

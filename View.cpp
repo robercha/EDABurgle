@@ -815,82 +815,79 @@ View::writeActions()        //escribo las actions en negro o mas claras dependie
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 10 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 3, ALLEGRO_ALIGN_RIGHT, "ACTIONS");
 
     //move
-    if (graphicsData->actions.move = true)
+    if (graphicsData->actions.move == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), SPACE_DIVIDER_L + 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, ALLEGRO_ALIGN_LEFT, "*Move");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), SPACE_DIVIDER_L + 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, ALLEGRO_ALIGN_LEFT, "*Move");
 
     //peek
-    if (graphicsData->actions.peek = true)
+    if (graphicsData->actions.peek == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), SPACE_DIVIDER_L + (DISPLAYW - SPACE_DIVIDER_L) / 2, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, ALLEGRO_ALIGN_CENTER, "*Peek");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), SPACE_DIVIDER_L + (DISPLAYW - SPACE_DIVIDER_L) / 2, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, ALLEGRO_ALIGN_CENTER, "*Peek");
 
     //pass
-    if (graphicsData->actions.pass = true)
+    if (graphicsData->actions.pass == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, ALLEGRO_ALIGN_RIGHT, "*Pass");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 4, ALLEGRO_ALIGN_RIGHT, "*Pass");
 
     //add dice to safe
-    if (graphicsData->actions.addDice = true)
+    if (graphicsData->actions.addDice == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *5, ALLEGRO_ALIGN_RIGHT, "*Add dice to safe");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *5, ALLEGRO_ALIGN_RIGHT, "*Add dice to safe");
 
     //roll dice to safe
-    if (graphicsData->actions.rollDice = true)
+    if (graphicsData->actions.rollDice == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *6, ALLEGRO_ALIGN_RIGHT, "*Roll dice to safe");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *6, ALLEGRO_ALIGN_RIGHT, "*Roll dice to safe");
 
-    //    if(graphicsData->actions.)
-    //    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *7, ALLEGRO_ALIGN_RIGHT, "*Spend actions to enter tile");
-
     //hack computer room
-    if (graphicsData->actions.hackCR = true)
+    if (graphicsData->actions.hackCR == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *8, ALLEGRO_ALIGN_RIGHT, "*Hack computer");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *8, ALLEGRO_ALIGN_RIGHT, "*Hack computer");
 
     //use hack token
-    if (graphicsData->actions.useHackToken = true)
+    if (graphicsData->actions.useHackToken == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *9, ALLEGRO_ALIGN_RIGHT, "*Use hack token");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *9, ALLEGRO_ALIGN_RIGHT, "*Use hack token");
 
     //offer loot
-    if (graphicsData->actions.offerLoot = true)
+    if (graphicsData->actions.offerLoot == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *10, ALLEGRO_ALIGN_RIGHT, "*Offer loot");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *10, ALLEGRO_ALIGN_RIGHT, "*Offer loot");
 
     //request loot
-    if (graphicsData->actions.requestLoot = true)
+    if (graphicsData->actions.requestLoot == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *11, ALLEGRO_ALIGN_RIGHT, "*Request loot");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *11, ALLEGRO_ALIGN_RIGHT, "*Request loot");
 
     //pick up loot
-    if (graphicsData->actions.pickupLoot = true)
+    if (graphicsData->actions.pickupLoot == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *12, ALLEGRO_ALIGN_RIGHT, "*Pick up loot");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *12, ALLEGRO_ALIGN_RIGHT, "*Pick up loot");
 
     //create alarm
-    if (graphicsData->actions.createAlarm = true)
+    if (graphicsData->actions.createAlarm == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 15 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *13, ALLEGRO_ALIGN_RIGHT, "*Create Alarm");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *13, ALLEGRO_ALIGN_RIGHT, "*Create Alarm");
 
     //spy patrol deck
-    if (graphicsData->actions.spyPatrolDeck = true)
+    if (graphicsData->actions.spyPatrolDeck == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *14, ALLEGRO_ALIGN_RIGHT, "*Spy patrol deck");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *14, ALLEGRO_ALIGN_RIGHT, "*Spy patrol deck");
 
     //patrol top/bottom
-    if (graphicsData->actions.patrolIsTopBottom = true)
+    if (graphicsData->actions.patrolIsTopBottom == true)
     {
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *15, ALLEGRO_ALIGN_RIGHT, "*Place patrol card on top");
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *16, ALLEGRO_ALIGN_RIGHT, "*Place patrol card on bottom");
@@ -902,16 +899,22 @@ View::writeActions()        //escribo las actions en negro o mas claras dependie
     }
 
     //place crow token
-    if (graphicsData->actions.placeCrowToken = true)
+    if (graphicsData->actions.placeCrowToken == true)
         al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *17, ALLEGRO_ALIGN_RIGHT, "*Place crow token");
     else
         al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *17, ALLEGRO_ALIGN_RIGHT, "*Place crow token");
 
-    //accept
-    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, ALLEGRO_ALIGN_LEFT, "Accept");
-
-    //decline
-    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, ALLEGRO_ALIGN_RIGHT, "Decline");
+    //accept/decline
+    if (graphicsData->actions.acceptDecline == true)
+    {
+        al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, ALLEGRO_ALIGN_LEFT, "Accept");
+        al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, ALLEGRO_ALIGN_RIGHT, "Decline");
+    }
+    else
+    {
+        al_draw_text(smallTextFont,  al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, ALLEGRO_ALIGN_LEFT, "Accept");
+        al_draw_text(smallTextFont,  al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, ALLEGRO_ALIGN_RIGHT, "Decline");
+    }
 
     if (graphicsData->gameLost == true || graphicsData->gameWon == true)
     {
