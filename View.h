@@ -140,8 +140,6 @@ typedef struct {
     lootInfo_t loots [V_TOTAL_LOOTS];       //para mostrar los loots de c/piso abajo de los floors
     button_t currentCardSelected;           //muestra en upper-right corner toda la informacion
     unsigned crackingDice[V_TOTAL_CRACKINGDICE];
-    //aca faltan los mensajes
-    std::string message;
     action_t actions;
     bool gameWon;                           //solo fijarse por gameWon=true
     bool gameLost;   //solo fijarse por gameLost=true
