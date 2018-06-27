@@ -397,12 +397,12 @@ bool Tile::isTileTwoTilesAway(location_t selectedTile)
 bool Tile::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
-    if (isAdyacentTileValid(selectedTile))
+    if (isAdyacentTileValid(selectedTile, tileInfo))
     {
         isTileValid = true;
         tileInfo->adyacent = true;
     }
-    else if (isThereASecretDoor(selectedTile))
+    else if (isThereASecretDoor(selectedTile, tileInfo))
     {
         isTileValid = true;
         tileInfo->adyacent = true;
@@ -413,7 +413,7 @@ bool Tile::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 
 }
 
-bool Tile::isAdyacentTileValid(location_t selectedTile)
+bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
     unsigned currRow = getRow(currentLocation);
@@ -431,23 +431,35 @@ bool Tile::isAdyacentTileValid(location_t selectedTile)
                 || ((selectedRow == (currRow + 1) || selectedRow == (currRow - 1))&&(selectedCol == currCol)))
         {
             if (selectedCol == (currCol + 1) && rightTile != NULL)
+            {
+                tileInfo->tile = this->rightTile;
                 isTileValid = true;
+            }
             else if (selectedCol == (currCol - 1) && leftTile != NULL)
+            {
+                tileInfo->tile = this->leftTile;
                 isTileValid = true;
+            }
             else if (selectedRow == (currRow + 1) && lowerTile != NULL)
+            {
+                tileInfo->tile = this->lowerTile;
                 isTileValid = true;
+            }
             else if (selectedRow == (currRow - 1) && upperTile != NULL)
+            {
+                tileInfo->tile = this->upperTile;
                 isTileValid = true;
+            }
             else
                 isTileValid = false;
         }
 
     }
-
+    
     return isTileValid;
 }
 
-bool Tile::isThereASecretDoor(location_t selectedTile)
+bool Tile::isThereASecretDoor(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool secretDoor = false;
 
@@ -462,16 +474,28 @@ bool Tile::isThereASecretDoor(location_t selectedTile)
 
             if (leftTile != secretLeftTile)
                 if (secretLeftTile->isVisible && secretLeftTile->tileType == SECRETDOOR)
+                {
                     bool secretDoor = true;
+                    tileInfo->tile = secretLeftTile;
+                }
             if (rightTile != secretRightTile)
                 if (secretRightTile->isVisible && secretRightTile->tileType == SECRETDOOR)
+                {
                     bool secretDoor = true;
+                    tileInfo->tile = secretRightTile;
+                }    
             if (upperTile != secretUpperTile)
                 if (secretUpperTile->isVisible && secretUpperTile->tileType == SECRETDOOR)
+                {
                     bool secretDoor = true;
+                    tileInfo->tile = secretUpperTile;
+                }
             if (lowerTile != secretLowerTile)
                 if (secretLowerTile->isVisible && secretLowerTile->tileType == SECRETDOOR)
+                {
                     bool secretDoor = true;
+                    tileInfo->tile = secretLowerTile;
+                }
         }
     }
     return secretDoor;
@@ -572,7 +596,7 @@ bool Atrium::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
 
-    if (isAdyacentTileValid(selectedTile) == true)
+    if (isAdyacentTileValid(selectedTile, tileInfo) == true)
     {
         isTileValid = true;
         tileInfo->adyacent = true;
@@ -662,18 +686,19 @@ void Safe::setCracked()
 void Safe::disableCracked()
 {
     crackedSafe = false;
+    
 }
 
 bool ServiceDuct::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
 
-    if (isAdyacentTileValid(selectedTile))
+    if (isAdyacentTileValid(selectedTile, tileInfo))
     {
         isTileValid = true;
         tileInfo->serviceDuct = true;
     }
-    else if (isThereASecretDoor(selectedTile))
+    else if (isThereASecretDoor(selectedTile, tileInfo))
     {
         isTileValid = true;
         tileInfo->serviceDuct = true;
@@ -697,7 +722,7 @@ bool Stairs::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
 
-    if (isAdyacentTileValid(selectedTile))
+    if (isAdyacentTileValid(selectedTile, tileInfo))
     {
         isTileValid = true;
         tileInfo->adyacent = true;
