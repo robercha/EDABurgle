@@ -210,19 +210,25 @@ void Model::createModelFSM()
     this->currentAction = idle;
 }
 
-void Model::analyzeAction(gameData_t* gameData)
+bool Model::analyzeAction(gameData_t* gameData)
 {
+    bool noActions = false;
+    
     eventGenerator(gameData); //traduce de button_t a modelEvent para la fsm de model
     currentAction->eventHandler(gameData, gamePointers);
     currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
     if (gameData->actionsLeft == 0)
-    {
+    {    
         gameData->event = A_PASS;
         currentAction->eventHandler(gameData, gamePointers);
         currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
+        
+        noActions = true;
     }
     if (currentAction->getState() == IDLE)
         dynamic_cast <Idle*> (currentAction)->enableActions(gameData);
+    
+    return noActions;
 }
 
 void Model::eventGenerator(gameData_t* gameData)
