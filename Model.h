@@ -8,7 +8,7 @@
 
 class Model {
 public:
-    void analyzeAction(gameData_t* gameData);
+    bool analyzeAction(gameData_t* gameData);
     Model(gameData_t* gameData);
     virtual ~Model();
     void initGameData(gameData_t* gameData);
