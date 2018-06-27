@@ -6,15 +6,14 @@
 #include <vector>
 #include <time.h>
 
-
 Model::Model(gameData_t* gameData)
 {
     std::vector<Tile*> deck;
     createTiles(deck);
     shuffleTiles(deck);
-    
+
     this->gamePointers = new gamePointers_t;
-    
+
     createFloors(deck);
     createModelFSM();
     createLoots();
@@ -31,32 +30,30 @@ Model::~Model()
 
 void Model::initGameData(gameData_t* gameData)
 {
-    gameData->actions->acceptDecline = false;
-    gameData->actions->addDice = false;
-    gameData->actions->createAlarm = false;
-    gameData->actions->hackCR = false;
-    gameData->actions->move = false;
-    gameData->actions->offerLoot = false;
-    gameData->actions->pass = false;
-    gameData->actions->patrolIsTopBottom = false;
-    gameData->actions->peek = false;
-    gameData->actions->pickupLoot = false;
-    gameData->actions->placeCrowToken = false;
-    gameData->actions->requestLoot = false;
-    gameData->actions->rollDice = false;
-    gameData->actions->spyPatrolDeck = false;
-    gameData->actions->useHackToken = false;
-    
-    gameData->currentCharacter=NULL;
-    gameData->event=NO_EVENT;
-    gameData->preEvent=NO_BUTTON;
-    gameData->selectedTile->tile=NULL;
-    gameData->selectedTile->adyacent=false;
-    gameData->selectedTile->hawkWall=false;
-    gameData->selectedTile->ownTile=false;
-    gameData->selectedTile->serviceDuct=false;
-    gameData->selectedTile->twoTilesAwayTile=false;
-    
+    gameData->actions.acceptDecline = false;
+    gameData->actions.addDice = false;
+    gameData->actions.createAlarm = false;
+    gameData->actions.hackCR = false;
+    gameData->actions.move = false;
+    gameData->actions.offerLoot = false;
+    gameData->actions.pass = false;
+    gameData->actions.patrolIsTopBottom = false;
+    gameData->actions.peek = false;
+    gameData->actions.pickupLoot = false;
+    gameData->actions.placeCrowToken = false;
+    gameData->actions.requestLoot = false;
+    gameData->actions.rollDice = false;
+    gameData->actions.spyPatrolDeck = false;
+    gameData->actions.useHackToken = false;
+
+    gameData->currentCharacter = 0;
+    gameData->selectedTile.tile = NULL;
+    gameData->selectedTile.adyacent = false;
+    gameData->selectedTile.hawkWall = false;
+    gameData->selectedTile.ownTile = false;
+    gameData->selectedTile.serviceDuct = false;
+    gameData->selectedTile.twoTilesAwayTile = false;
+
 }
 
 void Model::createLoots()
@@ -144,14 +141,14 @@ void Model::createCharacters()
 
     for (std::vector<Character*>::iterator charIt = gamePointers->characters.end(); charIt != (gamePointers->characters.begin() + 2); charIt--)     //shuffleo y saco 5 (de 7) para que queden los dos jugadores
         gamePointers->characters.pop_back();
-    
+
     srand(time(NULL));
-    unsigned initialRow = rand()%4; 
-    unsigned initialCol = rand()%4; 
+    unsigned initialRow = rand() % 4;
+    unsigned initialCol = rand() % 4;
     gamePointers->characters[0]->setInitialTile(gamePointers->floors[0]->getDeck()[0][1]);
-    gamePointers->characters[1]->setInitialTile(gamePointers->floors[0]->getDeck()[0][1]);   
+    gamePointers->characters[1]->setInitialTile(gamePointers->floors[0]->getDeck()[0][1]);
     gamePointers->currentCharacter = gamePointers->characters[0];
-           
+
 }
 
 void Model::shuffleTiles(std::vector<Tile*> deck)
@@ -169,7 +166,7 @@ void Model::createFloors(std::vector<Tile*> deck)
     {
         for (unsigned j = 0; j < (FLOORTILE_QTY - 2); j++)
         {
-            floorDeck.push_back(deck.back());            
+            floorDeck.push_back(deck.back());
             deck.pop_back();
         }
         gamePointers->floors.push_back(new Floor(floorDeck, i));
@@ -196,9 +193,9 @@ void Model::createModelFSM()
         {playAgain,             playAgain,              playAgain,          playAgain,             playAgain,              playAgain,           playAgain,           playAgain,           playAgain,           playAgain,               playAgain,           playAgain,           playAgain,           playAgain,           playAgain,           playAgain,            playAgain,              playAgain,              playAgain,           playAgain,           idle,                   end,                   playAgain,              playAgain           }, //PLAY AGAIN?
         {end,                   end,                    end,                end,                   end,                    end,                 end,                 end,                 end,                 end,                     end,                 end,                 end,                 end,                 end,                 end,                  end,                    end,                    end,                 end,                 end,                    end,                   end,                    end                 }, //EXIT GAME
     };
-//Reglas: 1.Tiene que apretar su tile par poder poner un dice o roll dice en el safe tile
+    //Reglas: 1.Tiene que apretar su tile par poder poner un dice o roll dice en el safe tile
     //2. Tiene que apretar su tile para poder enable las acciones de offer loot, request loot y pick up loot
-    //3. Tiene que apretar su tile para 
+    //3. Tiene que apretar su tile para
     gameHandlerMatrix = new GameStep**[STATE_COUNT];
     for (int i = 0; i < STATE_COUNT; i++)
     {
@@ -214,7 +211,7 @@ void Model::createModelFSM()
 }
 
 void Model::analyzeAction(gameData_t* gameData)
-{     
+{
     eventGenerator(gameData); //traduce de button_t a modelEvent para la fsm de model
     currentAction->eventHandler(gameData, gamePointers);
     currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
@@ -322,28 +319,28 @@ void Model::eventGenerator(gameData_t* gameData)
 
 bool Model::isGameLost()
 {
-    
+
 }
 
 bool Model::isGameWon()
 {
-    
+
 }
 
 void Model::initGraphicsData(View* view, gameData_t* gameData)
 {
     fillGraphicsData(view, gameData);
-    
-     for (unsigned floor = 1; floor < V_TOTAL_FLOORS; floor++)
+
+    for (unsigned floor = 1; floor < V_TOTAL_FLOORS; floor++)
     {
-      
+
         view->graphicsData->guards[floor].movements = 0;
         view->graphicsData->guards[floor].location = locationV_t::NO_LOCATION;
         view->graphicsData->guards[floor].guardDie = locationV_t::NO_LOCATION;
         view->graphicsData->guards[floor].patrolDeck = patrolV_t::V_NO_PATROL;
-    
-     }
-    
+
+    }
+
 }
 
 void Model::fillGraphicsData(View* view, gameData_t* gameData)
@@ -361,11 +358,11 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
         view->graphicsData->players[p].location = (locationV_t) gamePointers->characters[p]->getLocation();
         view->graphicsData->players[p].actionsLeft = gamePointers->characters[p]->getActionsLeft();
     }
-   
+
 
     for (unsigned floor = 0; floor < V_TOTAL_FLOORS; floor++)
     {
-        if(gamePointers->floors[floor]->isGuardActive())
+        if (gamePointers->floors[floor]->isGuardActive())
         {
             view->graphicsData->guards[floor].movements = gamePointers->floors[floor]->getGuardSpeed();
             view->graphicsData->guards[floor].location = (locationV_t) gamePointers->floors[floor]->getGuardLocation();

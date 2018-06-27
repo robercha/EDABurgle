@@ -7,8 +7,6 @@
 #define COLS    4
 #define FLOORS   3
 
-
-
 Atrium::Atrium()
 {
     tileType = ATRIUM;
@@ -424,7 +422,7 @@ bool Tile::isAdyacentTileValid(location_t selectedTile)
     if (selectedFloor == currFloor)
     {
         if (((selectedCol == (currCol + 1) || selectedCol == (currCol - 1))&&(selectedRow == currRow))
-           || ((selectedRow == (currRow + 1) || selectedRow == (currRow - 1))&&(selectedCol == currCol)))
+                || ((selectedRow == (currRow + 1) || selectedRow == (currRow - 1))&&(selectedCol == currCol)))
         {
             if (selectedCol == (currCol + 1) && rightTile != NULL)
                 isTileValid = true;
@@ -437,7 +435,7 @@ bool Tile::isAdyacentTileValid(location_t selectedTile)
             else
                 isTileValid = false;
         }
-        
+
     }
 
     return isTileValid;
@@ -470,6 +468,7 @@ bool Tile::isThereASecretDoor(location_t selectedTile)
                     bool secretDoor = true;
         }
     }
+    return secretDoor;
 }
 
 Tile::~Tile()
@@ -656,7 +655,7 @@ void Safe::setCracked()
 
 void Safe::disableCracked()
 {
-	crackedSafe = false;
+    crackedSafe = false;
 }
 
 bool ServiceDuct::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
