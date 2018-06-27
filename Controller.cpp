@@ -5,9 +5,10 @@
 Controller::Controller(char* ip)
 {
     this->view = new View;
-    this->model = new Model(/*view*/);
-    this->userData = new userData_t;
     this->gameData = new gameData_t;
+    this->model = new Model(gameData);
+    this->userData = new userData_t;
+    
     this->view->graphicsData = new graphicsData_t;
     this->userData->buttonClicked = (unsigned) button_t::NO_BUTTON;
 
@@ -84,8 +85,14 @@ void
 Controller::manageEvent(void)
 {
     user->getEvent(userData);
+    
+    userData->buttonClicked = (unsigned) (button_t::A1F1); //solo para debugging
+        
     translateUserData(); //convierte button_t a modelEvent_t que son los de model FSM
     //if (playerHandle->getEvent() != NO_EVENT)
+    
+        
+            
     if ((userData->buttonClicked != (unsigned) (button_t::NO_BUTTON)) &&
             (userData->buttonClicked != (unsigned) button_t::HOME_EXIT))
     {

@@ -7,6 +7,8 @@
 #define COLS    4
 #define FLOORS   3
 
+
+
 Atrium::Atrium()
 {
     tileType = ATRIUM;
@@ -421,22 +423,21 @@ bool Tile::isAdyacentTileValid(location_t selectedTile)
 
     if (selectedFloor == currFloor)
     {
-        if (selectedCol == (currCol + 1) || selectedCol == (currCol - 1))
+        if (((selectedCol == (currCol + 1) || selectedCol == (currCol - 1))&&(selectedRow == currRow))
+           || ((selectedRow == (currRow + 1) || selectedRow == (currRow - 1))&&(selectedCol == currCol)))
         {
-            if (selectedRow == (currRow + 1) || selectedRow == (currRow - 1))
-            {
-                if (selectedCol == (currCol + 1) && rightTile != NULL)
-                    isTileValid = true;
-                else if (selectedCol == (currCol - 1) && leftTile != NULL)
-                    isTileValid = true;
-                else if (selectedRow == (currRow + 1) && lowerTile != NULL)
-                    isTileValid = true;
-                else if (selectedRow == (currRow - 1) && upperTile != NULL)
-                    isTileValid = true;
-                else
-                    isTileValid = false;
-            }
+            if (selectedCol == (currCol + 1) && rightTile != NULL)
+                isTileValid = true;
+            else if (selectedCol == (currCol - 1) && leftTile != NULL)
+                isTileValid = true;
+            else if (selectedRow == (currRow + 1) && lowerTile != NULL)
+                isTileValid = true;
+            else if (selectedRow == (currRow - 1) && upperTile != NULL)
+                isTileValid = true;
+            else
+                isTileValid = false;
         }
+        
     }
 
     return isTileValid;

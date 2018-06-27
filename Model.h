@@ -9,8 +9,9 @@
 class Model {
 public:
     void analyzeAction(gameData_t* gameData);
-    Model();
+    Model(gameData_t* gameData);
     virtual ~Model();
+    void initGameData(gameData_t* gameData);
     void initGraphicsData(View* view, gameData_t*);
     void fillGraphicsData(View* view, gameData_t*);
 private:
@@ -28,11 +29,13 @@ private:
 
     //std::list<Tile*> floorDeck;
     //std::vector<Tile*> deck;
-    std::vector<Floor*> floors;
-    std::vector<Guard*> guards; //esto lo tiene floor
-    std::vector<Character*> characters; //Los dos characters en juego
-    std::vector<Loot*> loots;
-    Character* currentCharacter;
+//    std::vector<Floor*> floors;
+//    std::vector<Guard*> guards; //esto lo tiene floor
+//    std::vector<Character*> characters; //Los dos characters en juego
+//    std::vector<Loot*> loots;
+//    Character* currentCharacter;
+    
+    gamePointers_t* gamePointers;
 
     bool gameWon;
     bool gameLost;

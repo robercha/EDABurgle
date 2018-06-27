@@ -1,4 +1,5 @@
 #include "Model.h"
+#include "Player.h"
 #include <algorithm>
 #include <random>
 #include <chrono>
@@ -6,40 +7,73 @@
 #include <time.h>
 
 
-Model::Model()
+Model::Model(gameData_t* gameData)
 {
     std::vector<Tile*> deck;
-
     createTiles(deck);
     shuffleTiles(deck);
+    
+    this->gamePointers = new gamePointers_t;
+    
     createFloors(deck);
     createModelFSM();
     createLoots();
     createCharacters();
+    initGameData(gameData);
 }
 
 Model::~Model()
 {
     unsigned i;
     for (i = 0; i < FLOORS_QTY; i++)
-        delete floors[i];
+        delete gamePointers->floors[i];
+}
+
+void Model::initGameData(gameData_t* gameData)
+{
+    gameData->actions->acceptDecline = false;
+    gameData->actions->addDice = false;
+    gameData->actions->createAlarm = false;
+    gameData->actions->hackCR = false;
+    gameData->actions->move = false;
+    gameData->actions->offerLoot = false;
+    gameData->actions->pass = false;
+    gameData->actions->patrolIsTopBottom = false;
+    gameData->actions->peek = false;
+    gameData->actions->pickupLoot = false;
+    gameData->actions->placeCrowToken = false;
+    gameData->actions->requestLoot = false;
+    gameData->actions->rollDice = false;
+    gameData->actions->spyPatrolDeck = false;
+    gameData->actions->useHackToken = false;
+    
+    gameData->currentCharacter=NULL;
+    gameData->event=NO_EVENT;
+    gameData->preEvent=NO_BUTTON;
+    gameData->selectedTile->tile=NULL;
+    gameData->selectedTile->adyacent=false;
+    gameData->selectedTile->hawkWall=false;
+    gameData->selectedTile->ownTile=false;
+    gameData->selectedTile->serviceDuct=false;
+    gameData->selectedTile->twoTilesAwayTile=false;
+    
 }
 
 void Model::createLoots()
 {
-    loots.push_back(new Tiara);
-    loots.push_back(new Kitty);
-    loots.push_back(new Painting);
-    loots.push_back(new Mirror);
-    loots.push_back(new KeyCard);
-    loots.push_back(new Isotope);
-    loots.push_back(new Gemstone);
-    loots.push_back(new Goblet);
-    loots.push_back(new Chihuahua);
-    loots.push_back(new GoldBar);
+    gamePointers->loots.push_back(new Tiara);
+    gamePointers->loots.push_back(new Kitty);
+    gamePointers->loots.push_back(new Painting);
+    gamePointers->loots.push_back(new Mirror);
+    gamePointers->loots.push_back(new KeyCard);
+    gamePointers->loots.push_back(new Isotope);
+    gamePointers->loots.push_back(new Gemstone);
+    gamePointers->loots.push_back(new Goblet);
+    gamePointers->loots.push_back(new Chihuahua);
+    gamePointers->loots.push_back(new GoldBar);
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(loots.begin(), loots.end(), std::default_random_engine(seed));
+    std::shuffle(gamePointers->loots.begin(), gamePointers->loots.end(), std::default_random_engine(seed));
 
 }
 
@@ -97,26 +131,26 @@ void Model::createTiles(std::vector<Tile*> &deck)
 
 void Model::createCharacters()
 {
-    characters.push_back(new Juicer);
-    characters.push_back(new Acrobat);
-    characters.push_back(new Hacker);
-    characters.push_back(new Hawk);
-    characters.push_back(new Spotter);
-    characters.push_back(new Raven);
-    characters.push_back(new Peterman);
+    gamePointers->characters.push_back(new Juicer);
+    gamePointers->characters.push_back(new Acrobat);
+    gamePointers->characters.push_back(new Hacker);
+    gamePointers->characters.push_back(new Hawk);
+    gamePointers->characters.push_back(new Spotter);
+    gamePointers->characters.push_back(new Raven);
+    gamePointers->characters.push_back(new Peterman);
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(characters.begin(), characters.end(), std::default_random_engine(seed));
+    std::shuffle(gamePointers->characters.begin(), gamePointers->characters.end(), std::default_random_engine(seed));
 
-    for (std::vector<Character*>::iterator charIt = characters.end(); charIt != (characters.begin() + 2); charIt--)     //shuffleo y saco 5 (de 7) para que queden los dos jugadores
-        characters.pop_back();
+    for (std::vector<Character*>::iterator charIt = gamePointers->characters.end(); charIt != (gamePointers->characters.begin() + 2); charIt--)     //shuffleo y saco 5 (de 7) para que queden los dos jugadores
+        gamePointers->characters.pop_back();
     
     srand(time(NULL));
     unsigned initialRow = rand()%4; 
     unsigned initialCol = rand()%4; 
-    characters[0]->setInitialTile(floors[0]->getDeck()[initialRow][initialCol]);
-    characters[1]->setInitialTile(floors[0]->getDeck()[initialRow][initialCol]);   
-    this->currentCharacter = characters[0];
+    gamePointers->characters[0]->setInitialTile(gamePointers->floors[0]->getDeck()[0][1]);
+    gamePointers->characters[1]->setInitialTile(gamePointers->floors[0]->getDeck()[0][1]);   
+    gamePointers->currentCharacter = gamePointers->characters[0];
            
 }
 
@@ -138,7 +172,7 @@ void Model::createFloors(std::vector<Tile*> deck)
             floorDeck.push_back(deck.back());            
             deck.pop_back();
         }
-        floors.push_back(new Floor(floorDeck, i));
+        gamePointers->floors.push_back(new Floor(floorDeck, i));
         floorDeck.clear();
     }
 }
@@ -180,13 +214,7 @@ void Model::createModelFSM()
 }
 
 void Model::analyzeAction(gameData_t* gameData)
-{
-    gamePointers_t *gamePointers;           //cargamos estructura con los punteros del juego que se manda a model
-    gamePointers->currentCharacter = this->currentCharacter;
-    gamePointers->characters = this->characters;
-    gamePointers->floors = this->floors;
-    gamePointers->guards = this->guards;
-
+{     
     eventGenerator(gameData); //traduce de button_t a modelEvent para la fsm de model
     currentAction->eventHandler(gameData, gamePointers);
     currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
@@ -210,7 +238,7 @@ void Model::eventGenerator(gameData_t* gameData)
 
     else if ((int) gameData->preEvent >= (int) button_t::A1F1 && (int) gameData->preEvent <= (int) button_t::D4F3)
     {
-        if (currentCharacter->canIUseThisTile((location_t) gameData->preEvent, &(gameData->selectedTile)))
+        if (gamePointers->currentCharacter->canIUseThisTile((location_t) gameData->preEvent, &(gameData->selectedTile)))
             gameData->event = VALID_TILE;
         else
             gameData->event = INVALID_TILE;
@@ -220,7 +248,7 @@ void Model::eventGenerator(gameData_t* gameData)
 
     else if (gameData->preEvent == button_t::MOVE)
     {
-        std::vector< std::vector<Tile*> > deck = floors[getFloor(gameData->selectedTile.tile->getCurrentLocation())]->getDeck();
+        std::vector< std::vector<Tile*> > deck = gamePointers->floors[getFloor(gameData->selectedTile.tile->getCurrentLocation())]->getDeck();
         std::vector< std::vector<Tile*> >::iterator row;
         std::vector<Tile*>::iterator col;
 
@@ -328,29 +356,29 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
     //players
     for (unsigned p = 0; p < V_TOTAL_PLAYERS; p++)
     {
-        view->graphicsData->players[p].character = (characterV_t) characters[p]->getName();
-        view->graphicsData->players[p].stealthTokens = characters[p]->getStealthTokensQty();
-        view->graphicsData->players[p].location = (locationV_t) characters[p]->getLocation();
-        view->graphicsData->players[p].actionsLeft = characters[p]->getActionsLeft();
+        view->graphicsData->players[p].character = (characterV_t) gamePointers->characters[p]->getName();
+        view->graphicsData->players[p].stealthTokens = gamePointers->characters[p]->getStealthTokensQty();
+        view->graphicsData->players[p].location = (locationV_t) gamePointers->characters[p]->getLocation();
+        view->graphicsData->players[p].actionsLeft = gamePointers->characters[p]->getActionsLeft();
     }
    
 
     for (unsigned floor = 0; floor < V_TOTAL_FLOORS; floor++)
     {
-        if(floors[floor]->isGuardActive())
+        if(gamePointers->floors[floor]->isGuardActive())
         {
-            view->graphicsData->guards[floor].movements = floors[floor]->getGuardSpeed();
-            view->graphicsData->guards[floor].location = (locationV_t) floors[floor]->getGuardLocation();
-            view->graphicsData->guards[floor].guardDie = (locationV_t) floors[floor]->getGuardDestination();
-            view->graphicsData->guards[floor].patrolDeck = (patrolV_t) floors[floor]->getGuardPatrolCard();
+            view->graphicsData->guards[floor].movements = gamePointers->floors[floor]->getGuardSpeed();
+            view->graphicsData->guards[floor].location = (locationV_t) gamePointers->floors[floor]->getGuardLocation();
+            view->graphicsData->guards[floor].guardDie = (locationV_t) gamePointers->floors[floor]->getGuardDestination();
+            view->graphicsData->guards[floor].patrolDeck = (patrolV_t) gamePointers->floors[floor]->getGuardPatrolCard();
         }
         //loots
         for (unsigned j = 0; j < V_TOTAL_LOOTS; j++)
         {
-            if (loots[j]->isLootVisible() == true)
+            if (gamePointers->loots[j]->isLootVisible() == true)
             {
-                view->graphicsData->loots[j].owner = (playerV_t) loots[j]->getOwner();
-                view->graphicsData->loots[j].loot = (lootV_t) loots[j]->getLootName();
+                view->graphicsData->loots[j].owner = (playerV_t) gamePointers->loots[j]->getOwner();
+                view->graphicsData->loots[j].loot = (lootV_t) gamePointers->loots[j]->getLootName();
                 view->graphicsData->loots[j].isVisible = true;
             }
             else
@@ -362,7 +390,7 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
 
         //tiles
 
-        std::vector< std::vector<Tile*> >& deck = floors[floor]->getDeck();
+        std::vector< std::vector<Tile*> >& deck = gamePointers->floors[floor]->getDeck();
         unsigned index = 0;
         for (unsigned row = 0; row < 4; row++)
         {
