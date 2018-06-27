@@ -20,7 +20,7 @@ void WaitingFirstAction::showInvalidTileMessage(gameData_t* gameData)
 
 void Idle::showInvalidTileMessage(gameData_t* gameData)
 {
-    gameData->message = "Oops, looks like we can't go there, Chief. We gotta find another way";
+    gameData->message = "Oops, looks like we can't go there, Chief. We gotta find another way.";
 }
 
 void GameStep::faceConsequences()
@@ -106,7 +106,7 @@ void Idle::enableActions(gameData_t* gameData)
         gameData->actions.peek = true;
         gameData->actions.pass = true;
     }
-  
+
     if (gameData->selectedTile.hawkWall)
     {
         gameData->actions.createAlarm = true;

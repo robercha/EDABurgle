@@ -198,7 +198,7 @@ private:
     void drawCharacters();
     void drawGuardDice();
     void drawGuards();
-    void drawTokensOnTiles(); //ver bien
+    void drawTokensOnTiles();
     void drawBackground();
     void drawCardInfo();
     void showNoCardSelected();
@@ -215,6 +215,7 @@ private:
     unsigned getFloor(locationV_t);
     bool isCardSelectedLoot(button_t);
     bool isCardSelectedTile(button_t);
+    std::string whichChar(characterV_t);
     void initButton(unsigned i, unsigned x, unsigned y, unsigned w, unsigned h);
     void initUtilities();
 } ;

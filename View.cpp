@@ -1,4 +1,5 @@
 #include "View.h"
+#include "Character.h"
 #include <string>
 
 void drawVerticalWall(unsigned floor, unsigned row, unsigned col);
@@ -366,33 +367,25 @@ View::drawChatDividers()                    //lineas que dividen el tablero del 
 void
 View::drawCharactersInfo()
 {
-    //player one
-    ALLEGRO_BITMAP* playerOne = loadCharacter(graphicsData->players[0].character, false);                       //cargo imagen en grande
-    al_draw_bitmap(playerOne, 25 + 1 * (TILE_SIZE + SPACE_TILE), 95 - (al_get_bitmap_height(playerOne)), 0);    //la dibujo y destruyo el bitmap
-    al_destroy_bitmap(playerOne);
+    for (unsigned player = 0; player < V_TOTAL_PLAYERS; player++)
+    {
+        ALLEGRO_BITMAP * playerBitmap = loadCharacter(graphicsData->players[player].character, false);                       //cargo imagen en grande
+        al_draw_bitmap(playerBitmap, 25 + TILE_SIZE + SPACE_TILE + player * 790, 95 - (al_get_bitmap_height(playerBitmap)), 0);    //la dibujo y destruyo el bitmap
+        al_destroy_bitmap(playerBitmap);
 
-    ALLEGRO_BITMAP* stealthOne = loadToken(tokenV_t::V_STEALTHTOKEN, false);            //dibujo la cantidad de stealth tokens que tiene el character
-    for (unsigned i = 0; i < graphicsData->players[0].stealthTokens; ++i)
-        al_draw_bitmap(stealthOne, 85 + 1 * (TILE_SIZE + SPACE_TILE), i * (5 + TOKENS_BIG_SIZE) + 5, 0);
-    al_destroy_bitmap(stealthOne);
+        ALLEGRO_BITMAP* stealthBitmap = loadToken(tokenV_t::V_STEALTHTOKEN, false);            //dibujo la cantidad de stealth tokens que tiene el character
+        for (unsigned i = 0; i < graphicsData->players[player].stealthTokens; ++i)
+            al_draw_bitmap(stealthBitmap, 85 + TILE_SIZE + SPACE_TILE + player * 700, i * (5 + TOKENS_BIG_SIZE) + 5, 0);
+        al_destroy_bitmap(stealthBitmap);
 
-    al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 180 + 70, 43, ALLEGRO_ALIGN_CENTER, "actions x%d", graphicsData->players[0].actionsLeft);         //la cantidad de actions que le quedan
-    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), 55 + 1 * (TILE_SIZE + SPACE_TILE), 90, ALLEGRO_ALIGN_CENTER, "you");                               //"You" si es P1
+        al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 180 + 70 + player * 560, 43, ALLEGRO_ALIGN_CENTER, "actions x%d", graphicsData->players[0].actionsLeft);         //la cantidad de actions que le quedan
+        std::string character = whichChar(graphicsData->players[player].character);
+        if (player == 0)
+            al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 55 + 1 * (TILE_SIZE + SPACE_TILE), 95, ALLEGRO_ALIGN_CENTER, "you - %s", character.c_str());   //"You" si es P1
+        else
+            al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 300 + 625, 95, ALLEGRO_ALIGN_CENTER, "partner - %s", character.c_str());
 
-    //player two
-    ALLEGRO_BITMAP * playerTwo = loadCharacter(graphicsData->players[1].character, false);          //analogo para Player Two
-    al_draw_bitmap(playerTwo, 270 + 625, 95 - (al_get_bitmap_height(playerTwo)), 0);
-    al_destroy_bitmap(playerTwo);
-
-    ALLEGRO_BITMAP * stealthTwo = loadToken(tokenV_t::V_STEALTHTOKEN, false);
-    for (unsigned i = 0; i < graphicsData->players[1].stealthTokens; ++i)
-        al_draw_bitmap(stealthTwo, 240 + 625, i * (5 + TOKENS_BIG_SIZE) + 5, 0);
-    al_destroy_bitmap(stealthTwo);
-
-    al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 300 + 510, 43, ALLEGRO_ALIGN_CENTER, "actions x%d", graphicsData->players[0].actionsLeft);
-    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), 300 + 625, 90, ALLEGRO_ALIGN_CENTER, "partner");
-
-    return;
+    }
 }
 
 void
@@ -993,7 +986,12 @@ View::initButton(unsigned i, unsigned x, unsigned y, unsigned w, unsigned h)
 void
 View::writeMessages()           //mensajes del chat
 {
-
+    unsigned x1 = 25;
+    unsigned y1 = 575;
+    ALLEGRO_BITMAP* pepe = al_load_bitmap("images/pepe.jpg");
+    al_draw_bitmap(pepe, x1, y1, 0);
+    al_draw_rectangle(x1, y1, x1 + al_get_bitmap_width(pepe), y1 + al_get_bitmap_height(pepe), al_map_rgb(0, 0, 0), 1);
+    al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 6 * x1, y1, ALLEGRO_ALIGN_LEFT, "%s", graphicsData->message.c_str());
     return;
 }
 
@@ -1559,6 +1557,38 @@ View::loadSafeNumber(unsigned s, bool shrink)       //Cargo bitmaps, si shrink=t
             break;
     }
     return bitmap;
+}
+
+std::string View::whichChar(characterV_t character)
+{
+    std::string charString;
+    switch (character)
+    {
+        case characterV_t::V_ACROBAT:
+            charString = "Acrobat";
+            break;
+        case characterV_t::V_HACKER:
+            charString = "Hacker";
+            break;
+        case characterV_t::V_HAWK:
+            charString = "Hawk";
+            break;
+        case characterV_t::V_JUICER:
+            charString = "Juicer";
+            break;
+        case characterV_t::V_PETERMAN:
+            charString = "Peterman";
+            break;
+        case characterV_t::V_RAVEN:
+            charString = "Raven";
+            break;
+        case characterV_t::V_SPOTTER:
+            charString = "Spotter";
+            break;
+        default:
+            break;
+    }
+    return charString;
 }
 
 void*
