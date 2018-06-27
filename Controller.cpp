@@ -86,7 +86,7 @@ Controller::manageEvent(void)
 {
     user->getEvent(userData);
     
-    userData->buttonClicked = (unsigned) (button_t::A1F1); //solo para debugging
+    //userData->buttonClicked = (unsigned) (button_t::A1F1); //solo para debugging
         
     translateUserData(); //convierte button_t a modelEvent_t que son los de model FSM
     //if (playerHandle->getEvent() != NO_EVENT)

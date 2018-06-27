@@ -312,9 +312,10 @@ View::drawCardInfo()
             drawSelectedTileTokens();                                       //los tokens que tiene
         }
         else if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_ROOMBACK)
+        {
             drawTileSelectedInfo();                                         //dibuja la carta
-        writeSelectedTileInfo();                                        //qué carta es, su ubicacion
-
+            writeSelectedTileInfo();                                        //qué carta es, su ubicacion
+        }
     }
     else
         showNoCardSelected();                                           //muestra que no se selecciono ningun loot/room
