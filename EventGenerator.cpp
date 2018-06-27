@@ -254,6 +254,8 @@ userInterface::getEvent(userData_t* userData)
     ALLEGRO_EVENT preEvent;
     state = al_get_next_event(queue, &preEvent);
     checkClick(userData, state, preEvent); //analizamos que boton se toco
+    
+    return state;
 }
 
 unsigned
@@ -284,6 +286,8 @@ userInterface::checkClick(userData_t* userData, unsigned state, ALLEGRO_EVENT ev
     {
         userData->buttonClicked = HOME_EXIT;
     }
+    
+    return i;
 
 
 }

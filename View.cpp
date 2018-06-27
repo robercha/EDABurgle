@@ -305,9 +305,16 @@ View::drawCardInfo()
         drawLootSelectedInfo();
     else if (isCardSelectedTile(graphicsData->currentCardSelected))     //Si se selecciono un room
     {
-        drawTileSelectedInfo();                                         //dibuja la carta
+        if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm != roomV_t::V_ROOMBACK)
+        {
+            drawTileSelectedInfo();                                         //dibuja la carta
+            writeSelectedTileInfo();                                        //qué carta es, su ubicacion
+            drawSelectedTileTokens();                                       //los tokens que tiene
+        }
+        else if (graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_ROOMBACK)
+            drawTileSelectedInfo();                                         //dibuja la carta
         writeSelectedTileInfo();                                        //qué carta es, su ubicacion
-        drawSelectedTileTokens();                                       //los tokens que tiene
+
     }
     else
         showNoCardSelected();                                           //muestra que no se selecciono ningun loot/room
@@ -401,7 +408,7 @@ View::drawTiles()
 
                 if (graphicsData->tiles[i].iAm == roomV_t::V_ROOMBACK)
                 {
-                    ALLEGRO_BITMAP* tile = loadRoom(roomV_t::V_ROOMBACK, false);        //cargo la iamgen de la carta dada vuelta en tamaño chico, dibujo y destruyo el bitmap
+                    ALLEGRO_BITMAP* tile = loadRoom(roomV_t::V_ROOMBACK, true);        //cargo la iamgen de la carta dada vuelta en tamaño chico, dibujo y destruyo el bitmap
                     al_draw_bitmap(tile, x, y, 0);
                     al_destroy_bitmap(tile);
                 }
@@ -661,19 +668,17 @@ View::drawTileSelectedInfo()
 {
     unsigned index = (int) graphicsData->currentCardSelected;
 
-    if (graphicsData->tiles[index].iAm != roomV_t::V_ROOMBACK)
-    {
-        ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[index].iAm, false);         //dibujo la carta seleccionada en tamaño grande
-        al_draw_bitmap(tile, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE) / 2 + SPACE_DIVIDER_L, SPACE_UP_MARGIN, 0);
+    ALLEGRO_BITMAP* tile = loadRoom(graphicsData->tiles[index].iAm, false);         //dibujo la carta seleccionada en tamaño grande
+    al_draw_bitmap(tile, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE) / 2 + SPACE_DIVIDER_L, SPACE_UP_MARGIN, 0);
 
-        al_destroy_bitmap(tile);
-        if (graphicsData->tiles[index].iAm != roomV_t::V_SAFE)
-        {
-            ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[index].combinationNumber, true);        //su combination number (salteo si es la safe)
-            al_draw_bitmap(number, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE)*2 + SPACE_DIVIDER_L - 17, SPACE_UP_MARGIN + CARD_SELECTED_SIZE / 2 + 3, 0);
-            al_destroy_bitmap(number);
-        }
+    al_destroy_bitmap(tile);
+    if ((graphicsData->tiles[index].iAm != roomV_t::V_SAFE) && (graphicsData->tiles[index].iAm != roomV_t::V_ROOMBACK))
+    {
+        ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[index].combinationNumber, true);        //su combination number (salteo si es la safe)
+        al_draw_bitmap(number, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE)*2 + SPACE_DIVIDER_L - 17, SPACE_UP_MARGIN + CARD_SELECTED_SIZE / 2 + 3, 0);
+        al_destroy_bitmap(number);
     }
+
     return;
 }
 
@@ -1313,7 +1318,10 @@ View::loadRoom(roomV_t r, bool shrink)      //Cargo bitmaps, si shrink=true, se 
             break;
 
         case roomV_t::V_ROOMBACK:
-            bitmap = al_load_bitmap("images/tiles/roomBack.png");
+            if (shrink == true)
+                bitmap = al_load_bitmap("images/tiles/roomBacksmall.png");
+            else
+                bitmap = al_load_bitmap("images/tiles/roomBack.png");
             break;
 
         case roomV_t::V_SAFE:
