@@ -31,31 +31,29 @@ Model::~Model()
 
 void Model::initGameData(gameData_t* gameData)
 {
-    gameData->actions->acceptDecline = false;
-    gameData->actions->addDice = false;
-    gameData->actions->createAlarm = false;
-    gameData->actions->hackCR = false;
-    gameData->actions->move = false;
-    gameData->actions->offerLoot = false;
-    gameData->actions->pass = false;
-    gameData->actions->patrolIsTopBottom = false;
-    gameData->actions->peek = false;
-    gameData->actions->pickupLoot = false;
-    gameData->actions->placeCrowToken = false;
-    gameData->actions->requestLoot = false;
-    gameData->actions->rollDice = false;
-    gameData->actions->spyPatrolDeck = false;
-    gameData->actions->useHackToken = false;
+    gameData->actions.acceptDecline = false;
+    gameData->actions.addDice = false;
+    gameData->actions.createAlarm = false;
+    gameData->actions.hackCR = false;
+    gameData->actions.move = false;
+    gameData->actions.offerLoot = false;
+    gameData->actions.pass = false;
+    gameData->actions.patrolIsTopBottom = false;
+    gameData->actions.peek = false;
+    gameData->actions.pickupLoot = false;
+    gameData->actions.placeCrowToken = false;
+    gameData->actions.requestLoot = false;
+    gameData->actions.rollDice = false;
+    gameData->actions.spyPatrolDeck = false;
+    gameData->actions.useHackToken = false;
     
-    gameData->currentCharacter=NULL;
-    gameData->event=NO_EVENT;
-    gameData->preEvent=NO_BUTTON;
-    gameData->selectedTile->tile=NULL;
-    gameData->selectedTile->adyacent=false;
-    gameData->selectedTile->hawkWall=false;
-    gameData->selectedTile->ownTile=false;
-    gameData->selectedTile->serviceDuct=false;
-    gameData->selectedTile->twoTilesAwayTile=false;
+    gameData->currentCharacter = 0;
+    gameData->selectedTile.tile=NULL;
+    gameData->selectedTile.adyacent=false;
+    gameData->selectedTile.hawkWall=false;
+    gameData->selectedTile.ownTile=false;
+    gameData->selectedTile.serviceDuct=false;
+    gameData->selectedTile.twoTilesAwayTile=false;
     
 }
 
