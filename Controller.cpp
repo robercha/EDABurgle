@@ -1,5 +1,4 @@
 #include "Controller.h"
-//#include "PlayerHandle.h"
 #include <new>
 
 Controller::Controller(char* ip)
@@ -12,10 +11,6 @@ Controller::Controller(char* ip)
     this->view->graphicsData = new graphicsData_t;
     this->userData->buttonClicked = (unsigned) button_t::NO_BUTTON;
 
-    //    Player* player1 = new Player(model, P1);
-    //    Player* player2 = new Player(model, P2);
-    //    this->playerHandle = new PlayerHandle(player1, player2);
-    //this->networking = new Networking(ip);
     this->user = new userInterface(getDisplay());
     this->copyButtons();
     this->networkingMode = false;
@@ -30,7 +25,6 @@ Controller::Controller(char* ip)
 Controller::~Controller()
 {
     //delete networking;
-    //    delete playerHandle;
     delete user;
     delete userData;
 }
@@ -86,13 +80,10 @@ Controller::manageEvent(void)
 {
     user->getEvent(userData);
     
-    //userData->buttonClicked = (unsigned) (button_t::A1F1); //solo para debugging
+    userData->buttonClicked = (unsigned) (button_t::A1F1); //solo para debugging
         
     translateUserData(); //convierte button_t a modelEvent_t que son los de model FSM
-    //if (playerHandle->getEvent() != NO_EVENT)
-    
-        
-            
+         
     if ((userData->buttonClicked != (unsigned) (button_t::NO_BUTTON)) &&
             (userData->buttonClicked != (unsigned) button_t::HOME_EXIT))
     {
@@ -105,9 +96,11 @@ Controller::manageEvent(void)
     //    networking->getEvent(userData);
     //    translatePackage();
     //    FSMCycle(userData->event, gameData);
-    model->fillGraphicsData(view, gameData);
-    view->updateGraphics();
-
+    if(gameData->preEvent != button_t::NO_BUTTON)
+    {
+        model->fillGraphicsData(view, gameData);
+        view->updateGraphics();
+    }
 }
 
 
@@ -147,14 +140,6 @@ void
 Controller::translateUserData()
 {
     gameData->preEvent = (button_t) userData->buttonClicked;
-    ////    if (userData->buttonClicked == (unsigned) button_t::PASS)
-    ////        playerHandle->setEvent(PASS);
-    //    if ((userData->buttonClicked == (unsigned) button_t::NO_BUTTON) ||
-    //            (userData->buttonClicked == (unsigned) button_t::HOME_EXIT))
-    //        playerHandle->setEvent(NO_EVENT);
-    ////  else
-    ////        playerHandle->setEvent(ACTION);
-    //    userData->buttonClicked == (unsigned) button_t::NO_BUTTON;
 }
 
 void*

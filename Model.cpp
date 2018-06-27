@@ -147,10 +147,10 @@ void Model::createCharacters()
     srand(time(NULL));
     unsigned initialRow = rand() % 4;
     unsigned initialCol = rand() % 4;
+    
     gamePointers->floors[0]->getDeck()[initialRow][initialCol]->reveal();
-    gamePointers->floors[0]->getDeck()[0][1]->reveal();
-    gamePointers->characters[0]->setInitialTile(gamePointers->floors[0]->getDeck()[0][1]);
-    gamePointers->characters[1]->setInitialTile(gamePointers->floors[0]->getDeck()[0][1]);
+    gamePointers->characters[0]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
+    gamePointers->characters[1]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
     gamePointers->currentCharacter = gamePointers->characters[0];
 
 }
@@ -339,7 +339,7 @@ bool Model::isGameWon()
 }
 
 void Model::initGraphicsData(View* view, gameData_t* gameData)
-{
+{   
     fillGraphicsData(view, gameData);
 
     for (unsigned floor = 1; floor < V_TOTAL_FLOORS; floor++)
@@ -351,7 +351,7 @@ void Model::initGraphicsData(View* view, gameData_t* gameData)
         view->graphicsData->guards[floor].patrolDeck = patrolV_t::V_NO_PATROL;
 
     }
-
+    view->graphicsData->currentCardSelected = (button_t)this->gamePointers->currentCharacter->getLocation();
 }
 
 void Model::fillGraphicsData(View* view, gameData_t* gameData)

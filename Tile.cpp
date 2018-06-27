@@ -362,8 +362,14 @@ location_t Tile::getCurrentLocation()
 bool Tile::checkDurlock(location_t selectedTile)
 {
     bool wall = false;
-    if (selectedTile == secretRightTile->currentLocation || selectedTile == secretLeftTile->currentLocation ||
-            selectedTile == secretUpperTile->currentLocation || selectedTile == secretLowerTile->currentLocation)
+    
+    if (secretRightTile!=NULL && selectedTile == secretRightTile->currentLocation)
+        wall = true;
+    else if(secretLeftTile!=NULL && selectedTile == secretLeftTile->currentLocation)
+        wall = true;
+    else if(secretUpperTile!=NULL && selectedTile == secretUpperTile->currentLocation)
+        wall = true;
+    else if(secretLowerTile!=NULL && selectedTile == secretLowerTile->currentLocation);
         wall = true;
 
     return wall;
