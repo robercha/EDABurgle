@@ -147,7 +147,7 @@ void Model::createCharacters()
     srand(time(NULL));
     unsigned initialRow = rand() % 4;
     unsigned initialCol = rand() % 4;
-    
+
     gamePointers->floors[0]->getDeck()[initialRow][initialCol]->reveal();
     gamePointers->characters[0]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
     gamePointers->characters[1]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
@@ -339,7 +339,7 @@ bool Model::isGameWon()
 }
 
 void Model::initGraphicsData(View* view, gameData_t* gameData)
-{   
+{
     fillGraphicsData(view, gameData);
 
     for (unsigned floor = 1; floor < V_TOTAL_FLOORS; floor++)
@@ -352,6 +352,7 @@ void Model::initGraphicsData(View* view, gameData_t* gameData)
 
     }
     view->graphicsData->currentCardSelected = (button_t)this->gamePointers->currentCharacter->getLocation();
+    view->graphicsData->message = "Hi there bosss. Ready to rob the s*** outta this bank.";
 }
 
 void Model::fillGraphicsData(View* view, gameData_t* gameData)
