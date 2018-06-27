@@ -9,13 +9,10 @@
         <group>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Character.cpp</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/View.cpp</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Tile.h</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Controller.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Tile.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/main.cpp</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Model.cpp</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/View.h</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Model.h</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Controller.h</file>
-            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.h</file>
         </group>
     </open-files>
 </project-private>

@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro5.h>
 #include <allegro5/timer.h>
@@ -139,6 +140,7 @@ typedef struct {
     button_t currentCardSelected;           //muestra en upper-right corner toda la informacion
     unsigned crackingDice[V_TOTAL_CRACKINGDICE];
     //aca faltan los mensajes
+    std::string message;
     action_t actions;
     bool gameWon;                           //solo fijarse por gameWon=true
     bool gameLost;                          //solo fijarse por gameLost=true
