@@ -16,7 +16,7 @@ class Player {
 public:
     Player();
     Player(Model* model, state_t player);
-    bool eventHandler(gameData_t*);
+    bool eventHandler(event_t, gameData_t*);
     state_t getCurrentPlayer();
     ~Player();
 private:
