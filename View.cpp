@@ -533,18 +533,18 @@ View::drawLoots()           //dibujo el loot de cada piso
     {
         x = 20 + 2 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3);
         y = 135 + TILE_SIZE * 4 + SPACE_TILE * 6;
-        if (graphicsData->loots[i].isVisible == true)
-        {
-            ALLEGRO_BITMAP * bitmap = loadLoot(graphicsData->loots[i].loot, true);
-            al_draw_bitmap(bitmap, x, y, 0);
-            al_destroy_bitmap(bitmap);
-        }
-        else
-        {
-            ALLEGRO_BITMAP* bitmap = loadLoot(lootV_t::V_NO_LOOT, true);
-            al_draw_bitmap(bitmap, x, y, 0);
-            al_destroy_bitmap(bitmap);
-        }
+        //if (graphicsData->loots[i].isVisible == true)
+        //{
+        ALLEGRO_BITMAP * bitmap = loadLoot(graphicsData->loots[i].loot, true);
+        al_draw_bitmap(bitmap, x, y, 0);
+        al_destroy_bitmap(bitmap);
+        //}
+        //        else
+        //        {
+        //            ALLEGRO_BITMAP* bitmap = loadLoot(lootV_t::V_NO_LOOT, true);
+        //            al_draw_bitmap(bitmap, x, y, 0);
+        //            al_destroy_bitmap(bitmap);
+        //        }
     }
     return;
 }
@@ -1141,8 +1141,10 @@ View::loadLoot(lootV_t l, bool shrink)      //Cargo bitmaps, si shrink=true, se 
             break;
 
         case lootV_t::V_NO_LOOT:
-            bitmap = al_load_bitmap("images/loots/lootBack.png");
-
+            if (shrink == true)
+                bitmap = al_load_bitmap("images/loots/lootBacksmall.png");
+            else
+                bitmap = al_load_bitmap("images/loots/lootBack.png");
             break;
     }
 

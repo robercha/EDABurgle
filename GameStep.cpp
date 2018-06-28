@@ -163,7 +163,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
                 gamePointers->floors[floor]->addDiceToSafe((location_t) (gamePointers->currentCharacter->getLocation() % 16));
                 gamePointers->currentCharacter->decreaseActions();
             }
-            enableActions(gameData);
+            enableActions(gameData, gamePointers);
             break;
         case A_ROLL_DICE_FOR_SAFE:
             if (gameData->actions.rollDice == true)
