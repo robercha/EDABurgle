@@ -62,6 +62,10 @@ public:
         return dynamic_cast<Safe*> (this->tiles[getRow(location)][getColumn(location)])->isCracked();
     }
 
+    void addDiceToSafe(location_t location) {
+        dynamic_cast<Safe*> (this->tiles[getRow(location)][getColumn(location)])->addDice();
+    }
+
     location_t getGuardDieLocation(); //donde esta el dado (a donde va si no suenan alarmas)
     std::vector< std::vector<Tile*> >& getDeck();
 

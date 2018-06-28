@@ -55,7 +55,10 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             break;
         case A_ADD_DICE_TO_SAFE:
             if (gameData->actions.addDice == true)
-                gamePointers->currentCharacter->addDiceToSafe();
+            {
+                unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
+                gamePointers->floors[floor]->addDiceToSafe((location_t) (gamePointers->currentCharacter->getLocation() % 16));
+            }
             break;
         case A_ROLL_DICE_FOR_SAFE:
             if (gameData->actions.rollDice == true)
@@ -152,7 +155,10 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
             break;
         case A_ADD_DICE_TO_SAFE:
             if (gameData->actions.addDice == true)
-                gamePointers->currentCharacter->addDiceToSafe();
+            {
+                unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
+                gamePointers->floors[floor]->addDiceToSafe((location_t) (gamePointers->currentCharacter->getLocation() % 16));
+            }
             enableActions(gameData);
             break;
         case A_ROLL_DICE_FOR_SAFE:
