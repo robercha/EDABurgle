@@ -168,7 +168,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
                     if (gamePointers->floors[floor]->isSafeCracked((location_t) (gamePointers->currentCharacter->getLocation() % 16)))
                         drawLoot(gamePointers);
                 }
-            enableActions(gameData);
+            enableActions(gameData, gamePointers);
             break;
         case A_HACK_COMPUTER:
             if (gameData->actions.hackCR == true)
