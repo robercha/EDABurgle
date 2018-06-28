@@ -48,6 +48,7 @@ public:
 
     void addDiceToSafe() {
         dynamic_cast<Safe*> (currentTile)->addDice();
+        this->actions--;
     }
 
     bool wasCracked() {
