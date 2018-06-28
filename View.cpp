@@ -370,6 +370,8 @@ View::drawCharactersInfo()
     {
         ALLEGRO_BITMAP * playerBitmap = loadCharacter(graphicsData->players[player].character, false);                       //cargo imagen en grande
         al_draw_bitmap(playerBitmap, 25 + TILE_SIZE + SPACE_TILE + player * 790, 95 - (al_get_bitmap_height(playerBitmap)), 0);    //la dibujo y destruyo el bitmap
+        if (graphicsData->players[player].currentChar == true)     //esta jugando este
+            al_draw_rectangle(25 + TILE_SIZE + SPACE_TILE + player * 790, 95 - (al_get_bitmap_height(playerBitmap)), 25 + TILE_SIZE + SPACE_TILE + player * 790 + al_get_bitmap_width(playerBitmap), 95 , al_map_rgb(0, 157, 79), 2);
         al_destroy_bitmap(playerBitmap);
 
         ALLEGRO_BITMAP* stealthBitmap = loadToken(tokenV_t::V_STEALTHTOKEN, false);            //dibujo la cantidad de stealth tokens que tiene el character
@@ -383,7 +385,6 @@ View::drawCharactersInfo()
             al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 55 + 1 * (TILE_SIZE + SPACE_TILE), 95, ALLEGRO_ALIGN_CENTER, "you - %s", character.c_str());   //"You" si es P1
         else
             al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 300 + 625, 95, ALLEGRO_ALIGN_CENTER, "partner - %s", character.c_str());
-
     }
 }
 

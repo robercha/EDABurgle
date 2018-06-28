@@ -367,6 +367,16 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
     view->graphicsData->gameWon = isGameWon();
     view->graphicsData->currentCardSelected = gameData->preEvent;
     view->graphicsData->message = gameData->message;
+    if (gamePointers->characters[0]->getName() == gamePointers->currentCharacter->getName())
+    {
+        view->graphicsData->players[0].currentChar = true;
+        view->graphicsData->players[1].currentChar = false;
+    }
+    else
+    {
+        view->graphicsData->players[0].currentChar = false;
+        view->graphicsData->players[1].currentChar = true;
+    }
 
     //players
     for (unsigned p = 0; p < V_TOTAL_PLAYERS; p++)

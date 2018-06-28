@@ -80,6 +80,7 @@ typedef enum {
 } playerV_t;
 
 typedef struct {
+    bool    currentChar;
     characterV_t character;
     unsigned stealthTokens;
     unsigned actionsLeft;
