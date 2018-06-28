@@ -46,6 +46,11 @@ public:
             dynamic_cast<CRLaser*> (currentTile)->useHackToken();
     }
 
+    void decreaseActions() {
+        if (actions > 0);
+        actions--;
+    }
+
     unsigned getDieQty() {
         return dynamic_cast<Safe*> (currentTile)->getDieQty();
     }

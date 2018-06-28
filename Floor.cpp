@@ -386,7 +386,9 @@ void Floor::crack (unsigned diceQty, location_t location)
 void Floor::moveGuard()
 {
     std::vector<Tile*> alarmTiles;
-
+    
+    Tile* patrolCardTile = tiles[getRow(guard->getPatrolCard())][getColumn(guard->getPatrolCard())];
+    
     for (int i = 0; i < ROWS; i++)
         for (int j = 0; j < COLS; j++)
             if (tiles[i][j]->isAlarmTriggered())
@@ -397,19 +399,19 @@ void Floor::moveGuard()
     {
         setDistance2Guard();
         std::sort(alarmTiles.begin(), alarmTiles.end(), compare);    //la tile con la minima distancia al guardia queda en el ultimo elemento del vector
-        guard->walk(nextStep(alarmTiles.at(0)));
+        guard->walk(nextStep(alarmTiles.back()));
 
-        if (guard->getLocation() == (alarmTiles.at(0)->getCurrentLocation()))
+        if (guard->getLocation() == (alarmTiles.back()->getCurrentLocation()))
 
         {
-            alarmTiles.at(0)->deactivateAlarm();
+            alarmTiles.back()->deactivateAlarm();
         }
     }
 
-    else if (guard->getLocation() == guard->getDestination())
+    else if (guard->getLocation() == guard->getPatrolCard())
     {
+        guard->walk(nextStep(patrolCardTile));
         if (takePatrolCard());
-
         else
             createPatrolDeck();
     }
