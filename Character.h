@@ -30,7 +30,7 @@ public:
     //    void addToken(tokenInfo_t token, Tile* tile) {
     //        currentTile->setToken(token, tile);
     //    }
-    
+
     void setInitialTile(Tile*);
 
     void setHackToken() {
@@ -48,10 +48,6 @@ public:
 
     void addDiceToSafe() {
         dynamic_cast<Safe*> (currentTile)->addDice();
-    }
-
-    bool wasCracked() {
-        return dynamic_cast<Safe*> (currentTile)->isCracked();
     }
 
     unsigned getDieQty() {
@@ -75,7 +71,6 @@ protected:
     std::vector<Loot*> loots;
 } ;
 
-
 class Juicer : public Character {
 public:
     Juicer();
@@ -85,19 +80,19 @@ private:
     //    Tile* adyacentTile;
     //    bool isTileAdyacent();
 
-};
+} ;
 
 class Hacker : public Character {
 public:
     Hacker();
     bool hiddenTalent(); //no triggerea alarma
-	void setPartnerTile(Tile*);
+    void setPartnerTile(Tile*);
 private:
     bool isPartnerOnSameTile();
     bool isFML(); //chequea si la tile es fingerprint, motion, laser
-	Tile* partnerTile;
+    Tile* partnerTile;
 
-};
+} ;
 
 class Acrobat : public Character {
 public:
@@ -106,7 +101,7 @@ public:
 private:
     bool isGuardOnCurrTile(Floor*);
     bool noActionsLeft(); //se fija si la cant de actions es 0
-};
+} ;
 
 class Spotter : public Character {
 public:
@@ -116,7 +111,7 @@ public:
     void sendToBottom(std::vector<location_t>* patrolDeck);
 private:
     void spendExtraAction();
-};
+} ;
 
 class Hawk : public Character {
 public:
@@ -130,19 +125,19 @@ private:
     bool isThereAWall(location_t);
     Tile* destiny;
 
-};
+} ;
 
 class Raven : public Character {
 public:
     Raven();
     void placeCrowToken(Tile*);
     bool canPlaceCrowToken(); //hasta dos tiles adyacentes
-	bool hiddenTalent(location_t, tileInfo_t*);
+    bool hiddenTalent(location_t, tileInfo_t*);
     //    void setTile(Tile*);
 private:
     bool canIUseThisTile(location_t, tileInfo_t*);
     //Tile* tile;
-};
+} ;
 
 class Peterman : public Character {
 public:
@@ -151,7 +146,7 @@ public:
 private:
     unsigned throwAdditionalDice();
 
-};
+} ;
 
 #endif /* CHARACTER_H */
 

@@ -22,23 +22,23 @@ Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
 {
     this->floorNumber = floorNumber;
     unsigned location = 16 * floorNumber;
-    
+
     std::vector <Tile*> tempRow;
-    
-    for(unsigned i = 0; i<4 ; i++)
+
+    for (unsigned i = 0; i < 4 ; i++)
     {
-        for (unsigned j = 0; j<4; j++)
+        for (unsigned j = 0; j < 4; j++)
         {
-            if(i==3 && j>=2) //para dejar espacio para la safe y la stair
+            if (i == 3 && j >= 2) //para dejar espacio para la safe y la stair
                 break;
             tempRow.push_back(deck.back());
             deck.pop_back();
         }
-        
+
         tiles.push_back(tempRow);
         tempRow.clear();
     }
-    
+
 
     tiles[3].push_back(new Stairs);
 
@@ -67,23 +67,25 @@ Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
 
     createWalls(floorNumber);
 
-    
-    
+
+
     createPatrolDeck();
-    
+
     location_t startTile = patrolDeck.back();
-    
+
     this->trashedPatrolDeck.push_back(startTile);
     patrolDeck.pop_back();
-    
+
     location_t patrolCard = patrolDeck.back();
     this->trashedPatrolDeck.push_back(patrolCard);
     patrolDeck.pop_back();
-    
-    guard = new Guard(floorNumber+2, tiles[(unsigned)startTile/COLS][(unsigned)startTile%COLS], patrolCard);
-    
-    if(floorNumber == 0)
+
+    guard = new Guard(floorNumber + 2, tiles[(unsigned) startTile / COLS][(unsigned) startTile % COLS], patrolCard);
+
+    if (floorNumber == 0)
         guard->toggleGuard();
+
+
 }
 
 Floor::~Floor()
@@ -108,10 +110,10 @@ void Floor::createPatrolDeck()
 
 void Floor::updatePatrolCard()
 {
-    if(!patrolDeck.empty())
+    if (!patrolDeck.empty())
     {
         location_t patrolCard = patrolDeck.back();
-        this->trashedPatrolDeck.push_back(patrolCard);  
+        this->trashedPatrolDeck.push_back(patrolCard);
         patrolDeck.pop_back();
         guard->setDestination(patrolCard);
     }
@@ -120,7 +122,7 @@ void Floor::updatePatrolCard()
         createPatrolDeck();
         updatePatrolCard();
     }
-    
+
 }
 
 void Floor::createWalls(unsigned floorNumber)
@@ -374,7 +376,10 @@ void Floor::crack (unsigned diceQty, location_t location)
             crackedTiles++;
     }
     if (crackedTiles == ALL_CRACK)   //Verifico si todas sus tiles adyacentes tienen crack token
+    {
         dynamic_cast<Safe*> (tiles[Row][Col])->setCracked();    //Se crackeo la safe
+        loot->setVisibility(true);
+    }
 
 }
 

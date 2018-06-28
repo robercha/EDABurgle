@@ -1,7 +1,10 @@
 #ifndef LOOT_H
 #define LOOT_H
 
-#include "Floor.h" //por ahora se lo agrego porque lo necesitaria KeyCard
+//#include "Floor.h" //por ahora se lo agrego porque lo necesitaria KeyCard
+#include "Tile.h"
+
+#define TOTAL_LOOTS 3
 
 typedef enum {
     TIARA, PERSIAN_KITTY, PAINTING, MIRROR, KEYCARD, ISOTOPE, GEMSTONE, CURSED_GOBLET, CHIHUAHUA, GOLD_BAR, LOOT_COUNT
@@ -23,19 +26,22 @@ public:
     bool virtual awakenCurse() = 0;
     loot_t getLootName();
 
-    player_t getOwner() {
-        return owner;
-    }
-
     bool isLootVisible() {
         return isVisible;
+    }
+
+    void setVisibility(bool state) {
+        isVisible = state;
+    }
+
+    player_t getOwner() {
+        return this->owner;
     }
 protected:
     bool isVisible;
     loot_t lootName;
     player_t owner;
 } ;
-
 
 class Goblet : public Loot {
 public:
@@ -45,11 +51,13 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(){};
-	
+
+    bool awakenCurse() {
+    };
+
 private:
-   // bool virgin; 
-};
+    // bool virgin;
+} ;
 
 class Kitty : public Loot { //chequear al principio del turno
 public:
@@ -59,16 +67,18 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(){};
+
+    bool awakenCurse() {
+    };
     void setTile();
 private:
     bool rollDice(); //si es 1 o 2
-    bool isThereAnAlarmTile(Floor* currFloor);
+    //bool isThereAnAlarmTile(Floor* currFloor);
     Tile* calculateRoute(); //devuelve la tile a la q deberia moverse el kitty
     Tile* currentTile; //o location_t location;
-	std::vector<location_t> alarmTiles; //las locations de las alarm tiles que haya descubiertas
+    std::vector<location_t> alarmTiles; //las locations de las alarm tiles que haya descubiertas
 
-};
+} ;
 
 class Tiara : public Loot { //chequear al final del turno
 public:
@@ -78,13 +88,13 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(){};
-    void setGuard(Guard*);
+
+    bool awakenCurse() {
+    };
 private:
     bool isGuardNearby(Tile*, tileInfo_t*);  // le agrego Tile* y tileInfo_t* para saber si esta cerca del guard
-    Guard* guard;
 
-};
+} ;
 
 class Painting : public Loot {
 public:
@@ -94,11 +104,13 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(){}; //si devuelve true, no puede pasar
+
+    bool awakenCurse() {
+    }; //si devuelve true, no puede pasar
 private:
     bool onServiceDuctTile(Tile*);
     bool isSecretDoorNearby(Tile*);
-};
+} ;
 
 class Mirror : public Loot { //principio del turno y cuando se mueve el personaje
 public:
@@ -108,11 +120,13 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(){}; //si devuelve false, no cambia el estado de la alarma
+
+    bool awakenCurse() {
+    }; //si devuelve false, no cambia el estado de la alarma
 private:
     bool deactivateLaser(Tile*); //evita que se active el flag de triggered alarm
     void decreaseActions(); //si tiene >3 actions, le resta una // Aca necesitaria tener acceso al character o que esto se haga en gameStep
-};
+} ;
 
 class KeyCard : public Loot {
 public:
@@ -122,14 +136,16 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(){}; //poner en todos los safe tile el flag de poder crakear en false y si el jugador esta en esa safe tile cambiarlo a true
+
+    bool awakenCurse() {
+    }; //poner en todos los safe tile el flag de poder crakear en false y si el jugador esta en esa safe tile cambiarlo a true
 private:
-	bool isOwnerOnSafeTile(Tile*);
-	void disableCrackFlags(Floor*); //tendria que tener acceso a todo el floor
-	void enableCrackFlag(Tile*); 
+    bool isOwnerOnSafeTile(Tile*);
+    //    void disableCrackFlags(Floor*); //tendria que tener acceso a todo el floor
+    void enableCrackFlag(Tile*);
 
 
-};
+} ;
 
 class Isotope : public Loot {
 public:
@@ -139,10 +155,12 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(){}; //dispara alarma de thermo
+
+    bool awakenCurse() {
+    }; //dispara alarma de thermo
 private:
     bool onThermoTile(Tile*); //tal vez no es necesario
-};
+} ;
 
 class Gemstone : public Loot {
 public:
@@ -152,14 +170,16 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(){}; //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
+
+    bool awakenCurse() {
+    }; //chequeamos que prevTile y currTile sean diferentes, y que onSameTile devuelva true
     void setPartner(/*Character**/); //solo una vez
     void setPrevTile(Tile*); //solo se setea cuando agarra el loot
 private:
     bool onSameTileAsPartner(Tile*, Tile*);
     //Character* partner;
     Tile* previousTile;
-};
+} ;
 
 class Chihuahua : public Loot { //chequear al principio del turno
 public:
@@ -169,10 +189,12 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(){}; //triggerea alarma de cualquier currentTile
+
+    bool awakenCurse() {
+    }; //triggerea alarma de cualquier currentTile
 private:
     bool rollDice(); //si es 6
-};
+} ;
 
 class GoldBar : public Loot { //quien lleve un goldbar debe ser diferente a quien lleve el otro
 public:
@@ -182,11 +204,13 @@ public:
         isVisible = false;
         owner = NO_PLAYER;
     };
-    bool awakenCurse(){}; //clonarse y crear GoldBar2
+
+    bool awakenCurse() {
+    }; //clonarse y crear GoldBar2
     //   Loot getGoldBar();
 private:
     //  Loot goldBar2;
 
-};
+} ;
 
 #endif /* LOOT_H */

@@ -25,7 +25,6 @@ struct gamePointers_t {
     std::vector<Guard*> guards; //esto lo tiene floor
     std::vector<Character*> characters; //Los dos characters en juego
     Character* currentCharacter;
-    std::vector<Loot*> loots;
 } ;
 
 typedef struct {

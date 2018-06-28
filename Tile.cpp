@@ -362,15 +362,15 @@ location_t Tile::getCurrentLocation()
 bool Tile::checkDurlock(location_t selectedTile)
 {
     bool wall = false;
-    
-    if (secretRightTile!=NULL && selectedTile == secretRightTile->currentLocation)
+
+    if (secretRightTile != NULL && selectedTile == secretRightTile->currentLocation)
         wall = true;
-    else if(secretLeftTile!=NULL && selectedTile == secretLeftTile->currentLocation)
+    else if (secretLeftTile != NULL && selectedTile == secretLeftTile->currentLocation)
         wall = true;
-    else if(secretUpperTile!=NULL && selectedTile == secretUpperTile->currentLocation)
+    else if (secretUpperTile != NULL && selectedTile == secretUpperTile->currentLocation)
         wall = true;
-    else if(secretLowerTile!=NULL && selectedTile == secretLowerTile->currentLocation);
-        wall = true;
+    else if (secretLowerTile != NULL && selectedTile == secretLowerTile->currentLocation);
+    wall = true;
 
     return wall;
 }
@@ -455,7 +455,7 @@ bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
         }
 
     }
-    
+
     return isTileValid;
 }
 
@@ -483,7 +483,7 @@ bool Tile::isThereASecretDoor(location_t selectedTile, tileInfo_t* tileInfo)
                 {
                     bool secretDoor = true;
                     tileInfo->tile = secretRightTile;
-                }    
+                }
             if (upperTile != secretUpperTile)
                 if (secretUpperTile->isVisible && secretUpperTile->tileType == SECRETDOOR)
                 {
@@ -681,12 +681,13 @@ bool Safe::isCracked()
 void Safe::setCracked()
 {
     crackedSafe = true;
+
 }
 
 void Safe::disableCracked()
 {
     crackedSafe = false;
-    
+
 }
 
 bool ServiceDuct::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)

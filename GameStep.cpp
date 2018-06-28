@@ -30,10 +30,9 @@ void GameStep::faceConsequences()
 
 void GameStep::drawLoot(gamePointers_t* gamePointers)
 {
-    std::vector <Loot*>::iterator  lootIt;
-    lootIt = gamePointers->loots.begin();
-    gamePointers->currentCharacter->addLoot(*(gamePointers->loots[0]));
-    gamePointers->loots.erase(lootIt);
+    unsigned floor = getFloor(gamePointers->currentCharacter->getLocation());
+    gamePointers->currentCharacter->addLoot((*gamePointers->floors[floor]->getLoot()));
+
     //if(loot==gold Bar)
     //hacer algo
 }
@@ -61,8 +60,9 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case A_ROLL_DICE_FOR_SAFE:
             if (gameData->actions.rollDice == true)
             {
-                gamePointers->floors[(unsigned) gamePointers->currentCharacter->getLocation() / 16]->crack(gamePointers->currentCharacter->getDieQty(), (location_t) (gamePointers->currentCharacter->getLocation() % 16));
-                if (gamePointers->currentCharacter->wasCracked())
+                unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
+                gamePointers->floors[floor]->crack(gamePointers->currentCharacter->getDieQty(), (location_t) (gamePointers->currentCharacter->getLocation() % 16));
+                if (gamePointers->floors[floor]->isSafeCracked((location_t) (gamePointers->currentCharacter->getLocation() % 16)))
                     drawLoot(gamePointers);
             }
             break;
@@ -157,11 +157,13 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
             break;
         case A_ROLL_DICE_FOR_SAFE:
             if (gameData->actions.rollDice == true)
-            {
-                gamePointers->floors[(unsigned) gamePointers->currentCharacter->getLocation() / 16]->crack(gamePointers->currentCharacter->getDieQty(), gamePointers->currentCharacter->getLocation());
-                if (gamePointers->currentCharacter->wasCracked())
-                    drawLoot(gamePointers);
-            }
+                if (gameData->actions.rollDice == true)
+                {
+                    unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
+                    gamePointers->floors[floor]->crack(gamePointers->currentCharacter->getDieQty(), (location_t) (gamePointers->currentCharacter->getLocation() % 16));
+                    if (gamePointers->floors[floor]->isSafeCracked((location_t) (gamePointers->currentCharacter->getLocation() % 16)))
+                        drawLoot(gamePointers);
+                }
             enableActions(gameData);
             break;
         case A_HACK_COMPUTER:
