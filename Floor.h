@@ -5,6 +5,7 @@
 #include <list>
 #include "Tile.h"
 #include "Guard.h"
+#include "Loot.h"
 
 #define ROWS 4
 #define COLS 4
@@ -19,28 +20,50 @@ public:
     unsigned getGuardSpeed();
     void updatePatrolCard();
     location_t getGuardLocation();
-    location_t getGuardDestination()
-    {
+
+    location_t getGuardDestination() {
         return guard->getDestination();
     }
-    location_t getGuardPatrolCard()
-    {
+
+    location_t getGuardPatrolCard() {
         return guard->getPatrolCard();
     }
+
+    loot_t getLootName() {
+        return this->loot->getLootName();
+    }
+
+    void setLoot(Loot* loot) {
+        this->loot = loot;
+    }
+
+    Loot* getLoot() {
+        return this->loot;
+    }
+
+    bool getLootVisibility() {
+        return loot->isLootVisible();
+    }
     void moveGuard();
-    void toggleGuard()
-    {
+
+    void toggleGuard() {
         guard->toggleGuard();
     }
-    
-    bool isGuardActive()
-    {
+
+    player_t getLootOwner() {
+        return this->loot->getOwner();
+    }
+
+    bool isGuardActive() {
         return guard->getGuardState();
     }
-    
-    location_t getGuardDieLocation(); //no se bien que hace pero la necesitamos para graphicsData //donde esta el dado (a donde va si no suenan alarmas)/puede ser patrol_t tmb?
+
+    bool isSafeCracked(location_t location) {
+        return dynamic_cast<Safe*> (this->tiles[getRow(location)][getColumn(location)])->isCracked();
+    }
+
+    location_t getGuardDieLocation(); //donde esta el dado (a donde va si no suenan alarmas)
     std::vector< std::vector<Tile*> >& getDeck();
-    //patrol_t getPatrolCard(); //para view
 
 private:
     unsigned floorNumber;
@@ -57,7 +80,7 @@ private:
     std::vector<location_t> trashedPatrolDeck;
     std::vector< std::vector<Tile*> > tiles;
     unsigned diceResult[6];
-
+    Loot* loot;
 } ;
 
 #endif /* FLOOR_H */

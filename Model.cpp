@@ -1,5 +1,5 @@
 #include "Model.h"
-#include "Player.h"
+//#include "Player.h"
 #include <algorithm>
 #include <random>
 #include <chrono>
@@ -60,19 +60,25 @@ void Model::initGameData(gameData_t* gameData)
 
 void Model::createLoots()
 {
-    gamePointers->loots.push_back(new Tiara);
-    gamePointers->loots.push_back(new Kitty);
-    gamePointers->loots.push_back(new Painting);
-    gamePointers->loots.push_back(new Mirror);
-    gamePointers->loots.push_back(new KeyCard);
-    gamePointers->loots.push_back(new Isotope);
-    gamePointers->loots.push_back(new Gemstone);
-    gamePointers->loots.push_back(new Goblet);
-    gamePointers->loots.push_back(new Chihuahua);
-    gamePointers->loots.push_back(new GoldBar);
+    std::vector<Loot*> loots;
+    loots.push_back(new Tiara);
+    loots.push_back(new Kitty);
+    loots.push_back(new Painting);
+    loots.push_back(new Mirror);
+    loots.push_back(new KeyCard);
+    loots.push_back(new Isotope);
+    loots.push_back(new Gemstone);
+    loots.push_back(new Goblet);
+    loots.push_back(new Chihuahua);
+    loots.push_back(new GoldBar);
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(gamePointers->loots.begin(), gamePointers->loots.end(), std::default_random_engine(seed));
+    std::shuffle(loots.begin(), loots.end(), std::default_random_engine(seed));
+    for (unsigned i = 0; i < FLOORS_QTY; i++)
+    {
+        gamePointers->floors[i]->setLoot(loots.back());
+        loots.pop_back();
+    }
 
 }
 
@@ -147,7 +153,7 @@ void Model::createCharacters()
     srand(time(NULL));
     unsigned initialRow = rand() % 4;
     unsigned initialCol = rand() % 4;
-    
+
     gamePointers->floors[0]->getDeck()[initialRow][initialCol]->reveal();
     gamePointers->characters[0]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
     gamePointers->characters[1]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
@@ -199,7 +205,6 @@ void Model::createModelFSM()
     };
     //Reglas: 1.Tiene que apretar su tile par poder poner un dice o roll dice en el safe tile
     //2. Tiene que apretar su tile para poder enable las acciones de offer loot, request loot y pick up loot
-    //3. Tiene que apretar su tile para
     gameHandlerMatrix = new GameStep**[STATE_COUNT];
     for (int i = 0; i < STATE_COUNT; i++)
     {
@@ -339,7 +344,7 @@ bool Model::isGameWon()
 }
 
 void Model::initGraphicsData(View* view, gameData_t* gameData)
-{   
+{
     fillGraphicsData(view, gameData);
 
     for (unsigned floor = 1; floor < V_TOTAL_FLOORS; floor++)
@@ -352,6 +357,7 @@ void Model::initGraphicsData(View* view, gameData_t* gameData)
 
     }
     view->graphicsData->currentCardSelected = (button_t)this->gamePointers->currentCharacter->getLocation();
+    view->graphicsData->message = "Hi there bosss. Ready to rob the s*** outta this bank.";
 }
 
 void Model::fillGraphicsData(View* view, gameData_t* gameData)
@@ -382,19 +388,19 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
             view->graphicsData->guards[floor].patrolDeck = (patrolV_t) gamePointers->floors[floor]->getGuardPatrolCard();
         }
         //loots
-        for (unsigned j = 0; j < V_TOTAL_LOOTS; j++)
+        if (gamePointers->floors[floor]->getLootVisibility() == true)
         {
-            if (gamePointers->loots[j]->isLootVisible() == true)
-            {
-                view->graphicsData->loots[j].owner = (playerV_t) gamePointers->loots[j]->getOwner();
-                view->graphicsData->loots[j].loot = (lootV_t) gamePointers->loots[j]->getLootName();
-                view->graphicsData->loots[j].isVisible = true;
-            }
-            else
-            {
-                view->graphicsData->loots[j].owner = (playerV_t) NO_PLAYER;
-                view->graphicsData->loots[j].isVisible = false;
-            }
+            view->graphicsData->loots[floor].isVisible = true;
+            view->graphicsData->loots[floor].loot = (lootV_t) gamePointers->floors[floor]->getLootName();
+            view->graphicsData->loots[floor].owner = (playerV_t) gamePointers->floors[floor]->getLootOwner();
+
+        }
+        else
+        {
+            view->graphicsData->loots[floor].isVisible = false;
+            view->graphicsData->loots[floor].loot = lootV_t::V_NO_LOOT;
+            view->graphicsData->loots[floor].owner = playerV_t::V_NO_PLAYER;
+
         }
 
         //tiles
