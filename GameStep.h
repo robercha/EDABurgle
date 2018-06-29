@@ -22,7 +22,7 @@ typedef enum {
 
 struct gamePointers_t {
     std::vector<Floor*> floors;
-    std::vector<Guard*> guards; //esto lo tiene floor
+    //std::vector<Guard*> guards; //esto lo tiene floor
     std::vector<Character*> characters; //Los dos characters en juego
     Character* currentCharacter;
 } ;
@@ -81,7 +81,7 @@ protected:
     bool isGameLost();
     virtual void showInvalidTileMessage(gameData_t*) = 0; //no tiene acceso a view, deberia hacerlo controller
     void showUsedPatrolCards();
-    void faceConsequences();
+    void enterRoom(gameData_t* gameData, gamePointers_t*  gamePointers);
     std::string message;
 } ;
 

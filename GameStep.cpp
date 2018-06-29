@@ -23,9 +23,18 @@ void Idle::showInvalidTileMessage(gameData_t* gameData)
     gameData->message = "Oops, looks like we can't go there, Chief. We gotta find another way.";
 }
 
-void GameStep::faceConsequences()
+void GameStep::enterRoom(gameData_t* gameData, gamePointers_t*  gamePointers)
 {
+    unsigned floorNumber = getFloor(gamePointers->currentCharacter->getLocation());
+    if (gamePointers->currentCharacter->getLocation() == gamePointers->floors[floorNumber]->getGuardLocation())
+    {
+        gamePointers->currentCharacter->decreaseStealth();
+        if (gamePointers->currentCharacter->dead())
+            gameData->event = LOSE;
+    }
 
+    if (gamePointers->floors[floorNumber]->isAlarmTile(gamePointers->currentCharacter->getLocation()))
+        gamePointers->floors[floorNumber]->setAlarmToken(gamePointers->currentCharacter->getLocation(), true);
 }
 
 void GameStep::drawLoot(gamePointers_t* gamePointers)
@@ -136,7 +145,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
             if (gameData->actions.move == true)
             {
                 gamePointers->currentCharacter->move(gameData->selectedTile.tile);
-                faceConsequences();     //consecuencias cuando se mueve a una tile
+                enterRoom(gameData, gamePointers);     //consecuencias cuando se mueve a una tile
             }
             enableActions(gameData, gamePointers);
             break;
@@ -147,8 +156,9 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         }
         case A_PASS:
             gamePointers->currentCharacter->pass();
-            for (unsigned i = 0; i < (gamePointers->guards[gamePointers->currentCharacter->getLocation() / 16]->getSpeed()); i++)
-                gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
+            unsigned floorNumber = getFloor(gamePointers->currentCharacter->getLocation());
+            for (unsigned i = 0; i < (gamePointers->floors[floorNumber]->getGuardSpeed()); i++)
+                gamePointers->floors[floorNumber]->moveGuard();
             enableActions(gameData, gamePointers);
             break;
         case A_PEEK:
@@ -295,7 +305,7 @@ void WaitingSecondAction::enableActions(gameData_t* gameData, gamePointers_t* ga
 
 void WaitingSecondAction::showInvalidTileMessage(gameData_t* gameData)
 {
-    gameData->message = "We have to make a decision. Quick! Go with your guts on this one";
+    gameData->message = "We have to make a decision. Quick! Go with your guts on this one.";
 }
 
 void WaitingResponse::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)

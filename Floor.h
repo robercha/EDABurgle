@@ -66,6 +66,14 @@ public:
         dynamic_cast<Safe*> (this->tiles[getRow(location)][getColumn(location)])->addDice();
     }
 
+    void setAlarmToken(location_t location, bool state) {
+        this->tiles[getRow(location)][getColumn(location)]->setAlarmToken(state);
+    }
+
+    bool isAlarmTile(location_t location) {
+        this->tiles[getRow(location)][getColumn(location)]->isAlarmTile(location);
+    }
+
     location_t getGuardDieLocation(); //donde esta el dado (a donde va si no suenan alarmas)
     std::vector< std::vector<Tile*> >& getDeck();
 
