@@ -278,7 +278,6 @@ View::drawBoard()
 {
     drawCharactersInfo();       //informacion que se muestra arriba de los personajes, como sus vidas
     drawFloors();               //tablero
-    return;
 }
 
 void
@@ -296,7 +295,6 @@ View::drawFloors()
     drawGuardDice();            //el dado del guardia
     drawGuards();               //dibuja a los guardias en cada piso
     drawTokensOnTiles(); //ver bien
-    return;
 }
 
 void

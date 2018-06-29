@@ -198,7 +198,7 @@ void Model::createModelFSM()
         //VALID TILE            INVALID TILE            FREE MOVE           PAID MOVE              PEEK                    PASS                 ADD_DICE_TO_SAFE     ROLL_DICE_FOR_SAFE   HACK_COMPUTER        USE_HACK_TOKEN           OFFER_LOOT           REQUEST_LOOT         PICK_UP_LOOT         CREATE_ALARM         SPY_PATROL_DECK      PATROL_IS_TOP         PATROL_IS_BOTTOM        PLACE_CROW_TOKEN        WIN                  LOSE                 ACCEPT                  DECLINE                LOOT                    PATROL_CARD
         {waitingFirstAction,    idle,                   idle,               idle,                  idle,                   idle,                idle,                idle,                idle,                idle,                    idle,                idle,                idle,                idle,                waitingFirstAction,  idle,                 idle,                   idle,                   playAgain,           playAgain,           idle,                   idle,                  waitingFirstAction,     waitingFirstAction  },  //IDLE
         {idle,                  idle,                   idle,               waitingSecondAction,   idle,                   idle,                idle,                idle,                idle,                idle,                    waitingResponse,     waitingResponse,     idle,                idle,                waitingFirstAction,  idle,                 idle,                   idle,                   playAgain,           playAgain,           waitingFirstAction,     waitingFirstAction,    waitingFirstAction,     idle                }, //WAITING FOR FIRST ACTION
-        {waitingSecondAction,   waitingSecondAction,    waitingSecondAction,waitingSecondAction,   waitingSecondAction,    waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction,     waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction,  waitingSecondAction,    waitingSecondAction,    waitingSecondAction, waitingSecondAction, idle,                   idle,                  waitingSecondAction,    waitingSecondAction }, //WAITING FOR SECOND ACTION
+        {waitingSecondAction,   waitingSecondAction,    waitingSecondAction, waitingSecondAction,   waitingSecondAction,    waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction,     waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction, waitingSecondAction,  waitingSecondAction,    waitingSecondAction,    waitingSecondAction, waitingSecondAction, idle,                   idle,                  waitingSecondAction,    waitingSecondAction }, //WAITING FOR SECOND ACTION
         {waitingResponse,       waitingResponse,        waitingResponse,    waitingResponse,       waitingResponse,        waitingResponse,     waitingResponse,     waitingResponse,     waitingResponse,     waitingResponse,         waitingResponse,     waitingResponse,     waitingResponse,     waitingResponse,     waitingResponse,     waitingResponse,      waitingResponse,        waitingResponse,        waitingResponse,     waitingResponse,     idle,                   idle,                  waitingResponse,        waitingResponse     }, //WAITING FOR PLAYER RESPONSE
         {playAgain,             playAgain,              playAgain,          playAgain,             playAgain,              playAgain,           playAgain,           playAgain,           playAgain,           playAgain,               playAgain,           playAgain,           playAgain,           playAgain,           playAgain,           playAgain,            playAgain,              playAgain,              playAgain,           playAgain,           idle,                   end,                   playAgain,              playAgain           }, //PLAY AGAIN?
         {end,                   end,                    end,                end,                   end,                    end,                 end,                 end,                 end,                 end,                     end,                 end,                 end,                 end,                 end,                 end,                  end,                    end,                    end,                 end,                 end,                    end,                   end,                    end                 }, //EXIT GAME
@@ -235,8 +235,8 @@ bool Model::analyzeAction(gameData_t* gameData)
 
         noActions = true;
     }
-//    if (currentAction->getState() == IDLE)
-//        dynamic_cast <Idle*> (currentAction)->enableActions(gameData, gamePointers);
+    //    if (currentAction->getState() == IDLE)
+    //        dynamic_cast <Idle*> (currentAction)->enableActions(gameData, gamePointers);
 
     return noActions;
 }
@@ -423,7 +423,7 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
             {
                 index = floor * FLOORTILE_QTY + row * 4 + col;
                 view->graphicsData->tiles[index].combinationNumber =  deck[row][col]->getCombinationNumber();
-                view->graphicsData->tiles[index].goldBarOnTheLoose = deck[row][col]->isGoldBar()  ;        //hacer algo con esto
+                view->graphicsData->tiles[index].goldBarOnTheLoose = deck[row][col]->isGoldBar();        //hacer algo con esto
 
 
                 if (!deck[row][col]->isTileVisible())
@@ -447,14 +447,12 @@ void Model::fillGraphicsData(View* view, gameData_t* gameData)
                     view->graphicsData->tiles[index].howManyStealthTokens = 0;
 
                 //tokens
-                for (unsigned k = 0; k < (int) tokenV_t::V_TOKEN_COUNT; k++)
-                    view->graphicsData->tiles[index].tokens[k] = false;      //pongo en false todo el arreglo de tokens
-
-                std::vector<token_t*>::iterator tokensIt;               //ver bien
-                for (tokensIt = deck[row][col]->getTokens().begin(); tokensIt != deck[row][col]->getTokens().end(); tokensIt++)
-                {
-                    view->graphicsData->tiles[index].tokens[(unsigned) (*tokensIt)->token] = true;
-                }
+                view->graphicsData->tiles[index].tokens[(unsigned) tokenV_t::V_ALARMTOKEN] = deck[row][col]->isAlarmOn();
+                view->graphicsData->tiles[index].tokens[(unsigned) tokenV_t::V_CRACKEDTOKEN] = deck[row][col]->getCrackedToken();
+                view->graphicsData->tiles[index].tokens[(unsigned) tokenV_t::V_CROWTOKEN] = deck[row][col]->getCrowToken();
+                view->graphicsData->tiles[index].tokens[(unsigned) tokenV_t::V_DOWNSTAIRSTOKEN] = deck[row][col]->getDownstairsToken();
+                view->graphicsData->tiles[index].tokens[(unsigned) tokenV_t::V_KITTYTOKEN] = deck[row][col]->getKittyToken();
+                view->graphicsData->tiles[index].tokens[(unsigned) tokenV_t::V_OPENTOKEN] = deck[row][col]->getOpenToken();
             }
         }
     }

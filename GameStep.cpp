@@ -137,6 +137,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         }
         default:
         {
+            
             break;
         }
     }
@@ -145,26 +146,39 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 
 void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
 {
-    if (gameData->selectedTile.adyacent)
+    if(gameData->event == VALID_TILE)
     {
-        gameData->actions.move = true;
-        gameData->actions.peek = true;
-        gameData->actions.pass = true;
+        if (gameData->selectedTile.adyacent)
+        {
+            gameData->actions.move = true;
+            gameData->actions.peek = true;
+            gameData->actions.pass = true;
+        }
+        else
+         {
+            gameData->actions.move = false;
+            gameData->actions.peek = false;
+            gameData->actions.pass = false;
+        }
+        if (gameData->selectedTile.hawkWall)
+        {
+            gameData->actions.peek = true;
+        }    
+        if (gameData->selectedTile.serviceDuct)
+        {
+            gameData->actions.move = true;
+        }
+        if (gameData->selectedTile.twoTilesAwayTile)
+        {
+            gameData->actions.placeCrowToken = true;
+        }
     }
-
-    if (gameData->selectedTile.hawkWall)
-    {
-        gameData->actions.peek = true;
+    else if(gameData->event == INVALID_TILE)
+     {
+        gameData->actions.move = false;
+        gameData->actions.peek = false;
+        gameData->actions.pass = false;
     }
-    if (gameData->selectedTile.serviceDuct)
-    {
-        gameData->actions.move = true;
-    }
-    if (gameData->selectedTile.twoTilesAwayTile)
-    {
-        gameData->actions.placeCrowToken = true;
-    }
-
 
 
 }
@@ -173,6 +187,16 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
 {
     switch (gameData->event)
     {
+        case VALID_TILE:
+        {
+            enableActions(gameData, gamePointers);
+            break; //pone en negrito las opciones posibles;
+        }
+        case INVALID_TILE:
+        {
+            enableActions(gameData, gamePointers);
+            break;
+        }
         case A_FREE_MOVE:
         {
             if (gameData->actions.move == true)
@@ -317,7 +341,7 @@ void WaitingFirstAction::enableActions(gameData_t* gameData, gamePointers_t* gam
         gameData->actions.spyPatrolDeck = false;
         gameData->actions.useHackToken = false;
     }
-    if (gameData->event == A_FREE_MOVE)
+    if (gameData->event == A_FREE_MOVE || gameData->event == A_PEEK || gameData->event == A_PASS ||gameData->event == VALID_TILE || gameData->event == INVALID_TILE ) //No se si falta aguna mas habria que agregar eventos para hacerle reset
     {
         gameData->actions.pass = true;
         gameData->actions.move = false;

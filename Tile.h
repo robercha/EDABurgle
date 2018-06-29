@@ -67,15 +67,6 @@ public:
     bool peek(coordinates_t);
     bool isTileVisible();
     virtual void reveal();
-
-    bool setAlarmToken(bool state) {
-        alarmToken = state;
-    }
-    bool isAlarmTile(); //getter de isAlarmTile
-
-    bool isAlarmOn() {
-        return this->alarmToken;
-    }
     bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
     virtual bool isTileValid(location_t, tileInfo_t*); //se fija si es adyacente
     //void setToken(tokenInfo_t, Tile*);
@@ -89,7 +80,6 @@ public:
     bool checkDurlock(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
     bool isTileTwoTilesAway(location_t location);
     void setJuicerAlarm(); //alarma que puede poner el juicer en tiles
-    void setCrowToken(bool state);
     void setUpperLoorTile(Tile* tile);
     bool isGoldBar();
 
@@ -98,17 +88,56 @@ public:
     Tile* getUpperTile();
     Tile* getLowerTile();
 
-    void setCrackToken() {
+    bool setAlarmToken(bool state) {
+        alarmToken = state;
+    }
 
+    bool isAlarmOn() {
+        return this->alarmToken;
+    }
+
+    void setKittyToken(bool state) {
+        crowToken = state;
+    }
+
+    bool getKittyToken() {
+        return crowToken;
+    }
+
+    void setOpenToken(bool state) {
+        openToken = state;
+    }
+
+    bool getOpenToken() {
+        return openToken;
+    }
+
+    void setCrowToken(bool state) {
+        crowToken = state;
+    }
+
+    bool getCrowToken() {
+        return crowToken;
+    }
+
+    void setCrackToken() {
         crackedToken = true;
+    }
+
+    bool getCrackedToken() {
+        return crackedToken;
     }
 
     void setDownstairsToken(bool state) {
         downstairsToken = state;
     }
 
-    bool getCrackToken() {
-        return crackedToken;
+    bool getDownstairsToken() {
+        return downstairsToken;
+    }
+
+    bool isAlarmTile() {
+        return alarmTile;
     }
 
     void visit() {
@@ -138,19 +167,9 @@ public:
     unsigned getCombinationNumber() {
         return combinationNumber;
     }
-
-    std::vector<token_t*>& getTokens() {
-        return this->tokens;
-    }
-
-    //    std::vector<Loot*>& getLoots() {
-    //        return this->loots;
-    //    }
 protected:
     location_t currentLocation;
     tileType_t tileType;
-    std::vector<token_t*> tokens;
-    //std::vector<Loot*> loots;       //loots le pasa su ubicacion
 
     Tile* rightTile;
     Tile* leftTile;
@@ -173,6 +192,7 @@ protected:
     bool crowToken;
     bool downstairsToken;
     bool kittyToken;
+    bool openToken;
     bool goldBarToken;
     bool alarmTile;
     bool alarmToken;
