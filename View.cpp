@@ -370,6 +370,8 @@ View::drawCharactersInfo()
     {
         ALLEGRO_BITMAP * playerBitmap = loadCharacter(graphicsData->players[player].character, false);                       //cargo imagen en grande
         al_draw_bitmap(playerBitmap, 25 + TILE_SIZE + SPACE_TILE + player * 790, 95 - (al_get_bitmap_height(playerBitmap)), 0);    //la dibujo y destruyo el bitmap
+        if (graphicsData->players[player].currentChar == true)     //esta jugando este
+            al_draw_rectangle(25 + TILE_SIZE + SPACE_TILE + player * 790, 95 - (al_get_bitmap_height(playerBitmap)), 25 + TILE_SIZE + SPACE_TILE + player * 790 + al_get_bitmap_width(playerBitmap), 95 , al_map_rgb(0, 157, 79), 2);
         al_destroy_bitmap(playerBitmap);
 
         ALLEGRO_BITMAP* stealthBitmap = loadToken(tokenV_t::V_STEALTHTOKEN, false);            //dibujo la cantidad de stealth tokens que tiene el character
@@ -377,13 +379,12 @@ View::drawCharactersInfo()
             al_draw_bitmap(stealthBitmap, 85 + TILE_SIZE + SPACE_TILE + player * 700, i * (5 + TOKENS_BIG_SIZE) + 5, 0);
         al_destroy_bitmap(stealthBitmap);
 
-        al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 180 + 70 + player * 560, 43, ALLEGRO_ALIGN_CENTER, "actions x%d", graphicsData->players[0].actionsLeft);         //la cantidad de actions que le quedan
+        al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 180 + 70 + player * 560, 43, ALLEGRO_ALIGN_CENTER, "actions x%d", graphicsData->players[player].actionsLeft);         //la cantidad de actions que le quedan
         std::string character = whichChar(graphicsData->players[player].character);
         if (player == 0)
             al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 55 + 1 * (TILE_SIZE + SPACE_TILE), 95, ALLEGRO_ALIGN_CENTER, "you - %s", character.c_str());   //"You" si es P1
         else
             al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 300 + 625, 95, ALLEGRO_ALIGN_CENTER, "partner - %s", character.c_str());
-
     }
 }
 
@@ -532,18 +533,18 @@ View::drawLoots()           //dibujo el loot de cada piso
     {
         x = 20 + 2 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3);
         y = 135 + TILE_SIZE * 4 + SPACE_TILE * 6;
-        if (graphicsData->loots[i].isVisible == true)
-        {
-            ALLEGRO_BITMAP * bitmap = loadLoot(graphicsData->loots[i].loot, true);
-            al_draw_bitmap(bitmap, x, y, 0);
-            al_destroy_bitmap(bitmap);
-        }
-        else
-        {
-            ALLEGRO_BITMAP* bitmap = loadLoot(lootV_t::V_NO_LOOT, true);
-            al_draw_bitmap(bitmap, x, y, 0);
-            al_destroy_bitmap(bitmap);
-        }
+        //if (graphicsData->loots[i].isVisible == true)
+        //{
+        ALLEGRO_BITMAP * bitmap = loadLoot(graphicsData->loots[i].loot, true);
+        al_draw_bitmap(bitmap, x, y, 0);
+        al_destroy_bitmap(bitmap);
+        //}
+        //        else
+        //        {
+        //            ALLEGRO_BITMAP* bitmap = loadLoot(lootV_t::V_NO_LOOT, true);
+        //            al_draw_bitmap(bitmap, x, y, 0);
+        //            al_destroy_bitmap(bitmap);
+        //        }
     }
     return;
 }
@@ -1140,8 +1141,10 @@ View::loadLoot(lootV_t l, bool shrink)      //Cargo bitmaps, si shrink=true, se 
             break;
 
         case lootV_t::V_NO_LOOT:
-            bitmap = al_load_bitmap("images/loots/lootBack.png");
-
+            if (shrink == true)
+                bitmap = al_load_bitmap("images/loots/lootBacksmall.png");
+            else
+                bitmap = al_load_bitmap("images/loots/lootBack.png");
             break;
     }
 

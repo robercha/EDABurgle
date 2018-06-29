@@ -58,8 +58,13 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             break;
             
         case A_ADD_DICE_TO_SAFE:
-            if (gameData->actions.addDice == true)            
-                gamePointers->currentCharacter->addDiceToSafe();
+            if (gameData->actions.addDice == true)
+            {
+                unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
+                gamePointers->floors[floor]->addDiceToSafe((location_t) (gamePointers->currentCharacter->getLocation() % 16));
+                gamePointers->currentCharacter->decreaseActions();
+            }
+
             break;
             
         case A_ROLL_DICE_FOR_SAFE:
@@ -124,7 +129,7 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
     {
         gameData->actions.placeCrowToken = true;
     }
-    
+
 
 
 }
@@ -160,7 +165,11 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
             break;
         case A_ADD_DICE_TO_SAFE:
             if (gameData->actions.addDice == true)
-                gamePointers->currentCharacter->addDiceToSafe();
+            {
+                unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
+                gamePointers->floors[floor]->addDiceToSafe((location_t) (gamePointers->currentCharacter->getLocation() % 16));
+                gamePointers->currentCharacter->decreaseActions();
+            }
             enableActions(gameData, gamePointers);
             break;
         case A_ROLL_DICE_FOR_SAFE:
@@ -250,7 +259,7 @@ void WaitingFirstAction::enableActions(gameData_t* gameData, gamePointers_t* gam
         gameData->actions.spyPatrolDeck = false;
         gameData->actions.useHackToken = false;
     }
-    
+
 }
 
 void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gamePointers)
@@ -264,7 +273,7 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
         case DECLINE:
             enableActions(gameData, gamePointers);
             break;
-            
+
         default: break;
     }
 }
