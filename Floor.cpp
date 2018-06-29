@@ -116,6 +116,7 @@ void Floor::updatePatrolCard()
         this->trashedPatrolDeck.push_back(patrolCard);
         patrolDeck.pop_back();
         guard->setDestination(patrolCard);
+        guard->setPatrolCard(patrolCard);
     }
     else
     {
@@ -420,14 +421,12 @@ void Floor::moveGuard()
 
     else if (guard->getLocation() != guard->getPatrolCard())
     {
-        
-       
-       
         guard->walk(nextStep(patrolCardTile));
     }
-    if (takePatrolCard());
-    else
-        createPatrolDeck();
+    else if( guard->getLocation() == guard->getPatrolCard())
+    {
+        updatePatrolCard();
+    }
 
 }
 
@@ -436,13 +435,3 @@ bool compare(Tile* i, Tile* j)
     return i->getDistance2Guard() > j->getDistance2Guard();
 }
 
-bool Floor::takePatrolCard()
-{
-    unsigned finishedDeck = false;
-    trashedPatrolDeck.push_back(patrolDeck.back());
-    patrolDeck.pop_back();
-    if (patrolDeck.empty())
-        finishedDeck = true;
-    else
-        return finishedDeck;
-}
