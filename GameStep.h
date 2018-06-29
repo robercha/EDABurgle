@@ -76,13 +76,13 @@ public:
     virtual void enableActions(gameData_t*, gamePointers_t*) = 0;
 protected:
     modelState_t state;
-    bool hasCharLostLife();
     bool isGameWon();
     bool isGameLost();
     virtual void showInvalidTileMessage(gameData_t*) = 0; //no tiene acceso a view, deberia hacerlo controller
     void showUsedPatrolCards();
     void enterRoom(gameData_t* gameData, gamePointers_t*  gamePointers);
     void checkAlarms(gameData_t* , gamePointers_t*);
+    void triggerAlarm(gameData_t* gameData, gamePointers_t* gamePointers);
     std::string message;
 } ;
 

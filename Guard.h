@@ -47,6 +47,10 @@ public:
             steps--;
     }
 
+    tileType_t getRoomType() {
+        return this->currentTile->getTileType();
+    }
+
 
 private:
     Tile* currentTile;

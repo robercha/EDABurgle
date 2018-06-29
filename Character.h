@@ -70,7 +70,12 @@ public:
     unsigned getStealthTokensQty();
     location_t getLocation();
     unsigned getActionsLeft();
-    loot_t getLootName();
+
+    unsigned getLootQty() {
+        unsigned qty = 0;
+        if (!this->loots.empty())
+            qty = this->loots.size();
+    }
 protected:
     character_t name;
     Tile* currentTile;

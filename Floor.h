@@ -29,6 +29,10 @@ public:
         return guard->getPatrolCard();
     }
 
+    tileType_t getGuardRoom() {
+        return guard->getRoomType();
+    }
+
     void increaseGuardSpeed() {
         guard->increaseSpeed();
     }

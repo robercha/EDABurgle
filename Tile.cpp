@@ -99,6 +99,7 @@ Lavatory::Lavatory()
 {
     tileType = LAVATORY;
     stealthTokensQty = 0;
+    firstReveal = false;
 }
 
 Motion::Motion()

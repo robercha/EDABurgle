@@ -325,8 +325,18 @@ public:
     unsigned getStealthTokensQty() {
         return stealthTokensQty;
     };
+
+    void setFirstReveal() {
+        firstReveal = true;
+    }
+
+    void setStealthTokens() {
+        stealthTokensQty = 3;
+    };
+
 private:
     unsigned stealthTokensQty;
+    bool firstReveal;
 } ;
 
 class Motion : public Tile {

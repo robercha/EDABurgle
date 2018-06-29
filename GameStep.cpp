@@ -40,10 +40,23 @@ void GameStep::checkAlarms(gameData_t* gameData, gamePointers_t* gamePointers)
     unsigned floorNumber = getFloor(gamePointers->currentCharacter->getLocation());
     if (gamePointers->floors[floorNumber]->isAlarmTile(gamePointers->currentCharacter->getLocation()))
     {
-        gamePointers->floors[floorNumber]->setAlarmToken(gamePointers->currentCharacter->getLocation(), true);
-        gamePointers->floors[floorNumber]->increaseGuardSpeed();
-    }
+        if ((gamePointers->floors[floorNumber]->getGuardRoom() == CAMERA)&&(gamePointers->currentCharacter->whereAmI() == CAMERA))
+            triggerAlarm(gameData, gamePointers);
+        if ((gamePointers->currentCharacter->getLootQty() != 0)&&(gamePointers->currentCharacter->whereAmI() == DEADBOLT))
+            triggerAlarm(gameData, gamePointers);
 
+        //trigger alarm on enter, fingerprint
+        //2 actions to enter or trigger alarm, laser
+        //stop here or trigger alarm, motion
+        //if actions end here, trigger alarm, thermo
+    }
+}
+
+void GameStep::triggerAlarm(gameData_t* gameData, gamePointers_t* gamePointers)
+{
+    unsigned floorNumber = getFloor(gamePointers->currentCharacter->getLocation());
+    gamePointers->floors[floorNumber]->setAlarmToken(gamePointers->currentCharacter->getLocation(), true);
+    gamePointers->floors[floorNumber]->increaseGuardSpeed();
 }
 
 void GameStep::drawLoot(gamePointers_t* gamePointers)
