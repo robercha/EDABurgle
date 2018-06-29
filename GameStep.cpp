@@ -39,7 +39,11 @@ void GameStep::checkAlarms(gameData_t* gameData, gamePointers_t* gamePointers)
 {
     unsigned floorNumber = getFloor(gamePointers->currentCharacter->getLocation());
     if (gamePointers->floors[floorNumber]->isAlarmTile(gamePointers->currentCharacter->getLocation()))
+    {
         gamePointers->floors[floorNumber]->setAlarmToken(gamePointers->currentCharacter->getLocation(), true);
+        gamePointers->floors[floorNumber]->increaseGuardSpeed();
+    }
+
 }
 
 void GameStep::drawLoot(gamePointers_t* gamePointers)
@@ -71,8 +75,8 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             gamePointers->currentCharacter->pass();
             //Cambio el pointer del currentCharacter
             (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0];
-           
-             
+
+
             for (unsigned i = 0; i < (gamePointers->floors[floor]->getGuardSpeed()); i++)
                 gamePointers->floors[floor]->moveGuard();
             enableActions(gameData, gamePointers);
@@ -142,7 +146,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         }
         default:
         {
-            
+
             break;
         }
     }
@@ -178,8 +182,8 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
             gameData->actions.placeCrowToken = true;
         }
     }
-    else if(gameData->event == INVALID_TILE)
-     {
+    else if (gameData->event == INVALID_TILE)
+    {
         gameData->actions.move = false;
         gameData->actions.peek = false;
         gameData->actions.pass = false;
@@ -346,7 +350,7 @@ void WaitingFirstAction::enableActions(gameData_t* gameData, gamePointers_t* gam
         gameData->actions.spyPatrolDeck = false;
         gameData->actions.useHackToken = false;
     }
-    if (gameData->event == A_FREE_MOVE || gameData->event == A_PEEK || gameData->event == A_PASS ||gameData->event == VALID_TILE || gameData->event == INVALID_TILE ) //No se si falta aguna mas habria que agregar eventos para hacerle reset
+    if (gameData->event == A_FREE_MOVE || gameData->event == A_PEEK || gameData->event == A_PASS || gameData->event == VALID_TILE || gameData->event == INVALID_TILE ) //No se si falta aguna mas habria que agregar eventos para hacerle reset
     {
         gameData->actions.pass = true;
         gameData->actions.move = false;

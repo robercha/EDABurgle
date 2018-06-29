@@ -29,6 +29,14 @@ public:
         return guard->getPatrolCard();
     }
 
+    void increaseGuardSpeed() {
+        guard->increaseSpeed();
+    }
+
+    void decreaseGuardSpeed() {
+        guard->decreaseSpeed(floorNumber);
+    }
+
     loot_t getLootName() {
         return this->loot->getLootName();
     }

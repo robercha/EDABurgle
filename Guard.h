@@ -25,21 +25,29 @@ public:
     location_t getLocation();
     location_t getDestination();
     location_t getPatrolCard();
-    
+
     void setDestination(location_t);
     void setPatrolCard(location_t newPatrolCard);
-    
-    void toggleGuard()
-    {
+
+    void toggleGuard() {
         isActive = ~isActive;
     }
-    
-    bool getGuardState()
-    {
+
+    bool getGuardState() {
         return isActive;
     }
- 
-    
+
+    void increaseSpeed() {
+        if (steps < 6)
+            steps++;
+    }
+
+    void decreaseSpeed(unsigned minimunSpeed) {
+        if (steps > minimunSpeed)
+            steps--;
+    }
+
+
 private:
     Tile* currentTile;
     location_t currentPatrolCard;
@@ -48,7 +56,7 @@ private:
     bool isActive;
     Tile* calculateRoute(/*destino y la lista de tiles del floor*/);
     unsigned checkAlarms(); //Devuelve numero de alarmas activadas, (chequea el camino a cada una y devuelve el minimo)???
-};
+} ;
 
 #endif /* GUARD_H */
 
