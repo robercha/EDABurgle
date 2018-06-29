@@ -47,7 +47,7 @@ public:
     }
 
     void decreaseActions() {
-        if (actions > 0);
+        if (actions > 0)
         actions--;
     }
 

@@ -53,7 +53,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             gamePointers->currentCharacter->pass();
             //Cambio el pointer del currentCharacter
             (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0];
-            for (unsigned i = 0; i < (gamePointers->guards[gamePointers->currentCharacter->getLocation() / 16]->getSpeed()); i++)
+            for (unsigned i = 0; i < (gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->getGuardSpeed()); i++)
                 gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
             break;
             
