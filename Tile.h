@@ -62,9 +62,7 @@ typedef struct tileInfo tileInfo_t;
 
 class Tile {
 public:
-
-    Tile() {
-    };
+    Tile();
     virtual ~Tile();
     bool peek(coordinates_t);
     bool isTileVisible();
