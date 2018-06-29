@@ -367,12 +367,12 @@ void Floor::crack (unsigned diceQty, location_t location)
     //Chequea si se termino de crackear la safe
     for (int i = 0; i < ROWS; i++)
     {
-        if ((tiles[i][Col]->getCrackToken() == true)&&(tiles[i][Col] != tiles[Row][Col]))
+        if ((tiles[i][Col]->getCrackedToken() == true)&&(tiles[i][Col] != tiles[Row][Col]))
             crackedTiles++;
     }
     for (int j = 0; j < COLS; j++)
     {
-        if ((tiles[Row][j]->getCrackToken() == true)&&(tiles[Row][j] != tiles[Row][Col]))
+        if ((tiles[Row][j]->getCrackedToken() == true)&&(tiles[Row][j] != tiles[Row][Col]))
             crackedTiles++;
     }
     if (crackedTiles == ALL_CRACK)   //Verifico si todas sus tiles adyacentes tienen crack token
