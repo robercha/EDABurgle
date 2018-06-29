@@ -82,6 +82,7 @@ protected:
     virtual void showInvalidTileMessage(gameData_t*) = 0; //no tiene acceso a view, deberia hacerlo controller
     void showUsedPatrolCards();
     void enterRoom(gameData_t* gameData, gamePointers_t*  gamePointers);
+    void checkAlarms(gameData_t* , gamePointers_t*);
     std::string message;
 } ;
 

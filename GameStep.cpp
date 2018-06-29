@@ -32,7 +32,12 @@ void GameStep::enterRoom(gameData_t* gameData, gamePointers_t*  gamePointers)
         if (gamePointers->currentCharacter->isDead())
             gameData->event = LOSE;
     }
+    checkAlarms(gameData, gamePointers);
+}
 
+void GameStep::checkAlarms(gameData_t* gameData, gamePointers_t* gamePointers)
+{
+    unsigned floorNumber = getFloor(gamePointers->currentCharacter->getLocation());
     if (gamePointers->floors[floorNumber]->isAlarmTile(gamePointers->currentCharacter->getLocation()))
         gamePointers->floors[floorNumber]->setAlarmToken(gamePointers->currentCharacter->getLocation(), true);
 }
@@ -116,7 +121,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case A_LOOT:
         {
         }
-        break;
+            break;
         case A_PATROL_CARD:
         {
             showUsedPatrolCards();
@@ -143,7 +148,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 
 void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
 {
-    if(gameData->event == VALID_TILE)
+    if (gameData->event == VALID_TILE)
     {
         if (gameData->selectedTile.adyacent)
         {
@@ -152,7 +157,7 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
             gameData->actions.pass = true;
         }
         else
-         {
+        {
             gameData->actions.move = false;
             gameData->actions.peek = false;
             gameData->actions.pass = false;
@@ -160,7 +165,7 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
         if (gameData->selectedTile.hawkWall)
         {
             gameData->actions.peek = true;
-        }    
+        }
         if (gameData->selectedTile.serviceDuct)
         {
             gameData->actions.move = true;
