@@ -31,7 +31,7 @@ location_t Guard::getPatrolCard()
 
 void Guard::setDestination(location_t destination)
 {
-    destination = destination;
+    this->destination = destination;
 }
 
 void Guard::setPatrolCard(location_t newPatrolCard)

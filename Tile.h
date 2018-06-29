@@ -68,6 +68,10 @@ public:
     bool isTileVisible();
     virtual void reveal();
     bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
+    unsigned getFeeToEnter()
+    {
+        return feeToEnter;
+    }
     virtual bool isTileValid(location_t, tileInfo_t*); //se fija si es adyacente
     //void setToken(tokenInfo_t, Tile*);
     void setCurrentLocation(location_t);
@@ -197,6 +201,7 @@ protected:
     bool alarmTile;
     bool alarmToken;
     bool mustSpendActions;
+    unsigned feeToEnter;
     unsigned combinationNumber;
     bool isAdyacentTileValid(location_t selectedLocation, tileInfo_t*);
     bool isThereASecretDoor(location_t selectedLocation, tileInfo_t*);

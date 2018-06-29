@@ -58,6 +58,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case VALID_TILE:
         {
             enableActions(gameData, gamePointers);
+            gameData->message = "Be careful bosss, Do you want to take a peek first?";
             break; //pone en negrito las opciones posibles;
         }
         case INVALID_TILE:
@@ -74,8 +75,14 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
            
              
             for (unsigned i = 0; i < (gamePointers->floors[floor]->getGuardSpeed()); i++)
+            {
                 gamePointers->floors[floor]->moveGuard();
+                 for(unsigned j = 0; j<2 ; j++)
+                    if(gamePointers->characters[j]->getLocation() == gamePointers->floors[floor]->getGuardLocation())
+                        gamePointers->characters[j]->decreaseStealth();
+            }
             enableActions(gameData, gamePointers);
+            gameData->message = "Alright, let me know what you need, bosss";
             break;
         }
         case A_ADD_DICE_TO_SAFE:
@@ -226,8 +233,13 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
             (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0];
 
             for (unsigned i = 0; i < (gamePointers->floors[floor]->getGuardSpeed()); i++)
+            {
                 gamePointers->floors[floor]->moveGuard();
-
+                
+                for(unsigned j = 0; j<2 ; j++)
+                    if(gamePointers->characters[j]->getLocation() == gamePointers->floors[floor]->getGuardLocation())
+                        gamePointers->characters[j]->decreaseStealth();
+            }
             enableActions(gameData, gamePointers);
             break;
         }
