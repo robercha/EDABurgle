@@ -110,26 +110,33 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 
 void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
 {
-    if (gameData->selectedTile.adyacent)
+    if(gameData->event == VALID_TILE)
     {
-        gameData->actions.move = true;
-        gameData->actions.peek = true;
-        gameData->actions.pass = true;
+        if (gameData->selectedTile.adyacent)
+        {
+            gameData->actions.move = true;
+            gameData->actions.peek = true;
+            gameData->actions.pass = true;
+        }
+        else
+         {
+            gameData->actions.move = false;
+            gameData->actions.peek = false;
+            gameData->actions.pass = false;
+        }
+        if (gameData->selectedTile.hawkWall)
+        {
+            gameData->actions.peek = true;
+        }    
+        if (gameData->selectedTile.serviceDuct)
+        {
+            gameData->actions.move = true;
+        }
+        if (gameData->selectedTile.twoTilesAwayTile)
+        {
+            gameData->actions.placeCrowToken = true;
+        }
     }
-
-    if (gameData->selectedTile.hawkWall)
-    {
-        gameData->actions.peek = true;
-    }
-    if (gameData->selectedTile.serviceDuct)
-    {
-        gameData->actions.move = true;
-    }
-    if (gameData->selectedTile.twoTilesAwayTile)
-    {
-        gameData->actions.placeCrowToken = true;
-    }
-
 
 
 }

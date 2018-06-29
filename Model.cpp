@@ -358,6 +358,7 @@ void Model::initGraphicsData(View* view, gameData_t* gameData)
     }
     view->graphicsData->currentCardSelected = (button_t)this->gamePointers->currentCharacter->getLocation();
     view->graphicsData->message = "Hi there bosss. Ready to rob the s*** outta this bank.";
+    
 }
 
 void Model::fillGraphicsData(View* view, gameData_t* gameData)
