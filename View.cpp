@@ -379,7 +379,7 @@ View::drawCharactersInfo()
             al_draw_bitmap(stealthBitmap, 85 + TILE_SIZE + SPACE_TILE + player * 700, i * (5 + TOKENS_BIG_SIZE) + 5, 0);
         al_destroy_bitmap(stealthBitmap);
 
-        al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 180 + 70 + player * 560, 43, ALLEGRO_ALIGN_CENTER, "actions x%d", graphicsData->players[0].actionsLeft);         //la cantidad de actions que le quedan
+        al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 180 + 70 + player * 560, 43, ALLEGRO_ALIGN_CENTER, "actions x%d", graphicsData->players[player].actionsLeft);         //la cantidad de actions que le quedan
         std::string character = whichChar(graphicsData->players[player].character);
         if (player == 0)
             al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 55 + 1 * (TILE_SIZE + SPACE_TILE), 95, ALLEGRO_ALIGN_CENTER, "you - %s", character.c_str());   //"You" si es P1
