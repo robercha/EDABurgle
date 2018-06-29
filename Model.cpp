@@ -37,7 +37,7 @@ void Model::initGameData(gameData_t* gameData)
     gameData->actions.hackCR = false;
     gameData->actions.move = false;
     gameData->actions.offerLoot = false;
-    gameData->actions.pass = false;
+    gameData->actions.pass = true;
     gameData->actions.patrolIsTopBottom = false;
     gameData->actions.peek = false;
     gameData->actions.pickupLoot = false;

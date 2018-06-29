@@ -7,5 +7,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/bzerol/NetBeansProjects/EDABurgle/Model.cpp</file>
+=======
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Character.h</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/View.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Model.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/View.h</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.h</file>
+        </group>
+    </open-files>
+>>>>>>> d54638f652b17c362c97cf1062e8e18559416fdc
 </project-private>
