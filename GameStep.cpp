@@ -44,20 +44,24 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case VALID_TILE:
             enableActions(gameData, gamePointers);
             break; //pone en negrito las opciones posibles;
+            
         case INVALID_TILE:
             showInvalidTileMessage(gameData);
             break;
+            
         case A_PASS:
             gamePointers->currentCharacter->pass();
             //Cambio el pointer del currentCharacter
             (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0];
-            gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
+            for (unsigned i = 0; i < (gamePointers->guards[gamePointers->currentCharacter->getLocation() / 16]->getSpeed()); i++)
+                gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
             break;
+            
         case A_ADD_DICE_TO_SAFE:
             if (gameData->actions.addDice == true)            
                 gamePointers->currentCharacter->addDiceToSafe();
-           
             break;
+            
         case A_ROLL_DICE_FOR_SAFE:
             if (gameData->actions.rollDice == true)
             {
@@ -144,6 +148,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         }
         case A_PASS:
             gamePointers->currentCharacter->pass();
+            (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0];
             for (unsigned i = 0; i < (gamePointers->guards[gamePointers->currentCharacter->getLocation() / 16]->getSpeed()); i++)
                 gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
             enableActions(gameData, gamePointers);

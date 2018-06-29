@@ -407,7 +407,8 @@ bool Tile::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
         isTileValid = true;
         tileInfo->adyacent = true;
     }
-
+    else
+        tileInfo->adyacent = false;
 
     return isTileValid;
 

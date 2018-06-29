@@ -235,8 +235,8 @@ bool Model::analyzeAction(gameData_t* gameData)
 
         noActions = true;
     }
-    if (currentAction->getState() == IDLE)
-        dynamic_cast <Idle*> (currentAction)->enableActions(gameData, gamePointers);
+//    if (currentAction->getState() == IDLE)
+//        dynamic_cast <Idle*> (currentAction)->enableActions(gameData, gamePointers);
 
     return noActions;
 }
