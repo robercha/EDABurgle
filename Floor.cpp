@@ -386,12 +386,12 @@ void Floor::crack (unsigned diceQty, location_t location)
 void Floor::moveGuard()
 {
     std::vector<Tile*> alarmTiles;
-    
+
     Tile* patrolCardTile = tiles[getRow(guard->getPatrolCard())][getColumn(guard->getPatrolCard())];
-    
+
     for (int i = 0; i < ROWS; i++)
         for (int j = 0; j < COLS; j++)
-            if (tiles[i][j]->isAlarmTriggered())
+            if (tiles[i][j]->isAlarmOn())
                 alarmTiles.push_back(tiles[i][j]);
 
 
@@ -404,7 +404,7 @@ void Floor::moveGuard()
         if (guard->getLocation() == (alarmTiles.back()->getCurrentLocation()))
 
         {
-            alarmTiles.back()->deactivateAlarm();
+            alarmTiles.back()->setAlarmToken(false);
         }
     }
 

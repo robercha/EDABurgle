@@ -26,10 +26,6 @@ public:
     void addLoot(Loot& loot) {
         loots.push_back(&loot);
     }
-    //
-    //    void addToken(tokenInfo_t token, Tile* tile) {
-    //        currentTile->setToken(token, tile);
-    //    }
 
     void setInitialTile(Tile*);
 
@@ -47,8 +43,19 @@ public:
     }
 
     void decreaseActions() {
-        if (actions > 0);
-        actions--;
+        if (actions > 0)
+            actions--;
+    }
+
+    void decreaseStealth() {
+        if (stealthTokens > 0)
+            stealthTokens--;
+        if (stealthTokens == 0)
+            this->dead = true;
+    }
+
+    bool isDead() {
+        return this->dead;
     }
 
     unsigned getDieQty() {
@@ -69,6 +76,7 @@ protected:
     Tile* currentTile;
     unsigned actions;
     unsigned stealthTokens;
+    bool dead;
     std::vector<Loot*> loots;
 } ;
 
@@ -111,7 +119,7 @@ public:
     void sendToTop(); //para los botoncitos
     void sendToBottom(std::vector<location_t>* patrolDeck);
 private:
-    void spendExtraAction();
+    //void spendExtraAction();
 } ;
 
 class Hawk : public Character {
