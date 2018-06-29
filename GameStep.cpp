@@ -140,6 +140,7 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         }
         default:
         {
+            
             break;
         }
     }
@@ -175,6 +176,12 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
             gameData->actions.placeCrowToken = true;
         }
     }
+    else if(gameData->event == INVALID_TILE)
+     {
+        gameData->actions.move = false;
+        gameData->actions.peek = false;
+        gameData->actions.pass = false;
+    }
 
 
 }
@@ -183,6 +190,16 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
 {
     switch (gameData->event)
     {
+        case VALID_TILE:
+        {
+            enableActions(gameData, gamePointers);
+            break; //pone en negrito las opciones posibles;
+        }
+        case INVALID_TILE:
+        {
+            enableActions(gameData, gamePointers);
+            break;
+        }
         case A_FREE_MOVE:
         {
             if (gameData->actions.move == true)
@@ -327,7 +344,7 @@ void WaitingFirstAction::enableActions(gameData_t* gameData, gamePointers_t* gam
         gameData->actions.spyPatrolDeck = false;
         gameData->actions.useHackToken = false;
     }
-    if (gameData->event == A_FREE_MOVE)
+    if (gameData->event == A_FREE_MOVE || gameData->event == A_PEEK || gameData->event == A_PASS ||gameData->event == VALID_TILE || gameData->event == INVALID_TILE ) //No se si falta aguna mas habria que agregar eventos para hacerle reset
     {
         gameData->actions.pass = true;
         gameData->actions.move = false;
