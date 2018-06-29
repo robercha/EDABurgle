@@ -9,294 +9,135 @@
 
 Tile::Tile()
 {
+    upperFloorTile = NULL;
+    lowerFloorTile = NULL;
+    alarmTile = false;
+    mustSpendActions = false;
     alarmToken = false;
+    isVisible = false;
+    combinationNumber = 0;
+    crackedToken = false;
+    crowToken = false;
+    kittyToken = false;
+    openToken = false;
+    goldBarToken = false;
 }
 
 Atrium::Atrium()
 {
     tileType = ATRIUM;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 
 }
 
 Camera::Camera()
 {
     tileType = CAMERA;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
     alarmTile = true;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 CRFingerprint::CRFingerprint()
 {
     tileType = CR_FINGERPRINT;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
     hackTokensQty = 0;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 CRLaser::CRLaser()
 {
     tileType = CR_LASER;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
     hackTokensQty = 0;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 CRMotion::CRMotion()
 {
     tileType = CR_MOTION;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
     hackTokensQty = 0;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Deadbolt::Deadbolt()
 {
     tileType = DEADBOLT;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
     mustSpendActions = true;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Detector::Detector()
 {
     tileType = DETECTOR;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
     alarmTile = true;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Fingerprint::Fingerprint()
 {
     tileType = FINGERPRINT;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
     alarmTile = true;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Foyer::Foyer()
 {
     tileType = FOYER;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
     alarmTile = true;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Keypad::Keypad()
 {
     tileType = KEYPAD;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
     mustSpendActions = true; //le preguntamos al user si quiere tirar los dados para abrir el keypad
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    openToken = false;
-    goldBarToken = false;
 }
 
 Laboratory::Laboratory()
 {
     tileType = LABORATORY;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Laser::Laser()
 {
     tileType = LASER;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
     alarmTile = true;
     mustSpendActions = true;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Lavatory::Lavatory()
 {
     tileType = LAVATORY;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
+    stealthTokensQty = 0;
 }
 
 Motion::Motion()
 {
     tileType = MOTION;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
     alarmTile = true;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Safe::Safe()
 {
     tileType = SAFE;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
     numberOfDice = 0;
-    crackedToken = false;
     crackedSafe = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 SecretDoor::SecretDoor()
 {
     tileType = SECRETDOOR;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 ServiceDuct::ServiceDuct()
 {
     tileType = SERVICEDUCT;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Stairs::Stairs()
 {
     tileType = STAIRS;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Thermo::Thermo()
 {
     tileType = THERMO;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
     alarmTile = true;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 Walkway::Walkway()
 {
     tileType = WALKWAY;
-    upperFloorTile = NULL;
-    lowerFloorTile = NULL;
-    alarmTile = false;
-    mustSpendActions = false;
-    isVisible = false;
-    combinationNumber = 0;
-    crackedToken = false;
-    crowToken = false;
-    goldBarToken = false;
 }
 
 void Tile::setJuicerAlarm()
@@ -327,11 +168,6 @@ Tile* Tile::getUpperTile()
 Tile* Tile::getLowerTile()
 {
     return this->lowerTile;
-}
-
-bool Tile::isAlarmTile()
-{
-    return alarmTile;
 }
 
 bool Tile::isPaidMove()
@@ -545,11 +381,6 @@ void Tile::reveal()
         if (this->tileType == SAFE)        //si es la safe, el combination number sera 0
             this->combinationNumber = 0;
     }
-}
-
-void Tile::setCrowToken(bool state)
-{
-    crowToken = state;
 }
 
 void Tile::setUpperLoorTile(Tile* tile)
