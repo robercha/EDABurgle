@@ -29,7 +29,7 @@ void GameStep::enterRoom(gameData_t* gameData, gamePointers_t*  gamePointers)
     if (gamePointers->currentCharacter->getLocation() == gamePointers->floors[floorNumber]->getGuardLocation())
     {
         gamePointers->currentCharacter->decreaseStealth();
-        if (gamePointers->currentCharacter->dead())
+        if (gamePointers->currentCharacter->isDead())
             gameData->event = LOSE;
     }
 
@@ -53,15 +53,22 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         case VALID_TILE:
             enableActions(gameData, gamePointers);
             break; //pone en negrito las opciones posibles;
+
         case INVALID_TILE:
             showInvalidTileMessage(gameData);
             break;
+
         case A_PASS:
+            unsigned floor = getFloor(gamePointers->currentCharacter->getLocation());
             gamePointers->currentCharacter->pass();
             //Cambio el pointer del currentCharacter
             (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0];
-            gamePointers->floors[gamePointers->currentCharacter->getLocation() / 16]->moveGuard();
+
+            for (unsigned i = 0; i < (gamePointers->floors[floor]->getGuardSpeed()); i++)
+                gamePointers->floors[floor]->moveGuard();
+            enableActions(gameData, gamePointers);
             break;
+
         case A_ADD_DICE_TO_SAFE:
             if (gameData->actions.addDice == true)
             {
@@ -69,7 +76,9 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
                 gamePointers->floors[floor]->addDiceToSafe((location_t) (gamePointers->currentCharacter->getLocation() % 16));
                 gamePointers->currentCharacter->decreaseActions();
             }
+
             break;
+
         case A_ROLL_DICE_FOR_SAFE:
             if (gameData->actions.rollDice == true)
             {
@@ -150,15 +159,18 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
             enableActions(gameData, gamePointers);
             break;
         case A_PAID_MOVE:
-        {
             enableActions(gameData, gamePointers);
             gameData->message = "Oh, we have a tough decision to make. Should we do it?";
-        }
+            break;
         case A_PASS:
             gamePointers->currentCharacter->pass();
-            unsigned floorNumber = getFloor(gamePointers->currentCharacter->getLocation());
-            for (unsigned i = 0; i < (gamePointers->floors[floorNumber]->getGuardSpeed()); i++)
-                gamePointers->floors[floorNumber]->moveGuard();
+            unsigned floor = getFloor(gamePointers->currentCharacter->getLocation());
+
+            (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->currentCharacter = gamePointers->characters[1] : gamePointers->currentCharacter = gamePointers->characters[0];
+
+            for (unsigned i = 0; i < (gamePointers->floors[floor]->getGuardSpeed()); i++)
+                gamePointers->floors[floor]->moveGuard();
+
             enableActions(gameData, gamePointers);
             break;
         case A_PEEK:
@@ -216,11 +228,13 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
             break;
         case A_PLACE_CROW_TOKEN:
             break;
-        case A_LOOT: break;
+        case A_LOOT:
+            break;
         case A_PATROL_CARD:
             showUsedPatrolCards();
             break;
-        default: break;
+        default:
+            break;
     }
 }
 

@@ -51,10 +51,10 @@ public:
         if (stealthTokens > 0)
             stealthTokens--;
         if (stealthTokens == 0)
-            dead = true;
+            this->dead = true;
     }
 
-    bool dead() {
+    bool isDead() {
         return this->dead;
     }
 

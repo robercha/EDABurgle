@@ -71,7 +71,7 @@ public:
     }
 
     bool isAlarmTile(location_t location) {
-        this->tiles[getRow(location)][getColumn(location)]->isAlarmTile(location);
+        this->tiles[getRow(location)][getColumn(location)]->isAlarmTile();
     }
 
     location_t getGuardDieLocation(); //donde esta el dado (a donde va si no suenan alarmas)
