@@ -252,18 +252,21 @@ Tile* Floor::setDistance2Guard()
 {
     Tile* tilex;
 
-
-    for (int i = 0; i < 16 ; i++)
-        tilex->setDistance2Guard(i == this->getGuardLocation() ? 0 : INF); //Setea la distancia al guardia de todas las tiles en INF menos la tile actual del guard
+    for(unsigned i=0; i<ROWS; i++)
+        for(unsigned j=0; j<COLS; j++)
+            tiles[i][j]->setDistance2Guard(tiles[i][j]->getCurrentLocation() == (unsigned)this->getGuardLocation() ? 0 : INF);
+//    
+//    for (int i = 0; i < 16 ; i++)
+//        tilex->setDistance2Guard((i+16*floorNumber) == (unsigned)this->getGuardLocation() ? 0 : INF); //Setea la distancia al guardia de todas las tiles en INF menos la tile actual del guard
 
     for (int i = 0; i < 16; i++)
     {
         tilex = minDistance(); //devuelve la tile mas cercana a la tile del guard que no haya sido visitada todavia
         tilex->visit(); //la chequea como visitada
 
-        /*Analiza las tiles adyacentes. Si al distancia de la tile adyacente a la del guardia es mayor que
-         la de la tile en cuestion + 1, entonces es mas corto ir por el camino que se esta analizando que por otro
-         que se haya analizado anteriormente*/
+        /*Analiza las tiles adyacentes. Si la distancia de la tile adyacente a la del guardia es mayor que
+         la de la tile en cuestion + 1, entonces es mas corto ir por el camino que se esta analizando que 
+         por otro que se haya analizado anteriormente*/
         if (tilex->getLowerTile() != NULL)
             if (tilex->getLowerTile()->getDistance2Guard()>(tilex->getDistance2Guard() + 1))
                 tilex->getLowerTile()->setDistance2Guard(tilex->getDistance2Guard() + 1);
@@ -280,6 +283,7 @@ Tile* Floor::setDistance2Guard()
             if (tilex->getLeftTile()->getDistance2Guard()>(tilex->getDistance2Guard() + 1))
                 tilex->getLeftTile()->setDistance2Guard(tilex->getDistance2Guard() + 1);
     }
+    
 }
 
 Tile* Floor::nextStep(Tile* destination)
@@ -288,22 +292,28 @@ Tile* Floor::nextStep(Tile* destination)
 
     tilex = destination; //En este punto, todas las tiles tienen guardada su distancia hasta el guardia
 
-    /*Voy desde la tile destino hasta la del guardia camianando por las tiles adyacentes
+    /*Voy desde la tile destino hasta la del guardia caminando por las tiles adyacentes
      que marcan el camino mas corto*/
     while (tilex->getDistance2Guard() != 1)
-    {
-        if (tilex->getUpperTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1)
-            tilex = tilex->getUpperTile();
+    {   
 
-        else if (tilex->getRightTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1)
-            tilex = tilex->getRightTile();
-
-        else if (tilex->getLowerTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1)
-            tilex = tilex->getLowerTile();
-
-        else if (tilex->getLeftTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1)
-            tilex = tilex->getLeftTile();
+        if (tilex->getUpperTile()!=NULL && 
+           (tilex->getUpperTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1))
+                tilex = tilex->getUpperTile();
+        
+        else if (tilex->getRightTile()!=NULL && 
+                (tilex->getRightTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1))
+                    tilex = tilex->getRightTile();
+        
+        else if (tilex->getLowerTile()!=NULL && 
+                (tilex->getLowerTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1))
+                tilex = tilex->getLowerTile();
+        
+        else if (tilex->getLeftTile()!=NULL && 
+                (tilex->getLeftTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1))
+                tilex = tilex->getLeftTile();
     }
+
 
     unvisitTiles(); //marco las tiles como no visitadas
 
@@ -392,12 +402,12 @@ void Floor::moveGuard()
     for (int i = 0; i < ROWS; i++)
         for (int j = 0; j < COLS; j++)
             if (tiles[i][j]->isAlarmOn())
-                alarmTiles.push_back(tiles[i][j]);
-
+                alarmTiles.push_back(tiles[i][j]);   
+    
+    setDistance2Guard();
 
     if (!alarmTiles.empty())
     {
-        setDistance2Guard();
         std::sort(alarmTiles.begin(), alarmTiles.end(), compare);    //la tile con la minima distancia al guardia queda en el ultimo elemento del vector
         guard->walk(nextStep(alarmTiles.back()));
 
@@ -408,19 +418,19 @@ void Floor::moveGuard()
         }
     }
 
-    else if (guard->getLocation() == guard->getPatrolCard())
+    else if (guard->getLocation() != guard->getPatrolCard())
     {
         guard->walk(nextStep(patrolCardTile));
-        if (takePatrolCard());
-        else
-            createPatrolDeck();
     }
+    if (takePatrolCard());
+    else
+        createPatrolDeck();
 
 }
 
 bool compare(Tile* i, Tile* j)
 {
-    return i->getDistance2Guard() < j->getDistance2Guard();
+    return i->getDistance2Guard() > j->getDistance2Guard();
 }
 
 bool Floor::takePatrolCard()
