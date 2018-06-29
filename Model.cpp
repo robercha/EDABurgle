@@ -88,8 +88,6 @@ void Model::createTiles(std::vector<Tile*> &deck)
 
     for (i = 0; i < ATRIUM_QTY; i++)
         deck.push_back(new Atrium);
-    for (i = 0; i < ATRIUM_QTY; i++)
-        deck.push_back(new Atrium);
     for (i = 0; i < CAMERA_QTY; i++)
         deck.push_back(new Camera);
     for (i = 0; i < CROOM_FINGERPRINT_QTY; i++)
@@ -161,7 +159,7 @@ void Model::createCharacters()
 
 }
 
-void Model::shuffleTiles(std::vector<Tile*> deck)
+void Model::shuffleTiles(std::vector<Tile*> &deck)
 {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 

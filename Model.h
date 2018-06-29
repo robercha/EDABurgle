@@ -18,7 +18,7 @@ private:
     bool isGameWon();
     bool isGameLost();
     void createTiles(std::vector<Tile*>&);
-    void shuffleTiles(std::vector<Tile*>);
+    void shuffleTiles(std::vector<Tile*>&);
     void createFloors(std::vector<Tile*>);
     void createGuards();
     void createModelFSM();
@@ -29,12 +29,12 @@ private:
 
     //std::list<Tile*> floorDeck;
     //std::vector<Tile*> deck;
-//    std::vector<Floor*> floors;
-//    std::vector<Guard*> guards; //esto lo tiene floor
-//    std::vector<Character*> characters; //Los dos characters en juego
-//    std::vector<Loot*> loots;
-//    Character* currentCharacter;
-    
+    //    std::vector<Floor*> floors;
+    //    std::vector<Guard*> guards; //esto lo tiene floor
+    //    std::vector<Character*> characters; //Los dos characters en juego
+    //    std::vector<Loot*> loots;
+    //    Character* currentCharacter;
+
     gamePointers_t* gamePointers;
 
     bool gameWon;
