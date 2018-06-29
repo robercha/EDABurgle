@@ -153,6 +153,7 @@ void Model::createCharacters()
     unsigned initialCol = rand() % 4;
 
     gamePointers->floors[0]->getDeck()[initialRow][initialCol]->reveal();
+    gamePointers->floors[0]->getDeck()[initialRow][initialCol]->setDownstairsToken(true);
     gamePointers->characters[0]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
     gamePointers->characters[1]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
     gamePointers->currentCharacter = gamePointers->characters[0];

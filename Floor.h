@@ -29,6 +29,18 @@ public:
         return guard->getPatrolCard();
     }
 
+    tileType_t getGuardRoom() {
+        return guard->getRoomType();
+    }
+
+    void increaseGuardSpeed() {
+        guard->increaseSpeed();
+    }
+
+    void decreaseGuardSpeed() {
+        guard->decreaseSpeed(floorNumber);
+    }
+
     loot_t getLootName() {
         return this->loot->getLootName();
     }
