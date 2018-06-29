@@ -62,22 +62,19 @@ typedef struct tileInfo tileInfo_t;
 
 class Tile {
 public:
-
-    Tile() {
-    };
+    Tile();
     virtual ~Tile();
     bool peek(coordinates_t);
     bool isTileVisible();
     virtual void reveal();
-    bool triggerAlarm();
 
-    bool deactivateAlarm() {
-        triggeredAlarm = false;
+    bool setAlarmToken(bool state) {
+        alarmToken = state;
     }
     bool isAlarmTile(); //getter de isAlarmTile
 
-    bool isAlarmTriggered() {
-        return triggeredAlarm;
+    bool isAlarmOn() {
+        return this->alarmToken;
     }
     bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
     virtual bool isTileValid(location_t, tileInfo_t*); //se fija si es adyacente
@@ -178,7 +175,7 @@ protected:
     bool kittyToken;
     bool goldBarToken;
     bool alarmTile;
-    bool triggeredAlarm;
+    bool alarmToken;
     bool mustSpendActions;
     unsigned combinationNumber;
     bool isAdyacentTileValid(location_t selectedLocation, tileInfo_t*);
