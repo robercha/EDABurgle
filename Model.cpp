@@ -37,7 +37,7 @@ void Model::initGameData(gameData_t* gameData)
     gameData->actions.hackCR = false;
     gameData->actions.move = false;
     gameData->actions.offerLoot = false;
-    gameData->actions.pass = false;
+    gameData->actions.pass = true;
     gameData->actions.patrolIsTopBottom = false;
     gameData->actions.peek = false;
     gameData->actions.pickupLoot = false;
@@ -358,7 +358,6 @@ void Model::initGraphicsData(View* view, gameData_t* gameData)
     }
     view->graphicsData->currentCardSelected = (button_t)this->gamePointers->currentCharacter->getLocation();
     view->graphicsData->message = "Hi there bosss. Ready to rob the s*** outta this bank.";
-
 }
 
 void Model::fillGraphicsData(View* view, gameData_t* gameData)
