@@ -51,6 +51,7 @@ void GameStep::checkAlarms(gameData_t* gameData, gamePointers_t* gamePointers)
         //2 actions to enter or trigger alarm, laser
         //stop here or trigger alarm, motion
         //if actions end here, trigger alarm, thermo
+        //falta hacer esto en el move del guardia, con sus respectivas alarmas
     }
 }
 
@@ -67,21 +68,20 @@ void GameStep::drawLoot(gamePointers_t* gamePointers)
     gamePointers->currentCharacter->addLoot((*gamePointers->floors[floor]->getLoot()));
 
     //if(loot==gold Bar)
-    //hacer algo
 }
 
 void GameStep::checkFloorChange(gameData_t* gameData, gamePointers_t* gamePointers)
 {
     unsigned currentFloor = getFloor(gamePointers->currentCharacter->getLocation());
-    
-    if(gamePointers->currentCharacter->whereAmI() == STAIRS)
+
+    if (gamePointers->currentCharacter->whereAmI() == STAIRS)
     {
-        if(gameData->selectedTile.differentFloor)
+        if (gameData->selectedTile.differentFloor)
         {
             unsigned newFloor = getFloor(gameData->selectedTile.tile->getCurrentLocation());
-            if(gamePointers->floors[newFloor]->isGuardActive());
+            if (gamePointers->floors[newFloor]->isGuardActive());
             else
-            gamePointers->floors[newFloor]->toggleGuard();
+                gamePointers->floors[newFloor]->toggleGuard();
         }
     }
 }
@@ -112,8 +112,8 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             for (unsigned i = 0; i < (gamePointers->floors[floor]->getGuardSpeed()); i++)
             {
                 gamePointers->floors[floor]->moveGuard();
-                 for(unsigned j = 0; j<2 ; j++)
-                    if(gamePointers->characters[j]->getLocation() == gamePointers->floors[floor]->getGuardLocation())
+                for (unsigned j = 0; j < 2 ; j++)
+                    if (gamePointers->characters[j]->getLocation() == gamePointers->floors[floor]->getGuardLocation())
                         gamePointers->characters[j]->decreaseStealth();
             }
             enableActions(gameData, gamePointers);
@@ -153,19 +153,26 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         {
             if (gameData->actions.useHackToken == true)
             {
+                unsigned floorNumbah = getFloor(gameData->selectedTile.tile->getCurrentLocation());
                 gamePointers->currentCharacter->useHackToken(gamePointers->currentCharacter->whereAmI());
-                //untrigger alarm
+                gamePointers->floors[floorNumbah]->setAlarmToken(gameData->selectedTile.tile->getCurrentLocation(), false);
             }
             break;
         }
         case A_SPY_PATROL_DECK:
         {
+            if (gameData->actions.spyPatrolDeck == true)
+            {
+                ;
+            }
             break;
         }
         case A_LOOT:
         {
-        }
+            //muestra loot, creo que no hace falta hacer nada
             break;
+        }
+
         case A_PATROL_CARD:
         {
             showUsedPatrolCards();
@@ -184,7 +191,6 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         }
         default:
         {
-
             break;
         }
     }
@@ -219,17 +225,52 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
         {
             gameData->actions.placeCrowToken = true;
         }
+        if (gameData->selectedTile.tile->getTileType() == LASER)
+        {
+            for (unsigned f = 0; f < FLOORS_QTY; f++)
+            {
+                gamePointers->floors[f]->canIUseLaserHackToken();       //si hay laser room, avisa si hay hack tokens disponibles
+            }
+            gameData->actions.useHackToken = true;
+        }
+        if (gameData->selectedTile.tile->getTileType() == MOTION)
+        {
+            for (unsigned f = 0; f < FLOORS_QTY; f++)
+            {
+                gamePointers->floors[f]->canIUseMotionHackToken();       //si hay laser room, avisa si hay hack tokens disponibles
+            }
+            gameData->actions.useHackToken = true;
+        }
+        if (gameData->selectedTile.tile->getTileType() == FINGERPRINT)
+        {
+            for (unsigned f = 0; f < FLOORS_QTY; f++)
+            {
+                gamePointers->floors[f]->canIUseFingerprintHackToken();       //si hay laser room, avisa si hay hack tokens disponibles
+            }
+            gameData->actions.useHackToken = true;
+        }
     }
     else if (gameData->event == INVALID_TILE)
     {
         gameData->actions.move = false;
         gameData->actions.peek = false;
         gameData->actions.pass = false;
+        gameData->actions.acceptDecline = false;
+        gameData->actions.addDice = false;
+        gameData->actions.createAlarm = false;
+        gameData->actions.hackCR = false;
+        gameData->actions.offerLoot = false;
+        gameData->actions.patrolIsTopBottom = false;
+        gameData->actions.pickupLoot = false;
+        gameData->actions.placeCrowToken = false;
+        gameData->actions.requestLoot = false;
+        gameData->actions.spyPatrolDeck = false;
+        gameData->actions.rollDice = false;
+        gameData->actions.useHackToken = false;
     }
 
 
 }
-
 
 void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* gamePointers)
 {
@@ -273,9 +314,9 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
             for (unsigned i = 0; i < (gamePointers->floors[floor]->getGuardSpeed()); i++)
             {
                 gamePointers->floors[floor]->moveGuard();
-                
-                for(unsigned j = 0; j<2 ; j++)
-                    if(gamePointers->characters[j]->getLocation() == gamePointers->floors[floor]->getGuardLocation())
+
+                for (unsigned j = 0; j < 2 ; j++)
+                    if (gamePointers->characters[j]->getLocation() == gamePointers->floors[floor]->getGuardLocation())
                         gamePointers->characters[j]->decreaseStealth();
             }
             enableActions(gameData, gamePointers);

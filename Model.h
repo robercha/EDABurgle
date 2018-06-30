@@ -27,14 +27,6 @@ private:
 
     void eventGenerator(gameData_t* gameData);
 
-    //std::list<Tile*> floorDeck;
-    //std::vector<Tile*> deck;
-    //    std::vector<Floor*> floors;
-    //    std::vector<Guard*> guards; //esto lo tiene floor
-    //    std::vector<Character*> characters; //Los dos characters en juego
-    //    std::vector<Loot*> loots;
-    //    Character* currentCharacter;
-
     gamePointers_t* gamePointers;
 
     bool gameWon;

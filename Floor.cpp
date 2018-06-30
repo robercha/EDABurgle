@@ -253,12 +253,12 @@ Tile* Floor::setDistance2Guard()
 {
     Tile* tilex;
 
-    for(unsigned i=0; i<ROWS; i++)
-        for(unsigned j=0; j<COLS; j++)
-            tiles[i][j]->setDistance2Guard(tiles[i][j]->getCurrentLocation() == (unsigned)this->getGuardLocation() ? 0 : INF);
-//    
-//    for (int i = 0; i < 16 ; i++)
-//        tilex->setDistance2Guard((i+16*floorNumber) == (unsigned)this->getGuardLocation() ? 0 : INF); //Setea la distancia al guardia de todas las tiles en INF menos la tile actual del guard
+    for (unsigned i = 0; i < ROWS; i++)
+        for (unsigned j = 0; j < COLS; j++)
+            tiles[i][j]->setDistance2Guard(tiles[i][j]->getCurrentLocation() == (unsigned) this->getGuardLocation() ? 0 : INF);
+    //
+    //    for (int i = 0; i < 16 ; i++)
+    //        tilex->setDistance2Guard((i+16*floorNumber) == (unsigned)this->getGuardLocation() ? 0 : INF); //Setea la distancia al guardia de todas las tiles en INF menos la tile actual del guard
 
     for (int i = 0; i < 16; i++)
     {
@@ -266,7 +266,7 @@ Tile* Floor::setDistance2Guard()
         tilex->visit(); //la chequea como visitada
 
         /*Analiza las tiles adyacentes. Si la distancia de la tile adyacente a la del guardia es mayor que
-         la de la tile en cuestion + 1, entonces es mas corto ir por el camino que se esta analizando que 
+         la de la tile en cuestion + 1, entonces es mas corto ir por el camino que se esta analizando que
          por otro que se haya analizado anteriormente*/
         if (tilex->getLowerTile() != NULL)
             if (tilex->getLowerTile()->getDistance2Guard()>(tilex->getDistance2Guard() + 1))
@@ -284,7 +284,7 @@ Tile* Floor::setDistance2Guard()
             if (tilex->getLeftTile()->getDistance2Guard()>(tilex->getDistance2Guard() + 1))
                 tilex->getLeftTile()->setDistance2Guard(tilex->getDistance2Guard() + 1);
     }
-    
+
 }
 
 Tile* Floor::nextStep(Tile* destination)
@@ -296,23 +296,23 @@ Tile* Floor::nextStep(Tile* destination)
     /*Voy desde la tile destino hasta la del guardia caminando por las tiles adyacentes
      que marcan el camino mas corto*/
     while (tilex->getDistance2Guard() != 1)
-    {   
+    {
 
-        if (tilex->getUpperTile()!=NULL && 
-           (tilex->getUpperTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1))
-                tilex = tilex->getUpperTile();
-        
-        else if (tilex->getRightTile()!=NULL && 
+        if (tilex->getUpperTile() != NULL &&
+                (tilex->getUpperTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1))
+            tilex = tilex->getUpperTile();
+
+        else if (tilex->getRightTile() != NULL &&
                 (tilex->getRightTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1))
-                    tilex = tilex->getRightTile();
-        
-        else if (tilex->getLowerTile()!=NULL && 
+            tilex = tilex->getRightTile();
+
+        else if (tilex->getLowerTile() != NULL &&
                 (tilex->getLowerTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1))
-                tilex = tilex->getLowerTile();
-        
-        else if (tilex->getLeftTile()!=NULL && 
+            tilex = tilex->getLowerTile();
+
+        else if (tilex->getLeftTile() != NULL &&
                 (tilex->getLeftTile()->getDistance2Guard() == tilex->getDistance2Guard() - 1))
-                tilex = tilex->getLeftTile();
+            tilex = tilex->getLeftTile();
     }
 
 
@@ -403,8 +403,8 @@ void Floor::moveGuard()
     for (int i = 0; i < ROWS; i++)
         for (int j = 0; j < COLS; j++)
             if (tiles[i][j]->isAlarmOn())
-                alarmTiles.push_back(tiles[i][j]);   
-    
+                alarmTiles.push_back(tiles[i][j]);
+
     setDistance2Guard();
 
     if (!alarmTiles.empty())
@@ -423,15 +423,60 @@ void Floor::moveGuard()
     {
         guard->walk(nextStep(patrolCardTile));
     }
-    else if( guard->getLocation() == guard->getPatrolCard())
+    else if ( guard->getLocation() == guard->getPatrolCard())
     {
         updatePatrolCard();
-//        moveGuard();
-        
+        //        moveGuard();
+
         patrolCardTile = tiles[getRow(guard->getPatrolCard())][getColumn(guard->getPatrolCard())];
         guard->walk(nextStep(patrolCardTile));
     }
 
+}
+
+bool Floor::canIUseLaserHackToken()
+{
+    bool canUseHackToken = false;
+    for (unsigned i = 0; i < ROWS; i++)
+    {
+        for (unsigned j = 0; j < ROWS; j++)
+        {
+            if (this->tiles[i][j]->getTileType() == CR_LASER)
+                if (!dynamic_cast<CRLaser*> (this->tiles[i][j])->areHackTokensZero())    //si hay mas de cero hack tokens
+                    canUseHackToken = true;
+        }
+    }
+    return canUseHackToken;
+}
+
+bool Floor::canIUseFingerprintHackToken()
+{
+    bool canUseHackToken = false;
+    for (unsigned i = 0; i < ROWS; i++)
+    {
+        for (unsigned j = 0; j < ROWS; j++)
+        {
+            if (this->tiles[i][j]->getTileType() == CR_FINGERPRINT)
+                if (!dynamic_cast<CRFingerprint*> (this->tiles[i][j])->areHackTokensZero())    //si hay mas de cero hack tokens
+                    canUseHackToken = true;
+        }
+    }
+    return canUseHackToken;
+}
+
+bool Floor::canIUseMotionHackToken()
+{
+    bool canUseHackToken = false;
+    for (unsigned i = 0; i < ROWS; i++)
+    {
+        for (unsigned j = 0; j < ROWS; j++)
+        {
+            if (this->tiles[i][j]->getTileType() == CR_MOTION)
+                if (!dynamic_cast<CRMotion*> (this->tiles[i][j])->areHackTokensZero())    //si hay mas de cero hack tokens
+                    canUseHackToken = true;
+        }
+    }
+    return canUseHackToken;
 }
 
 bool compare(Tile* i, Tile* j)

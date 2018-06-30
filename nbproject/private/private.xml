@@ -7,7 +7,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.cpp</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Character.h</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Character.cpp</file>
@@ -16,20 +15,6 @@
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Guard.h</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Tile.cpp</file>
             <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.h</file>
-=======
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/View.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Character.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/GameStep.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Tile.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Floor.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Character.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Guard.h</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Model.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/EventGenerator.cpp</file>
-            <file>file:/home/rober/NetBeansProjects/EDABurgle/Controller.cpp</file>
->>>>>>> bcb3330948dcb704f560e8844583f013da44b5b3
         </group>
     </open-files>
 </project-private>

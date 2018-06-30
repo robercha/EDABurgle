@@ -88,6 +88,11 @@ public:
     location_t getGuardDieLocation(); //donde esta el dado (a donde va si no suenan alarmas)
     std::vector< std::vector<Tile*> >& getDeck();
 
+    void moveGuard();
+    bool canIUseMotionHackToken();
+    bool canIUseLaserHackToken();
+    bool canIUseFingerprintHackToken();
+
 private:
     unsigned floorNumber;
     void createPatrolDeck();
@@ -96,7 +101,6 @@ private:
     void createWalls(unsigned);
     Tile* setDistance2Guard();
     Tile* nextStep(Tile* destination);
-    void moveGuard();
     Tile* minDistance();
     void unvisitTiles();
     Guard* guard;

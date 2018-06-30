@@ -234,11 +234,11 @@ bool Model::analyzeAction(gameData_t* gameData)
 
         noActions = true;
     }
-    
-    for(unsigned i = 0; i < 2 ; i++)
-        if(gamePointers->characters[i]->isDead())
+
+    for (unsigned i = 0; i < 2 ; i++)
+        if (gamePointers->characters[i]->isDead())
             gameData->message = "Oops, someone caught us. Someone save poor Pepe!";
-            
+
     //    if (currentAction->getState() == IDLE)
     //        dynamic_cast <Idle*> (currentAction)->enableActions(gameData, gamePointers);
 
@@ -257,6 +257,10 @@ void Model::eventGenerator(gameData_t* gameData)
     {
         if (gamePointers->currentCharacter->canIUseThisTile((location_t) gameData->preEvent, &(gameData->selectedTile)))
             gameData->event = VALID_TILE;
+        else if ((gameData->selectedTile.tile->getTileType() == LASER)
+                || (gameData->selectedTile.tile->getTileType() == FINGERPRINT)
+                || (gameData->selectedTile.tile->getTileType() == MOTION))
+            gameData->event = VALID_TILE;           //porque se pueden usar hack tokens para sacar alarmas de esas alarm tiles
         else
             gameData->event = INVALID_TILE;
     }
@@ -267,13 +271,13 @@ void Model::eventGenerator(gameData_t* gameData)
     {
         std::vector< std::vector<Tile*> > deck = gamePointers->floors[getFloor(gameData->selectedTile.tile->getCurrentLocation())]->getDeck();
         Tile* tilex;
-        
-        for(unsigned i = 0; i<ROWS; i++)
-            for(unsigned j = 0; j<COLS; j++)
-                if(deck[i][j]->getCurrentLocation()==gameData->selectedTile.tile->getCurrentLocation())
+
+        for (unsigned i = 0; i < ROWS; i++)
+            for (unsigned j = 0; j < COLS; j++)
+                if (deck[i][j]->getCurrentLocation() == gameData->selectedTile.tile->getCurrentLocation())
                     tilex = deck[i][j];
-        
-        
+
+
 
 
         if (tilex->isPaidMove())
@@ -337,8 +341,8 @@ void Model::eventGenerator(gameData_t* gameData)
 bool Model::isGameLost()
 {
     bool isGameLost = false;
-    for(unsigned i = 0; i<2; i++)
-        if(gamePointers->characters[i]->isDead())
+    for (unsigned i = 0; i < 2; i++)
+        if (gamePointers->characters[i]->isDead())
             isGameLost = true;
     return isGameLost;
 }

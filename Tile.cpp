@@ -282,23 +282,23 @@ bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
         }
 
     }
-    
-    if (selectedFloor == currFloor+1)
+
+    if (selectedFloor == currFloor + 1)
     {
-        if(this->alarmTile == STAIRS && this->upperFloorTile != NULL)
+        if (this->alarmTile == STAIRS && this->upperFloorTile != NULL)
         {
             tileInfo->tile = this->upperFloorTile;
             isTileValid = true;
-        }   
+        }
     }
-    
-    if (selectedFloor == currFloor-1)
+
+    if (selectedFloor == currFloor - 1)
     {
-        if(this->alarmTile == STAIRS && this->lowerFloorTile != NULL)
+        if (this->alarmTile == STAIRS && this->lowerFloorTile != NULL)
         {
             tileInfo->tile = this->lowerFloorTile;
             isTileValid = true;
-        }   
+        }
     }
 
     return isTileValid;
@@ -320,25 +320,25 @@ bool Tile::isThereASecretDoor(location_t selectedTile, tileInfo_t* tileInfo)
             if (leftTile != secretLeftTile)
                 if (secretLeftTile->isVisible && secretLeftTile->tileType == SECRETDOOR)
                 {
-                    bool secretDoor = true;
+                    secretDoor = true;
                     tileInfo->tile = secretLeftTile;
                 }
             if (rightTile != secretRightTile)
                 if (secretRightTile->isVisible && secretRightTile->tileType == SECRETDOOR)
                 {
-                    bool secretDoor = true;
+                    secretDoor = true;
                     tileInfo->tile = secretRightTile;
                 }
             if (upperTile != secretUpperTile)
                 if (secretUpperTile->isVisible && secretUpperTile->tileType == SECRETDOOR)
                 {
-                    bool secretDoor = true;
+                    secretDoor = true;
                     tileInfo->tile = secretUpperTile;
                 }
             if (lowerTile != secretLowerTile)
                 if (secretLowerTile->isVisible && secretLowerTile->tileType == SECRETDOOR)
                 {
-                    bool secretDoor = true;
+                    secretDoor = true;
                     tileInfo->tile = secretLowerTile;
                 }
         }
@@ -472,34 +472,88 @@ bool Atrium::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 //    return true;
 //}
 
+bool CRFingerprint::areHackTokensZero()
+{
+    bool state = false;
+    if (hackTokensQty > 0)
+        state = true;
+    return state;
+}
+
+bool CRFingerprint::areHackTokensMax()
+{
+    bool state = false;
+    if (hackTokensQty == HACKTOKENSMAX)
+        state = true;
+    return state;
+}
+
 void CRFingerprint::hack()
 {
-    hackTokensQty++;
+    if (hackTokensQty < HACKTOKENSMAX)
+        hackTokensQty++;
 }
 
 void CRFingerprint::useHackToken()
 {
-    hackTokensQty--;
+    if (hackTokensQty > 0)
+        hackTokensQty--;
+}
+
+bool CRMotion::areHackTokensZero()
+{
+    bool state = false;
+    if (hackTokensQty > 0)
+        state = true;
+    return state;
+}
+
+bool CRMotion::areHackTokensMax()
+{
+    bool state = false;
+    if (hackTokensQty == HACKTOKENSMAX)
+        state = true;
+    return state;
 }
 
 void CRMotion::hack()
 {
-    hackTokensQty++;
+    if (hackTokensQty < HACKTOKENSMAX)
+        hackTokensQty++;
 }
 
 void CRMotion::useHackToken()
 {
-    hackTokensQty--;
+    if (hackTokensQty > 0)
+        hackTokensQty--;
+}
+
+bool CRLaser::areHackTokensZero()
+{
+    bool state = false;
+    if (hackTokensQty > 0)
+        state = true;
+    return state;
+}
+
+bool CRLaser::areHackTokensMax()
+{
+    bool state = false;
+    if (hackTokensQty == HACKTOKENSMAX)
+        state = true;
+    return state;
 }
 
 void CRLaser::hack()
 {
-    hackTokensQty++;
+    if (hackTokensQty < HACKTOKENSMAX)
+        hackTokensQty++;
 }
 
 void CRLaser::useHackToken()
 {
-    hackTokensQty--;
+    if (hackTokensQty > 0)
+        hackTokensQty--;
 }
 
 bool

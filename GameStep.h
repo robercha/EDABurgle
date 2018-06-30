@@ -53,7 +53,7 @@ typedef struct gameData {
     actions_t actions;
     unsigned loot; //el loot que se toco
     unsigned patrolDeck;
-    unsigned diceResult[5];
+    unsigned diceResult[6];
     std::string message;
 } gameData_t;
 

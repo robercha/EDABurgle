@@ -31,6 +31,8 @@
 #define THERMO_QTY 3
 #define WALKWAY_QTY 3
 
+#define  HACKTOKENSMAX 6
+
 typedef struct tokens token_t;
 
 typedef enum {
@@ -68,12 +70,11 @@ public:
     bool isTileVisible();
     virtual void reveal();
     bool isPaidMove(); //si hay que gastar acciones para entrar isPaidMove() devuelve true
-    unsigned getFeeToEnter()
-    {
+
+    unsigned getFeeToEnter() {
         return feeToEnter;
     }
     virtual bool isTileValid(location_t, tileInfo_t*); //se fija si es adyacente
-    //void setToken(tokenInfo_t, Tile*);
     void setCurrentLocation(location_t);
     void setRightWall();
     void setLeftWall();
@@ -208,7 +209,6 @@ protected:
 } ;
 
 struct tileInfo {
-    //location_t location;
     Tile* tile;
     bool ownTile;
     bool hawkWall;
@@ -254,6 +254,8 @@ public:
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
+    bool areHackTokensZero();
+    bool areHackTokensMax();
     void useHackToken();
     void hack(); //adds hack token to tile
 private:
@@ -267,6 +269,8 @@ public:
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
+    bool areHackTokensZero();
+    bool areHackTokensMax();
     void useHackToken();
     void hack(); //adds hack token to tile
 private:
@@ -280,6 +284,8 @@ public:
     unsigned getHackTokensQty() {
         return hackTokensQty;
     };
+    bool areHackTokensZero();
+    bool areHackTokensMax();
     void useHackToken();
     void hack(); //adds hack token to tile
 private:
