@@ -282,6 +282,24 @@ bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
         }
 
     }
+    
+    if (selectedFloor == currFloor+1)
+    {
+        if(this->alarmTile == STAIRS && this->upperFloorTile != NULL)
+        {
+            tileInfo->tile = this->upperFloorTile;
+            isTileValid = true;
+        }   
+    }
+    
+    if (selectedFloor == currFloor-1)
+    {
+        if(this->alarmTile == STAIRS && this->lowerFloorTile != NULL)
+        {
+            tileInfo->tile = this->lowerFloorTile;
+            isTileValid = true;
+        }   
+    }
 
     return isTileValid;
 }

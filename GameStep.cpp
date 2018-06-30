@@ -68,6 +68,22 @@ void GameStep::drawLoot(gamePointers_t* gamePointers)
     //hacer algo
 }
 
+void GameStep::checkFloorChange(gameData_t* gameData, gamePointers_t* gamePointers)
+{
+    unsigned currentFloor = getFloor(gamePointers->currentCharacter->getLocation());
+    
+    if(gamePointers->currentCharacter->whereAmI() == STAIRS)
+    {
+        if(gameData->selectedTile.differentFloor)
+        {
+            unsigned newFloor = getFloor(gameData->selectedTile.tile->getCurrentLocation());
+            if(gamePointers->floors[newFloor]->isGuardActive());
+            else
+            gamePointers->floors[newFloor]->toggleGuard();
+        }
+    }
+}
+
 void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
     switch (gameData->event)
@@ -212,6 +228,7 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
 
 }
 
+
 void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* gamePointers)
 {
     switch (gameData->event)
@@ -228,12 +245,14 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         }
         case A_FREE_MOVE:
         {
+            checkFloorChange(gameData, gamePointers);
             if (gameData->actions.move == true)
             {
                 gamePointers->currentCharacter->move(gameData->selectedTile.tile);
                 enterRoom(gameData, gamePointers);     //consecuencias cuando se mueve a una tile
             }
             enableActions(gameData, gamePointers);
+
             break;
         }
         case A_PAID_MOVE:
@@ -401,6 +420,7 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
     switch (gameData->event)
     {
         case ACCEPT:
+            checkFloorChange(gameData, gamePointers);
             gamePointers->currentCharacter->move(gameData->selectedTile.tile);
             enableActions(gameData, gamePointers);
             break;

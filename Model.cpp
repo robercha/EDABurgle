@@ -279,8 +279,6 @@ void Model::eventGenerator(gameData_t* gameData)
         if (tilex->isPaidMove())
         {
             gameData->event = A_PAID_MOVE;
-            printf("llegue");
-            fflush(stdout);
         }
         else
             gameData->event = A_FREE_MOVE;

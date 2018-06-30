@@ -82,6 +82,7 @@ protected:
     void showUsedPatrolCards();
     void enterRoom(gameData_t* gameData, gamePointers_t*  gamePointers);
     void checkAlarms(gameData_t* , gamePointers_t*);
+    void checkFloorChange(gameData_t*, gamePointers_t*);
     void triggerAlarm(gameData_t* gameData, gamePointers_t* gamePointers);
     std::string message;
 } ;
