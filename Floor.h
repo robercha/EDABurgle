@@ -56,7 +56,6 @@ public:
     bool getLootVisibility() {
         return loot->isLootVisible();
     }
-    void moveGuard();
 
     void toggleGuard() {
         guard->toggleGuard();
@@ -97,6 +96,7 @@ private:
     void createWalls(unsigned);
     Tile* setDistance2Guard();
     Tile* nextStep(Tile* destination);
+    void moveGuard();
     Tile* minDistance();
     void unvisitTiles();
     Guard* guard;

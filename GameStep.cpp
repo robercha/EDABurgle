@@ -40,8 +40,10 @@ void GameStep::checkAlarms(gameData_t* gameData, gamePointers_t* gamePointers)
     unsigned floorNumber = getFloor(gamePointers->currentCharacter->getLocation());
     if (gamePointers->floors[floorNumber]->isAlarmTile(gamePointers->currentCharacter->getLocation()))
     {
+        //camera
         if ((gamePointers->floors[floorNumber]->getGuardRoom() == CAMERA)&&(gamePointers->currentCharacter->whereAmI() == CAMERA))
             triggerAlarm(gameData, gamePointers);
+        //deadbolt
         if ((gamePointers->currentCharacter->getLootQty() != 0)&&(gamePointers->currentCharacter->whereAmI() == DEADBOLT))
             triggerAlarm(gameData, gamePointers);
 
@@ -211,8 +213,8 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
     {
         case VALID_TILE:
         {
-            enableActions(gameData, gamePointers);
-            break; //pone en negrito las opciones posibles;
+            enableActions(gameData, gamePointers);      //pone en negrito las opciones posibles;
+            break;
         }
         case INVALID_TILE:
         {

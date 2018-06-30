@@ -19,7 +19,6 @@ class Guard {
 public:
     Guard(unsigned, Tile*, location_t);
     virtual ~Guard();
-    //walk() avanza de a uno, o al destino final, hay q verlo!!!
     void walk(Tile*); //usa calculateRoute() tantas veces como steps tenga que dar y camina
     unsigned getSpeed();
     location_t getLocation();
@@ -58,8 +57,6 @@ private:
     location_t destination;
     unsigned steps;
     bool isActive;
-    Tile* calculateRoute(/*destino y la lista de tiles del floor*/);
-    unsigned checkAlarms(); //Devuelve numero de alarmas activadas, (chequea el camino a cada una y devuelve el minimo)???
 } ;
 
 #endif /* GUARD_H */

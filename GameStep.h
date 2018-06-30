@@ -22,7 +22,6 @@ typedef enum {
 
 struct gamePointers_t {
     std::vector<Floor*> floors;
-    //std::vector<Guard*> guards; //esto lo tiene floor
     std::vector<Character*> characters; //Los dos characters en juego
     Character* currentCharacter;
 } ;
