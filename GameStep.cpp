@@ -325,7 +325,6 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
                 enterRoom(gameData, gamePointers);     //consecuencias cuando se mueve a una tile
             }
             enableActions(gameData, gamePointers);
-
             break;
         }
         case A_PAID_MOVE:

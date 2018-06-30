@@ -406,8 +406,16 @@ public:
         this->upstairsTile = tile;
     }
 
+    Tile* getUpstairsTile() {
+        return this->upstairsTile;
+    }
+
     void setDownstairsTile(Tile* tile) {
         this->downstairsTile = tile;
+    }
+
+    Tile* getDownstairsTile() {
+        return this->downstairsTile;
     }
 
 private:
