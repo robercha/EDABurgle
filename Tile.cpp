@@ -400,9 +400,6 @@ void Tile::reveal()
         isVisible = true;
         unsigned number = ((rand_r(&seed) % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
         this->combinationNumber = number;
-
-        if (this->tileType == SAFE)        //si es la safe, el combination number sera 0
-            this->combinationNumber = 0;
     }
 }
 
@@ -456,21 +453,6 @@ bool Atrium::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 
     return isTileValid;
 }
-
-//bool
-//Camera::itsATrap()
-//{
-//    //en model
-//    //if(isOnCamera(tile del guardia) && (isOnCamera(tile del player1)||isOnCamera(tile del player2) ))
-//    //camera->itsatrap();
-//    if (isOnCamera(tileP1))
-//        tileP1->triggerAlarm();
-//
-//    if (isOnCamera(tileP2))
-//        tileP2->triggerAlarm();
-//
-//    return true;
-//}
 
 bool CRFingerprint::areHackTokensZero()
 {
@@ -633,6 +615,35 @@ bool Stairs::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 
 void Stairs::reveal()
 {
-    isVisible = true;
-    upstairsTile->setDownstairsToken(true);
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    if (isVisible == false)
+    {
+        isVisible = true;
+        unsigned number = ((rand_r(&seed) % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
+        this->combinationNumber = number;
+        upstairsTile->setDownstairsToken(true);
+    }
 }
+
+void Safe::reveal()
+{
+    if (isVisible == false)
+    {
+        isVisible = true;
+        this->combinationNumber = 0;
+    }
+}
+
+void Lavatory::reveal()
+{
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    if (isVisible == false)
+    {
+        isVisible = true;
+        unsigned number = ((rand_r(&seed) % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
+        this->combinationNumber = number;
+        stealthTokensQty = 3;
+        firstReveal = true;
+    }
+}
+

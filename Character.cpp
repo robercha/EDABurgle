@@ -15,11 +15,11 @@ void Character::setInitialTile(Tile* tile)
 void Character::move(Tile* tile)
 {
     tile->reveal();
-    if (currentTile->getTileType() == LAVATORY)
-    {
-        dynamic_cast<Lavatory*> (currentTile)->setFirstReveal();
-        dynamic_cast<Lavatory*> (currentTile)->setStealthTokens();
-    }
+    //    if (currentTile->getTileType() == LAVATORY)
+    //    {
+    //        dynamic_cast<Lavatory*> (currentTile)->setFirstReveal();
+    //        dynamic_cast<Lavatory*> (currentTile)->setStealthTokens();
+    //    }
     this->currentTile = tile;
     actions--;
 }

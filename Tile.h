@@ -189,7 +189,7 @@ protected:
     Tile* secretUpperTile;
     Tile* secretLowerTile;
 
-    bool visited; //deberia poder desvisitarla
+    bool visited;       //deberia poder desvisitarla
     unsigned distance2guard;
 
     bool isVisible;
@@ -338,13 +338,14 @@ public:
         return stealthTokensQty;
     };
 
-    void setFirstReveal() {
-        firstReveal = true;
-    }
-
-    void setStealthTokens() {
-        stealthTokensQty = 3;
-    };
+    //    void setFirstReveal() {
+    //        firstReveal = true;
+    //    }
+    //
+    //    void setStealthTokens() {
+    //        stealthTokensQty = 3;
+    //    };
+    void reveal();
 
 private:
     unsigned stealthTokensQty;
@@ -365,6 +366,7 @@ public:
     bool isCracked();
     void setCracked();
     void disableCracked();
+    void reveal();
 
     unsigned getDieQty() {
         return numberOfDice;

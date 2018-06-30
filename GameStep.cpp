@@ -145,7 +145,8 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
         {
             if (gameData->actions.hackCR == true)
             {
-                gamePointers->currentCharacter->setHackToken();
+
+                gamePointers->currentCharacter->setHackToken(gamePointers->currentCharacter->whereAmI());
             }
             break;
         }
@@ -229,40 +230,46 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
         {
             for (unsigned f = 0; f < FLOORS_QTY; f++)
             {
-                gamePointers->floors[f]->canIUseLaserHackToken();       //si hay laser room, avisa si hay hack tokens disponibles
+                if (gameData->selectedTile.tile->isTileVisible())
+                    if (gamePointers->floors[f]->canIUseMotionHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+                        gameData->actions.useHackToken = true;
             }
-            gameData->actions.useHackToken = true;
         }
         if (gameData->selectedTile.tile->getTileType() == MOTION)
         {
             for (unsigned f = 0; f < FLOORS_QTY; f++)
             {
-                gamePointers->floors[f]->canIUseMotionHackToken();       //si hay laser room, avisa si hay hack tokens disponibles
+                if (gameData->selectedTile.tile->isTileVisible())
+                    if (gamePointers->floors[f]->canIUseMotionHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+                        gameData->actions.useHackToken = true;
             }
-            gameData->actions.useHackToken = true;
         }
         if (gameData->selectedTile.tile->getTileType() == FINGERPRINT)
         {
             for (unsigned f = 0; f < FLOORS_QTY; f++)
             {
-                gamePointers->floors[f]->canIUseFingerprintHackToken();       //si hay laser room, avisa si hay hack tokens disponibles
+                if (gameData->selectedTile.tile->isTileVisible())
+                    if (gamePointers->floors[f]->canIUseMotionHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+                        gameData->actions.useHackToken = true;
             }
-            gameData->actions.useHackToken = true;
         }
         if (gameData->selectedTile.tile->getTileType() == CR_FINGERPRINT)
         {
-            if (!(dynamic_cast<CRFingerprint*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
-                gameData->actions.hackCR = true;
+            if (gameData->selectedTile.tile->isTileVisible())
+                if (!(dynamic_cast<CRFingerprint*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
+                    gameData->actions.hackCR = true;
         }
         if (gameData->selectedTile.tile->getTileType() == CR_LASER)
         {
-            if (!(dynamic_cast<CRLaser*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
-                gameData->actions.hackCR = true;
+            if (gameData->selectedTile.tile->isTileVisible())
+                if (!(dynamic_cast<CRLaser*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
+                    gameData->actions.hackCR = true;
         }
         if (gameData->selectedTile.tile->getTileType() == CR_MOTION)
         {
-            if (!(dynamic_cast<CRMotion*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
-                gameData->actions.hackCR = true;
+            if (gameData->selectedTile.tile->isTileVisible())
+                if (!(dynamic_cast<CRMotion*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
+                    gameData->actions.hackCR = true;
         }
     }
     else if (gameData->event == INVALID_TILE)
@@ -373,7 +380,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         {
             if (gameData->actions.hackCR == true)
             {
-                gamePointers->currentCharacter->setHackToken();
+                gamePointers->currentCharacter->setHackToken(gamePointers->currentCharacter->whereAmI());
                 enableActions(gameData, gamePointers);
             }
             break;

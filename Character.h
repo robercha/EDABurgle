@@ -29,8 +29,13 @@ public:
 
     void setInitialTile(Tile*);
 
-    void setHackToken() {
-        dynamic_cast<CRFingerprint*> (currentTile)->hack();
+    void setHackToken(tileType_t computerRoom) {
+        if (computerRoom == CR_FINGERPRINT)
+            dynamic_cast<CRFingerprint*> (currentTile)->hack();
+        else if (computerRoom == CR_MOTION)
+            dynamic_cast<CRMotion*> (currentTile)->hack();
+        else if (computerRoom == CR_LASER)
+            dynamic_cast<CRLaser*> (currentTile)->hack();
     }
 
     void useHackToken(tileType_t computerRoom) {
