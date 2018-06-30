@@ -55,6 +55,7 @@ void Model::initGameData(gameData_t* gameData)
     gameData->selectedTile.ownTile = false;
     gameData->selectedTile.serviceDuct = false;
     gameData->selectedTile.twoTilesAwayTile = false;
+    gameData->selectedTile.differentFloor = false;
 
 }
 

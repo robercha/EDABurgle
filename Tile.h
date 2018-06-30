@@ -212,7 +212,7 @@ struct tileInfo {
     Tile* tile;
     bool ownTile;
     bool hawkWall;
-    unsigned differentFloor;
+    bool differentFloor;
     bool adyacent;
     bool twoTilesAwayTile;
     bool serviceDuct;

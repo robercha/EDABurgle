@@ -72,7 +72,7 @@ void GameStep::drawLoot(gamePointers_t* gamePointers)
 
 void GameStep::checkFloorChange(gameData_t* gameData, gamePointers_t* gamePointers)
 {
-    unsigned currentFloor = getFloor(gamePointers->currentCharacter->getLocation());
+    //unsigned currentFloor = getFloor(gamePointers->currentCharacter->getLocation());
 
     if (gamePointers->currentCharacter->whereAmI() == STAIRS)
     {

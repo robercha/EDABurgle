@@ -613,6 +613,7 @@ bool Stairs::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
     {
         isTileValid = true;
         tileInfo->adyacent = true;
+        tileInfo->differentFloor = true;
     }
 
     return isTileValid;
