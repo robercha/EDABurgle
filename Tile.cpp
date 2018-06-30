@@ -236,6 +236,11 @@ bool Tile::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
     else
         tileInfo->adyacent = false;
 
+    if ((tileInfo->tile->getTileType() == LASER)
+            || (tileInfo->tile->getTileType() == FINGERPRINT)
+            || (tileInfo->tile->getTileType() == MOTION))
+        isTileValid = true;           //porque se pueden usar hack tokens para sacar alarmas de esas alarm tiles
+
     return isTileValid;
 
 }

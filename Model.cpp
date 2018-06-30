@@ -257,10 +257,6 @@ void Model::eventGenerator(gameData_t* gameData)
     {
         if (gamePointers->currentCharacter->canIUseThisTile((location_t) gameData->preEvent, &(gameData->selectedTile)))
             gameData->event = VALID_TILE;
-        else if ((gameData->selectedTile.tile->getTileType() == LASER)
-                || (gameData->selectedTile.tile->getTileType() == FINGERPRINT)
-                || (gameData->selectedTile.tile->getTileType() == MOTION))
-            gameData->event = VALID_TILE;           //porque se pueden usar hack tokens para sacar alarmas de esas alarm tiles
         else
             gameData->event = INVALID_TILE;
     }
