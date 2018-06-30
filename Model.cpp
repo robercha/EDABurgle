@@ -277,9 +277,6 @@ void Model::eventGenerator(gameData_t* gameData)
                 if (deck[i][j]->getCurrentLocation() == gameData->selectedTile.tile->getCurrentLocation())
                     tilex = deck[i][j];
 
-
-
-
         if (tilex->isPaidMove())
         {
             gameData->event = A_PAID_MOVE;

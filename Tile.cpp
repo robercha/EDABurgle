@@ -621,8 +621,8 @@ void Stairs::reveal()
         isVisible = true;
         unsigned number = ((rand_r(&seed) % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
         this->combinationNumber = number;
-        upstairsTile->setDownstairsToken(true);
     }
+    upstairsTile->setDownstairsToken(true);
 }
 
 void Safe::reveal()
