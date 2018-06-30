@@ -48,14 +48,10 @@ Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
 
     std::shuffle(tiles.begin(), tiles.end(), std::default_random_engine(seed));
 
-    unsigned row = 0;
-    unsigned col = 0;
-
-
-    for (row = 0; row < ROWS; row++)
+    for (unsigned row = 0; row < ROWS; row++)
     {
 
-        for (col = 0; col < COLS; col++)
+        for (unsigned col = 0; col < COLS; col++)
         {
             tiles[row][col]->setCurrentLocation((location_t) location);
             setAdjacentTiles(row, col);
@@ -64,11 +60,7 @@ Floor::Floor(std::vector<Tile*> &deck, unsigned floorNumber)
 
     }
 
-
     createWalls(floorNumber);
-
-
-
     createPatrolDeck();
 
     location_t startTile = patrolDeck.back();
@@ -442,7 +434,7 @@ bool Floor::canIUseLaserHackToken()
         for (unsigned j = 0; j < ROWS; j++)
         {
             if (this->tiles[i][j]->getTileType() == CR_LASER)
-                if (!dynamic_cast<CRLaser*> (this->tiles[i][j])->areHackTokensZero())    //si hay mas de cero hack tokens
+                if (!(dynamic_cast<CRLaser*> (this->tiles[i][j])->areHackTokensZero()))    //si hay mas de cero hack tokens
                     canUseHackToken = true;
         }
     }
@@ -457,7 +449,7 @@ bool Floor::canIUseFingerprintHackToken()
         for (unsigned j = 0; j < ROWS; j++)
         {
             if (this->tiles[i][j]->getTileType() == CR_FINGERPRINT)
-                if (!dynamic_cast<CRFingerprint*> (this->tiles[i][j])->areHackTokensZero())    //si hay mas de cero hack tokens
+                if (!(dynamic_cast<CRFingerprint*> (this->tiles[i][j])->areHackTokensZero()))    //si hay mas de cero hack tokens
                     canUseHackToken = true;
         }
     }
@@ -472,7 +464,7 @@ bool Floor::canIUseMotionHackToken()
         for (unsigned j = 0; j < ROWS; j++)
         {
             if (this->tiles[i][j]->getTileType() == CR_MOTION)
-                if (!dynamic_cast<CRMotion*> (this->tiles[i][j])->areHackTokensZero())    //si hay mas de cero hack tokens
+                if (!(dynamic_cast<CRMotion*> (this->tiles[i][j])->areHackTokensZero()))    //si hay mas de cero hack tokens
                     canUseHackToken = true;
         }
     }

@@ -23,6 +23,7 @@ Tile::Tile()
     kittyToken = false;
     openToken = false;
     goldBarToken = false;
+    downstairsToken = false;
 }
 
 Atrium::Atrium()
@@ -131,6 +132,7 @@ ServiceDuct::ServiceDuct()
 
 Stairs::Stairs()
 {
+    upstairsTile = NULL;
     tileType = STAIRS;
 }
 
@@ -288,23 +290,23 @@ bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 
     }
 
-    if (selectedFloor == currFloor + 1)
-    {
-        if (this->alarmTile == STAIRS && this->upperFloorTile != NULL)
-        {
-            tileInfo->tile = this->upperFloorTile;
-            isTileValid = true;
-        }
-    }
-
-    if (selectedFloor == currFloor - 1)
-    {
-        if (this->alarmTile == STAIRS && this->lowerFloorTile != NULL)
-        {
-            tileInfo->tile = this->lowerFloorTile;
-            isTileValid = true;
-        }
-    }
+    //    if (selectedFloor == currFloor + 1)
+    //    {
+    //        if (this->tileType == STAIRS && this->upperFloorTile != NULL)
+    //        {
+    //            tileInfo->tile = this->upperFloorTile;
+    //            isTileValid = true;
+    //        }
+    //    }
+    //
+    //    if (selectedFloor == currFloor - 1)
+    //    {
+    //        if (this->tileType == STAIRS && this->lowerFloorTile != NULL)
+    //        {
+    //            tileInfo->tile = this->lowerFloorTile;
+    //            isTileValid = true;
+    //        }
+    //    }
 
     return isTileValid;
 }
@@ -406,11 +408,6 @@ void Tile::reveal()
         unsigned number = ((rand_r(&seed) % 6) + 1);   //numero random entre 0 y 5, le sumo 1 para que sea entre 1 o 6
         this->combinationNumber = number;
     }
-}
-
-void Tile::setUpperLoorTile(Tile* tile)
-{
-    upperFloorTile = tile;
 }
 
 unsigned getColumn(location_t location)

@@ -20,6 +20,7 @@ private:
     void createTiles(std::vector<Tile*>&);
     void shuffleTiles(std::vector<Tile*>&);
     void createFloors(std::vector<Tile*>);
+    void setStairs();
     void createGuards();
     void createModelFSM();
     void createLoots();

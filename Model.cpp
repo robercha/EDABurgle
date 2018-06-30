@@ -16,10 +16,31 @@ Model::Model(gameData_t* gameData)
     this->gamePointers = new gamePointers_t;
 
     createFloors(deck);
+    setStairs();
     createModelFSM();
     createLoots();
     createCharacters();
 
+}
+
+void Model::setStairs()
+{
+    std::vector< std::vector<Tile*> > deckF1 = gamePointers->floors[0]->getDeck();
+    std::vector< std::vector<Tile*> > deckF2 = gamePointers->floors[1]->getDeck();
+    std::vector< std::vector<Tile*> > deckF3 = gamePointers->floors[2]->getDeck();
+    for (unsigned i = 0; i < ROWS; i++)
+        for (unsigned j = 0; j < COLS; j++)
+        {
+            if (deckF1[i][j]->getTileType() == STAIRS)
+                dynamic_cast<Stairs*> (deckF1[i][j])->setUpstairsTile(deckF2[i][j]);
+            if (deckF2[i][j]->getTileType() == STAIRS)
+            {
+                dynamic_cast<Stairs*> (deckF2[i][j])->setUpstairsTile(deckF3[i][j]);
+                dynamic_cast<Stairs*> (deckF2[i][j])->setDownstairsTile(deckF1[i][j]);
+            }
+            if (deckF3[i][j]->getTileType() == STAIRS)
+                dynamic_cast<Stairs*> (deckF3[i][j])->setDownstairsTile(deckF2[i][j]);
+        }
 }
 
 Model::~Model()
@@ -29,7 +50,7 @@ Model::~Model()
         delete gamePointers->floors[i];
 }
 
-void Model::initGameData(gameData_t* gameData)
+void Model::initGameData(gameData_t * gameData)
 {
     gameData->actions.acceptDecline = false;
     gameData->actions.addDice = false;
@@ -219,7 +240,7 @@ void Model::createModelFSM()
     this->currentAction = idle;
 }
 
-bool Model::analyzeAction(gameData_t* gameData)
+bool Model::analyzeAction(gameData_t * gameData)
 {
     bool noActions = false;
 
@@ -246,7 +267,7 @@ bool Model::analyzeAction(gameData_t* gameData)
     return noActions;
 }
 
-void Model::eventGenerator(gameData_t* gameData)
+void Model::eventGenerator(gameData_t * gameData)
 {
     if (gameWon)
         gameData->event = WIN;
@@ -346,7 +367,7 @@ bool Model::isGameWon()
 
 }
 
-void Model::initGraphicsData(View* view, gameData_t* gameData)
+void Model::initGraphicsData(View* view, gameData_t * gameData)
 {
     fillGraphicsData(view, gameData);
 
@@ -363,7 +384,7 @@ void Model::initGraphicsData(View* view, gameData_t* gameData)
     view->graphicsData->message = "Hi there bosss. Ready to rob the s*** outta this bank.";
 }
 
-void Model::fillGraphicsData(View* view, gameData_t* gameData)
+void Model::fillGraphicsData(View* view, gameData_t * gameData)
 {
 
     view->graphicsData->gameLost = isGameLost();

@@ -85,7 +85,6 @@ public:
     bool checkDurlock(location_t selectedTile); //devuelve true cuando hay una pared entre currentTile y selectedTile
     bool isTileTwoTilesAway(location_t location);
     void setJuicerAlarm(); //alarma que puede poner el juicer en tiles
-    void setUpperLoorTile(Tile* tile);
     bool isGoldBar();
 
     Tile* getRightTile();
@@ -402,8 +401,18 @@ public:
     Stairs();
     bool isTileValid(location_t, tileInfo_t*);
     void reveal();
+
+    void setUpstairsTile(Tile* tile) {
+        this->upstairsTile = tile;
+    }
+
+    void setDownstairsTile(Tile* tile) {
+        this->downstairsTile = tile;
+    }
+
 private:
     Tile* upstairsTile;
+    Tile* downstairsTile;
 } ;
 
 class Thermo : public Tile {

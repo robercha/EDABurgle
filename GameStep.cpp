@@ -72,16 +72,17 @@ void GameStep::drawLoot(gamePointers_t* gamePointers)
 
 void GameStep::checkFloorChange(gameData_t* gameData, gamePointers_t* gamePointers)
 {
-    //unsigned currentFloor = getFloor(gamePointers->currentCharacter->getLocation());
-
     if (gamePointers->currentCharacter->whereAmI() == STAIRS)
     {
         if (gameData->selectedTile.differentFloor)
         {
+            unsigned currentFloorP1 = getFloor(gamePointers->characters[0]->getLocation());
+            unsigned currentFloorP2 = getFloor(gamePointers->characters[1]->getLocation());
             unsigned newFloor = getFloor(gameData->selectedTile.tile->getCurrentLocation());
-            if (gamePointers->floors[newFloor]->isGuardActive());
-            else
-                gamePointers->floors[newFloor]->toggleGuard();
+            if (!gamePointers->floors[newFloor]->isGuardActive())
+                gamePointers->floors[newFloor]->toggleGuard();      //enableo el guardia del nuevo piso
+            if (currentFloorP1 != currentFloorP2)  //si no estan los dos en el mismo piso, desactivo al guardia del piso viejo
+                (gamePointers->currentCharacter == gamePointers->characters[0]) ?  gamePointers->floors[currentFloorP1]->toggleGuard() : gamePointers->floors[currentFloorP2]->toggleGuard();
         }
     }
 }
@@ -230,54 +231,54 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
         {
             gameData->actions.placeCrowToken = true;
         }
-        if (gameData->selectedTile.tile->getTileType() == LASER)
-        {
-            for (unsigned f = 0; f < FLOORS_QTY; f++)
-            {
-                if (gameData->selectedTile.tile->isTileVisible())
-                    if (gameData->selectedTile.tile->isAlarmOn())
-                        if (gamePointers->floors[f]->canIUseLaserHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
-                            gameData->actions.useHackToken = true;
-            }
-        }
-        if (gameData->selectedTile.tile->getTileType() == MOTION)
-        {
-            for (unsigned f = 0; f < FLOORS_QTY; f++)
-            {
-                if (gameData->selectedTile.tile->isTileVisible())
-                    if (gameData->selectedTile.tile->isAlarmOn())
-                        if (gamePointers->floors[f]->canIUseMotionHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
-                            gameData->actions.useHackToken = true;
-            }
-        }
-        if (gameData->selectedTile.tile->getTileType() == FINGERPRINT)
-        {
-            for (unsigned f = 0; f < FLOORS_QTY; f++)
-            {
-                if (gameData->selectedTile.tile->isTileVisible())
-                    if (gameData->selectedTile.tile->isAlarmOn())
-                        if (gamePointers->floors[f]->canIUseFingerprintHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
-                            gameData->actions.useHackToken = true;
-            }
-        }
-        if ((gameData->selectedTile.tile->getTileType() == CR_FINGERPRINT) && gameData->selectedTile.ownTile)
-        {
-            if (gameData->selectedTile.tile->isTileVisible())
-                if (!(dynamic_cast<CRFingerprint*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
-                    gameData->actions.hackCR = true;
-        }
-        if ((gameData->selectedTile.tile->getTileType() == CR_LASER) && gameData->selectedTile.ownTile)
-        {
-            if (gameData->selectedTile.tile->isTileVisible())
-                if (!(dynamic_cast<CRLaser*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
-                    gameData->actions.hackCR = true;
-        }
-        if ((gameData->selectedTile.tile->getTileType() == CR_MOTION) && gameData->selectedTile.ownTile)
-        {
-            if (gameData->selectedTile.tile->isTileVisible())
-                if (!(dynamic_cast<CRMotion*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
-                    gameData->actions.hackCR = true;
-        }
+        //        if (gameData->selectedTile.tile->getTileType() == LASER)
+        //        {
+        //            for (unsigned f = 0; f < FLOORS_QTY; f++)
+        //            {
+        //                if (gameData->selectedTile.tile->isTileVisible())
+        //                    if (gameData->selectedTile.tile->isAlarmOn())
+        //                        if (gamePointers->floors[f]->canIUseLaserHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+        //                            gameData->actions.useHackToken = true;
+        //            }
+        //        }
+        //        if (gameData->selectedTile.tile->getTileType() == MOTION)
+        //        {
+        //            for (unsigned f = 0; f < FLOORS_QTY; f++)
+        //            {
+        //                if (gameData->selectedTile.tile->isTileVisible())
+        //                    if (gameData->selectedTile.tile->isAlarmOn())
+        //                        if (gamePointers->floors[f]->canIUseMotionHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+        //                            gameData->actions.useHackToken = true;
+        //            }
+        //        }
+        //        if (gameData->selectedTile.tile->getTileType() == FINGERPRINT)
+        //        {
+        //            for (unsigned f = 0; f < FLOORS_QTY; f++)
+        //            {
+        //                if (gameData->selectedTile.tile->isTileVisible())
+        //                    if (gameData->selectedTile.tile->isAlarmOn())
+        //                        if (gamePointers->floors[f]->canIUseFingerprintHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+        //                            gameData->actions.useHackToken = true;
+        //            }
+        //        }
+        //        if ((gameData->selectedTile.tile->getTileType() == CR_FINGERPRINT) && gameData->selectedTile.ownTile)
+        //        {
+        //            if (gameData->selectedTile.tile->isTileVisible())
+        //                if (!(dynamic_cast<CRFingerprint*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
+        //                    gameData->actions.hackCR = true;
+        //        }
+        //        if ((gameData->selectedTile.tile->getTileType() == CR_LASER) && gameData->selectedTile.ownTile)
+        //        {
+        //            if (gameData->selectedTile.tile->isTileVisible())
+        //                if (!(dynamic_cast<CRLaser*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
+        //                    gameData->actions.hackCR = true;
+        //        }
+        //        if ((gameData->selectedTile.tile->getTileType() == CR_MOTION) && gameData->selectedTile.ownTile)
+        //        {
+        //            if (gameData->selectedTile.tile->isTileVisible())
+        //                if (!(dynamic_cast<CRMotion*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
+        //                    gameData->actions.hackCR = true;
+        //        }
     }
     else if (gameData->event == INVALID_TILE)
     {
@@ -307,7 +308,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
     {
         case VALID_TILE:
         {
-            //aca no hay que hacer wnable actions para que no hagan toggle
+            enableActions(gameData, gamePointers);
             break;
         }
         case INVALID_TILE:
@@ -317,9 +318,9 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         }
         case A_FREE_MOVE:
         {
-            checkFloorChange(gameData, gamePointers);
             if (gameData->actions.move == true)
             {
+                checkFloorChange(gameData, gamePointers);
                 gamePointers->currentCharacter->move(gameData->selectedTile.tile);
                 enterRoom(gameData, gamePointers);     //consecuencias cuando se mueve a una tile
             }
@@ -467,7 +468,7 @@ void WaitingFirstAction::enableActions(gameData_t* gameData, gamePointers_t* gam
         gameData->actions.spyPatrolDeck = false;
         gameData->actions.useHackToken = false;
     }
-    if (gameData->event == A_FREE_MOVE || gameData->event == A_PEEK || gameData->event == A_PASS || gameData->event == VALID_TILE || gameData->event == INVALID_TILE ) //No se si falta aguna mas habria que agregar eventos para hacerle reset
+    if (gameData->event == A_FREE_MOVE || gameData->event == A_PEEK || gameData->event == A_PASS/* || gameData->event == VALID_TILE */ || gameData->event == INVALID_TILE ) //No se si falta aguna mas habria que agregar eventos para hacerle reset
     {
         gameData->actions.pass = true;
         gameData->actions.move = false;
@@ -493,15 +494,21 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
     switch (gameData->event)
     {
         case ACCEPT:
+        {
             checkFloorChange(gameData, gamePointers);
             gamePointers->currentCharacter->move(gameData->selectedTile.tile);
             enableActions(gameData, gamePointers);
             break;
+        }
         case DECLINE:
+        {
             enableActions(gameData, gamePointers);
             break;
-
-        default: break;
+        }
+        default:
+        {
+            break;
+        }
     }
 }
 
