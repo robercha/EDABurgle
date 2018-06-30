@@ -236,7 +236,7 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
             {
                 if (gameData->selectedTile.tile->isTileVisible())
                     if (gameData->selectedTile.tile->isAlarmOn())
-                        if (gamePointers->floors[f]->canIUseMotionHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+                        if (gamePointers->floors[f]->canIUseLaserHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
                             gameData->actions.useHackToken = true;
             }
         }
@@ -256,7 +256,7 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
             {
                 if (gameData->selectedTile.tile->isTileVisible())
                     if (gameData->selectedTile.tile->isAlarmOn())
-                        if (gamePointers->floors[f]->canIUseMotionHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+                        if (gamePointers->floors[f]->canIUseFingerprintHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
                             gameData->actions.useHackToken = true;
             }
         }
@@ -307,7 +307,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
     {
         case VALID_TILE:
         {
-            enableActions(gameData, gamePointers);      //pone en negrito las opciones posibles;
+            //aca no hay que hacer wnable actions para que no hagan toggle
             break;
         }
         case INVALID_TILE:

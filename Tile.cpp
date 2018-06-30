@@ -609,7 +609,7 @@ bool Stairs::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
         isTileValid = true;
         tileInfo->adyacent = true;
     }
-    else if (selectedTile == (currentLocation + 16))
+    else if ((selectedTile == (currentLocation + 16)) || (selectedTile == (currentLocation - 16)))
     {
         isTileValid = true;
         tileInfo->adyacent = true;

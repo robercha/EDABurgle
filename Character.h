@@ -29,6 +29,11 @@ public:
 
     void setInitialTile(Tile*);
 
+    void decreaseActions() {
+        if (actions > 0)
+            actions--;
+    }
+
     void setHackToken(tileType_t computerRoom) {
         if (computerRoom == CR_FINGERPRINT)
             dynamic_cast<CRFingerprint*> (currentTile)->hack();
@@ -36,6 +41,7 @@ public:
             dynamic_cast<CRMotion*> (currentTile)->hack();
         else if (computerRoom == CR_LASER)
             dynamic_cast<CRLaser*> (currentTile)->hack();
+        decreaseActions();
     }
 
     void useHackToken(tileType_t computerRoom) {
@@ -45,11 +51,7 @@ public:
             dynamic_cast<CRMotion*> (currentTile)->useHackToken();
         else if (computerRoom == CR_LASER)
             dynamic_cast<CRLaser*> (currentTile)->useHackToken();
-    }
-
-    void decreaseActions() {
-        if (actions > 0)
-            actions--;
+        decreaseActions();
     }
 
     void decreaseStealth() {
