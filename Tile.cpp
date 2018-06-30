@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <fenv.h>
 
 #include "Tile.h"
 #include "View.h"
@@ -13,6 +14,7 @@ Tile::Tile()
     lowerFloorTile = NULL;
     alarmTile = false;
     mustSpendActions = false;
+    feeToEnter = 0;
     alarmToken = false;
     isVisible = false;
     combinationNumber = 0;
@@ -57,6 +59,7 @@ Deadbolt::Deadbolt()
 {
     tileType = DEADBOLT;
     mustSpendActions = true;
+    feeToEnter = 3;
 }
 
 Detector::Detector()
@@ -93,6 +96,7 @@ Laser::Laser()
     tileType = LASER;
     alarmTile = true;
     mustSpendActions = true;
+    feeToEnter = 2;
 }
 
 Lavatory::Lavatory()
@@ -277,6 +281,24 @@ bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
                 isTileValid = false;
         }
 
+    }
+    
+    if (selectedFloor == currFloor+1)
+    {
+        if(this->alarmTile == STAIRS && this->upperFloorTile != NULL)
+        {
+            tileInfo->tile = this->upperFloorTile;
+            isTileValid = true;
+        }   
+    }
+    
+    if (selectedFloor == currFloor-1)
+    {
+        if(this->alarmTile == STAIRS && this->lowerFloorTile != NULL)
+        {
+            tileInfo->tile = this->lowerFloorTile;
+            isTileValid = true;
+        }   
     }
 
     return isTileValid;

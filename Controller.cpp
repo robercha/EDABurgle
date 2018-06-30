@@ -78,7 +78,9 @@ Controller::~Controller()
 void
 Controller::manageEvent(void)
 {
+    
     user->getEvent(userData);
+    
     
     //userData->buttonClicked = (unsigned) (button_t::A1F1); //solo para debugging
         

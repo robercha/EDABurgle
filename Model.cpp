@@ -234,6 +234,11 @@ bool Model::analyzeAction(gameData_t* gameData)
 
         noActions = true;
     }
+    
+    for(unsigned i = 0; i < 2 ; i++)
+        if(gamePointers->characters[i]->isDead())
+            gameData->message = "Oops, someone caught us. Someone save poor Pepe!";
+            
     //    if (currentAction->getState() == IDLE)
     //        dynamic_cast <Idle*> (currentAction)->enableActions(gameData, gamePointers);
 
@@ -261,23 +266,20 @@ void Model::eventGenerator(gameData_t* gameData)
     else if (gameData->preEvent == button_t::MOVE)
     {
         std::vector< std::vector<Tile*> > deck = gamePointers->floors[getFloor(gameData->selectedTile.tile->getCurrentLocation())]->getDeck();
-        std::vector< std::vector<Tile*> >::iterator row;
-        std::vector<Tile*>::iterator col;
+        Tile* tilex;
+        
+        for(unsigned i = 0; i<ROWS; i++)
+            for(unsigned j = 0; j<COLS; j++)
+                if(deck[i][j]->getCurrentLocation()==gameData->selectedTile.tile->getCurrentLocation())
+                    tilex = deck[i][j];
+        
+        
 
-        row = deck.begin();
-        col = row->begin();
 
-        for (row = deck.begin(); row != deck.end() ; row++)
+        if (tilex->isPaidMove())
         {
-            for (col = row->begin(); ((*col)->getCurrentLocation() == gameData->selectedTile.tile->getCurrentLocation()) &&
-                    col != row->end(); col++);
-
-            if ((*col)->getCurrentLocation() == gameData->selectedTile.tile->getCurrentLocation())
-                break;
-        }
-
-        if ((*col)->isPaidMove())
             gameData->event = A_PAID_MOVE;
+        }
         else
             gameData->event = A_FREE_MOVE;
     }
@@ -334,7 +336,11 @@ void Model::eventGenerator(gameData_t* gameData)
 
 bool Model::isGameLost()
 {
-
+    bool isGameLost = false;
+    for(unsigned i = 0; i<2; i++)
+        if(gamePointers->characters[i]->isDead())
+            isGameLost = true;
+    return isGameLost;
 }
 
 bool Model::isGameWon()
