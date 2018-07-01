@@ -229,18 +229,13 @@ View::~View()
 void
 View::updateGraphics()
 {
-    if ((!graphicsData->gameLost) && (!graphicsData->gameWon))
-    {
-        drawGame();
-    }
-    else if (graphicsData->gameLost)
-    {
+    if (graphicsData->gameLost)
         drawForfeit();
-    }
     else if (graphicsData->gameWon)
-    {
         drawVictory();
-    }
+    else
+        drawGame();
+
     al_flip_display();
 
 }
@@ -1015,7 +1010,7 @@ View::writeMessages()           //mensajes del chat
     al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 6 * x1, y1, ALLEGRO_ALIGN_LEFT, "%s", graphicsData->message.c_str());
 }
 
-ALLEGRO_BITMAP*
+ALLEGRO_BITMAP *
 View::loadCharacter(characterV_t c, bool shrink) //Cargo bitmaps, si shrink=true, se cargan en tamaño chico, si no, en grande
 {
     ALLEGRO_BITMAP* bitmap = NULL;
@@ -1080,7 +1075,7 @@ View::loadCharacter(characterV_t c, bool shrink) //Cargo bitmaps, si shrink=true
 
 }
 
-ALLEGRO_BITMAP*
+ALLEGRO_BITMAP *
 View::loadLoot(lootV_t l, bool shrink)      //Cargo bitmaps, si shrink=true, se cargan en tamaño chico, si no, en grande
 {
     ALLEGRO_BITMAP* bitmap = NULL;
@@ -1172,7 +1167,7 @@ View::loadLoot(lootV_t l, bool shrink)      //Cargo bitmaps, si shrink=true, se 
     return bitmap;
 }
 
-ALLEGRO_BITMAP*
+ALLEGRO_BITMAP *
 View::loadToken(tokenV_t t, bool shrink)        //Cargo bitmaps, si shrink=true, se cargan en tamaño chico, si no, en grande
 {
     ALLEGRO_BITMAP* bitmap = NULL;
@@ -1239,7 +1234,7 @@ View::loadToken(tokenV_t t, bool shrink)        //Cargo bitmaps, si shrink=true,
     return bitmap;
 }
 
-ALLEGRO_BITMAP*
+ALLEGRO_BITMAP *
 View::loadRoom(roomV_t r, bool shrink)      //Cargo bitmaps, si shrink=true, se cargan en tamaño chico, si no, en grande
 {
     ALLEGRO_BITMAP* bitmap = NULL;
@@ -1397,7 +1392,7 @@ View::loadRoom(roomV_t r, bool shrink)      //Cargo bitmaps, si shrink=true, se 
 
 }
 
-ALLEGRO_BITMAP*
+ALLEGRO_BITMAP *
 View::loadPatrolCard(patrolV_t p)       //Cargo bitmaps
 {
     ALLEGRO_BITMAP* bitmap = NULL;
@@ -1475,7 +1470,7 @@ View::loadPatrolCard(patrolV_t p)       //Cargo bitmaps
     return bitmap;
 }
 
-ALLEGRO_BITMAP*
+ALLEGRO_BITMAP *
 View::loadGuardDie(unsigned number)     //Cargo bitmaps
 {
     ALLEGRO_BITMAP* bitmap = NULL;
@@ -1509,7 +1504,7 @@ View::loadGuardDie(unsigned number)     //Cargo bitmaps
     return bitmap;
 }
 
-ALLEGRO_BITMAP*
+ALLEGRO_BITMAP *
 View::loadSafeDie(unsigned number)      //Cargo bitmaps
 {
     ALLEGRO_BITMAP* bitmap = NULL;
@@ -1543,7 +1538,7 @@ View::loadSafeDie(unsigned number)      //Cargo bitmaps
     return bitmap;
 }
 
-ALLEGRO_BITMAP*
+ALLEGRO_BITMAP *
 View::loadSafeNumber(unsigned s, bool shrink)       //Cargo bitmaps, si shrink=true, se cargan en tamaño chico, si no, en grande
 {
 

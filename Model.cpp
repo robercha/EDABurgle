@@ -396,8 +396,8 @@ void Model::initGraphicsData(View* view, gameData_t * gameData)
 void Model::fillGraphicsData(View* view, gameData_t * gameData)
 {
 
-    view->graphicsData->gameLost = isGameLost();
-    view->graphicsData->gameWon = isGameWon();
+    view->graphicsData->gameLost = gameLost;
+    view->graphicsData->gameWon = gameWon;
     view->graphicsData->currentCardSelected = gameData->preEvent;
     view->graphicsData->message = gameData->message;
     if (gamePointers->characters[0]->getName() == gamePointers->currentCharacter->getName())
