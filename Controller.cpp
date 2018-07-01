@@ -7,18 +7,18 @@ Controller::Controller(char* ip)
     this->gameData = new gameData_t;
     this->model = new Model(gameData);
     this->userData = new userData_t;
-    
+
     this->view->graphicsData = new graphicsData_t;
     this->userData->buttonClicked = (unsigned) button_t::NO_BUTTON;
 
     this->user = new userInterface(getDisplay());
     this->copyButtons();
     this->networkingMode = false;
-    
+
     model->initGraphicsData(view, gameData);
-   
+
     view->updateGraphics();
-    
+
 
 }
 
@@ -78,14 +78,11 @@ Controller::~Controller()
 void
 Controller::manageEvent(void)
 {
-    
+
     user->getEvent(userData);
-    
-    
-    //userData->buttonClicked = (unsigned) (button_t::A1F1); //solo para debugging
-        
+
     translateUserData(); //convierte button_t a modelEvent_t que son los de model FSM
-         
+
     if ((userData->buttonClicked != (unsigned) (button_t::NO_BUTTON)) &&
             (userData->buttonClicked != (unsigned) button_t::HOME_EXIT))
     {
@@ -98,7 +95,7 @@ Controller::manageEvent(void)
     //    networking->getEvent(userData);
     //    translatePackage();
     //    FSMCycle(userData->event, gameData);
-    if(gameData->preEvent != button_t::NO_BUTTON)
+    if (gameData->preEvent != button_t::NO_BUTTON)
     {
         model->fillGraphicsData(view, gameData);
         view->updateGraphics();

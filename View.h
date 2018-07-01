@@ -185,6 +185,10 @@ private:
     ALLEGRO_BITMAP* loadSafeDie(unsigned);
     ALLEGRO_BITMAP* loadSafeNumber(unsigned s, bool shrink);
 
+    void drawGame();
+    void drawForfeit();
+    void drawVictory();
+    void writeCredits();
     void writeTitle();
     void drawChatDividers();
     void drawBoard();
@@ -208,6 +212,7 @@ private:
     void writeSelectedTileInfo();
     void drawLootSelectedInfo();
     void writeActions();
+    void writePlayAgainActions();
     void writeMessages();
     void drawHorizontalWall(unsigned floor, unsigned row, unsigned col);        //floor =(1,2,3);row=(1,2,3,4);col=(1,2,3,4)
     void drawVerticalWall(unsigned floor, unsigned row, unsigned col);          //floor =(1,2,3);row=(1,2,3,4);col=(1,2,3,4)

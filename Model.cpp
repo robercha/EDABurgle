@@ -8,6 +8,8 @@
 
 Model::Model(gameData_t* gameData)
 {
+    this->gameLost = false;
+    this->gameWon = false;
     initGameData(gameData);
     std::vector<Tile*> deck;
     createTiles(deck);
@@ -345,11 +347,18 @@ void Model::eventGenerator(gameData_t * gameData)
     else if (gameData->preEvent == button_t::DECLINE)
         gameData->event = DECLINE;
 
+    else if ( gameData->preEvent == button_t::PLAY_AGAIN_YES)
+        gameData->event = ACCEPT;
+
+    else if ( gameData->preEvent == button_t::PLAY_AGAIN_NO)
+        gameData->event = DECLINE;
+
     else if (gameData->preEvent == button_t::LOOTF1 || gameData->preEvent == button_t::LOOTF2 || gameData->preEvent == button_t::LOOTF3)
         gameData->event = A_LOOT;
 
     else if (gameData->preEvent == button_t::PATROL_DECK_1 || gameData->preEvent == button_t::PATROL_DECK_2 || gameData->preEvent == button_t::PATROL_DECK_3)
         gameData->event = A_PATROL_CARD;
+
 
 }
 

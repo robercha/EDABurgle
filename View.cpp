@@ -1,5 +1,4 @@
 #include "View.h"
-#include "Character.h"
 #include <string>
 
 void drawVerticalWall(unsigned floor, unsigned row, unsigned col);
@@ -14,7 +13,7 @@ void drawHorizontalWall(unsigned floor, unsigned row, unsigned col); //floor =(1
 #define TOKENS_BIG_SIZE             22
 #define PATROL_CARD_SIZE            60
 #define LOOT_CARD_SIZE              60
-#define TOKENS_SMALL_SIZE           17   //capaz no hace falta
+#define TOKENS_SMALL_SIZE           17
 
 #define SPACE_LEFT_MARGIN           20
 #define SPACE_UP_MARGIN             23
@@ -227,32 +226,26 @@ View::~View()
 
 }
 
-unsigned
-View::getButtonX(unsigned i)        //Devuelve posicion en x del boton
-{
-    return buttons[i].x;
-}
-
-unsigned
-View::getButtonY(unsigned i)        //Devuelve posicion en y del boton
-{
-    return buttons[i].y;
-}
-
-unsigned
-View::getButtonW(unsigned i)        //Devuelve ancho del boton
-{
-    return buttons[i].width;
-}
-
-unsigned
-View::getButtonH(unsigned i)        //Devuelve alto del boton
-{
-    return buttons[i].height;
-}
-
 void
 View::updateGraphics()
+{
+    if ((!graphicsData->gameLost) && (!graphicsData->gameWon))
+    {
+        drawGame();
+    }
+    else if (graphicsData->gameLost)
+    {
+        drawForfeit();
+    }
+    else if (graphicsData->gameWon)
+    {
+        drawVictory();
+    }
+    al_flip_display();
+
+}
+
+void View::drawGame()
 {
     drawBackground();       //"Pepe & Co. HQ" y el fondo
     writeTitle();
@@ -262,20 +255,63 @@ View::updateGraphics()
 
     writeActions();         //dibujo botones de acciones
     writeMessages();        //mensajes del chat
+}
 
-    //pruebo botones
-    //    for (unsigned i = 0; i < (int) button_t::BUTTON_COUNT; i++)
-    //    {
-    //        al_draw_rectangle(buttons[i].x, buttons[i].y, buttons[i].x + buttons[i].width, buttons[i].y + buttons[i].height, al_map_rgb(0, 0, 0), 1);
-    //    }
+void View::drawForfeit()
+{
+    ALLEGRO_BITMAP* sadPepe = al_load_bitmap("images/sadpepe.png");
+    al_draw_bitmap(sadPepe, 0,  DISPLAYH - al_get_bitmap_height(sadPepe), 0);
+    ALLEGRO_BITMAP* bubble = al_load_bitmap("images/bubble.png");
+    al_draw_bitmap(bubble, 325, DISPLAYH - al_get_bitmap_height(sadPepe) - al_get_bitmap_height(bubble) - 10, 0);
 
-    al_flip_display();
+    al_draw_text(textFont, al_map_rgb(0, 0, 0), 330 + al_get_bitmap_width(bubble) / 2 , DISPLAYH - al_get_bitmap_height(sadPepe) - al_get_bitmap_height(bubble) / 2 - 35, ALLEGRO_ALIGN_CENTRE, "Did we lose the game?");
+    al_draw_text(textFont, al_map_rgb(0, 0, 0), 330 + al_get_bitmap_width(bubble) / 2 , DISPLAYH - al_get_bitmap_height(sadPepe) - al_get_bitmap_height(bubble) / 2 - 15, ALLEGRO_ALIGN_CENTRE, "... or did we lose ourselves?");
+    al_destroy_bitmap(bubble);
+    al_destroy_bitmap(sadPepe);
+    writeCredits();
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *18, ALLEGRO_ALIGN_RIGHT, "ACTIONS");
+    writePlayAgainActions();
+}
 
+void View::drawVictory()
+{
+    ALLEGRO_BITMAP* happyPepe = al_load_bitmap("images/pepe4thewin.png");
+    al_draw_bitmap(happyPepe, 0, DISPLAYH - al_get_bitmap_height(happyPepe), 0);
+    ALLEGRO_BITMAP* bubble = al_load_bitmap("images/bubble.png");
+    al_draw_bitmap(bubble, 325, DISPLAYH - al_get_bitmap_height(happyPepe) - al_get_bitmap_height(bubble) / 2, 0);
+
+    al_draw_text(textFont, al_map_rgb(0, 0, 0), 337 + al_get_bitmap_width(bubble) / 2 , DISPLAYH - al_get_bitmap_height(happyPepe) + al_get_bitmap_height(bubble) / 2 - 110, ALLEGRO_ALIGN_CENTRE, "It's finally over!");
+    al_draw_text(textFont, al_map_rgb(0, 0, 0), 335 + al_get_bitmap_width(bubble) / 2 , DISPLAYH - al_get_bitmap_height(happyPepe) + al_get_bitmap_height(bubble) / 2 - 90, ALLEGRO_ALIGN_CENTRE, "The evil has been defeated!");
+    //al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), 330 + al_get_bitmap_width(bubble) / 2 , DISPLAYH - al_get_bitmap_height(happyPepe) + al_get_bitmap_height(bubble) / 2 - 55, ALLEGRO_ALIGN_CENTRE, "... or has it?");
+    al_destroy_bitmap(bubble);
+    al_destroy_bitmap(happyPepe);
+    writeCredits();
+    al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) *18, ALLEGRO_ALIGN_RIGHT, "ACTIONS");
+    writePlayAgainActions();
+}
+
+void View::writeCredits()
+{
+    unsigned x = 900;
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 10, ALLEGRO_ALIGN_CENTRE, "CREDITS");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 90, ALLEGRO_ALIGN_CENTRE, "In Memory of Bauti");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 115, ALLEGRO_ALIGN_CENTRE, "(he's not dead, we just miss him)");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 100 + 100, ALLEGRO_ALIGN_CENTRE, "This game was created by LuciferTheLightOfOurLives&Co.");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 100 + 100 + 30, ALLEGRO_ALIGN_CENTRE, "All rights reserved.");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 100 + 70 + 100, ALLEGRO_ALIGN_CENTRE, "We'd like to thank our friends and family, and Pepe, always en el cora.");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 100 + 100 + 100, ALLEGRO_ALIGN_CENTRE, "We can't stress this enough. Pepe always en el cora.");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 100 + 130 + 100, ALLEGRO_ALIGN_CENTRE, "We mean it Pepe, if you are out there somewhere. En el cora.");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 100 + 180 + 100, ALLEGRO_ALIGN_CENTRE, "The members of this amazing crew are:");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 100 + 210 + 100, ALLEGRO_ALIGN_CENTRE, "Benjamín Carlos Lin");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 100 + 235 + 100, ALLEGRO_ALIGN_CENTRE, "Roberto Santiago Chá");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 100 + 260 + 100, ALLEGRO_ALIGN_CENTRE, "Ignacio Grayeb");
+    al_draw_text(this->textFont, al_map_rgb(0, 157, 79), x, 100 + 285 + 100, ALLEGRO_ALIGN_CENTRE, "Lucero Guadalupe Fernandez");
 }
 
 void
 View::drawBoard()
 {
+
     drawCharactersInfo();       //informacion que se muestra arriba de los personajes, como sus vidas
     drawFloors();               //tablero
 }
@@ -283,6 +319,7 @@ View::drawBoard()
 void
 View::drawFloors()
 {
+
     drawTiles();                //dibuja las cartas
     drawWalls();                //dibuja paredes
 
@@ -294,7 +331,7 @@ View::drawFloors()
     drawCharacters();           //dibuja los characters en el tablero
     drawGuardDice();            //el dado del guardia
     drawGuards();               //dibuja a los guardias en cada piso
-    drawTokensOnTiles(); //ver bien
+    drawTokensOnTiles();
 }
 
 void
@@ -318,7 +355,6 @@ View::drawCardInfo()
     }
     else
         showNoCardSelected();                                           //muestra que no se selecciono ningun loot/room
-    return;
 }
 
 bool
@@ -327,6 +363,7 @@ View::isCardSelectedLoot(button_t button)           //chequea que se haya tocado
     bool isLoot = false;
     if (button == button_t::LOOTF1 || button == button_t::LOOTF2 || button == button_t::LOOTF3)
         isLoot = true;
+
     return isLoot;
 }
 
@@ -336,6 +373,7 @@ View::isCardSelectedTile(button_t button)           //chequea que se haya tocado
     bool isTile = false;
     if ((int) button <= (int) button_t::D4F3)
         isTile = true;
+
     return isTile;
 }
 
@@ -343,14 +381,12 @@ void
 View::drawBackground()                              //dibujo fondo
 {
     al_draw_bitmap(this->background, 0, 0, 0);
-    return;
 }
 
 void
 View::writeTitle()                          //escribo el titulo
 {
     al_draw_text(titleFont, al_map_rgb(0, 0, 0), 530, 0, ALLEGRO_ALIGN_CENTER, "Pepe&Co. HQ");
-    return;
 }
 
 void
@@ -358,7 +394,6 @@ View::drawChatDividers()                    //lineas que dividen el tablero del 
 {
     al_draw_line(1050, 0, 1050, 550, al_map_rgb(0, 0, 0), 1);
     al_draw_line(0, 550, 1050, 550, al_map_rgb(0, 0, 0), 1);
-    return;
 }
 
 void
@@ -372,7 +407,7 @@ View::drawCharactersInfo()
             al_draw_rectangle(25 + TILE_SIZE + SPACE_TILE + player * 790, 95 - (al_get_bitmap_height(playerBitmap)), 25 + TILE_SIZE + SPACE_TILE + player * 790 + al_get_bitmap_width(playerBitmap), 95 , al_map_rgb(0, 157, 79), 2);
         al_destroy_bitmap(playerBitmap);
 
-        ALLEGRO_BITMAP* stealthBitmap = loadToken(tokenV_t::V_STEALTHTOKEN, false);            //dibujo la cantidad de stealth tokens que tiene el character
+        ALLEGRO_BITMAP * stealthBitmap = loadToken(tokenV_t::V_STEALTHTOKEN, false);            //dibujo la cantidad de stealth tokens que tiene el character
         for (unsigned i = 0; i < graphicsData->players[player].stealthTokens; ++i)
             al_draw_bitmap(stealthBitmap, 85 + TILE_SIZE + SPACE_TILE + player * 700, i * (5 + TOKENS_BIG_SIZE) + 5, 0);
         al_destroy_bitmap(stealthBitmap);
@@ -381,6 +416,7 @@ View::drawCharactersInfo()
         std::string character = whichChar(graphicsData->players[player].character);
         if (player == 0)
             al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 55 + 1 * (TILE_SIZE + SPACE_TILE), 95, ALLEGRO_ALIGN_CENTER, "you - %s", character.c_str());   //"You" si es P1
+
         else
             al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 300 + 625, 95, ALLEGRO_ALIGN_CENTER, "partner - %s", character.c_str());
     }
@@ -416,15 +452,14 @@ View::drawTiles()
                         ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[i].combinationNumber, true);
                         if (number != NULL)
                         {
+
                             al_draw_bitmap(number, x, y, 0);
                             al_destroy_bitmap(number);
                         }
                     }
                 }
             }
-            /*i--;*/
         }
-    return;
 }
 
 void
@@ -455,7 +490,6 @@ View::drawWalls()
     drawHorizontalWall(3, 1, 3);
     drawHorizontalWall(3, 2, 3);
     drawHorizontalWall(3, 2, 1);
-    return;
 }
 
 void
@@ -467,7 +501,6 @@ View::drawVerticalWall(unsigned floor, unsigned row, unsigned col) //floor =(1,2
     x2 = 20 + TILE_SIZE * col + SPACE_TILE * col + (floor - 1) * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3) - 0.5;
     y2 = 135 + TILE_SIZE * row + SPACE_TILE * (row - 1) - 8;
     al_draw_filled_rounded_rectangle(x1, y1, x2, y2, 3, 3, al_map_rgb(169, 127, 77));
-    return;
 }
 
 void
@@ -479,7 +512,6 @@ View::drawHorizontalWall(unsigned floor, unsigned row, unsigned col) //floor =(1
     x2 = 20 + TILE_SIZE * col + SPACE_TILE * (col - 1) +(floor - 1) * (SPACE_FLOOR + TILE_SIZE * 4 + SPACE_TILE * 3) - 8;
     y2 = 135 + TILE_SIZE * row + SPACE_TILE * row - 0.5;
     al_draw_filled_rounded_rectangle(x1, y1, x2, y2, 3, 3, al_map_rgb(169, 127, 77));
-    return;
 }
 
 void
@@ -488,7 +520,6 @@ View::writeFloorTexts()     //"Floor 1", etc
     al_draw_text(textFont, al_map_rgb(0, 0, 0), 20 + TILE_SIZE * 2 + SPACE_TILE + SPACE_TILE / 2, 135 + TILE_SIZE * 4 + SPACE_TILE * 3 + SPACE_TILE / 4, ALLEGRO_ALIGN_CENTER, "1st Floor");
     al_draw_text(textFont, al_map_rgb(0, 0, 0), 20 + SPACE_FLOOR + TILE_SIZE * 6 + SPACE_TILE * 4 + SPACE_TILE / 2, 135 + TILE_SIZE * 4 + SPACE_TILE * 3 + SPACE_TILE / 4, ALLEGRO_ALIGN_CENTER, "2nd Floor");
     al_draw_text(textFont, al_map_rgb(0, 0, 0), 20 + SPACE_FLOOR * 2 + TILE_SIZE * 10 + SPACE_TILE * 7 + SPACE_TILE / 2, 135 + TILE_SIZE * 4 + SPACE_TILE * 3 + SPACE_TILE / 4, ALLEGRO_ALIGN_CENTER, "3rd Floor");
-    return;
 }
 
 void
@@ -508,7 +539,6 @@ View::writeCoordinates()        //"A, B, C, D" / "1, 2, 3, 4"
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), x, y + 1 * (TILE_SIZE + SPACE_TILE), ALLEGRO_ALIGN_CENTER, "2");
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), x, y + 2 * (TILE_SIZE + SPACE_TILE), ALLEGRO_ALIGN_CENTER, "3");
     al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), x, y + 3 * (TILE_SIZE + SPACE_TILE), ALLEGRO_ALIGN_CENTER, "4");
-    return;
 }
 
 void
@@ -520,7 +550,6 @@ View::drawPatrolDecks()     //dibuja los mazos del guardia en cada piso
         al_draw_bitmap(bitmap, 20 + 1 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3), 135 + TILE_SIZE * 4 + SPACE_TILE * 6, 0);
         al_destroy_bitmap(bitmap);
     }
-    return;
 }
 
 void
@@ -531,20 +560,10 @@ View::drawLoots()           //dibujo el loot de cada piso
     {
         x = 20 + 2 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3);
         y = 135 + TILE_SIZE * 4 + SPACE_TILE * 6;
-        //if (graphicsData->loots[i].isVisible == true)
-        //{
         ALLEGRO_BITMAP * bitmap = loadLoot(graphicsData->loots[i].loot, true);
         al_draw_bitmap(bitmap, x, y, 0);
         al_destroy_bitmap(bitmap);
-        //}
-        //        else
-        //        {
-        //            ALLEGRO_BITMAP* bitmap = loadLoot(lootV_t::V_NO_LOOT, true);
-        //            al_draw_bitmap(bitmap, x, y, 0);
-        //            al_destroy_bitmap(bitmap);
-        //        }
     }
-    return;
 }
 
 void
@@ -553,6 +572,7 @@ View::drawCharacters()          //coloco los characters en el tablero
     unsigned col, row, floor, x, y;
     for (unsigned i = 0; i < V_TOTAL_PLAYERS; i++)
     {
+
         ALLEGRO_BITMAP* player = loadCharacter(graphicsData->players[i].character, true);
         col = getColumn(graphicsData->players[i].location);
         row = getRow(graphicsData->players[i].location);
@@ -562,7 +582,6 @@ View::drawCharacters()          //coloco los characters en el tablero
         al_draw_bitmap(player, x + i * 2, y, 0);
         al_destroy_bitmap(player);
     }
-    return;
 }
 
 unsigned
@@ -596,6 +615,7 @@ View::drawGuardDice()           //dibujo el dado del guardia
     for (unsigned i = 0; i < V_TOTAL_GUARDS; i++)
     {
         if (graphicsData->guards[i].location == locationV_t::NO_LOCATION)
+
             continue;
         ALLEGRO_BITMAP * die = loadGuardDie(graphicsData->guards[i].movements);
         col = getColumn(graphicsData->guards[i].guardDie);
@@ -606,7 +626,6 @@ View::drawGuardDice()           //dibujo el dado del guardia
         al_draw_bitmap(die, x, y, 0);
         al_destroy_bitmap(die);
     }
-    return;
 }
 
 void
@@ -616,6 +635,7 @@ View::drawGuards()          //dibujo los guardias en el tablero
     for (unsigned i = 0; i < V_TOTAL_GUARDS; i++)
     {
         if (graphicsData->guards[i].location == locationV_t::NO_LOCATION)
+
             continue;
         ALLEGRO_BITMAP * guard = loadCharacter(characterV_t::V_GUARD, false);
         col = getColumn(graphicsData->guards[i].location);
@@ -626,13 +646,11 @@ View::drawGuards()          //dibujo los guardias en el tablero
         al_draw_bitmap(guard, x, y, 0);
         al_destroy_bitmap(guard);
     }
-    return;
 }
 
 void
 View::drawTokensOnTiles()
 {
-
     //ver bien
 
     unsigned col, row, floor, x, y;
@@ -649,11 +667,10 @@ View::drawTokensOnTiles()
             al_draw_bitmap(extraGold, x, y, 0);
             al_destroy_bitmap(extraGold);
         }
+
         else
             continue;
     }
-    return;
-
 }
 
 void
@@ -667,12 +684,11 @@ View::drawTileSelectedInfo()
     al_destroy_bitmap(tile);
     if ((graphicsData->tiles[index].iAm != roomV_t::V_SAFE) && (graphicsData->tiles[index].iAm != roomV_t::V_ROOMBACK))
     {
+
         ALLEGRO_BITMAP* number = loadSafeNumber(graphicsData->tiles[index].combinationNumber, true);        //su combination number (salteo si es la safe)
         al_draw_bitmap(number, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE)*2 + SPACE_DIVIDER_L - 17, SPACE_UP_MARGIN + CARD_SELECTED_SIZE / 2 + 3, 0);
         al_destroy_bitmap(number);
     }
-
-    return;
 }
 
 void
@@ -716,15 +732,12 @@ View::writeSelectedTileInfo()
     }
     tile = c + r + f;
     al_draw_textf(textFont, al_map_rgb(0, 0, 0), (DISPLAYW - SPACE_DIVIDER_L) / 2 + SPACE_DIVIDER_L, 3, ALLEGRO_ALIGN_CENTER, "Tile: %s", tile.c_str());
-
-    return;
 }
 
 void
 View::showNoCardSelected() //si no se seleccionó ninguna carta... (cambiar)
 {
     al_draw_text(textFont, al_map_rgb(0, 0, 0), (DISPLAYW - SPACE_DIVIDER_L) / 2 + SPACE_DIVIDER_L, 0, ALLEGRO_ALIGN_CENTER, "No Card or Loot Selected");
-    return;
 }
 
 void
@@ -767,6 +780,7 @@ View::drawSelectedTileTokens()          //dibujo los tokens que tiene la carta y
             || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_CR_LASER
             || graphicsData->tiles[(int) graphicsData->currentCardSelected].iAm == roomV_t::V_CR_MOTION)
     {
+
         x = 3 * (TOKENS_BIG_SIZE + SPACE_TOKEN_LR) + SPACE_DIVIDER_L + SPACE_TOKEN_LR;
         y = 1 * (TOKENS_BIG_SIZE + SPACE_TOKEN_UD) + SPACE_UP_MARGIN + CARD_SELECTED_SIZE + SPACE_TOKEN_UD;
         ALLEGRO_BITMAP* token = loadToken(tokenV_t::V_HACKTOKEN, false);
@@ -774,7 +788,6 @@ View::drawSelectedTileTokens()          //dibujo los tokens que tiene la carta y
         al_destroy_bitmap(token);
         al_draw_textf(textFont, al_map_rgb(0, 0, 0), x + TOKENS_BIG_SIZE + 5, y, ALLEGRO_ALIGN_LEFT, "x%d", graphicsData->tiles[(int) graphicsData->currentCardSelected].howManyHackTokens);
     }
-    return;
 }
 
 void
@@ -798,7 +811,6 @@ View::drawLootSelectedInfo()            //dibujo el loot seleccionado
     }
     al_draw_bitmap(loot, (DISPLAYW - SPACE_DIVIDER_L - CARD_SELECTED_SIZE) / 2 + SPACE_DIVIDER_L, SPACE_UP_MARGIN, 0);
     al_destroy_bitmap(loot);
-    return;
 }
 
 void
@@ -909,13 +921,25 @@ View::writeActions()        //escribo las actions en negro o mas claras dependie
         al_draw_text(smallTextFont,  al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 18, ALLEGRO_ALIGN_RIGHT, "Decline");
     }
 
+    writePlayAgainActions();
+}
+
+void View::writePlayAgainActions()
+{
+    //play again
+    float alpha = 0.5f;
     if (graphicsData->gameLost == true || graphicsData->gameWon == true)
     {
-        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 19, ALLEGRO_ALIGN_LEFT, "Play again?");
-        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 20, ALLEGRO_ALIGN_LEFT, "*Yes");
-        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 20, ALLEGRO_ALIGN_RIGHT, "*No");
+        al_draw_text(smallTextFont, al_map_rgb(0, 0, 0), SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 19, ALLEGRO_ALIGN_LEFT, "Play again?");
+        al_draw_text(smallTextFont, al_map_rgb(0, 0, 0),  SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 20, ALLEGRO_ALIGN_LEFT, "*Yes");
+        al_draw_text(smallTextFont, al_map_rgb(0, 0, 0),  DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 20, ALLEGRO_ALIGN_RIGHT, "*No");
     }
-
+    //    else
+    //    {
+    //        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha), SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 19, ALLEGRO_ALIGN_LEFT, "Play again?");
+    //        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha),  SPACE_DIVIDER_L + 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 20, ALLEGRO_ALIGN_LEFT, "*Yes");
+    //        al_draw_text(smallTextFont, al_map_rgba_f(0.0 * alpha, 0.0 * alpha, 0.0 * alpha, alpha),  DISPLAYW - 5, 13 + CARD_SELECTED_SIZE + SPACE_TOKEN_UD * 4 + (TOKENS_BIG_SIZE - 5) * 20, ALLEGRO_ALIGN_RIGHT, "*No");
+    //    }
 }
 
 void
@@ -943,6 +967,7 @@ View::initUtilities()           //cargo el x,y, width y height de cada boton
     }
 
     //patrol decks
+
     for (unsigned i = 0; i < V_TOTAL_FLOORS; i++)
         initButton(V_TOTAL_TILES + V_TOTAL_LOOTS + i, 20 + 1 * (TILE_SIZE + SPACE_TILE) + SPACE_FLOOR * i + i * (TILE_SIZE * 4 + SPACE_TILE * 3), 135 + TILE_SIZE * 4 + SPACE_TILE * 6, PATROL_CARD_SIZE, PATROL_CARD_SIZE);
 
@@ -977,8 +1002,6 @@ View::initButton(unsigned i, unsigned x, unsigned y, unsigned w, unsigned h)
     buttons[i].y = y;
     buttons[i].width = w;
     buttons[i].height = h;
-
-    return;
 }
 
 void
@@ -990,7 +1013,6 @@ View::writeMessages()           //mensajes del chat
     al_draw_bitmap(pepe, x1, y1, 0);
     al_draw_rectangle(x1, y1, x1 + al_get_bitmap_width(pepe), y1 + al_get_bitmap_height(pepe), al_map_rgb(0, 0, 0), 1);
     al_draw_textf(smallTextFont, al_map_rgb(0, 0, 0), 6 * x1, y1, ALLEGRO_ALIGN_LEFT, "%s", graphicsData->message.c_str());
-    return;
 }
 
 ALLEGRO_BITMAP*
@@ -1143,6 +1165,7 @@ View::loadLoot(lootV_t l, bool shrink)      //Cargo bitmaps, si shrink=true, se 
                 bitmap = al_load_bitmap("images/loots/lootBacksmall.png");
             else
                 bitmap = al_load_bitmap("images/loots/lootBack.png");
+
             break;
     }
 
@@ -1554,6 +1577,7 @@ View::loadSafeNumber(unsigned s, bool shrink)       //Cargo bitmaps, si shrink=t
             bitmap = al_load_bitmap("images/tiles/6.png");
             break;
         default: bitmap = NULL;
+
             break;
     }
     return bitmap;
@@ -1584,6 +1608,7 @@ std::string View::whichChar(characterV_t character)
             break;
         case characterV_t::V_SPOTTER:
             charString = "Spotter";
+
             break;
         default:
             break;
@@ -1597,4 +1622,26 @@ View::getDisplay()
     return (void*) this->display;
 }
 
+unsigned
+View::getButtonX(unsigned i)        //Devuelve posicion en x del boton
+{
+    return buttons[i].x;
+}
 
+unsigned
+View::getButtonY(unsigned i)        //Devuelve posicion en y del boton
+{
+    return buttons[i].y;
+}
+
+unsigned
+View::getButtonW(unsigned i)        //Devuelve width del boton
+{
+    return buttons[i].width;
+}
+
+unsigned
+View::getButtonH(unsigned i)        //Devuelve height del boton
+{
+    return buttons[i].height;
+}

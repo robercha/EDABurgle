@@ -294,22 +294,15 @@ bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
     {
         if (this->tileType == STAIRS)
             if ((dynamic_cast<Stairs*> (this)->getUpstairsTile()) != NULL)
-            {
                 tileInfo->tile = dynamic_cast<Stairs*> (this)->getUpstairsTile();
-                //isTileValid = true;
-            }
     }
 
     if (selectedFloor == currFloor - 1)
     {
         if (this->tileType == STAIRS)
             if ((dynamic_cast<Stairs*> (this)->getDownstairsTile()) != NULL)
-            {
                 tileInfo->tile = dynamic_cast<Stairs*> (this)->getDownstairsTile();
-                //isTileValid = true;
-            }
     }
-
     return isTileValid;
 }
 
