@@ -494,6 +494,7 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
         {
             checkFloorChange(gameData, gamePointers);
             gamePointers->currentCharacter->move(gameData->selectedTile.tile);
+            enterRoom(gameData, gamePointers);
             enableActions(gameData, gamePointers);
             break;
         }
@@ -580,7 +581,6 @@ void PlayAgain::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             break;
         }
     }
-
 }
 
 void PlayAgain::enableActions(gameData_t*, gamePointers_t* gamePointers)
