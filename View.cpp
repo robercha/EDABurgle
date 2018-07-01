@@ -254,6 +254,7 @@ void View::drawGame()
 
 void View::drawForfeit()
 {
+    drawBackground();       //"Pepe & Co. HQ" y el fondo
     ALLEGRO_BITMAP* sadPepe = al_load_bitmap("images/sadpepe.png");
     al_draw_bitmap(sadPepe, 0,  DISPLAYH - al_get_bitmap_height(sadPepe), 0);
     ALLEGRO_BITMAP* bubble = al_load_bitmap("images/bubble.png");
@@ -270,6 +271,7 @@ void View::drawForfeit()
 
 void View::drawVictory()
 {
+    drawBackground();       //"Pepe & Co. HQ" y el fondo
     ALLEGRO_BITMAP* happyPepe = al_load_bitmap("images/pepe4thewin.png");
     al_draw_bitmap(happyPepe, 0, DISPLAYH - al_get_bitmap_height(happyPepe), 0);
     ALLEGRO_BITMAP* bubble = al_load_bitmap("images/bubble.png");

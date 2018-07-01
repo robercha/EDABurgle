@@ -395,7 +395,10 @@ void Floor::moveGuard()
     for (int i = 0; i < ROWS; i++)
         for (int j = 0; j < COLS; j++)
             if (tiles[i][j]->isAlarmOn())
+            {
                 alarmTiles.push_back(tiles[i][j]);
+                this->increaseGuardSpeed();
+            }
 
     setDistance2Guard();
 
@@ -405,10 +408,7 @@ void Floor::moveGuard()
         guard->walk(nextStep(alarmTiles.back()));
 
         if (guard->getLocation() == (alarmTiles.back()->getCurrentLocation()))
-
-        {
             alarmTiles.back()->setAlarmToken(false);
-        }
     }
 
     else if (guard->getLocation() != guard->getPatrolCard())

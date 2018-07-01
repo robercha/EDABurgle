@@ -298,8 +298,6 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
         gameData->actions.rollDice = false;
         gameData->actions.useHackToken = false;
     }
-
-
 }
 
 void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* gamePointers)
@@ -563,8 +561,25 @@ void PlayAgain::showInvalidTileMessage(gameData_t* gameData)
 
 }
 
-void PlayAgain::eventHandler(gameData_t *gameData, gamePointers_t * gamePointers)
+void PlayAgain::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
+    switch (gameData->event)
+    {
+        case WIN:
+        {
+            gameData->message = "Ehrmargerd, we won!";
+            break;
+        }
+        case LOSE:
+        {
+            gameData->message = "Save meeee";
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
 
 }
 

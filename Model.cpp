@@ -261,7 +261,10 @@ bool Model::analyzeAction(gameData_t * gameData)
 
     for (unsigned i = 0; i < 2 ; i++)
         if (gamePointers->characters[i]->isDead())
-            gameData->message = "Oops, someone caught us. Someone save poor Pepe!";
+        {
+            gameData->message = "Oh no, someone caught us. Someone save poor Pepe!";
+            gameLost = true;
+        }
 
     //    if (currentAction->getState() == IDLE)
     //        dynamic_cast <Idle*> (currentAction)->enableActions(gameData, gamePointers);
