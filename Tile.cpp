@@ -133,6 +133,7 @@ ServiceDuct::ServiceDuct()
 Stairs::Stairs()
 {
     upstairsTile = NULL;
+    downstairsTile = NULL;
     tileType = STAIRS;
 }
 
