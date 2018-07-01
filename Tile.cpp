@@ -296,7 +296,7 @@ bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
             if ((dynamic_cast<Stairs*> (this)->getUpstairsTile()) != NULL)
             {
                 tileInfo->tile = dynamic_cast<Stairs*> (this)->getUpstairsTile();
-                isTileValid = true;
+                //isTileValid = true;
             }
     }
 
@@ -306,7 +306,7 @@ bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
             if ((dynamic_cast<Stairs*> (this)->getDownstairsTile()) != NULL)
             {
                 tileInfo->tile = dynamic_cast<Stairs*> (this)->getDownstairsTile();
-                isTileValid = true;
+                //isTileValid = true;
             }
     }
 
