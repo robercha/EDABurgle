@@ -288,7 +288,7 @@ bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
             else
                 isTileValid = false;
         }
-
+       
     }
 
     if (selectedFloor == currFloor + 1)
@@ -564,6 +564,16 @@ void Safe::disableCracked()
 
 }
 
+
+void Safe::reveal()
+{
+    if (isVisible == false)
+    {
+        isVisible = true;
+        this->combinationNumber = 0;
+    }
+}
+
 bool ServiceDuct::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
 {
     bool isTileValid = false;
@@ -624,14 +634,7 @@ void Stairs::reveal()
     upstairsTile->setDownstairsToken(true);
 }
 
-void Safe::reveal()
-{
-    if (isVisible == false)
-    {
-        isVisible = true;
-        this->combinationNumber = 0;
-    }
-}
+
 
 void Lavatory::reveal()
 {

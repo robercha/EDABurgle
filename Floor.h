@@ -92,6 +92,10 @@ public:
     bool canIUseMotionHackToken();
     bool canIUseLaserHackToken();
     bool canIUseFingerprintHackToken();
+    unsigned getDiceResult(unsigned i)
+    {
+        return diceResult [i];
+    }
 
 private:
     unsigned floorNumber;

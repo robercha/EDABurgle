@@ -360,13 +360,13 @@ private:
 class Safe : public Tile {
 public:
     Safe();
-    void rollDice();
+    unsigned rollDice();
     void addDice();
     bool isCracked();
     void setCracked();
     void disableCracked();
     void reveal();
-
+    
     unsigned getDieQty() {
         return numberOfDice;
     }

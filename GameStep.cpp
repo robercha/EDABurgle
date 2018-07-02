@@ -1,5 +1,5 @@
 #include "GameStep.h"
-
+#include "string.h"
 GameStep::GameStep()
 {
 }
@@ -48,6 +48,16 @@ void GameStep::checkAlarms(gameData_t* gameData, gamePointers_t* gamePointers)
             triggerAlarm(gameData, gamePointers);
         if (gamePointers->currentCharacter->whereAmI() == FINGERPRINT)
             triggerAlarm(gameData, gamePointers);
+        if ((gamePointers->currentCharacter->whereAmI() == LASER) && ((gamePointers->currentCharacter->getActionsLeft() == 0)|| gameData->event == DECLINE))
+            triggerAlarm(gameData, gamePointers);
+//        else if ((gamePointers->currentCharacter->whereAmI() == LASER) && (gamePointers->currentCharacter->getActionsLeft()  != 0)
+//                &&  (gamePointers->currentCharacter->getLocation() != gameData->selectedTile.tile->getCurrentLocation()))
+//        {
+//            gameData->event = A_PAID_MOVE;
+//            gameData->message = "Oh, we have a tough decision to make. Should we do it?";
+//            enableActions(gameData, gamePointers);
+//        }
+            
         //2 actions to enter or trigger alarm, laser
         //stop here or trigger alarm, motion
         //if actions end here, trigger alarm, thermo
@@ -122,28 +132,28 @@ void Idle::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
             gameData->message = "Alright, let me know what you need, bosss";
             break;
         }
-        case A_ADD_DICE_TO_SAFE:
+        case A_ADD_DICE_TO_SAFE:        //Creo que esto no lo va poder hacer en idle
         {
-            if (gameData->actions.addDice == true)
-            {
-                unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
-                gamePointers->floors[floor]->addDiceToSafe((location_t) (gamePointers->currentCharacter->getLocation() % 16));
-                gamePointers->currentCharacter->decreaseActions();
-            }
-            enableActions(gameData, gamePointers);
+//            if (gameData->actions.addDice == true)
+//            {
+//                unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
+//                gamePointers->floors[floor]->addDiceToSafe((location_t) (gamePointers->currentCharacter->getLocation() % 16));
+//                gamePointers->currentCharacter->decreaseActions();
+//            }
+//            enableActions(gameData, gamePointers);
             break;
         }
         case A_ROLL_DICE_FOR_SAFE:
         {
-            if (gameData->actions.rollDice == true)
-            {
-                unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
-                gamePointers->floors[floor]->crack(gamePointers->currentCharacter->getDieQty(), (location_t) (gamePointers->currentCharacter->getLocation() % 16));
-                if (gamePointers->floors[floor]->isSafeCracked((location_t) (gamePointers->currentCharacter->getLocation() % 16)))
-                    drawLoot(gamePointers);
-            }
-            enableActions(gameData, gamePointers);
-            break;
+//            if (gameData->actions.rollDice == true)
+//            {
+//                unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
+//                gamePointers->floors[floor]->crack(gamePointers->currentCharacter->getDieQty(), (location_t) (gamePointers->currentCharacter->getLocation() % 16));
+//                if (gamePointers->floors[floor]->isSafeCracked((location_t) (gamePointers->currentCharacter->getLocation() % 16)))
+//                    drawLoot(gamePointers);
+//            }
+//            enableActions(gameData, gamePointers);
+//            break;
         }
         case A_HACK_COMPUTER:
         {
@@ -213,11 +223,23 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
             gameData->actions.peek = true;
             gameData->actions.pass = true;
         }
+        
+        else if(gameData->selectedTile.ownTile)
+        {
+            if(gameData->selectedTile.tile->getTileType() == SAFE)
+            {
+                gameData->actions.addDice = true;
+                if((gameData->selectedTile.tile)->getDieQty() != 0)
+                    gameData->actions.rollDice = true;
+            }
+        }
         else
         {
             gameData->actions.move = false;
             gameData->actions.peek = false;
             gameData->actions.pass = false;
+            gameData->actions.addDice =false;
+            gameData->actions.rollDice = false;
         }
         if (gameData->selectedTile.hawkWall)
         {
@@ -327,9 +349,21 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         }
         case A_PAID_MOVE:
         {
-            enableActions(gameData, gamePointers);
-            gameData->message = "Oh, we have a tough decision to make. Should we do it?";
-            break;
+             if (gameData->actions.move == true)
+             {
+                if(gameData->selectedTile.tile->isTileVisible() == true)        //Si no es una taile visible realiza el movimiento como si fuerea que ubiese una free move tile
+                {
+                    enableActions(gameData, gamePointers);
+                    gameData->message = "Oh, we have a tough decision to make. Should we do it?";
+                }
+                else if(gameData->selectedTile.tile->getTileType() == LASER)
+                {
+                    gameData->event = A_FREE_MOVE;
+                    eventHandler(gameData, gamePointers);
+                    gameData->event = A_PAID_MOVE;
+                }
+             }
+             break;
         }
         case A_PASS:
         {
@@ -370,14 +404,21 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         case A_ROLL_DICE_FOR_SAFE:
         {
             if (gameData->actions.rollDice == true)
-
-                if (gameData->actions.rollDice == true)
+            {
+                std::string message = "The rolled numbers where: ";
+                char temp[6];
+                unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
+                gamePointers->floors[floor]->crack(gamePointers->currentCharacter->getDieQty(), (location_t) (gamePointers->currentCharacter->getLocation() % 16));
+                for(unsigned i = 0; i<gamePointers->currentCharacter->getDieQty(); i++)
                 {
-                    unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
-                    gamePointers->floors[floor]->crack(gamePointers->currentCharacter->getDieQty(), (location_t) (gamePointers->currentCharacter->getLocation() % 16));
-                    if (gamePointers->floors[floor]->isSafeCracked((location_t) (gamePointers->currentCharacter->getLocation() % 16)))
-                        drawLoot(gamePointers);
+                        sprintf(temp, "%u ",gamePointers->floors[floor]->getDiceResult(i) );
+                        message.insert(message.size()-1, temp);
+//                    
                 }
+                gameData->message = message;
+                if (gamePointers->floors[floor]->isSafeCracked((location_t) (gamePointers->currentCharacter->getLocation() % 16)))
+                    drawLoot(gamePointers);
+            }
             enableActions(gameData, gamePointers);
             break;
         }
@@ -465,7 +506,8 @@ void WaitingFirstAction::enableActions(gameData_t* gameData, gamePointers_t* gam
         gameData->actions.spyPatrolDeck = false;
         gameData->actions.useHackToken = false;
     }
-    if (gameData->event == A_FREE_MOVE || gameData->event == A_PEEK || gameData->event == A_PASS/* || gameData->event == VALID_TILE */ || gameData->event == INVALID_TILE ) //No se si falta aguna mas habria que agregar eventos para hacerle reset
+    if (gameData->event == A_FREE_MOVE || gameData->event == A_PEEK || gameData->event == A_PASS/* || gameData->event == VALID_TILE */ 
+            || gameData->event == INVALID_TILE || gameData->event == A_ADD_DICE_TO_SAFE || gameData->event == A_ROLL_DICE_FOR_SAFE) //No se si falta aguna mas habria que agregar eventos para hacerle reset
     {
         gameData->actions.pass = true;
         gameData->actions.move = false;
@@ -493,13 +535,20 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
         case ACCEPT:
         {
             checkFloorChange(gameData, gamePointers);
-            gamePointers->currentCharacter->move(gameData->selectedTile.tile);
-            enterRoom(gameData, gamePointers);
+            if((gameData->selectedTile.tile->getTileType() == LASER) && (gamePointers->currentCharacter->getLocation() != gameData->selectedTile.tile->getCurrentLocation()))
+            {
+                gamePointers->currentCharacter->move(gameData->selectedTile.tile);
+                gamePointers->currentCharacter->decreaseActions();
+                enterRoom(gameData, gamePointers);
+            }
+            else if((gameData->selectedTile.tile->getTileType() == LASER) && (gamePointers->currentCharacter->getLocation() == gameData->selectedTile.tile->getCurrentLocation()))
+                gamePointers->currentCharacter->decreaseActions();
             enableActions(gameData, gamePointers);
             break;
         }
         case DECLINE:
         {
+            checkAlarms(gameData, gamePointers);
             enableActions(gameData, gamePointers);
             break;
         }
