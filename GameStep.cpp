@@ -1,5 +1,8 @@
 #include "GameStep.h"
 #include "string.h"
+#include <chrono>
+#include <random>
+
 GameStep::GameStep()
 {
 }
@@ -50,7 +53,9 @@ void GameStep::checkAlarms(gameData_t* gameData, gamePointers_t* gamePointers)
             triggerAlarm(gameData, gamePointers);
         if ((gamePointers->currentCharacter->whereAmI() == LASER) && ((gamePointers->currentCharacter->getActionsLeft() == 0)|| gameData->event == DECLINE))
             triggerAlarm(gameData, gamePointers);
-//        else if ((gamePointers->currentCharacter->whereAmI() == LASER) && (gamePointers->currentCharacter->getActionsLeft()  != 0)
+
+        
+        //        else if ((gamePointers->currentCharacter->whereAmI() == LASER) && (gamePointers->currentCharacter->getActionsLeft()  != 0)
 //                &&  (gamePointers->currentCharacter->getLocation() != gameData->selectedTile.tile->getCurrentLocation()))
 //        {
 //            gameData->event = A_PAID_MOVE;
@@ -69,7 +74,7 @@ void GameStep::triggerAlarm(gameData_t* gameData, gamePointers_t* gamePointers)
 {
     unsigned floorNumber = getFloor(gamePointers->currentCharacter->getLocation());
     gamePointers->floors[floorNumber]->setAlarmToken(gamePointers->currentCharacter->getLocation(), true);
-    gamePointers->floors[floorNumber]->increaseGuardSpeed();
+    //gamePointers->floors[floorNumber]->increaseGuardSpeed();
 }
 
 void GameStep::drawLoot(gamePointers_t* gamePointers)
@@ -222,6 +227,8 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
             gameData->actions.move = true;
             gameData->actions.peek = true;
             gameData->actions.pass = true;
+            gameData->actions.addDice =false;
+            gameData->actions.rollDice = false;
         }
         
         else if(gameData->selectedTile.ownTile)
@@ -229,7 +236,7 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
             if(gameData->selectedTile.tile->getTileType() == SAFE)
             {
                 gameData->actions.addDice = true;
-                if((gameData->selectedTile.tile)->getDieQty() != 0)
+                if(dynamic_cast < Safe* > (gameData->selectedTile.tile)->getDieQty() != 0)
                     gameData->actions.rollDice = true;
             }
         }
@@ -351,17 +358,17 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         {
              if (gameData->actions.move == true)
              {
-                if(gameData->selectedTile.tile->isTileVisible() == true)        //Si no es una taile visible realiza el movimiento como si fuerea que ubiese una free move tile
+                if((gameData->selectedTile.tile->isTileVisible() == true))        //Si no es una taile visible realiza el movimiento como si fuerea que ubiese una free move tile
                 {
-                    enableActions(gameData, gamePointers);
                     gameData->message = "Oh, we have a tough decision to make. Should we do it?";
                 }
-                else if(gameData->selectedTile.tile->getTileType() == LASER)
+                else
                 {
-                    gameData->event = A_FREE_MOVE;
-                    eventHandler(gameData, gamePointers);
-                    gameData->event = A_PAID_MOVE;
+                    checkFloorChange(gameData, gamePointers);
+                    gamePointers->currentCharacter->move(gameData->selectedTile.tile);
+                    gameData->message = "Oh, we have a tough decision to make. Should we do it?";
                 }
+                enableActions(gameData, gamePointers);
              }
              break;
         }
@@ -543,6 +550,14 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
             }
             else if((gameData->selectedTile.tile->getTileType() == LASER) && (gamePointers->currentCharacter->getLocation() == gameData->selectedTile.tile->getCurrentLocation()))
                 gamePointers->currentCharacter->decreaseActions();
+            if((gameData->selectedTile.tile->getTileType() ==KEYPAD) && (gamePointers->currentCharacter->getLocation() != gameData->selectedTile.tile->getCurrentLocation()))
+            {
+                unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+                unsigned diceRoll = rand_r(&seed) % 6 + 1;
+                if( diceRoll == 6 || diceRoll == 1)
+                    gamePointers->currentCharacter->move(gameData->selectedTile.tile);
+                    
+            }
             enableActions(gameData, gamePointers);
             break;
         }

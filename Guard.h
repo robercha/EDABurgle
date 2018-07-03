@@ -36,7 +36,8 @@ public:
         return isActive;
     }
 
-    void increaseSpeed() {
+    void increaseSpeed() 
+    {
         if (steps < 6)
             steps++;
     }

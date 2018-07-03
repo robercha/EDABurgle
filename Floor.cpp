@@ -405,8 +405,9 @@ void Floor::moveGuard()
     if (!alarmTiles.empty())
     {
         std::sort(alarmTiles.begin(), alarmTiles.end(), compare);    //la tile con la minima distancia al guardia queda en el ultimo elemento del vector
+        guard->setDestination(nextStep(alarmTiles.back())->getCurrentLocation());
         guard->walk(nextStep(alarmTiles.back()));
-
+        
         if (guard->getLocation() == (alarmTiles.back()->getCurrentLocation()))
             alarmTiles.back()->setAlarmToken(false);
     }

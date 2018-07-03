@@ -79,6 +79,7 @@ public:
 
     void setAlarmToken(location_t location, bool state) {
         this->tiles[getRow(location)][getColumn(location)]->setAlarmToken(state);
+        
     }
 
     bool isAlarmTile(location_t location) {
