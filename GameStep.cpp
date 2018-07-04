@@ -266,54 +266,54 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
         {
             gameData->actions.placeCrowToken = true;
         }
-        //        if (gameData->selectedTile.tile->getTileType() == LASER)
-        //        {
-        //            for (unsigned f = 0; f < FLOORS_QTY; f++)
-        //            {
-        //                if (gameData->selectedTile.tile->isTileVisible())
-        //                    if (gameData->selectedTile.tile->isAlarmOn())
-        //                        if (gamePointers->floors[f]->canIUseLaserHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
-        //                            gameData->actions.useHackToken = true;
-        //            }
-        //        }
-        //        if (gameData->selectedTile.tile->getTileType() == MOTION)
-        //        {
-        //            for (unsigned f = 0; f < FLOORS_QTY; f++)
-        //            {
-        //                if (gameData->selectedTile.tile->isTileVisible())
-        //                    if (gameData->selectedTile.tile->isAlarmOn())
-        //                        if (gamePointers->floors[f]->canIUseMotionHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
-        //                            gameData->actions.useHackToken = true;
-        //            }
-        //        }
-        //        if (gameData->selectedTile.tile->getTileType() == FINGERPRINT)
-        //        {
-        //            for (unsigned f = 0; f < FLOORS_QTY; f++)
-        //            {
-        //                if (gameData->selectedTile.tile->isTileVisible())
-        //                    if (gameData->selectedTile.tile->isAlarmOn())
-        //                        if (gamePointers->floors[f]->canIUseFingerprintHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
-        //                            gameData->actions.useHackToken = true;
-        //            }
-        //        }
-        //        if ((gameData->selectedTile.tile->getTileType() == CR_FINGERPRINT) && gameData->selectedTile.ownTile)
-        //        {
-        //            if (gameData->selectedTile.tile->isTileVisible())
-        //                if (!(dynamic_cast<CRFingerprint*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
-        //                    gameData->actions.hackCR = true;
-        //        }
-        //        if ((gameData->selectedTile.tile->getTileType() == CR_LASER) && gameData->selectedTile.ownTile)
-        //        {
-        //            if (gameData->selectedTile.tile->isTileVisible())
-        //                if (!(dynamic_cast<CRLaser*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
-        //                    gameData->actions.hackCR = true;
-        //        }
-        //        if ((gameData->selectedTile.tile->getTileType() == CR_MOTION) && gameData->selectedTile.ownTile)
-        //        {
-        //            if (gameData->selectedTile.tile->isTileVisible())
-        //                if (!(dynamic_cast<CRMotion*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
-        //                    gameData->actions.hackCR = true;
-        //        }
+        if (gameData->selectedTile.tile->getTileType() == LASER)
+        {
+            for (unsigned f = 0; f < FLOORS_QTY; f++)
+            {
+                if (gameData->selectedTile.tile->isTileVisible())
+                    if (gameData->selectedTile.tile->isAlarmOn())
+                        if (gamePointers->floors[f]->canIUseLaserHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+                            gameData->actions.useHackToken = true;
+            }
+        }
+        if (gameData->selectedTile.tile->getTileType() == MOTION)
+        {
+            for (unsigned f = 0; f < FLOORS_QTY; f++)
+            {
+                if (gameData->selectedTile.tile->isTileVisible())
+                    if (gameData->selectedTile.tile->isAlarmOn())
+                        if (gamePointers->floors[f]->canIUseMotionHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+                            gameData->actions.useHackToken = true;
+            }
+        }
+        if (gameData->selectedTile.tile->getTileType() == FINGERPRINT)
+        {
+            for (unsigned f = 0; f < FLOORS_QTY; f++)
+            {
+                if (gameData->selectedTile.tile->isTileVisible())
+                    if (gameData->selectedTile.tile->isAlarmOn())
+                        if (gamePointers->floors[f]->canIUseFingerprintHackToken())       //si hay laser room, avisa si hay hack tokens disponibles
+                            gameData->actions.useHackToken = true;
+            }
+        }
+        if ((gameData->selectedTile.tile->getTileType() == CR_FINGERPRINT) && gameData->selectedTile.ownTile)
+        {
+            if (gameData->selectedTile.tile->isTileVisible())
+                if (!(dynamic_cast<CRFingerprint*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
+                    gameData->actions.hackCR = true;
+        }
+        if ((gameData->selectedTile.tile->getTileType() == CR_LASER) && gameData->selectedTile.ownTile)
+        {
+            if (gameData->selectedTile.tile->isTileVisible())
+                if (!(dynamic_cast<CRLaser*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
+                    gameData->actions.hackCR = true;
+        }
+        if ((gameData->selectedTile.tile->getTileType() == CR_MOTION) && gameData->selectedTile.ownTile)
+        {
+            if (gameData->selectedTile.tile->isTileVisible())
+                if (!(dynamic_cast<CRMotion*> (gameData->selectedTile.tile)->areHackTokensMax()))  //si puedo agregar hackTokens
+                    gameData->actions.hackCR = true;
+        }
     }
     else if (gameData->event == INVALID_TILE || gameData->event == A_PASS)
     {
