@@ -382,10 +382,21 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
                         gameData->event = A_FREE_MOVE;
                         eventHandler(gameData, gamePointers);
                     }
+                    //                    else if (gameData->selectedTile.tile->getTileType() == DEADBOLT)
+                    //                    {
+                    //                        gameData->event = A_FREE_MOVE;
+                    //                        eventHandler(gameData, gamePointers);
+                    //                    }
                 }
                 else
                 {
+
                     if (gameData->selectedTile.tile->getTileType() == KEYPAD)
+                    {
+                        gameData->event = A_FREE_MOVE;
+                        eventHandler(gameData, gamePointers);
+                    }
+                    else if (gameData->selectedTile.tile->getTileType() == DEADBOLT)
                     {
                         gameData->event = A_FREE_MOVE;
                         eventHandler(gameData, gamePointers);
@@ -582,17 +593,17 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
             {
                 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
                 unsigned diceRoll = rand_r(&seed) % 6 + 1;
-                std::string message = "The rolled numbers where: ";
+                std::string message = "The rolled number was: ";
                 char temp[6];
                 sprintf(temp, " %u ", diceRoll );
                 message.insert(message.size(), temp);
                 gameData->message = message;
-                if( diceRoll == 6 || diceRoll == 1)
+                if ( diceRoll == 6 || diceRoll == 1)
                 {
                     gamePointers->currentCharacter->move(gameData->selectedTile.tile);
                     gameData->selectedTile.tile->setOpenToken(true);
                 }
-                    
+
             }
             enableActions(gameData, gamePointers);
             break;
@@ -654,7 +665,27 @@ void End::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
 
 void End::eventHandler(gameData_t *gameData, gamePointers_t * gamePointers)
 {
-
+    switch (gameData->event)
+    {
+        case ACCEPT:
+        {
+            printf("we play again");
+            fflush(stdout);
+            gameData->message = "we play again";
+            break;
+        }
+        case DECLINE:
+        {
+            printf("we dont play again");
+            fflush(stdout);
+            gameData->message = "we dont play again";
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
 }
 
 void PlayAgain::showInvalidTileMessage(gameData_t* gameData)
@@ -667,15 +698,22 @@ void PlayAgain::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
     switch (gameData->event)
     {
         case ACCEPT:
+<<<<<<< HEAD
             
         case WIN:
+=======
+>>>>>>> aaf67fb0f661ea0fc857ed55ab1dd5ead52dc53b
         {
-            gameData->message = "Ehrmargerd, we won!";
+            printf("we play again");
+            fflush(stdout);
+            gameData->message = "we play again";
             break;
         }
-        case LOSE:
+        case DECLINE:
         {
-            gameData->message = "Save meeee";
+            printf("we dont play again");
+            fflush(stdout);
+            gameData->message = "we dont play again";
             break;
         }
         default:
