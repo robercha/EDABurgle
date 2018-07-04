@@ -233,12 +233,11 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
         
         else if(gameData->selectedTile.ownTile)
         {
-//            printf("llegue");
-//            fflush(stdout);
             if(gameData->selectedTile.tile->getTileType() == SAFE)
             {
                 gameData->actions.pass = true;
-                gameData->actions.addDice = true;
+                if(dynamic_cast < Safe* > (gameData->selectedTile.tile)->getDieQty()<6)
+                    gameData->actions.addDice = true;
                 if(dynamic_cast < Safe* > (gameData->selectedTile.tile)->getDieQty() != 0)
                     gameData->actions.rollDice = true;
             }
@@ -362,16 +361,25 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         {
              if (gameData->actions.move == true)
              {
-                if((gameData->selectedTile.tile->isTileVisible() == true))        //Si no es una taile visible realiza el movimiento como si fuerea que ubiese una free move tile
+                if((gameData->selectedTile.tile->isTileVisible() == true))       
                 {
-                    gamePointers->currentCharacter->move(gameData->selectedTile.tile);
-                    gameData->message = "Oh, we have a tough decision to make. Should we do it?";
+                    if(gameData->selectedTile.tile->getTileType()==LASER)
+                    {
+                        gamePointers->currentCharacter->move(gameData->selectedTile.tile);
+                        gameData->message = "Oh, we have a tough decision to make. Should we do it?";
+                    }
+                    else if(gameData->selectedTile.tile->getTileType() == KEYPAD)
+                    {
+                        gameData->message = "Oh, we have a tough decision to make. Should we do it?";
+                    }
                 }
                 else
                 {
-                    checkFloorChange(gameData, gamePointers);
-                    gamePointers->currentCharacter->move(gameData->selectedTile.tile);
-                    gameData->message = "Oh, we have a tough decision to make. Should we do it?";
+                    if(gameData->selectedTile.tile->getTileType() == KEYPAD)
+                    {
+                        gameData->event=A_FREE_MOVE;
+                        eventHandler(gameData,gamePointers);
+                    }
                 }
                 enableActions(gameData, gamePointers);
              }
