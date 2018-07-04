@@ -310,7 +310,7 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
         //                    gameData->actions.hackCR = true;
         //        }
     }
-    else if (gameData->event == INVALID_TILE || gameData->event == PASS)
+    else if (gameData->event == INVALID_TILE || gameData->event == A_PASS)
     {
         gameData->actions.move = false;
         gameData->actions.peek = false;
