@@ -312,6 +312,14 @@ private:
 class Keypad : public Tile {
 public:
     Keypad();
+    void setOpenToken()
+    {
+        this->openToken = true;
+    }
+    bool getOpenToken()
+    {
+        return openToken;
+    }
 private:
 
     bool openToken;

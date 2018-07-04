@@ -241,6 +241,8 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
                 if(dynamic_cast < Safe* > (gameData->selectedTile.tile)->getDieQty() != 0)
                     gameData->actions.rollDice = true;
             }
+            gameData->actions.move = false;
+            gameData->actions.peek = false;
         }
         else
         {
@@ -574,7 +576,10 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
                 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
                 unsigned diceRoll = rand_r(&seed) % 6 + 1;
                 if( diceRoll == 6 || diceRoll == 1)
+                {
                     gamePointers->currentCharacter->move(gameData->selectedTile.tile);
+                    //gameData->selectedTile.tile
+                }
                     
             }
             enableActions(gameData, gamePointers);

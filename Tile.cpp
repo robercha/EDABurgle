@@ -84,6 +84,7 @@ Foyer::Foyer()
 Keypad::Keypad()
 {
     tileType = KEYPAD;
+    openToken = false;
     mustSpendActions = true; //le preguntamos al user si quiere tirar los dados para abrir el keypad
 }
 
