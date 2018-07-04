@@ -526,7 +526,7 @@ void WaitingFirstAction::enableActions(gameData_t* gameData, gamePointers_t* gam
         gameData->actions.spyPatrolDeck = false;
         gameData->actions.useHackToken = false;
     }
-    if (gameData->event == A_FREE_MOVE || gameData->event == A_PEEK || gameData->event == A_PASS/* || gameData->event == VALID_TILE */ 
+    if (gameData->event == A_FREE_MOVE || gameData->event == A_PEEK || gameData->event == A_PASS || gameData->selectedTile.ownTile == true
             || gameData->event == INVALID_TILE || gameData->event == A_ADD_DICE_TO_SAFE || gameData->event == A_ROLL_DICE_FOR_SAFE) //No se si falta aguna mas habria que agregar eventos para hacerle reset
     {
         gameData->actions.pass = true;
