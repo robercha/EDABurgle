@@ -232,6 +232,7 @@ bool Raven::canIUseThisTile(location_t selectedTile, tileInfo_t* tileInfo)
     if (currentTile->isTileValid(selectedTile, tileInfo))
     {
         isTileValid = true;
+        tileInfo->twoTilesAwayTile = true;
     }
     else if (currentTile->isTileTwoTilesAway(selectedTile))
     {
