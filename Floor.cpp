@@ -415,6 +415,8 @@ void Floor::moveGuard()
     else if (guard->getLocation() != guard->getPatrolCard())
     {
         guard->walk(nextStep(patrolCardTile));
+        if (nextStep(patrolCardTile)== patrolCardTile)
+            updatePatrolCard();
     }
     else if ( guard->getLocation() == guard->getPatrolCard())
     {
