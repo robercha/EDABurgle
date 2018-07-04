@@ -414,9 +414,14 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
         {
             if (gameData->actions.addDice == true)
             {
+                std::string message = "You have";
+                char temp[6];
                 unsigned floor = (unsigned) gamePointers->currentCharacter->getLocation() / 16;
                 gamePointers->floors[floor]->addDiceToSafe((location_t) (gamePointers->currentCharacter->getLocation() % 16));
                 gamePointers->currentCharacter->decreaseActions();
+                sprintf(temp, " %u ",gamePointers->currentCharacter->getDieQty() );
+                message.insert(message.size(), temp);
+                gameData->message = message;
             }
             enableActions(gameData, gamePointers);
             break;
@@ -432,7 +437,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
                 for(unsigned i = 0; i<gamePointers->currentCharacter->getDieQty(); i++)
                 {
                         sprintf(temp, "%u ",gamePointers->floors[floor]->getDiceResult(i) );
-                        message.insert(message.size()-1, temp);
+                        message.insert(message.size(), temp);
 //                    
                 }
                 gameData->message = message;
