@@ -360,6 +360,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
              {
                 if((gameData->selectedTile.tile->isTileVisible() == true))        //Si no es una taile visible realiza el movimiento como si fuerea que ubiese una free move tile
                 {
+                    gamePointers->currentCharacter->move(gameData->selectedTile.tile);
                     gameData->message = "Oh, we have a tough decision to make. Should we do it?";
                 }
                 else
