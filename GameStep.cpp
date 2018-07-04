@@ -436,6 +436,7 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
 //                    
                 }
                 gameData->message = message;
+                gamePointers->currentCharacter->decreaseActions();
                 if (gamePointers->floors[floor]->isSafeCracked((location_t) (gamePointers->currentCharacter->getLocation() % 16)))
                     drawLoot(gamePointers);
             }
