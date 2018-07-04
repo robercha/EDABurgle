@@ -233,8 +233,11 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
         
         else if(gameData->selectedTile.ownTile)
         {
+//            printf("llegue");
+//            fflush(stdout);
             if(gameData->selectedTile.tile->getTileType() == SAFE)
             {
+                gameData->actions.pass = true;
                 gameData->actions.addDice = true;
                 if(dynamic_cast < Safe* > (gameData->selectedTile.tile)->getDieQty() != 0)
                     gameData->actions.rollDice = true;
