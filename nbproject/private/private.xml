@@ -7,14 +7,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/bzerol/NetBeansProjects/EDABurgle/Tile.cpp</file>
-            <file>file:/home/bzerol/NetBeansProjects/EDABurgle/Character.cpp</file>
-            <file>file:/home/bzerol/NetBeansProjects/EDABurgle/Model.cpp</file>
-            <file>file:/home/bzerol/NetBeansProjects/EDABurgle/main.cpp</file>
-            <file>file:/home/bzerol/NetBeansProjects/EDABurgle/Floor.cpp</file>
-            <file>file:/home/bzerol/NetBeansProjects/EDABurgle/Tile.h</file>
-            <file>file:/home/bzerol/NetBeansProjects/EDABurgle/Controller.cpp</file>
-            <file>file:/home/bzerol/NetBeansProjects/EDABurgle/GameStep.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/GameStep.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/View.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Floor.cpp</file>
+            <file>file:/home/calpurnia/NetBeansProjects/EDABurgle/Model.cpp</file>
         </group>
     </open-files>
 </project-private>
