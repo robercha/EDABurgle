@@ -312,17 +312,17 @@ private:
 class Keypad : public Tile {
 public:
     Keypad();
-    void setOpenToken()
-    {
-        this->openToken = true;
-    }
-    bool getOpenToken()
-    {
-        return openToken;
-    }
+//    void setOpenToken()
+//    {
+//        this->openToken = true;
+//    }
+//    //bool getOpenToken()
+//    {
+//        return openToken;
+//    }
 private:
 
-    bool openToken;
+    //bool openToken;
 } ;
 
 class Laboratory : public Tile {

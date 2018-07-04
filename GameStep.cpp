@@ -582,6 +582,11 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
             {
                 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
                 unsigned diceRoll = rand_r(&seed) % 6 + 1;
+                std::string message = "The rolled numbers where: ";
+                char temp[6];
+                sprintf(temp, " %u ", diceRoll );
+                message.insert(message.size(), temp);
+                gameData->message = message;
                 if( diceRoll == 6 || diceRoll == 1)
                 {
                     gamePointers->currentCharacter->move(gameData->selectedTile.tile);
@@ -661,6 +666,8 @@ void PlayAgain::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
     switch (gameData->event)
     {
+        case ACCEPT:
+            
         case WIN:
         {
             gameData->message = "Ehrmargerd, we won!";

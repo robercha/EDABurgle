@@ -30,12 +30,20 @@ main(int argc, char** argv)
     //    }
     //    else
     //        cout << "no se pasó ip" << endl;
-
-    Controller controller(0);
-
-    while (controller.getLastEvent() != (unsigned) button_t::HOME_EXIT)
+    bool playAgain = true;
+    while (playAgain == true)
     {
-        controller.manageEvent();
+        Controller controller(0);
+
+        while (controller.getLastEvent() != (unsigned) button_t::HOME_EXIT && controller.getLastEvent() != (unsigned) button_t::PLAY_AGAIN_YES && 
+                controller.getLastEvent() != (unsigned) button_t::PLAY_AGAIN_NO)
+        {
+            controller.manageEvent();
+        }
+        if(controller.getLastEvent() == (unsigned) button_t::HOME_EXIT ||controller.getLastEvent() == (unsigned) button_t::PLAY_AGAIN_NO)
+            playAgain = false;
+        else if (controller.getLastEvent() == (unsigned) button_t::PLAY_AGAIN_YES)
+            playAgain = true;
     }
     return 0;
 }
