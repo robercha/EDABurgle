@@ -30,7 +30,9 @@ main(int argc, char** argv)
     //    }
     //    else
     //        cout << "no se pasó ip" << endl;
+    
     bool playAgain = true;
+    
     while (playAgain == true)
     {
         Controller controller(0);
