@@ -27,7 +27,8 @@ Controller::~Controller()
     //delete networking;
     delete user;
     delete userData;
-//    delete view;      // no se porque con esto no anda
+    delete model;
+    delete view;      // no se porque con esto no anda
 }
 
 //bool Controller::connect()
