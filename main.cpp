@@ -35,12 +35,12 @@ main(int argc, char** argv)
     {
         Controller controller(0);
 
-        while (controller.getLastEvent() != (unsigned) button_t::HOME_EXIT && controller.getLastEvent() != (unsigned) button_t::PLAY_AGAIN_YES && 
+        while (controller.getLastEvent() != (unsigned) button_t::HOME_EXIT && controller.getLastEvent() != (unsigned) button_t::PLAY_AGAIN_YES &&
                 controller.getLastEvent() != (unsigned) button_t::PLAY_AGAIN_NO)
         {
             controller.manageEvent();
         }
-        if(controller.getLastEvent() == (unsigned) button_t::HOME_EXIT ||controller.getLastEvent() == (unsigned) button_t::PLAY_AGAIN_NO)
+        if (controller.getLastEvent() == (unsigned) button_t::HOME_EXIT || controller.getLastEvent() == (unsigned) button_t::PLAY_AGAIN_NO)
             playAgain = false;
         else if (controller.getLastEvent() == (unsigned) button_t::PLAY_AGAIN_YES)
             playAgain = true;
