@@ -34,11 +34,13 @@ bool Character::canIUseThisTile(location_t selectedTile, tileInfo_t* tileInfo)
     {
         isTileValid = true;
         tileInfo->ownTile = true;
+        tileInfo->tile = currentTile;
     }
     else
         tileInfo->tile = NULL;
 
     return isTileValid;
+
 }
 
 character_t Character::getName()

@@ -83,6 +83,7 @@ Controller::manageEvent(void)
 
     translateUserData(); //convierte button_t a modelEvent_t que son los de model FSM
 
+
     if ((userData->buttonClicked != (unsigned) (button_t::NO_BUTTON)) &&
             (userData->buttonClicked != (unsigned) button_t::HOME_EXIT))
     {

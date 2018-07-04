@@ -245,7 +245,6 @@ void Model::createModelFSM()
 bool Model::analyzeAction(gameData_t * gameData)
 {
     bool noActions = false;
-
     eventGenerator(gameData); //traduce de button_t a modelEvent para la fsm de model
     currentAction->eventHandler(gameData, gamePointers);
     currentAction = gameHandlerMatrix[currentAction->getState()][gameData->event];
@@ -283,6 +282,8 @@ void Model::eventGenerator(gameData_t * gameData)
     else if ((int) gameData->preEvent >= (int) button_t::A1F1 && (int) gameData->preEvent <= (int) button_t::D4F3)
     {
         if (gamePointers->currentCharacter->canIUseThisTile((location_t) gameData->preEvent, &(gameData->selectedTile)))
+
+
             gameData->event = VALID_TILE;
         else
             gameData->event = INVALID_TILE;
