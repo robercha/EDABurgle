@@ -373,9 +373,14 @@ void WaitingFirstAction::eventHandler(gameData_t* gameData, gamePointers_t* game
                         gamePointers->currentCharacter->move(gameData->selectedTile.tile);
                         gameData->message = "Oh, we have a tough decision to make. Should we do it?";
                     }
-                    else if (gameData->selectedTile.tile->getTileType() == KEYPAD)
+                    else if (gameData->selectedTile.tile->getTileType() == KEYPAD && gameData->selectedTile.tile->getOpenToken() != true)
                     {
                         gameData->message = "Oh, we have a tough decision to make. Should we do it?";
+                    }
+                    else if (gameData->selectedTile.tile->getTileType() == KEYPAD && gameData->selectedTile.tile->getOpenToken() == true)
+                    {
+                        gameData->event = A_FREE_MOVE;
+                        eventHandler(gameData, gamePointers);
                     }
                 }
                 else
@@ -577,18 +582,12 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
             {
                 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
                 unsigned diceRoll = rand_r(&seed) % 6 + 1;
-<<<<<<< HEAD
                 if( diceRoll == 6 || diceRoll == 1)
                 {
                     gamePointers->currentCharacter->move(gameData->selectedTile.tile);
-                    //gameData->selectedTile.tile
+                    gameData->selectedTile.tile->setOpenToken(true);
                 }
                     
-=======
-                if ( diceRoll == 6 || diceRoll == 1)
-                    gamePointers->currentCharacter->move(gameData->selectedTile.tile);
-
->>>>>>> 3406c85150b8bf573cff6853c8bde4bf09c2228f
             }
             enableActions(gameData, gamePointers);
             break;
