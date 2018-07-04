@@ -697,9 +697,6 @@ void PlayAgain::eventHandler(gameData_t *gameData, gamePointers_t* gamePointers)
 {
     switch (gameData->event)
     {
-
-        case WIN:
-
         {
             printf("we play again");
             fflush(stdout);
