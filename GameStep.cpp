@@ -247,6 +247,7 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
             gameData->actions.pass = false;
             gameData->actions.addDice =false;
             gameData->actions.rollDice = false;
+            gameData->actions.placeCrowToken = false;
         }
         if (gameData->selectedTile.hawkWall)
         {
@@ -309,7 +310,7 @@ void Idle::enableActions(gameData_t* gameData, gamePointers_t* gamePointers)
         //                    gameData->actions.hackCR = true;
         //        }
     }
-    else if (gameData->event == INVALID_TILE)
+    else if (gameData->event == INVALID_TILE || gameData->event == PASS)
     {
         gameData->actions.move = false;
         gameData->actions.peek = false;
@@ -543,13 +544,13 @@ void WaitingSecondAction::eventHandler(gameData_t* gameData, gamePointers_t* gam
         case ACCEPT:
         {
             checkFloorChange(gameData, gamePointers);
-            if((gameData->selectedTile.tile->getTileType() == LASER) && (gamePointers->currentCharacter->getLocation() != gameData->selectedTile.tile->getCurrentLocation()))
-            {
-                gamePointers->currentCharacter->move(gameData->selectedTile.tile);
-                gamePointers->currentCharacter->decreaseActions();
-                enterRoom(gameData, gamePointers);
-            }
-            else if((gameData->selectedTile.tile->getTileType() == LASER) && (gamePointers->currentCharacter->getLocation() == gameData->selectedTile.tile->getCurrentLocation()))
+//            if((gameData->selectedTile.tile->getTileType() == LASER) && (gamePointers->currentCharacter->getLocation() != gameData->selectedTile.tile->getCurrentLocation()))
+//            {
+//                gamePointers->currentCharacter->move(gameData->selectedTile.tile);
+//                gamePointers->currentCharacter->decreaseActions();
+//                enterRoom(gameData, gamePointers);
+//            }
+            if((gameData->selectedTile.tile->getTileType() == LASER) && (gamePointers->currentCharacter->getLocation() == gameData->selectedTile.tile->getCurrentLocation()))
                 gamePointers->currentCharacter->decreaseActions();
             if((gameData->selectedTile.tile->getTileType() ==KEYPAD) && (gamePointers->currentCharacter->getLocation() != gameData->selectedTile.tile->getCurrentLocation()))
             {
