@@ -254,7 +254,7 @@ userInterface::getEvent(userData_t* userData)
     ALLEGRO_EVENT preEvent;
     state = al_get_next_event(queue, &preEvent);
     checkClick(userData, state, preEvent); //analizamos que boton se toco
-    
+
     return state;
 }
 
@@ -263,7 +263,7 @@ userInterface::checkClick(userData_t* userData, unsigned state, ALLEGRO_EVENT ev
 {
     unsigned i;
 
-    if ((event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) && state) //Se analizan solo eventos de mouse y solo en el caso de que un evento haya ocurrido
+    if (state && (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)) //Se analizan solo eventos de mouse y solo en el caso de que un evento haya ocurrido
     {
         for (i = 0; i < BUTTON_COUNT; i++) //recorre el arreglo de los botones y se fija si se toco dentro del espacio del boton
         {
@@ -286,7 +286,7 @@ userInterface::checkClick(userData_t* userData, unsigned state, ALLEGRO_EVENT ev
     {
         userData->buttonClicked = HOME_EXIT;
     }
-    
+
     return i;
 
 

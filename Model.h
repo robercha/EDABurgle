@@ -6,6 +6,9 @@
 #include "GameStep.h"
 #include "View.h"
 
+#define PLAYER1 0
+#define PLAYER2 1
+
 class Model {
 public:
     bool analyzeAction(gameData_t* gameData);

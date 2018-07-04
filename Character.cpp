@@ -35,6 +35,8 @@ bool Character::canIUseThisTile(location_t selectedTile, tileInfo_t* tileInfo)
         isTileValid = true;
         tileInfo->ownTile = true;
     }
+    else
+        tileInfo->tile = NULL;
 
     return isTileValid;
 }

@@ -366,7 +366,7 @@ public:
     void setCracked();
     void disableCracked();
     void reveal();
-    
+
     unsigned getDieQty() {
         return numberOfDice;
     }

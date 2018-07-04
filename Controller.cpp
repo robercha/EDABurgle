@@ -86,7 +86,7 @@ Controller::manageEvent(void)
     if ((userData->buttonClicked != (unsigned) (button_t::NO_BUTTON)) &&
             (userData->buttonClicked != (unsigned) button_t::HOME_EXIT))
     {
-        if (networkingMode && gameData->currentCharacter == 0) //Si juega online sólo entra al juego si es el turno del de esta compu
+        if (networkingMode && gameData->currentCharacter == PLAYER1) //Si juega online sólo entra al juego si es el turno del de esta compu
             model->analyzeAction(gameData); //Empieza la logica del juego
         else if (!networkingMode) //Si no esta jugando online los turnos son irrelevantes.
             model->analyzeAction(gameData);

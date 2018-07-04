@@ -238,11 +238,11 @@ bool Tile::isTileValid(location_t selectedTile, tileInfo_t* tileInfo)
     }
     else
         tileInfo->adyacent = false;
-
-    if ((tileInfo->tile->getTileType() == LASER)
-            || (tileInfo->tile->getTileType() == FINGERPRINT)
-            || (tileInfo->tile->getTileType() == MOTION))
-        isTileValid = true;           //porque se pueden usar hack tokens para sacar alarmas de esas alarm tiles
+    //    if (tileInfo->tile != NULL)
+    //        if ((tileInfo->tile->getTileType() == LASER)
+    //                || (tileInfo->tile->getTileType() == FINGERPRINT)
+    //                || (tileInfo->tile->getTileType() == MOTION))
+    //            isTileValid = true;           //porque se pueden usar hack tokens para sacar alarmas de esas alarm tiles
 
     return isTileValid;
 
@@ -286,9 +286,12 @@ bool Tile::isAdyacentTileValid(location_t selectedTile, tileInfo_t* tileInfo)
                 isTileValid = true;
             }
             else
+            {
                 isTileValid = false;
+                tileInfo->tile = NULL;
+            }
         }
-       
+
     }
 
     if (selectedFloor == currFloor + 1)
@@ -564,7 +567,6 @@ void Safe::disableCracked()
 
 }
 
-
 void Safe::reveal()
 {
     if (isVisible == false)
@@ -633,8 +635,6 @@ void Stairs::reveal()
     }
     upstairsTile->setDownstairsToken(true);
 }
-
-
 
 void Lavatory::reveal()
 {

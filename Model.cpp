@@ -1,5 +1,4 @@
 #include "Model.h"
-//#include "Player.h"
 #include <algorithm>
 #include <random>
 #include <chrono>
@@ -22,7 +21,6 @@ Model::Model(gameData_t* gameData)
     createModelFSM();
     createLoots();
     createCharacters();
-
 }
 
 void Model::setStairs()
@@ -70,7 +68,6 @@ void Model::initGameData(gameData_t * gameData)
     gameData->actions.spyPatrolDeck = false;
     gameData->actions.useHackToken = false;
 
-
     gameData->currentCharacter = 0;
     gameData->selectedTile.tile = NULL;
     gameData->selectedTile.adyacent = false;
@@ -79,6 +76,9 @@ void Model::initGameData(gameData_t * gameData)
     gameData->selectedTile.serviceDuct = false;
     gameData->selectedTile.twoTilesAwayTile = false;
     gameData->selectedTile.differentFloor = false;
+
+    gameData->event = INVALID_TILE;
+    gameData->preEvent = button_t::NO_BUTTON;
 
 }
 
@@ -178,9 +178,9 @@ void Model::createCharacters()
 
     gamePointers->floors[0]->getDeck()[initialRow][initialCol]->reveal();
     gamePointers->floors[0]->getDeck()[initialRow][initialCol]->setDownstairsToken(true);
-    gamePointers->characters[0]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
-    gamePointers->characters[1]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
-    gamePointers->currentCharacter = gamePointers->characters[0];
+    gamePointers->characters[PLAYER1]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
+    gamePointers->characters[PLAYER2]->setInitialTile(gamePointers->floors[0]->getDeck()[initialRow][initialCol]);
+    gamePointers->currentCharacter = gamePointers->characters[PLAYER1];
 
 }
 
@@ -361,8 +361,6 @@ void Model::eventGenerator(gameData_t * gameData)
 
     else if (gameData->preEvent == button_t::PATROL_DECK_1 || gameData->preEvent == button_t::PATROL_DECK_2 || gameData->preEvent == button_t::PATROL_DECK_3)
         gameData->event = A_PATROL_CARD;
-
-
 }
 
 bool Model::isGameLost()
